@@ -1,0 +1,10 @@
+<div class="form-group {if="$hor"}row{/if}">
+    <label class='control-label {if="$hor"}col-lg-3{/if}' for="{$id}">{$label}</label>
+{if="$hor"}
+    <div class="col-lg-9">
+{/if}
+    <input class="form-control" id="{$id}" name="{$name}" type="{$type}">
+{if="$hor"}
+    </div>
+{/if}    
+</div>

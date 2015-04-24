@@ -1,0 +1,10 @@
+<nav class="navbar navbar-default {if="$sticky"}navbar-fixed-top{/if}">
+    <div class="container-fluid">
+    {loop="$panels"}
+    <ul class="nav navbar-nav {if="$value.position=='right'"}navbar-right{/if}">
+        {loop="$value.items"}
+            {$value}
+        {/loop}
+    </ul>
+    {/loop}</div>
+</nav>

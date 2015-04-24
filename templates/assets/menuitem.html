@@ -1,0 +1,9 @@
+<li {if="$active"}class="active"{/if}>
+    <a {if="$icon"}class="icon"{/if} href="{$url}" title="{$name}">
+    {if="$icon"}
+    <span class="glyphicon glyphicon-{$icon}" aria-hidden="true"></span>
+    {else}
+        {$name}
+    {/if}
+    </a>
+</li>

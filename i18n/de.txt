@@ -1,0 +1,26 @@
+"Login":
+"Anmeldung"
+
+"login_intro_text":
+"Melde dich am System an, um von zusätzlichen Funktionen zu profitieren."
+
+"Log in":
+"Anmelden"
+
+"Username":
+"Benutzername"
+
+"Password":
+"Passwort"
+
+"Username and/or password is wrong.":
+"Benutzername und/oder Passwort falsch."
+
+"Dashboard":
+"Dashboard"
+
+"Users":
+"Benutzer"
+
+"Settings":
+"Einstellungen"
