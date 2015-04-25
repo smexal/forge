@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 24. Apr 2015 um 22:41
+-- Erstellungszeit: 25. Apr 2015 um 02:18
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -19,6 +19,83 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `ingres`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `groups`
+--
+
+CREATE TABLE IF NOT EXISTS `groups` (
+`id` int(7) NOT NULL,
+  `name` varchar(250) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`) VALUES
+(1, 'Administrator');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `groups_users`
+--
+
+CREATE TABLE IF NOT EXISTS `groups_users` (
+`id` int(11) NOT NULL,
+  `groupid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `groups_users`
+--
+
+INSERT INTO `groups_users` (`id`, `groupid`, `userid`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `permissions`
+--
+
+CREATE TABLE IF NOT EXISTS `permissions` (
+`id` int(7) NOT NULL,
+  `name` varchar(250) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`) VALUES
+(24, 'manage'),
+(25, 'manage.users.display'),
+(27, 'manage.settings');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `permissions_groups`
+--
+
+CREATE TABLE IF NOT EXISTS `permissions_groups` (
+`id` int(7) NOT NULL,
+  `groupid` int(7) NOT NULL,
+  `permissionid` int(7) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `permissions_groups`
+--
+
+INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
+(3, 1, 24),
+(4, 1, 25);
 
 -- --------------------------------------------------------
 
@@ -45,6 +122,30 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
 --
 
 --
+-- Indizes für die Tabelle `groups`
+--
+ALTER TABLE `groups`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `groups_users`
+--
+ALTER TABLE `groups_users`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `permissions`
+--
+ALTER TABLE `permissions`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `permissions_groups`
+--
+ALTER TABLE `permissions_groups`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
@@ -54,6 +155,26 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für exportierte Tabellen
 --
 
+--
+-- AUTO_INCREMENT für Tabelle `groups`
+--
+ALTER TABLE `groups`
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT für Tabelle `groups_users`
+--
+ALTER TABLE `groups_users`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT für Tabelle `permissions`
+--
+ALTER TABLE `permissions`
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT für Tabelle `permissions_groups`
+--
+ALTER TABLE `permissions_groups`
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --

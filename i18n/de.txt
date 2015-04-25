@@ -22,5 +22,14 @@
 "Users":
 "Benutzer"
 
+"Groups":
+"Gruppen"
+
+"Permissions":
+"Berechtigungen"
+
 "Settings":
 "Einstellungen"
+
+"Actions":
+"Aktionen"

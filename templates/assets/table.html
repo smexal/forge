@@ -1,0 +1,14 @@
+<table class="table table-striped table-hover">
+<tr>
+{loop="$th"}
+<th>{$value}</th>
+{/loop}
+</tr>
+{loop="$td"}
+<tr>
+{loop="$value"}
+    <td>{$value}</td>
+{/loop}
+</tr>
+{/loop}
+</table>

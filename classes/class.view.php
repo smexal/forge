@@ -4,6 +4,8 @@ abstract class AbstractView implements IView {
     protected static $instances = array();
     public $parent = false;
     public $default = false;
+    public $permission = null;
+    public $permissions = array();
     public $activeSubview = false;
 
     public $app = null;
@@ -11,7 +13,27 @@ abstract class AbstractView implements IView {
     public function initEssential() {
         if(is_null($this->app))
             $this->app = App::instance();
-    }    
+        $this->permissions();
+        if(is_null($this->permission)) {
+          return;
+        }
+        if(! Auth::allowed($this->permission)) {
+          $this->app->redirect('denied');
+        }
+    }
+
+    /*
+      Registers permission in the database if they do not yet exist.
+    */
+    public function permissions() {
+      if(!is_null($this->permission)) {
+        Auth::registerPermissions($this->permission);
+      }
+      if(count($this->permissions) == 0)
+        return;
+      Auth::registerPermissions($this->permissions);
+    }
+
 
     public function getSubview($uri_components, $parent) {
       $vm = new ViewManager();

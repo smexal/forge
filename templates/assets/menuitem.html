@@ -1,9 +1,18 @@
 <li {if="$active"}class="active"{/if}>
-    <a {if="$icon"}class="icon"{/if} href="{$url}" title="{$name}">
+    <a class="{if="$icon"}icon{/if} {if="$children"}dropdown-toggle{/if}" href="{$url}" title="{$name}"
+    {if="$children"} data-toggle="dropdown" role="button" aria-expanded="false"{/if}>
     {if="$icon"}
     <span class="glyphicon glyphicon-{$icon}" aria-hidden="true"></span>
     {else}
         {$name}
     {/if}
+    {if="$children"}
+    <span class="caret"></span>
+    {/if}
     </a>
+    {if="$children"}
+    <ul class="dropdown-menu" role="menu">
+        {$children}
+    </ul>
+    {/if}
 </li>

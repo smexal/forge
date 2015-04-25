@@ -24,6 +24,8 @@ class App {
         $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
       I18N::instance();
+      Auth::setSessionUser();
+      
 
       ob_start();
       if(isset($_POST['event'])) {

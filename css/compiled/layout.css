@@ -4,3 +4,6 @@
 .content.sticky {
   margin-top: 60px;
 }
+.padded {
+  padding: 20px 40px;
+}
