@@ -3,13 +3,28 @@
 class UserManagement extends AbstractView {
     public $parent = 'manage';
     public $permission = 'manage.users.display';
-    public $default = true;
     public $name = 'users';
     public $permissions = array(
         0 => 'manage.users.add'
     );
+    public $events = array(
+        'onCreateNewUser'
+    );
 
-    public function content() {
+    public function onCreateNewUser($data) {
+        if(Auth::allowed($this->permissions[0])) {
+            User::create($data['new_name'], $data['new_password'], $data['new_email']);
+        }
+    }
+
+    public function content($uri=array()) {
+        if(count($uri) > 0 && Auth::allowed($this->permissions[0])) {
+            return $this->getSubview($uri, $this);
+        } else {
+            return $this->ownContent();
+        }
+    }
+    private function ownContent() {
         return $this->app->render(TEMPLATE_DIR."views/", "users", array(
             'title' => i('User Management'),
             'new_user' => i('Add user'),

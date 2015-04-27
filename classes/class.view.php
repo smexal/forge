@@ -6,6 +6,7 @@ abstract class AbstractView implements IView {
     public $default = false;
     public $permission = null;
     public $permissions = array();
+    public $events = array();
     public $activeSubview = false;
 
     public $app = null;
@@ -33,7 +34,6 @@ abstract class AbstractView implements IView {
         return;
       Auth::registerPermissions($this->permissions);
     }
-
 
     public function getSubview($uri_components, $parent) {
       $vm = new ViewManager();

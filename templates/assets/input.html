@@ -3,7 +3,8 @@
 {if="$hor"}
     <div class="col-lg-9">
 {/if}
-    <input class="form-control" id="{$id}" name="{$name}" type="{$type}">
+    <input class="form-control" id="{$id}" name="{$name}" type="{$type}" 
+        {if="$noautocomplete"} readonly onfocus="this.removeAttribute('readonly');"{/if}>
 {if="$hor"}
     </div>
 {/if}    

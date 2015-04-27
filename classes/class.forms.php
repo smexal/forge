@@ -4,11 +4,16 @@ class Form {
     private $content = array();
     private $app = null;
     private $horizontal = false;
+    private $noAutocomplete = false;
 
     public function __construct() {
         if(is_null($this->app)) {
             $this->app = App::instance();
         }
+    }
+
+    public function disableAuto() {
+        $this->noAutocomplete = true;
     }
 
     public function horizontal() {
@@ -28,7 +33,8 @@ class Form {
             'id' => $id,
             'label' => $label,
             'type' => $type,
-            'hor' => $this->horizontal
+            'hor' => $this->horizontal,
+            'noautocomplete' => $this->noAutocomplete
         )));
     }
 

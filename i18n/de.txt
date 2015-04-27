@@ -36,3 +36,9 @@
 
 "Add user":
 "Benutzer hinzufügen"
+
+"Create new user":
+"Neuen Benutzer erstellen"
+
+"Create":
+"Erstellen"

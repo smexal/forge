@@ -11,8 +11,12 @@ class EventHandler {
         return self::$instance;
     }
 
-    public function add($name) {
-        array_push($this->events, $name);
+    public function add($event) {
+        if(is_array($event)) {
+            $this->events = array_merge($this->events, $event);
+        } else {
+            array_push($this->events, $event);
+        }
     }
 
     public function trigger($event, $data=array()) {
@@ -34,9 +38,6 @@ class EventHandler {
     }
 
     public function init() {
-        $this->add("onLoginSubmit");
-        $this->add("onLoginFailed");
-        $this->add("onLoginSuccess");
     }
 
     private function __construct(){

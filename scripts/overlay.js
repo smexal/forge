@@ -10,12 +10,19 @@ var overlay = {
 
     prepare : function() {
         var the_overlay = false;
-        if($(".overlay").length > 0) {
-            the_overlay = $(".overlay");
+        if($(".overlay-right").length > 0) {
+            the_overlay = $(".overlay-right");
         } else {
-            the_overlay = $("<div class='overlay-right'></div>").appendTo("body");
+            the_overlay = $(
+                "<div class='overlay-right'>"+
+                    "<span class='close glyphicon glyphicon-menu-right' aria-hidden='true'></span>"+
+                    "<div class='content'></div>"+
+                "</div>").appendTo("body");
         }
-        the_overlay.html('');
+        the_overlay.find(".content").html('');
+        the_overlay.find("> .close").on("click", function() {
+            the_overlay.removeClass("show");
+        });
         the_overlay.height($(window).height());
         $(window).resize(function() {
             the_overlay.height($(window).height());
@@ -23,18 +30,23 @@ var overlay = {
         return the_overlay;
     },
 
-
     open : function(button, the_overlay) {
-        the_overlay.addClass('loading');
+        setLoading(the_overlay.find(".content"));
         the_overlay.addClass('show');
-        setTimeout(function() {
-            $.ajax({
-              url: button.data('open'),
-              context: the_overlay
-            }).done(function(data) {
-              $( this ).html( data );
+        $.ajax({
+          url: button.data('open'),
+          context: the_overlay.find(".content")
+        }).done(function(data) {
+            var content = $(data);
+            var context = $(this);
+            hideLoading(the_overlay, function() {
+                content.addClass("fadeIn");
+                context.html( content );
+                setTimeout(function() {
+                    content.addClass("now");
+                }, 30);
             });
-        }, 1500);
+        });
     }
 };
 $(document).ready(function() {

@@ -4,6 +4,7 @@ session_start();
 class App {
     public $db = null;
     public $eh = null;
+    public $vm = null;
     public $user = null;
     public $sticky = false;
     static private $instance = null;
@@ -23,19 +24,30 @@ class App {
       if(is_null($this->db)) {
         $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
+      if(is_null($this->vm)) {
+        $this->vm = new ViewManager();
+      }
       I18N::instance();
       Auth::setSessionUser();
       
 
       ob_start();
+      foreach($this->vm->views as $view) {
+        $view = $view::instance();
+        $this->eh->add($view->events);
+      }
       if(isset($_POST['event'])) {
         $this->eh->trigger($_POST['event'], $_POST);
       }
-      echo $this->render(TEMPLATE_DIR, "layout", array(
+      if(Utils::isAjax()) {
+        echo $this->content();
+      } else {
+        echo $this->render(TEMPLATE_DIR, "layout", array(
           "head" => $this->header(),
           "content" => $this->content(),
           "sticky" => $this->sticky
-      ));
+        ));
+      }
       ob_end_flush();
     }
 
@@ -51,14 +63,9 @@ class App {
       $uri_components = Utils::getUriComponents();
       $this->addFootprint($uri_components);
       $base_view = $uri_components[0];
-      $vm = new ViewManager();
       $found = false;
       $load_main = $base_view == '' ? true : false;
-      foreach($vm->views as $view) {
-        $rc = new ReflectionClass($view);
-        
-        if($rc->isAbstract())
-          continue;
+      foreach($this->vm->views as $view) {
         $instance = 'instance';
         $view = $view::$instance();
         // tryed to load subview as main view.

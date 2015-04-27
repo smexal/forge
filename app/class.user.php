@@ -40,6 +40,19 @@ class User {
         return false;
     }
 
+    public static function create($name, $password, $email) {
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($name) > 3 && strlen($password) > 3) {
+            return false;
+        }
+        $app = App::instance();
+        $data = array(
+            'username' => $name,
+            'password' => Utils::password($password), 
+            'email' => $email
+        );
+        $app->db->insert('users', $data);
+    }
+
 }
 
 ?>

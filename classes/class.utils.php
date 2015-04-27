@@ -17,6 +17,13 @@ class Utils {
     public static function getUrl($params = array()) {
         return WWW_ROOT.implode("/", $params);
     }
+
+    public static function isAjax() {
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            return true;
+        }
+        return false;
+    }
 }
 
 

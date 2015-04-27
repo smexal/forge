@@ -13,7 +13,9 @@ class Manager extends AbstractView {
         if(Auth::any()) {
             if(Auth::allowed($this->permissions[0])) {
                 $content = $this->getSubview($uri, $this);
-                $content = $this->navigation() . $content;
+                if(! Utils::isAjax()) {
+                    $content = $this->navigation() . $content;
+                }
             } else {
                 $this->app->redirect("denied");
             }

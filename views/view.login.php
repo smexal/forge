@@ -3,6 +3,9 @@
 class Login extends AbstractView {
     private $message = false;
     public $name = 'login';
+    public $events = array(
+        "onLoginSubmit", "onLoginFailed", "onLoginSuccess"
+    );
 
     public function content() {
         if(Auth::any()) {
