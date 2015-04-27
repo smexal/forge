@@ -5,12 +5,17 @@ class UserManagement extends AbstractView {
     public $permission = 'manage.users.display';
     public $default = true;
     public $name = 'users';
+    public $permissions = array(
+        0 => 'manage.users.add'
+    );
 
     public function content() {
         return $this->app->render(TEMPLATE_DIR."views/", "users", array(
             'title' => i('User Management'),
-            'new_user' => i('New user'),
-            'table' => $this->userTable()
+            'new_user' => i('Add user'),
+            'add_permission' => Auth::allowed($this->permissions[0]),
+            'table' => $this->userTable(),
+            'add_url' => Utils::getUrl(array('manage', 'users', 'add'))
         ));
     }
 

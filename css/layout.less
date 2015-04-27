@@ -7,3 +7,33 @@
 .padded {
     padding: 20px 40px;
 }
+.heading-row .align-right > * {
+    margin-top: 21px;
+}
+.align-right > * {
+    float: right;
+}
+
+.overlay-right {
+    position: fixed;
+    right: -50%;
+    top: 0;
+    width: 50%;
+    background-color: #FFF;
+    -webkit-box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.1);
+    box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.1);
+    border-left: 1px solid #EAEAEA;
+    z-index: 1031;
+    animation-timing-function:ease-in;
+    transition: 200ms;
+}
+.overlay-right.show {
+    right: 0%;
+}
+
+.overlay-right.loading {
+    backgound-image:("images/default-loading.gif");
+    background-repeat: no-repeat;
+    background-position: center center;
+}

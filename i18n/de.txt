@@ -33,3 +33,6 @@
 
 "Actions":
 "Aktionen"
+
+"Add user":
+"Benutzer hinzufügen"
