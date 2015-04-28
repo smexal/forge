@@ -5,6 +5,8 @@ include("loader.php");
 
 $loader = Loader::instance();
 
+Auth::session();
+
 // load external ressources
 $loader->addRessource("raintpl/rain.tpl.class.php");
 $loader->addRessource("helpers/additional_functions.php");

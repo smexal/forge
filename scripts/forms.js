@@ -16,12 +16,19 @@ var forms = {
                     url: $(this).attr("action")
                 }).done(function(data) {
                     hideLoading(target, function() {
-                        target.addClass("fadeIn");
-                        target.html(data);
-                        $(document).trigger("ajaxReload");
-                        setTimeout(function() {
-                            target.addClass("now");
-                        }, 30);
+                        try {
+                            json = $.parseJSON(data);
+                            if(json.action == 'redirect') {
+                                redirect(json.target);
+                            }
+                        } catch (e) {
+                            target.addClass("fadeIn");
+                            target.html(data);
+                            $(document).trigger("ajaxReload");
+                            setTimeout(function() {
+                                target.addClass("now");
+                            }, 30);
+                        }
                     });
                 });
             });

@@ -38,10 +38,21 @@ class UserManagement extends AbstractView {
             array_push($user_enriched, array(
                 $user['username'],
                 $user['email'],
-                'actions'
+                $this->actions($user['id'])
             ));
         }
         return $user_enriched;
+    }
+
+    private function actions($id) {
+        return 'actions';
+        return array(
+            array(
+                "url" => "#",
+                "icon" => "glyphicon-remove",
+                "name" => i('delete user')
+            )
+        );
     }
 }
 

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 class App {
     public $db = null;
@@ -14,10 +13,12 @@ class App {
             self::$instance = new self;
         }
         Loader::instance()->prepare();
+
         return self::$instance;
     }
 
     public function run() {
+
       if(is_null($this->eh)){
         $this->eh = EventHandler::instance();
       }
@@ -105,22 +106,32 @@ class App {
     }
 
     public function redirect($target, $go_back=false) {
-      if($go_back)
-        $_SESSION['back'] = $go_back;
-      if(!$go_back && isset($_SESSION['back']))
-        unset($_SESSION['back']);
-      
       if(is_array($target)) {
-        header("Location: ".WWW_ROOT.implode("/", $target));
+        $target = WWW_ROOT.implode("/", $target);
       } else {
-        header("Location: ".WWW_ROOT.$target);
+        if(!strstr($target, WWW_ROOT)) {
+          $target = WWW_ROOT.$target;
+        }
+      }
+      if($go_back) {
+        $_SESSION['back'] = $go_back;
+      }
+      if(!$go_back && isset($_SESSION['back'])) {
+        unset($_SESSION['back']);
+      }
+
+      if(Utils::isAjax()) {
+        exit(json_encode(array(
+          "action" => "redirect",
+          "target" => $target
+        )));
+      } else {
+        exit(header("Location: ".$target));
       }
     }
     public function redirectBack() {
       if(isset($_SESSION['back'])) {
-        $back = $_SESSION['back'];
-        unset($_SESSION['back']);
-        $this->redirect($back);
+        $this->redirect($_SESSION['back']);
       } else {
         $this->redirect('');
       }

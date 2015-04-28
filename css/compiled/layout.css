@@ -1,6 +1,9 @@
 .login {
   margin-top: 60px;
 }
+.content {
+  min-height: 400px;
+}
 .content.sticky {
   margin-top: 60px;
 }

@@ -21,7 +21,7 @@ class Auth {
     public static function allowed($permission) {
         // not even logged in... send to login
         if(! Auth::any() || is_null(App::instance()->user)) {
-            App::instance()->redirect('login');
+            App::instance()->redirect(Utils::getUrl(array('login')), Utils::getCurrentUrl());
         }
         return App::instance()->user->allowed($permission);
     }
@@ -75,6 +75,31 @@ class Auth {
             }
         }        
     }
+
+    function session() {
+        // session has already been started
+        if (session_status() !== PHP_SESSION_NONE)
+            return;
+
+        $session_name = 'smexal_session';   // Set a custom session name
+        $secure = SECURE;
+        // This stops JavaScript being able to access the session id.
+        $httponly = true;
+        // Forces sessions to only use cookies.
+        if (ini_set('session.use_only_cookies', 1) === FALSE) {
+            exit();
+        }
+        // Gets current cookies params.
+        $cookieParams = session_get_cookie_params();
+        session_set_cookie_params($cookieParams["lifetime"],
+            $cookieParams["path"], 
+            $cookieParams["domain"], 
+            $secure,
+            $httponly);
+        // Sets the session name to the one set above.
+        session_name($session_name);
+        session_start(); // Start the PHP session
+    }    
 }
 
 

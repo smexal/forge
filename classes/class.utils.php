@@ -14,6 +14,10 @@ class Utils {
         return password_verify($password, $hash);
     }
 
+    public static function getCurrentUrl() {
+        return self::getUrl(self::getUriComponents());
+    }
+
     public static function getUrl($params = array()) {
         return WWW_ROOT.implode("/", $params);
     }

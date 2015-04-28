@@ -1,4 +1,4 @@
-<?php if(!class_exists('raintpl')){exit;}?><div class="padded">
+<?php if(!class_exists('raintpl')){exit;}?><div class="padded ajax-reload-container">
     <div class="row heading-row">
         <div class="col-lg-8"><h2><?php echo $title;?></h2></div>
         <div class="col-lg-4 align-right">

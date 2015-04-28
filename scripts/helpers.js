@@ -21,3 +21,18 @@ function hideLoading(element, callback) {
     element.find("img").addClass("fadeOut");
     setTimeout(callback, 250);
 }
+
+function redirect(target) {
+    var container = $(".ajax-reload-container");
+    setLoading(container);
+    $.ajax({
+        method: 'POST',
+        url: target
+    }).done(function(data) {
+        hideLoading(container, function() {
+            $(".overlay-right").removeClass("show");
+            container.html($(data).html());
+            $(document).trigger("ajaxReload");
+        });
+    });
+}

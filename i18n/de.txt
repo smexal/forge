@@ -42,3 +42,18 @@
 
 "Create":
 "Erstellen"
+
+"Invalid e-mail address.":
+"Ungültige E-Mail Adresse"
+
+"Given password is too short.":
+"Das angegebene Passwort ist zu kurz."
+
+"Username is too short.":
+"Der angegebene Benutzername ist zu kurz."
+
+"User with that name already exists":
+"Ein Benutzer mit diesem Namen existiert bereits."
+
+"User with that email already exists":
+"Ein Benutzer mit dieser E-Mail Adresse existiert bereits."

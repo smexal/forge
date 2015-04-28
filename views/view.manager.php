@@ -10,19 +10,15 @@ class Manager extends AbstractView {
     );
 
     public function content($uri=array()) {
-        if(Auth::any()) {
-            if(Auth::allowed($this->permissions[0])) {
-                $content = $this->getSubview($uri, $this);
-                if(! Utils::isAjax()) {
-                    $content = $this->navigation() . $content;
-                }
-            } else {
-                $this->app->redirect("denied");
+        if(Auth::allowed($this->permissions[0])) {
+            $content = $this->getSubview($uri, $this);
+            if(! Utils::isAjax()) {
+                $content = $this->navigation() . $content;
             }
-            return $content;
         } else {
-            $this->app->redirect("login", "manage");
+            $this->app->redirect("denied");
         }
+        return $content;
     }
 
     private function navigation() {

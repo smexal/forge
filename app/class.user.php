@@ -41,6 +41,9 @@ class User {
     }
 
     public static function create($name, $password, $email) {
+        if(! Auth::allowed("manage.users.add")) {
+            return;
+        }
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return i('Invalid e-mail address.');
         }
