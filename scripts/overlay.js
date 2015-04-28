@@ -1,7 +1,7 @@
 var overlay = {
     init : function() {
         $(".open-overlay").each(function() {
-            $(this).unbind("click").on("click", function() {
+            $(this).unbind("click").unbind("click").on("click", function() {
                 var the_overlay = overlay.prepare();
                 overlay.open($(this), the_overlay);
             });
@@ -20,7 +20,7 @@ var overlay = {
                 "</div>").appendTo("body");
         }
         the_overlay.find(".content").html('');
-        the_overlay.find("> .close").on("click", function() {
+        the_overlay.find("> .close").unbind("click").on("click", function() {
             the_overlay.removeClass("show");
         });
         the_overlay.height($(window).height());
@@ -41,7 +41,8 @@ var overlay = {
             var context = $(this);
             hideLoading(the_overlay, function() {
                 content.addClass("fadeIn");
-                context.html( content );
+                context.html(content);
+                $(document).trigger("ajaxReload");
                 setTimeout(function() {
                     content.addClass("now");
                 }, 30);
@@ -49,6 +50,5 @@ var overlay = {
         });
     }
 };
-$(document).ready(function() {
-    overlay.init();
-})
+$(document).ready(overlay.init);
+$(document).on("ajaxReload", overlay.init);

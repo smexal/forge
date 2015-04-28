@@ -7,15 +7,6 @@ class UserManagement extends AbstractView {
     public $permissions = array(
         0 => 'manage.users.add'
     );
-    public $events = array(
-        'onCreateNewUser'
-    );
-
-    public function onCreateNewUser($data) {
-        if(Auth::allowed($this->permissions[0])) {
-            User::create($data['new_name'], $data['new_password'], $data['new_email']);
-        }
-    }
 
     public function content($uri=array()) {
         if(count($uri) > 0 && Auth::allowed($this->permissions[0])) {

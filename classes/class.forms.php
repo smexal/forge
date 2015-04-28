@@ -5,11 +5,15 @@ class Form {
     private $app = null;
     private $horizontal = false;
     private $noAutocomplete = false;
+    private $action = false;
+    private $ajax = false;
+    private $ajaxTarget = false;
 
-    public function __construct() {
+    public function __construct($action=false) {
         if(is_null($this->app)) {
             $this->app = App::instance();
         }
+        $this->action = $action;
     }
 
     public function disableAuto() {
@@ -20,6 +24,11 @@ class Form {
         $this->horizontal = true;
     }
 
+    public function ajax($target=".content") {
+        $this->ajax = true;
+        $this->ajaxTarget = $target;
+    }
+
     public function hidden($name, $value) {
         array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "hidden", array(
             'name' => $name,
@@ -27,14 +36,15 @@ class Form {
         )));
     }
 
-    public function input($name, $id, $label, $type="input") {
+    public function input($name, $id, $label, $type="input", $value=false) {
         array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "input", array(
             'name' => $name,
             'id' => $id,
             'label' => $label,
             'type' => $type,
             'hor' => $this->horizontal,
-            'noautocomplete' => $this->noAutocomplete
+            'noautocomplete' => $this->noAutocomplete,
+            'value' => $value
         )));
     }
 
@@ -48,6 +58,9 @@ class Form {
 
     public function render($method="POST") {
         return $this->app->render(TEMPLATE_DIR."assets/", "form", array(
+            'action' => $this->action,
+            'ajax' => $this->ajax,
+            'ajax_target' => $this->ajaxTarget,
             'method' => $method,
             'content' => $this->content,
             'horizontal' => $this->horizontal

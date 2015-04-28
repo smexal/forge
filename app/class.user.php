@@ -41,16 +41,34 @@ class User {
     }
 
     public static function create($name, $password, $email) {
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($name) > 3 && strlen($password) > 3) {
-            return false;
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return i('Invalid e-mail address.');
+        }
+        if(strlen($password) <= 3) {
+            return i('Given password is too short.');
+        }
+        if(strlen($name) <= 2) {
+            return i('Username is too short.');
         }
         $app = App::instance();
+        $app->db->where("username", $name);
+        $app->db->get("users");
+        if($app->db->count > 0) {
+            return i('User with that name already exists');
+        }
+        $app->db->where("email", $email);
+        $app->db->get("users");        
+        if($app->db->count > 0) {
+            return i('User with that email already exists');
+        }
+
         $data = array(
             'username' => $name,
             'password' => Utils::password($password), 
             'email' => $email
         );
         $app->db->insert('users', $data);
+        return false;
     }
 
 }

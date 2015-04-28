@@ -1,4 +1,9 @@
 <div class="padded">
     <h2>{$title}</h2>
+    {if="$message"}
+        <div class="alert alert-warning">
+            <p>{$message}</p>
+        </div>
+    {/if}
     {$form}
 </div>
