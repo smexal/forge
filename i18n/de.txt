@@ -60,3 +60,6 @@
 
 "delete user":
 "Benutzer löschen"
+
+"User Management":
+"Benutzerverwaltung"

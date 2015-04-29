@@ -7,7 +7,7 @@ class ManagementDashboard extends AbstractView {
     public $permission = 'manage';
 
     public function content() {
-        return '<h1>dashboard</h1>';
+        return '<div class="padded maxed page-header"><h1>Dashboard</h1></div>';
     }
 }
 
