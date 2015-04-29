@@ -57,3 +57,6 @@
 
 "User with that email already exists":
 "Ein Benutzer mit dieser E-Mail Adresse existiert bereits."
+
+"delete user":
+"Benutzer löschen"

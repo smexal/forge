@@ -8,3 +8,6 @@
   padding: 5px 0 0 5px;
   color: #333;
 }
+a.ajax {
+  transition: 300ms;
+}

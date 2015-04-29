@@ -21,11 +21,13 @@ $loader->addStyle("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.c
 $loader->addStyle("css/bootstrap.min.css");
 $loader->addStyle("css/layout.less");
 $loader->addStyle("css/elements.less");
+$loader->addStyle("css/loader.less");
 
 // all Scripts
 $loader->addScript("//code.jquery.com/jquery-1.11.2.min.js", true);
 $loader->addScript("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js", true);
 $loader->addScript("scripts/helpers.js");
+$loader->addScript("scripts/ajaxlinks.js");
 $loader->addScript("scripts/forms.js");
 $loader->addScript("scripts/overlay.js");
 

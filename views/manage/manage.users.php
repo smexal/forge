@@ -45,14 +45,16 @@ class UserManagement extends AbstractView {
     }
 
     private function actions($id) {
-        return 'actions';
-        return array(
-            array(
-                "url" => "#",
-                "icon" => "glyphicon-remove",
-                "name" => i('delete user')
+        return $this->app->render(TEMPLATE_DIR."assets/", "table.actions", array(
+            'actions' => array(
+                array(
+                    "url" => Utils::getUrl(array("manage", "users", "delete", $id)),
+                    "icon" => "remove",
+                    "name" => i('delete user'),
+                    "ajax" => true
+                )
             )
-        );
+        ));
     }
 }
 

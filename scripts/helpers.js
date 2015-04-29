@@ -15,6 +15,11 @@ function setLoading(element, type) {
             'marginTop' : loading.parent().height()/2*-1
         });
     }
+    if(type == 'transparent') {
+        element.addClass("loading");
+        var loading = $('<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
+        element.html(loading);
+    }
 }
 
 function hideLoading(element, callback) {
