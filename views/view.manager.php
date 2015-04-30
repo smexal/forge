@@ -25,7 +25,7 @@ class Manager extends AbstractView {
         $this->navigation = new Navigation($this->activeSubview);
         $this->navigation->setMaxWidth();
         $panelLeft = $this->navigation->addPanel();
-        $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, '../images/backend-logo.png');
+        $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "backend-logo.png")));
 
         $panelRight = $this->navigation->addPanel('right');
         if(Auth::allowed($this->permissions[1])) {
