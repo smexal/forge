@@ -17,7 +17,7 @@ function redirect(target) {
         url: target
     }).done(function(data) {
         hideLoading(container, function() {
-            $(".overlay-right").removeClass("show");
+            overlay.hide();
             container.html($(data).html());
             $(document).trigger("ajaxReload");
         });

@@ -20,15 +20,15 @@ var overlay = {
                 "</div></div>").appendTo("body");
         }
         the_overlay.find(".content").html('');
-        the_overlay.find(".overlay-right > .close").unbind("click").on("click", function() {
-            overlay.hide();
-        });
+        the_overlay.find(".overlay-right > .close").unbind("click").on("click", overlay.hide);
         return the_overlay;
     },
 
     open : function(button, the_overlay) {
         setLoading(the_overlay.find(".content"));
-        the_overlay.addClass('show');
+        setTimeout(function() {
+            the_overlay.addClass('show');
+        }, 50);
         $.ajax({
           url: button.data('open'),
           context: the_overlay.find(".content")

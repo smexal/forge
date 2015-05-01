@@ -51,7 +51,8 @@ class UserManagement extends AbstractView {
                     "url" => Utils::getUrl(array("manage", "users", "delete", $id)),
                     "icon" => "remove",
                     "name" => i('delete user'),
-                    "ajax" => true
+                    "ajax" => true,
+                    "confirm" => true
                 )
             )
         ));

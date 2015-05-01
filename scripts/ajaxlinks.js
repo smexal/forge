@@ -4,31 +4,28 @@ var ajaxlinks = {
         $("a.ajax").each(function() {
             $(this).unbind("click").on("click", function(e) {
                 e.preventDefault();
-                var target = $(this).closest($(this).data('target'));
                 setLoading($(this), "transparent");
-                /*
-                var form_data = $(this).serialize();
-                $.ajax({
-                    method: 'POST',
-                    data: form_data,
-                    url: $(this).attr("action")
-                }).done(function(data) {
-                    hideLoading(target, function() {
+                if($(this).hasClass("confirm")) {
+                    // load sidebar with confirm dialog
+                    $(this).data("open", $(this).attr('href'));
+                    var the_overlay = overlay.prepare();
+                    overlay.open($(this), the_overlay);
+                } else {
+                    $.ajax({
+                        method: 'POST',
+                        confirm : $(this).hasClass("confirm"),
+                        url: $(this).attr("href")
+                    }).done(function(data) {
                         try {
                             json = $.parseJSON(data);
                             if(json.action == 'redirect') {
                                 redirect(json.target);
                             }
                         } catch (e) {
-                            target.addClass("fadeIn");
-                            target.html(data);
-                            $(document).trigger("ajaxReload");
-                            setTimeout(function() {
-                                target.addClass("now");
-                            }, 30);
+                            console.error("requires json action");
                         }
                     });
-                });*/
+                }
             });
         });
     }

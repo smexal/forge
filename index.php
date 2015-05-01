@@ -19,6 +19,7 @@ $app = App::instance();
 // all Styles
 $loader->addStyle("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css", true);
 $loader->addStyle("css/bootstrap.less");
+$loader->addStyle("css/overlay.less");
 $loader->addStyle("css/layout.less");
 $loader->addStyle("css/elements.less");
 $loader->addStyle("css/loader.less");

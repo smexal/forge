@@ -16,49 +16,6 @@
 .align-right > * {
   float: right;
 }
-.overlay-container {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 100%;
-  right: 0%;
-  z-index: 1031;
-}
-.overlay-container.show {
-  left: 0;
-}
-.overlay-container.show .overlay-right {
-  right: 0;
-}
-.overlay-container.show .cover {
-  opacity: 1;
-}
-.overlay-container .overlay-right {
-  position: fixed;
-  right: -50%;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background-color: #FFF;
-  -webkit-box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.25);
-  box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.25);
-  border-left: 1px solid #EAEAEA;
-  z-index: 1032;
-  animation-timing-function: ease-in;
-  transition: 250ms;
-}
-.overlay-container .cover {
-  z-index: 1031;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0,0,0,0.8);
-  opacity: 0;
-  transition: 250ms;
-}
 .fadeOut {
   opacity: 0;
   transition: 250ms;
