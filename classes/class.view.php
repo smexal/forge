@@ -51,13 +51,15 @@ abstract class AbstractView implements IView {
           continue;
         $instance = 'instance';
         $view = $view::$instance();
-        if($load_main_subview && $view->default || $subview == $view->name()) {
+        if($load_main_subview && $view->default 
+          || $subview == $view->name()
+          && $view->parent == $parent->name) {
           $found = true;
           break;
         }
       }
       if(!$found) {
-        Logger::error("View not found.");
+        Logger::error("View '".Utils::getUrl($uri_components)."' not found.");
         App::instance()->redirect('404');
       } else {
         $parent->activeSubview = $view->name;

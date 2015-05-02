@@ -26,6 +26,7 @@ class ManageAddUser extends AbstractView {
             $this->new_name = $data['new_name'];
         } else {
             // new user has been created
+            App::instance()->addMessage(sprintf(i('User %1$s (%2$s) has been created.'), $data['new_name'], $data['new_email']), "success");
             App::instance()->redirect(Utils::getUrl(array('manage', 'users')));
         }
     }    

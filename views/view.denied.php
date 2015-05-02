@@ -4,7 +4,7 @@ class PermissionDenied extends AbstractView {
     public $name = 'denied';
 
     public function content() {
-        return 'permission denied';
+        return '<h1>permission denied<h1>';
     }
 }
 

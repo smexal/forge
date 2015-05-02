@@ -5,7 +5,7 @@ class Main extends AbstractView {
     public $default = true;
 
     public function content($components=array()) {
-        return '#saynomore';
+        return Utils::password('1234');
     }
 
 }

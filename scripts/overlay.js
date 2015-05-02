@@ -33,16 +33,23 @@ var overlay = {
           url: button.data('open'),
           context: the_overlay.find(".content")
         }).done(function(data) {
-            var content = $(data);
-            var context = $(this);
-            hideLoading(the_overlay, function() {
-                content.addClass("fadeIn");
-                context.html(content);
-                $(document).trigger("ajaxReload");
-                setTimeout(function() {
-                    content.addClass("now");
-                }, 30);
-            });
+            try {
+                json = $.parseJSON(data);
+                if(json.action == 'redirect') {
+                    redirect(json.target);
+                }
+            } catch(e) {
+                var content = $(data);
+                var context = $(this);
+                hideLoading(the_overlay, function() {
+                    content.addClass("fadeIn");
+                    context.html(content);
+                    $(document).trigger("ajaxReload");
+                    setTimeout(function() {
+                        content.addClass("now");
+                    }, 30);
+                });
+            }
         });
     }, 
     

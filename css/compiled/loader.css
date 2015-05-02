@@ -6,11 +6,14 @@
   position: relative;
   margin: 0 auto;
 }
+.btn-danger .spinner > div {
+  background-color: #FFF;
+}
 .spinner > div {
   background-color: #666;
   height: 100%;
-  width: 13%;
-  margin-right: 2%;
+  width: 10%;
+  margin-right: 5%;
   display: inline-block;
   -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
   animation: stretchdelay 1.2s infinite ease-in-out;

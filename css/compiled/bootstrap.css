@@ -136,3 +136,23 @@ label {
 .page-header {
   margin-top: 20px;
 }
+.message-container {
+  position: fixed;
+  bottom: 0;
+  width: 60%;
+  left: 20%;
+}
+.alert-danger {
+  color: #FFF;
+  background-color: #a94442;
+  border-color: #a94442;
+}
+.alert-success {
+  color: #FFF;
+  background-color: #3c763d;
+  border-color: #3c763d;
+}
+.alert {
+  border-radius: 2px;
+  margin-bottom: 10px;
+}

@@ -18,7 +18,8 @@ function redirect(target) {
     }).done(function(data) {
         hideLoading(container, function() {
             overlay.hide();
-            container.html($(data).html());
+            container.html($(data).find(".ajax-reload-container").html());
+            container.append($(data).find(".message-container"));
             $(document).trigger("ajaxReload");
         });
     });

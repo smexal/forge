@@ -61,5 +61,50 @@
 "delete user":
 "Benutzer löschen"
 
+"edit user":
+"Benutzer bearbeiten"
+
 "User Management":
 "Benutzerverwaltung"
+
+"id":
+"ID"
+
+"Delete user '%s'?":
+"Benutzer '%s' löschen?"
+
+"Do you really want to delete user with the email '%s'?":
+"Möchtest du den Benutzer mit der E-Mail '%s' wirklich löschen?"
+
+"User has been deleted.":
+"Der gewünschte Benutzer wurde entfernt."
+
+"There was an error while deleting the user.":
+"Der gewünschte Benutzer konnte nicht entfernt werden."
+
+"User %1$s (%2$s) has been created.":
+"Der Benutzer %1$s (%2$s) wurde erfolgreich erstellt."
+
+"Yes, delete user":
+"Ja, Benutzer entfernen"
+
+"No, cancel.":
+"Nein, abbrechen."
+
+"Group Management":
+"Gruppen Verwaltung"
+
+"Add new Group":
+"Neue Gruppe erstellen"
+
+"Members":
+"Mitglieder"
+
+"edit group":
+"Gruppe bearbeiten"
+
+"delete group":
+"Gruppe entfernen"
+
+"manage members":
+"Mitglieder verwalten"

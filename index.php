@@ -30,6 +30,7 @@ $loader->addScript("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.j
 $loader->addScript("scripts/helpers.js");
 $loader->addScript("scripts/ajaxlinks.js");
 $loader->addScript("scripts/forms.js");
+$loader->addScript("scripts/messages.js");
 $loader->addScript("scripts/overlay.js");
 
 // run and output

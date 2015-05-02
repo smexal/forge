@@ -41,11 +41,15 @@ class App {
         $this->eh->trigger($_POST['event'], $_POST);
       }
       if(Utils::isAjax()) {
-        echo $this->content();
+        echo $this->render(TEMPLATE_DIR, "layout.ajax", array(
+          "content" => $this->content(),
+          "messages" => $this->displayMessages()
+        ));
       } else {
         echo $this->render(TEMPLATE_DIR, "layout", array(
           "head" => $this->header(),
           "content" => $this->content(),
+          "messages" => $this->displayMessages(),
           "sticky" => $this->sticky
         ));
       }
@@ -79,7 +83,7 @@ class App {
         }
       }
       if(!$found) {
-        Logger::error("View not found.");
+        Logger::error("View '".Utils::getUrl($uri_components)."' not found.");
         $this->redirect('404');
       } else {
         $view->initEssential();
@@ -150,6 +154,33 @@ class App {
         array_shift($_SESSION['footprint']);
       }
       array_push($_SESSION['footprint'], $uri_components);
+    }
+
+    public function addMessage($message, $type="warning") {
+      if(!isset($_SESSION['messages'])) {
+        $_SESSION['messages'] = array();
+      }
+      array_push($_SESSION['messages'], array(
+        "text" => $message, 
+        "type" => $type
+      ));
+    }
+
+    public function displayMessages() {
+      if(! array_key_exists('messages', $_SESSION)) {
+        return false;
+      }
+      $count = 0;
+      foreach($_SESSION['messages'] as $message) {
+        $count++;
+      }
+      if($count > 0) {
+        $data = $_SESSION['messages'];
+        unset($_SESSION['messages']);
+        return $data;
+      } else {
+        return false;
+      }
     }
 
 

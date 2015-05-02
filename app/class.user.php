@@ -3,21 +3,62 @@
 class User {
     private $app;
     private $data = false;
+    private $fields = array(
+        'id',
+        'username',
+        'email'
+    );
 
     public function __construct($id) {
         $this->app = App::instance();
-        $this->groups();
         $this->data['id'] = $id;
+        $this->groups();
+    }
+
+    public function getData() {
+        $this->app->db->where('id', $this->data['id']);
+        $user = $this->app->db->getOne('users');
+        foreach($this->fields as $field) {
+            $this->data[$field] = $user[$field];
+        }
     }
 
     public function get($field) {
-        if(array_key_exists($field, $this->data))
+        if(array_key_exists($field, $this->data)) {
             return $this->data[$field];
+        } else {
+            if(in_array($field, $this->fields)) {
+                $this->getData();
+                if(array_key_exists($field, $this->data)) {
+                    return $this->data[$field];
+                } else {
+                    Logger::error(sprintf(i("Queried field '%1$s' which does not exist")), $field);
+                }
+            }
+        }
+    }
+
+    public static function delete($id) {
+        if(Auth::allowed("manage.users.delete")) {
+            if( $id == App::instance()->user->get('id')) {
+                return false;
+            } else {
+                App::instance()->db->where('id', $id);
+                App::instance()->db->delete('users');
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     public function groups() {
-        $this->app->db->where('userid', $this->data['id']);
-        $this->data['groups'] = $this->app->db->get('groups_users');
+        if(is_numeric($this->data['id'])) {
+            $this->app->db->where('userid', $this->data['id']);
+            $this->data['groups'] = $this->app->db->get('groups_users');
+        } else {
+            return array();
+        }
     }
 
     public function allowed($permission) {

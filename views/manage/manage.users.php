@@ -27,7 +27,7 @@ class UserManagement extends AbstractView {
 
     public function userTable() {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
-            'th' => array(i('Username'), i('E-Mail'), i('Actions')),
+            'th' => array(i('id'), i('Username'), i('E-Mail'), i('Actions')),
             'td' => $this->getUserRows()
         ));
     }
@@ -36,6 +36,7 @@ class UserManagement extends AbstractView {
         $user_enriched = array();
         foreach($users as $user) {
             array_push($user_enriched, array(
+                $user['id'],
                 $user['username'],
                 $user['email'],
                 $this->actions($user['id'])
@@ -51,6 +52,13 @@ class UserManagement extends AbstractView {
                     "url" => Utils::getUrl(array("manage", "users", "delete", $id)),
                     "icon" => "remove",
                     "name" => i('delete user'),
+                    "ajax" => true,
+                    "confirm" => true
+                ),
+                array(
+                    "url" => Utils::getUrl(array("manage", "users", "edit", $id)),
+                    "icon" => "pencil",
+                    "name" => i('edit user'),
                     "ajax" => true,
                     "confirm" => true
                 )
