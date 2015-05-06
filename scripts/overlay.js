@@ -36,22 +36,24 @@ var overlay = {
             try {
                 json = $.parseJSON(data);
                 if(json.action == 'redirect') {
-                    redirect(json.target);
+                    redirect(json.target, "in_overlay");
                 }
             } catch(e) {
-                var content = $(data);
-                var context = $(this);
-                hideLoading(the_overlay, function() {
-                    content.addClass("fadeIn");
-                    context.html(content);
-                    $(document).trigger("ajaxReload");
-                    setTimeout(function() {
-                        content.addClass("now");
-                    }, 30);
-                });
+                overlay.setContent($(data), the_overlay);
             }
         });
-    }, 
+    },
+
+    setContent : function(content, overlay) {
+        hideLoading(overlay, function() {
+            content.addClass("fadeIn");
+            overlay.find(".content").html(content);
+            $(document).trigger("ajaxReload");
+            setTimeout(function() {
+                content.addClass("now");
+            }, 30);
+        });
+    },
     
     /* searches for overlay and hides all. */
     hide : function() {

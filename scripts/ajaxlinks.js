@@ -4,7 +4,7 @@ var ajaxlinks = {
         $("a.ajax").each(function() {
             $(this).unbind("click").on("click", function(e) {
                 e.preventDefault();
-                setLoading($(this), "transparent");
+                setLoading($(this), "revert");
                 if($(this).hasClass("confirm")) {
                     // load sidebar with confirm dialog
                     $(this).data("open", $(this).attr('href'));
