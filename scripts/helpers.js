@@ -8,7 +8,7 @@ function setLoading(element, revert) {
 }
 
 function hideLoading(element, callback) {
-    element.find(".spinner").each(function() {
+    $("body").find(".spinner").each(function() {
         var spinner = $(this);
         spinner.addClass("fadeOut");
         var attr = spinner.parent().attr('data-original-content');
@@ -16,7 +16,6 @@ function hideLoading(element, callback) {
             && attr !== false 
             && attr !== 'undefined') {
             var content = decodeURIComponent(spinner.parent().attr('data-original-content'));
-            alert(content);
             spinner.parent().attr('data-original-content', 'undefined');
             spinner.parent().html(content);
         }

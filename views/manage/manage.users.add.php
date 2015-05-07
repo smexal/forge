@@ -12,7 +12,7 @@ class ManageAddUser extends AbstractView {
     );    
 
     public function content() {
-        return $this->app->render(TEMPLATE_DIR."views/parts/", "users.add", array(
+        return $this->app->render(TEMPLATE_DIR."views/parts/", "users.modify", array(
             'title' => i('Create new user'),
             'message' => $this->message,
             'form' => $this->form()

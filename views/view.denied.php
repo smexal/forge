@@ -4,7 +4,10 @@ class PermissionDenied extends AbstractView {
     public $name = 'denied';
 
     public function content() {
-        return '<h1>permission denied<h1>';
+        return $this->app->render(TEMPLATE_DIR."views/", "denied", array(
+            'title' => i('Access denied'),
+            'text' => i('You do not have the required permission to view this page.')
+        ));
     }
 }
 

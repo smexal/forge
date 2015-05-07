@@ -36,7 +36,7 @@ class Form {
         )));
     }
 
-    public function input($name, $id, $label, $type="input", $value=false) {
+    public function input($name, $id, $label, $type="input", $value=false, $hint=false) {
         array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "input", array(
             'name' => $name,
             'id' => $id,
@@ -44,7 +44,8 @@ class Form {
             'type' => $type,
             'hor' => $this->horizontal,
             'noautocomplete' => $this->noAutocomplete,
-            'value' => $value
+            'value' => $value,
+            'hint' => $hint
         )));
     }
 
