@@ -7,13 +7,12 @@ class App {
     public $user = null;
     public $sticky = false;
     static private $instance = null;
-  
+
     static public function instance() {
         if (null === self::$instance) {
             self::$instance = new self;
         }
         Loader::instance()->prepare();
-
         return self::$instance;
     }
 
@@ -30,7 +29,7 @@ class App {
       }
       I18N::instance();
       Auth::setSessionUser();
-      
+
 
       ob_start();
       foreach($this->vm->views as $view) {
@@ -161,7 +160,7 @@ class App {
         $_SESSION['messages'] = array();
       }
       array_push($_SESSION['messages'], array(
-        "text" => $message, 
+        "text" => $message,
         "type" => $type
       ));
     }

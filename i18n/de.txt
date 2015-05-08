@@ -111,3 +111,9 @@
 
 "Leave empty if you don't want to change the password.":
 "Wenn das Passwort nicht geändert werden soll, muss dieses Feld leer gelassen werden."
+
+"Edit user %s":
+"Benutzer %s anpassen"
+
+"Repeat password":
+"Passwort wiederholen"

@@ -30,6 +30,7 @@ $RECYCLE.BIN/
 
 # Thumbnails
 ._*
+*.log
 
 # Files that might appear on external disk
 .Spotlight-V100
