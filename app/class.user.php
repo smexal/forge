@@ -38,6 +38,15 @@ class User {
         }
     }
 
+    public function hasGroup($id){
+      foreach($this->data['groups'] as $group_entry) {
+        if($group_entry['groupid'] == $id) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     public static function delete($id) {
         if(Auth::allowed("manage.users.delete")) {
             if( $id == App::instance()->user->get('id')) {
@@ -53,12 +62,13 @@ class User {
     }
 
     public function groups() {
-        if(is_numeric($this->data['id'])) {
+        if(is_numeric($this->get('id'))) {
             $this->app->db->where('userid', $this->data['id']);
             $this->data['groups'] = $this->app->db->get('groups_users');
         } else {
-            return array();
+            $this->data['groups'] = array();
         }
+        return $this->data['groups'];
     }
 
     public function allowed($permission) {

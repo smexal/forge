@@ -16,8 +16,7 @@ class ManageEditUser extends AbstractView {
       if(is_null($this->user)) {
         $this->user = new User($parts[0]);
       }
-      Logger::debug(implode(",", $parts));
-      return $this->app->render(TEMPLATE_DIR."views/parts/", "users.modify", array(
+      return $this->app->render(TEMPLATE_DIR."views/parts/", "crud.modify", array(
         'title' => sprintf(i('Edit user %s'), $this->user->get('username')),
         'message' => $this->message,
         'form' => $this->form()
@@ -48,7 +47,7 @@ class ManageEditUser extends AbstractView {
         App::instance()->addMessage(
           sprintf(i('User modifications on the user %1$s (%2$s) have been saved.'),
           $data['modify_name'],
-          $data['modify_email']), 
+          $data['modify_email']),
           "success"
         );
         App::instance()->redirect(Utils::getUrl(array('manage', 'users')));

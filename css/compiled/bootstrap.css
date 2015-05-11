@@ -3,6 +3,9 @@ body {
   font-family: Coda, sans-serif;
   color: #404040;
 }
+* {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
 h1 {
   font-size: 30px;
 }

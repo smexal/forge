@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class GroupsManagement extends AbstractView {
     public $parent = 'manage';
@@ -8,8 +8,8 @@ class GroupsManagement extends AbstractView {
         'manage.groups.add'
     );
 
-    public function content($uri=array()) 
-{        if(count($uri) > 0 && Auth::allowed($this->permissions[0])) {
+    public function content($uri=array()) {
+      if(count($uri) > 0) {
             return $this->getSubview($uri, $this);
         } else {
             return $this->ownContent();
@@ -32,7 +32,7 @@ class GroupsManagement extends AbstractView {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
             'th' => array(i('id'), i('Name'), i('Members'), i('Actions')),
             'td' => $this->getGroupRows()
-        ));        
+        ));
     }
 
     public function getGroupRows() {
@@ -47,7 +47,7 @@ class GroupsManagement extends AbstractView {
                 $this->actions($obj)
             ));
         }
-        return $groups_enriched;        
+        return $groups_enriched;
     }
 
     public function actions($group) {
@@ -65,18 +65,18 @@ class GroupsManagement extends AbstractView {
                     "icon" => "remove",
                     "name" => i('delete group'),
                     "ajax" => true,
-                    "confirm" => true              
+                    "confirm" => true
                 ),
                 array(
                     "url" => Utils::getUrl(array("manage", "groups", "members", $group->id)),
                     "icon" => "user",
                     "name" => i('manage members'),
                     "ajax" => true,
-                    "confirm" => true              
+                    "confirm" => true
                 )
             )
-        ));   
-    } 
+        ));
+    }
 }
 
 ?>

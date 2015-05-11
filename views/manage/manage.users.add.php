@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ManageAddUser extends AbstractView {
     public $parent = 'users';
@@ -9,10 +9,10 @@ class ManageAddUser extends AbstractView {
     private $new_name = false;
     public $events = array(
         'onCreateNewUser'
-    );    
+    );
 
     public function content() {
-        return $this->app->render(TEMPLATE_DIR."views/parts/", "users.modify", array(
+        return $this->app->render(TEMPLATE_DIR."views/parts/", "crud.modify", array(
             'title' => i('Create new user'),
             'message' => $this->message,
             'form' => $this->form()
@@ -29,7 +29,7 @@ class ManageAddUser extends AbstractView {
             App::instance()->addMessage(sprintf(i('User %1$s (%2$s) has been created.'), $data['new_name'], $data['new_email']), "success");
             App::instance()->redirect(Utils::getUrl(array('manage', 'users')));
         }
-    }    
+    }
 
     public function form() {
         $form = new Form(Utils::getUrl(array('manage', 'users', 'add')));

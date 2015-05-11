@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ManageDeleteUser extends AbstractView {
     public $parent = 'users';
@@ -6,7 +6,7 @@ class ManageDeleteUser extends AbstractView {
     public $name = 'delete';
     public $events = array(
         'onDeleteUser'
-    );    
+    );
 
     public function content($uri=array()) {
         if(is_array($uri)) {
@@ -27,27 +27,31 @@ class ManageDeleteUser extends AbstractView {
                     App::instance()->redirect(Utils::getUrl(array('manage', 'users')));
                 }
             } else {
-                // display confirm screen;
-                $user = new User($id);
-                return $this->app->render(TEMPLATE_DIR."assets/", "confirm", array(
-                    "title" => sprintf(i('Delete user \'%s\'?'), $user->get('username')),
-                    "message" => sprintf(i('Do you really want to delete user with the email \'%s\'?'), $user->get('email')),
-                    "yes" => array(
-                        "title" => i('Yes, delete user'),
-                        "url" => Utils::getUrl(array("manage", "users", "delete", $id, "confirmed"))
-                    ),
-                    "no" => array(
-                        "title" => i("No, cancel."),
-                        "url" => Utils::getUrl(array("manage", "users", "delete", "cancel"))
-                    )
-                ));
+                return $this->confirmationScreen($id);
             }
         }
     }
 
+    private function confirmationScreen($id) {
+      // display confirm screen;
+      $user = new User($id);
+      return $this->app->render(TEMPLATE_DIR."assets/", "confirm", array(
+          "title" => sprintf(i('Delete user \'%s\'?'), $user->get('username')),
+          "message" => sprintf(i('Do you really want to delete user with the email \'%s\'?'), $user->get('email')),
+          "yes" => array(
+              "title" => i('Yes, delete user'),
+              "url" => Utils::getUrl(array("manage", "users", "delete", $id, "confirmed"))
+          ),
+          "no" => array(
+              "title" => i("No, cancel."),
+              "url" => Utils::getUrl(array("manage", "users", "delete", "cancel"))
+          )
+      ));
+    }
+
     public function onDeleteUser($data) {
         return 'delete';
-    }    
+    }
 
     public function form() {
     }
