@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ManageEditUser extends AbstractView {
     public $parent = 'users';
@@ -25,7 +25,15 @@ class ManageEditUser extends AbstractView {
     }
 
     public function onEditUser($data) {
-        Logger::debug("EDIT USER:" . $data['modify_name'] . ", " . $data['modify_email']);
+        /*
+        $status = User::udpate($this->user->get('id'), array(
+          "username" => $data['modify_name'],
+          "email" => $data['modify_email'],
+          "password" => $data['new_password'],
+          "repeat" => $data['new_password_repeat']
+        ));
+        */
+        Logger::debug($status);
         /*$this->message = User::create($data['new_name'], $data['new_password'], $data['new_email']);
         if($this->message) {
             $this->new_email = $data['new_email'];
@@ -35,7 +43,7 @@ class ManageEditUser extends AbstractView {
             App::instance()->addMessage(sprintf(i('User %1$s (%2$s) has been created.'), $data['new_name'], $data['new_email']), "success");
             App::instance()->redirect(Utils::getUrl(array('manage', 'users')));
         }*/
-    }    
+    }
 
     public function form() {
         $form = new Form(Utils::getUrl(array('manage', 'users', 'edit', $this->user->get('id'))));

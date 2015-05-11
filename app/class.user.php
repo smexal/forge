@@ -81,6 +81,15 @@ class User {
         return false;
     }
 
+    public static function update($id, $data) {
+      if(! Auth::allowed("manage.users.edit")) {
+        return i('Permission denied');
+      }
+
+      if()
+
+    }
+
     public static function create($name, $password, $email) {
         if(! Auth::allowed("manage.users.add")) {
             return;
@@ -101,14 +110,14 @@ class User {
             return i('User with that name already exists');
         }
         $app->db->where("email", $email);
-        $app->db->get("users");        
+        $app->db->get("users");
         if($app->db->count > 0) {
             return i('User with that email already exists');
         }
 
         $data = array(
             'username' => $name,
-            'password' => Utils::password($password), 
+            'password' => Utils::password($password),
             'email' => $email
         );
         $app->db->insert('users', $data);
