@@ -81,28 +81,88 @@ class User {
         return false;
     }
 
-    public static function update($id, $data) {
+    public function setName($newName) {
       if(! Auth::allowed("manage.users.edit")) {
-        return i('Permission denied');
+          return i("Permission denied to edit users.");
+      }
+      // check if user already has that given username.
+      $this->app->db->where('id', $this->get('id'));
+      $usr = $this->app->db->getOne('users');
+      if($usr['username'] == $newName) {
+        return true;
       }
 
-      if()
+      $nameStatus = self::checkName($newName);
+      if($nameStatus !== true) {
+        return $nameStatus;
+      }
+      // update database
+      $this->app->db->where('id', $this->get('id'));
+      $this->app->db->update('users', array(
+        'username' => $newName
+      ));
+      return true;
+    }
 
+    public function setMail($newMail) {
+      if(! Auth::allowed("manage.users.edit")) {
+          return i("Permission denied to edit users.");
+      }
+      // check if user already has that given email.
+      $this->app->db->where('id', $this->get('id'));
+      $usr = $this->app->db->getOne('users');
+      if($usr['email'] == $newMail) {
+        return true;
+      }
+
+      $mailStatus = self::checkMail($newMail);
+      if($mailStatus !== true) {
+        return $mailStatus;
+      }
+      // update database
+      $this->app->db->where('id', $this->get('id'));
+      $this->app->db->update('users', array(
+        'email' => $newMail
+      ));
+      return true;
+    }
+
+    public function setPassword($new_pw, $new_pw_rep) {
+      if(! Auth::allowed("manage.users.edit")) {
+          return i("Permission denied to edit users.");
+      }
+      $pwStatus = self::checkPassword($new_pw);
+      if($pwStatus !== true) {
+        return $pwStatus;
+      }
+      // update database
+      if($new_pw !== $new_pw_rep) {
+        return i('The given passwort and the repetition do not match.');
+      }
+      $this->app->db->where('id', $this->get('id'));
+      $this->app->db->update('users', array(
+        'password' => Utils::password($new_pw)
+      ));
+      return true;
     }
 
     public static function create($name, $password, $email) {
         if(! Auth::allowed("manage.users.add")) {
             return;
         }
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return i('Invalid e-mail address.');
+        $mailStatus = self::checkMail($email);
+        if($mailStatus !== true) {
+          return $mailStatus;
         }
-        if(strlen($password) <= 3) {
-            return i('Given password is too short.');
+        $passwordStatus = self::checkPassword($password);
+        if($passwordStatus !== true) {
+          return $passwordStatus;
         }
-        if(strlen($name) <= 2) {
-            return i('Username is too short.');
+        $nameStatus = self::checkName($name);
+        if($nameStatus !== true) {
+          return $nameStatus;
         }
+
         $app = App::instance();
         $app->db->where("username", $name);
         $app->db->get("users");
@@ -122,6 +182,39 @@ class User {
         );
         $app->db->insert('users', $data);
         return false;
+    }
+
+    private static function checkName($name) {
+      $app = App::instance();
+      if( strlen($name) <= 2 ) {
+        return i('Username is too short.');
+      }
+      $app->db->where("username", $name);
+      $app->db->get("users");
+      if($app->db->count > 0) {
+        return i("User with that name already exists.");
+      }
+      return true;
+    }
+
+    private static function checkMail($email) {
+      $app = App::instance();
+      if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          return i('Invalid e-mail address.');
+      }
+      $app->db->where("email", $email);
+      $app->db->get("users");
+      if($app->db->count > 0) {
+        return i("User with that email address already exists.");
+      }
+      return true;
+    }
+
+    private static function checkPassword($password) {
+      if(strlen($password) <= 3) {
+        return i('Given password is too short.');
+      }
+      return true;
     }
 
 }
