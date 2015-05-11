@@ -37,16 +37,25 @@ class Form {
     }
 
     public function input($name, $id, $label, $type="input", $value=false, $hint=false) {
-        array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "input", array(
-            'name' => $name,
-            'id' => $id,
-            'label' => $label,
-            'type' => $type,
-            'hor' => $this->horizontal,
-            'noautocomplete' => $this->noAutocomplete,
-            'value' => $value,
-            'hint' => $hint
-        )));
+      array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "input", array(
+        'name' => $name,
+        'id' => $id,
+        'label' => $label,
+        'type' => $type,
+        'hor' => $this->horizontal,
+        'noautocomplete' => $this->noAutocomplete,
+        'value' => $value,
+        'hint' => $hint
+      )));
+    }
+
+    public function tags($name, $id, $label, $values, $getter=false) {
+      array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "tagsinput", array(
+        'name' => $name,
+        'id' => $id,
+        'label' => $label,
+        'hor' => $this->horizontal
+      )));
     }
 
     public function submit($text, $level="primary") {
@@ -67,7 +76,7 @@ class Form {
             'horizontal' => $this->horizontal
         ));
     }
-    
+
 }
 
 ?>

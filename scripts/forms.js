@@ -1,6 +1,13 @@
 var forms = {
     init : function() {
         forms.ajax();
+        forms.tags();
+    },
+
+    tags : function() {
+      $("input.tags").each(function() {
+        $(this).tagsinput();
+      });
     },
 
     ajax : function() {

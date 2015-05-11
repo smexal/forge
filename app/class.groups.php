@@ -36,6 +36,16 @@ class Group {
         return $this->app->db->count;
     }
 
+    public function members() {
+      $this->app->db->where("groupid", $this->id);
+      $members = $this->app->db->get("groups_users");
+      $id_array = array();
+      foreach($members as $member) {
+        array_push($id_array, $member['userid']);
+      }
+      return $id_array;
+    }
+
     public function setName($newName) {
       if($newName == $this->get('name')) {
         // nothing to change...

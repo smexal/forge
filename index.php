@@ -19,6 +19,7 @@ $app = App::instance();
 // all Styles
 $loader->addStyle("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css", true);
 $loader->addStyle("css/bootstrap.less");
+$loader->addStyle("css/tagsinput.less");
 $loader->addStyle("css/overlay.less");
 $loader->addStyle("css/layout.less");
 $loader->addStyle("css/elements.less");
@@ -27,6 +28,7 @@ $loader->addStyle("css/loader.less");
 // all Scripts
 $loader->addScript("//code.jquery.com/jquery-1.11.2.min.js", true);
 $loader->addScript("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js", true);
+$loader->addScript("scripts/externals/bootstrap-tagsinput.min.js");
 $loader->addScript("scripts/helpers.js");
 $loader->addScript("scripts/ajaxlinks.js");
 $loader->addScript("scripts/forms.js");
