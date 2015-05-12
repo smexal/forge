@@ -6,7 +6,13 @@ var forms = {
 
     tags : function() {
       $("input.tags").each(function() {
-        $(this).tagsinput();
+          $(this).tagsinput({
+              allowDuplicates: false,
+              freeInput: false,
+              typeaheadjs: {
+                  source: substringMatcher(['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo'])
+              }
+          });
       });
     },
 

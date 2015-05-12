@@ -49,11 +49,12 @@ class Form {
       )));
     }
 
-    public function tags($name, $id, $label, $values, $getter=false) {
+    public function tags($name, $id, $label, $values=false, $getter=false) {
       array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "tagsinput", array(
         'name' => $name,
         'id' => $id,
         'label' => $label,
+        'values' => Utils::json($values),
         'hor' => $this->horizontal
       )));
     }

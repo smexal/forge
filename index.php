@@ -28,6 +28,7 @@ $loader->addStyle("css/loader.less");
 // all Scripts
 $loader->addScript("//code.jquery.com/jquery-1.11.2.min.js", true);
 $loader->addScript("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js", true);
+$loader->addScript("scripts/externals/typeahead.js");
 $loader->addScript("scripts/externals/bootstrap-tagsinput.min.js");
 $loader->addScript("scripts/helpers.js");
 $loader->addScript("scripts/ajaxlinks.js");

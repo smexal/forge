@@ -28,6 +28,10 @@ class Utils {
         }
         return false;
     }
+    
+    public static function json($array) {
+        return htmlspecialchars(json_encode($array), ENT_QUOTES, 'UTF-8');
+    }
 }
 
 
