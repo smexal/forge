@@ -6,13 +6,20 @@ var forms = {
 
     tags : function() {
       $("input.tags").each(function() {
-          $(this).tagsinput({
-              allowDuplicates: false,
-              freeInput: false,
-              typeaheadjs: {
-                  source: substringMatcher(['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo'])
-              }
-          });
+        var values = $(this).data('values');
+        if( Object.prototype.toString.call( values ) === '[object Array]') {
+          forms.tagsInputByValues($(this), values);
+        }
+      });
+    },
+
+    tagsInputByValues : function(element, values) {
+      element.tagsinput({
+          allowDuplicates: false,
+          freeInput: false,
+          typeaheadjs: {
+              source: substringMatcher(values)
+          }
       });
     },
 

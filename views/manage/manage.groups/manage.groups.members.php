@@ -27,7 +27,7 @@ class ManageGroupMembers extends AbstractView {
       $form = new Form(Utils::getUrl(array('manage', 'groups', 'members', $this->group->get('id'))));
       $form->ajax(".content");
       $form->hidden("event", $this->events[0]);
-      $form->tags("new_users", "new_users", i('Add Usernames'), array("CHF", "EUR"));
+      $form->tags("new_users", "new_users", i('Add Usernames'), array("Eins", "Zwei", "Drei"));
       $form->submit(i('Add'));
       return $form->render();
     }

@@ -72,7 +72,7 @@ class App {
       foreach($this->vm->views as $view) {
         $instance = 'instance';
         $view = $view::$instance();
-        // tryed to load subview as main view.
+        // tried to load subview as main view.
         if($view->parent !== false)
           continue;
 
