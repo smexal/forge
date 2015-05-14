@@ -45,6 +45,27 @@ class Group {
       }
       return $id_array;
     }
+    
+    public function addMembers($members) {
+      if(!Auth::allowed("manage.groups.members")) {
+        return;
+      }
+      if(is_array($members)) {
+        $current = $this->members();
+        foreach($members as $member) {
+          if(!in_array($member, $current)) {
+            $this->app->db->insert("groups_users", array(
+                "groupid" => $this->get('id'),
+                "userid" => $member
+            ));
+          } else {
+            Logger::info("Skipped to add User ". $member . " to add to group with id ". $this->get('id') . ", reason: duplicate");
+          }
+        }
+      } else {
+        throw new Exception("add Members requires an array of new members.");
+      }
+    }
 
     public function setName($newName) {
       if($newName == $this->get('name')) {

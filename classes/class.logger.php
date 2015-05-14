@@ -22,7 +22,7 @@ class Logger {
             $filename = "error-".date("Y-m-d").".log";
 
             $file = fopen(DOC_ROOT."logs/".$filename, "a+") or die("Unable to open Log File!");
-            fwrite($file, date("Y-m-d")." - ".$level." - ".$text."\n");
+            fwrite($file, date("Y-m-d H:i:s")." - ".$level." - ".$text."\n");
             fclose($file);
         }
     }

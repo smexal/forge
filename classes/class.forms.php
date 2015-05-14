@@ -50,11 +50,20 @@ class Form {
     }
 
     public function tags($name, $id, $label, $values=false, $getter=false) {
+      if($values && !is_null($values)) {
+        $values = Utils::json($values);
+      }
+      if($getter) {
+        if(!is_array($getter) || ! array_key_exists("value", $getter) || ! array_key_exists("name", $getter) || ! array_key_exists("url", $getter)) {
+           throw new Exception("Invalid getter given. value, name and url required in assoc array.");
+        }
+      }
       array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "tagsinput", array(
         'name' => $name,
         'id' => $id,
         'label' => $label,
-        'values' => Utils::json($values),
+        'getter' => $getter,
+        'values' => $values,
         'hor' => $this->horizontal
       )));
     }

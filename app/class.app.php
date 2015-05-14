@@ -6,6 +6,8 @@ class App {
     public $vm = null;
     public $user = null;
     public $sticky = false;
+    private $uri_components = false;
+    
     static private $instance = null;
 
     static public function instance() {
@@ -17,7 +19,6 @@ class App {
     }
 
     public function run() {
-
       if(is_null($this->eh)){
         $this->eh = EventHandler::instance();
       }
@@ -29,30 +30,57 @@ class App {
       }
       I18N::instance();
       Auth::setSessionUser();
-
-
-      ob_start();
+      
+      $this->uri_components = Utils::getUriComponents();
+      $this->addFootprint($this->uri_components);
+      $base_view = $this->uri_components[0];
+      
+      $requiredView = false;
+      $load_main = $base_view == '' ? true : false;
+      
       foreach($this->vm->views as $view) {
         $view = $view::instance();
         $this->eh->add($view->events);
+        
+        // tried to load subview as main view.
+        if($view->parent !== false)
+          continue;
+      
+        if($load_main && $view->default || $base_view == $view->name()) {
+          $requiredView = $view;
+          break;
+        }
       }
+      if(!$requiredView) {
+        Logger::error("View '".Utils::getUrl($this->uri_components)."' not found.");
+        $this->redirect('404');
+      }
+
       if(isset($_POST['event'])) {
         $this->eh->trigger($_POST['event'], $_POST);
       }
-      if(Utils::isAjax()) {
+
+      $this->displayView($requiredView);
+    }
+    
+    private function displayView($view) {
+      ob_start();
+      if($view->standalone) {
+        echo $this->content($view);
+      } else if(Utils::isAjax()) {
         echo $this->render(TEMPLATE_DIR, "layout.ajax", array(
-          "content" => $this->content(),
-          "messages" => $this->displayMessages()
+            "content" => $this->content($view),
+            "messages" => $this->displayMessages()
         ));
       } else {
         echo $this->render(TEMPLATE_DIR, "layout", array(
-          "head" => $this->header(),
-          "content" => $this->content(),
-          "messages" => $this->displayMessages(),
-          "sticky" => $this->sticky
+            "head" => $this->header(),
+            "content" => $this->content($view),
+            "messages" => $this->displayMessages(),
+            "sticky" => $this->sticky
         ));
       }
-      ob_end_flush();
+      ob_end_flush();      
     }
 
     public function header() {
@@ -63,32 +91,10 @@ class App {
       ));
     }
 
-    public function content() {
-      $uri_components = Utils::getUriComponents();
-      $this->addFootprint($uri_components);
-      $base_view = $uri_components[0];
-      $found = false;
-      $load_main = $base_view == '' ? true : false;
-      foreach($this->vm->views as $view) {
-        $instance = 'instance';
-        $view = $view::$instance();
-        // tried to load subview as main view.
-        if($view->parent !== false)
-          continue;
-
-        if($load_main && $view->default || $base_view == $view->name()) {
-          $found = true;
-          break;
-        }
-      }
-      if(!$found) {
-        Logger::error("View '".Utils::getUrl($uri_components)."' not found.");
-        $this->redirect('404');
-      } else {
-        $view->initEssential();
-        array_shift($uri_components);
-        return $view->content($uri_components);
-      }
+    public function content($view) {
+      $view->initEssential();
+      array_shift($this->uri_components);
+      return $view->content($this->uri_components);
     }
 
 

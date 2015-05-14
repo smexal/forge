@@ -7,11 +7,42 @@ var forms = {
     tags : function() {
       $("input.tags").each(function() {
         var values = $(this).data('values');
+        var getter = $(this).data('getter');
         if( Object.prototype.toString.call( values ) === '[object Array]') {
-          forms.tagsInputByValues($(this), values);
+            forms.tagsInputByValues($(this), values);
+        } else if (typeof getter === "string") {
+            forms.tagsInputByGetter($(this));
         }
       });
     },
+    
+    tagsInputByGetter : function(element) {
+        var engine = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          remote: {
+            url: element.data('getter') + "/search/%QUERY",
+            wildcard : '%QUERY'
+          }
+        });
+        engine.initialize();
+        
+        element.tagsinput({
+            allowDuplicates: false,
+            freeInput: false,
+            itemValue: element.data('getter-value'),
+            itemText: element.data('getter-name'),
+            inputSize: 10,
+            typeaheadjs: {
+              hint: true,
+              highlight: true,
+              minLength: 2,
+              name: "name_"+element.data('getter-name'),
+              displayKey: element.data('getter-name'),
+              source: engine.ttAdapter()
+            }
+        });
+      },    
 
     tagsInputByValues : function(element, values) {
       element.tagsinput({

@@ -4,6 +4,7 @@ abstract class AbstractView implements IView {
     protected static $instances = array();
     public $parent = false;
     public $default = false;
+    public $standalone = false;
     public $permission = null;
     public $permissions = array();
     public $events = array();

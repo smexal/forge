@@ -22,12 +22,25 @@ class ManageGroupMembers extends AbstractView {
         'memberlist' => $this->getMemberList()
       ));
     }
+    
+    public function onAddNewGroupMember($data) {
+      $members = explode(",", $data['new_users']);
+      if(count($members) > 0) {
+        $group = new Group($data['groupid']);
+        $group->addMembers($members);
+      }
+    }
 
     public function addForm() {
       $form = new Form(Utils::getUrl(array('manage', 'groups', 'members', $this->group->get('id'))));
       $form->ajax(".content");
       $form->hidden("event", $this->events[0]);
-      $form->tags("new_users", "new_users", i('Add Usernames'), array("Eins", "Zwei", "Drei"));
+      $form->hidden("groupid", $this->group->get('id'));
+      $form->tags("new_users", "new_users", i('Add Users by typing their username:'), false, array(
+          "value" => "id",
+          "name" => "username",
+          "url" => Utils::getUrl(array("api", "users"))
+      ));
       $form->submit(i('Add'));
       return $form->render();
     }

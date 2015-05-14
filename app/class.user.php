@@ -155,6 +155,21 @@ class User {
       ));
       return true;
     }
+    
+    public static function getAll() {
+      if(! Auth::allowed("manage.users")) {
+        return array();
+      }
+      return App::instance()->db->get('users', null, array("id", "username", "email"));
+    }
+    
+    public static function search($term) {
+      if(! Auth::allowed("manage.users")) {
+        return array();
+      }
+      App::instance()->db->where("username", $term."%", "LIKE");
+      return App::instance()->db->get('users', null, array("id", "username", "email"));
+    }
 
     public static function create($name, $password, $email) {
         if(! Auth::allowed("manage.users.add")) {

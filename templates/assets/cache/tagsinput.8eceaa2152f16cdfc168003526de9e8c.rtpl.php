@@ -6,5 +6,6 @@
         value="" 
         id="<?php echo $id;?>" 
         name="<?php echo $name;?>" 
-        type="text">
+        type="text"
+        <?php if( $getter ){ ?>data-getter="<?php echo $getter["url"];?>" data-getter-name="<?php echo $getter["name"];?>" data-getter-value="<?php echo $getter["value"];?>"<?php } ?>>
 </div>

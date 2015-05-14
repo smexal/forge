@@ -6,5 +6,6 @@
         value="" 
         id="{$id}" 
         name="{$name}" 
-        type="text">
+        type="text"
+        {if="$getter"}data-getter="{$getter.url}" data-getter-name="{$getter.name}" data-getter-value="{$getter.value}"{/if}>
 </div>
