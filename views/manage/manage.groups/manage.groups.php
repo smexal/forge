@@ -30,6 +30,7 @@ class GroupsManagement extends AbstractView {
 
     public function groupTable() {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
+            'id' => 'groupsTable',
             'th' => array(i('id'), i('Name'), i('Members'), i('Actions')),
             'td' => $this->getGroupRows()
         ));

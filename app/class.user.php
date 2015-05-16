@@ -90,6 +90,16 @@ class User {
         $this->data['permissions'][$permission['name']] = false;
         return false;
     }
+    
+    public static function exists($userid) {
+      $db = App::instance()->db;
+      $db->where("id", $userid);
+      $member = $db->getOne("users");
+      if($member > 0) {
+        return true;
+      }
+      return false;
+    }
 
     public function setName($newName) {
       if(! Auth::allowed("manage.users.edit")) {

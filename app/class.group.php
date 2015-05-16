@@ -53,7 +53,7 @@ class Group {
       if(is_array($members)) {
         $current = $this->members();
         foreach($members as $member) {
-          if(!in_array($member, $current)) {
+          if(!in_array($member, $current) && User::exists($member)) {
             $this->app->db->insert("groups_users", array(
                 "groupid" => $this->get('id'),
                 "userid" => $member

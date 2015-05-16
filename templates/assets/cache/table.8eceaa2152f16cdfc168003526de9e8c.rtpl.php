@@ -1,4 +1,4 @@
-<?php if(!class_exists('raintpl')){exit;}?><table class="table table-striped table-hover">
+<?php if(!class_exists('raintpl')){exit;}?><table class="table table-striped table-hover" <?php if( $id ){ ?>id="<?php echo $id;?>"<?php } ?>>
 <tr>
 <?php $counter1=-1; if( isset($th) && is_array($th) && sizeof($th) ) foreach( $th as $key1 => $value1 ){ $counter1++; ?>
 <th><?php echo $value1;?></th>

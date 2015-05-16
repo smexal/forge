@@ -138,6 +138,20 @@ class App {
         exit(header("Location: ".$target));
       }
     }
+
+    public function refresh($target, $content) {
+      if(Utils::isAjax()) {
+        exit(json_encode(array(
+            "action" => "refresh",
+            "target" => $target,
+            "content" => $content
+        )));
+      } else {
+        Logger::debug("Tryed to refresh without ajax. Target:".$target);
+        // cannot refresh particular content without ajax.
+      }
+    }
+
     public function redirectBack() {
       if(isset($_SESSION['back'])) {
         $this->redirect($_SESSION['back']);

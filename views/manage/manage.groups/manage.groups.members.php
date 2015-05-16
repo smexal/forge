@@ -6,6 +6,7 @@ class ManageGroupMembers extends AbstractView {
     public $name = 'members';
     public $message = '';
     private $group = null;
+    private $memberTableId = "groupMemberList";
     public $events = array(
       0 => "onAddNewGroupMember"
     );
@@ -13,6 +14,17 @@ class ManageGroupMembers extends AbstractView {
     public function content($uri=array()) {
       if(is_numeric($uri[0]) && is_null($this->group)) {
         $this->group = new Group($uri[0]);
+      }
+      
+      if(count($uri) > 1) {
+        if($uri[1] === 'remove' && is_numeric($uri[2]) && User::exists($uri[2])) {
+          // remove user from group.
+          $userid = $uri[2];
+          $this->app->db->where('groupid', $this->group->get('id'));
+          $this->app->db->where('userid', $userid);
+          $this->app->db->delete('groups_users');
+          $this->app->refresh($this->memberTableId, $this->getMemberList());
+        }
       }
 
       return $this->app->render(TEMPLATE_DIR."views/parts/", "group.members", array(
@@ -47,6 +59,7 @@ class ManageGroupMembers extends AbstractView {
 
     public function getMemberList() {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
+            'id' => $this->memberTableId,
             'th' => array(i('Username'), i('E-Mail'), i('Remove')),
             'td' => $this->getUserRows()
         ));

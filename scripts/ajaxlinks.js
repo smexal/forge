@@ -13,7 +13,6 @@ var ajaxlinks = {
                 } else {
                     $.ajax({
                         method: 'POST',
-                        confirm : $(this).hasClass("confirm"),
                         url: $(this).attr("href")
                     }).done(function(data) {
                         try {
@@ -21,8 +20,16 @@ var ajaxlinks = {
                             if(json.action == 'redirect') {
                                 redirect(json.target);
                             }
+                            if(json.action == 'refresh') {
+                                if($('#'+json.target).length > 0) {
+                                    $('#'+json.target).replaceWith(json.content);
+                                } else {
+                                    $('.'+json.target).replaceWith(json.content);
+                                }
+                                $(document).trigger("ajaxReload");
+                            }
                         } catch (e) {
-                            console.error("requires json action");
+                            console.error("requires json action", e);
                         }
                     });
                 }

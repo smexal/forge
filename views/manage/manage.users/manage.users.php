@@ -27,6 +27,7 @@ class UserManagement extends AbstractView {
 
     public function userTable() {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
+            'id' => "userTable",
             'th' => array(i('id'), i('Username'), i('E-Mail'), i('Actions')),
             'td' => $this->getUserRows()
         ));

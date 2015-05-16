@@ -19,11 +19,15 @@ class Logger {
         $log_output_key = array_search($level, self::$levels);
 
         if($log_level_key <= $log_output_key) {
-            $filename = "error-".date("Y-m-d").".log";
+          $output = date("Y-m-d H:i:s")." - ".$level." - ".$text."\n";
+          if($level == 'DEBUG') {
+            echo '<script>console.log("'.$level. " - ". $text.'")</script>';
+          }
+          $filename = "error-".date("Y-m-d").".log";
 
-            $file = fopen(DOC_ROOT."logs/".$filename, "a+") or die("Unable to open Log File!");
-            fwrite($file, date("Y-m-d H:i:s")." - ".$level." - ".$text."\n");
-            fclose($file);
+          $file = fopen(DOC_ROOT."logs/".$filename, "a+") or die("Unable to open Log File!");
+          fwrite($file, $output);
+          fclose($file);
         }
     }
 
