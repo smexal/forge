@@ -4,5 +4,6 @@
     <?php } ?>
     <?php $counter1=-1; if( isset($scripts) && is_array($scripts) && sizeof($scripts) ) foreach( $scripts as $key1 => $value1 ){ $counter1++; ?>
         <script src="<?php echo $value1;?>"></script>
-    <?php } ?>    
+    <?php } ?>
+    <title><?php echo $title;?></title>
 </head>

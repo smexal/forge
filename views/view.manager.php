@@ -6,7 +6,10 @@ class Manager extends AbstractView {
     public $permission = 'manage';
     public $permissions = array(
         0 => 'manage',
-        1 => 'manage.users'
+        1 => 'manage.users',
+        2 => 'manage.sites',
+        3 => 'manage.navigations',
+        4 => 'manage.modules',
     );
 
     public function content($uri=array()) {
@@ -26,6 +29,17 @@ class Manager extends AbstractView {
         $this->navigation->setMaxWidth();
         $panelLeft = $this->navigation->addPanel();
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "backend-logo.png")));
+        if(Auth::allowed($this->permissions[2])) {
+          $this->navigation->add('sites', i('Sites'), Utils::getUrl(array('manage', 'sites')), $panelLeft);
+        }
+
+        if(Auth::allowed($this->permissions[3])) {
+          $this->navigation->add('navigations', i('Navigations'), Utils::getUrl(array('manage', 'navigations')), $panelLeft);
+        }
+
+        if(Auth::allowed($this->permissions[4])) {
+          $this->navigation->add('modules', i('Modules'), Utils::getUrl(array('manage', 'modules')), $panelLeft);
+        }
 
         $panelRight = $this->navigation->addPanel('right');
         if(Auth::allowed($this->permissions[1])) {
