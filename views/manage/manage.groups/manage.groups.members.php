@@ -60,7 +60,11 @@ class ManageGroupMembers extends AbstractView {
     public function getMemberList() {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
             'id' => $this->memberTableId,
-            'th' => array(i('Username'), i('E-Mail'), i('Remove')),
+            'th' => array(
+                Utils::tableCell(i('Username')),
+                Utils::tableCell(i('E-Mail')),
+                Utils::tableCell(i('Remove'))
+            ),
             'td' => $this->getUserRows()
         ));
     }
@@ -70,9 +74,9 @@ class ManageGroupMembers extends AbstractView {
       foreach($this->group->members() as $userid) {
         $user = new User($userid);
         array_push($user_enriched, array(
-          $user->get('username'),
-          $user->get('email'),
-          $this->actions($user->get('id'))
+          Utils::tableCell($user->get('username')),
+          Utils::tableCell($user->get('email')),
+          Utils::tableCell($this->actions($user->get('id')))
         ));
       }
       return $user_enriched;

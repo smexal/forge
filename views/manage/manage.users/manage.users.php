@@ -28,7 +28,12 @@ class UserManagement extends AbstractView {
     public function userTable() {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
             'id' => "userTable",
-            'th' => array(i('id'), i('Username'), i('E-Mail'), i('Actions')),
+            'th' => array(
+                Utils::tableCell(i('id')),
+                Utils::tableCell(i('Username')),
+                Utils::tableCell(i('E-Mail')),
+                Utils::tableCell(i('Actions'))
+            ),
             'td' => $this->getUserRows()
         ));
     }
@@ -37,10 +42,10 @@ class UserManagement extends AbstractView {
         $user_enriched = array();
         foreach($users as $user) {
             array_push($user_enriched, array(
-                $user['id'],
-                $user['username'],
-                $user['email'],
-                $this->actions($user['id'])
+                Utils::tableCell($user['id']),
+                Utils::tableCell($user['username']),
+                Utils::tableCell($user['email']),
+                Utils::tableCell($this->actions($user['id']))
             ));
         }
         return $user_enriched;

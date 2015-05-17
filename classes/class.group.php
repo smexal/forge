@@ -85,6 +85,23 @@ class Group {
       ));
       return true;
     }
+    
+    public function grant($permission) {
+      if(! self::hasPermission($this->id, $permission)) {
+        $this->app->db->insert('permissions_groups', array(
+            "groupid" => $this->id,
+            "permissionid" => $permission
+        ));
+        return true;
+      }
+    }
+    
+    public function deny($permission) {
+      $this->app->db->where("groupid", $this->id);
+      $this->app->db->where("permissionid", $permission);
+      $this->app->db->delete("permissions_groups");
+      return true;
+    }
 
     public static function exists($name) {
       $app = App::instance();
@@ -142,6 +159,16 @@ class Group {
       $app->db->delete("groups");
 
       return true;
+    }
+    
+    public static function hasPermission($group, $permission) {
+      $db = App::instance()->db;
+      $db->where("groupid", $group);
+      $db->where("permissionid", $permission);
+      if(count($db->get("permissions_groups")) > 0) {
+        return true;
+      }
+      return false;
     }
 
 }

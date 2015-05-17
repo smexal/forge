@@ -31,8 +31,9 @@ abstract class AbstractView implements IView {
       if(!is_null($this->permission)) {
         Auth::registerPermissions($this->permission);
       }
-      if(count($this->permissions) == 0)
+      if(count($this->permissions) == 0 || is_null($this->permissions)) {
         return;
+      }
       Auth::registerPermissions($this->permissions);
     }
 
@@ -64,15 +65,16 @@ abstract class AbstractView implements IView {
         App::instance()->redirect('404');
       } else {
         $parent->activeSubview = $view->name;
-        $view->initEssential();
-        array_shift($uri_components);
-        return $view->content($uri_components);
-      }        
+        return $this->app->content($view);
+      }
     }
     
 
     public function name() { 
         return $this->name;
+    }
+    public function title() {
+      return ucfirst($this->name);
     }
     public function content($uri=array()) {
         return 'content output, default for module.';

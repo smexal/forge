@@ -32,6 +32,18 @@ class Utils {
     public static function json($array) {
         return htmlspecialchars(json_encode($array), ENT_QUOTES, 'UTF-8');
     }
+    
+    public static function tableCell($content, $class=false, $id=false, $structure=false) {
+      $data = array(
+          'content' => $content,
+          'class' => $class,
+          'id' => $id
+      );
+      if($structure) {
+        return App::instance()->render(TEMPLATE_DIR."/assets/", "table.cell", $data);
+      }
+      return $data;
+    }
 }
 
 

@@ -31,7 +31,12 @@ class GroupsManagement extends AbstractView {
     public function groupTable() {
         return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
             'id' => 'groupsTable',
-            'th' => array(i('id'), i('Name'), i('Members'), i('Actions')),
+            'th' => array(
+                Utils::tableCell(i('id')),
+                Utils::tableCell(i('Name')),
+                Utils::tableCell(i('Members')),
+                Utils::tableCell(i('Actions'))
+            ),
             'td' => $this->getGroupRows()
         ));
     }
@@ -42,10 +47,10 @@ class GroupsManagement extends AbstractView {
         foreach($groups as $group) {
             $obj = new Group($group['id']);
             array_push($groups_enriched, array(
-                $group['id'],
-                $group['name'],
-                $obj->memberCount(),
-                $this->actions($obj)
+                Utils::tableCell($group['id']),
+                Utils::tableCell($group['name']),
+                Utils::tableCell($obj->memberCount()),
+                Utils::tableCell($this->actions($obj))
             ));
         }
         return $groups_enriched;

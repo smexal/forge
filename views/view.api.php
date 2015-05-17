@@ -2,7 +2,7 @@
 
 class ApiView extends AbstractView {
     public $name = 'api';
-    public $permission = 'api';
+    public $permission = null;
     public $standalone = true;
 
     public function content($query=array()) {

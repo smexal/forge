@@ -1,13 +1,17 @@
 <table class="table table-striped table-hover" {if="$id"}id="{$id}"{/if}>
 <tr>
 {loop="$th"}
-<th>{$value}</th>
+     <th {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
+       {$value.content}
+     </th>
 {/loop}
 </tr>
 {loop="$td"}
 <tr>
 {loop="$value"}
-    <td>{$value}</td>
+     <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
+       {$value.content}
+     </td>
 {/loop}
 </tr>
 {/loop}

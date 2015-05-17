@@ -20,11 +20,13 @@ var ajaxlinks = {
                             if(json.action == 'redirect') {
                                 redirect(json.target);
                             }
-                            if(json.action == 'refresh') {
+                            if(json.action == 'refresh' || json.action == "update") {
                                 if($('#'+json.target).length > 0) {
-                                    $('#'+json.target).replaceWith(json.content);
-                                } else {
-                                    $('.'+json.target).replaceWith(json.content);
+                                    if(json.action == "update") {
+                                        $('#'+json.target).html(json.content);
+                                    } else {
+                                        $('#'+json.target).replaceWith(json.content);
+                                    }
                                 }
                                 $(document).trigger("ajaxReload");
                             }

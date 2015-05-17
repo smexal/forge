@@ -30,22 +30,18 @@ class App {
       }
       I18N::instance();
       Auth::setSessionUser();
-      
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
       $base_view = $this->uri_components[0];
-      
       $requiredView = false;
       $load_main = $base_view == '' ? true : false;
       
       foreach($this->vm->views as $view) {
         $view = $view::instance();
         $this->eh->add($view->events);
-        
         // tried to load subview as main view.
         if($view->parent !== false)
           continue;
-      
         if($load_main && $view->default || $base_view == $view->name()) {
           $requiredView = $view;
           break;
@@ -55,15 +51,13 @@ class App {
         Logger::error("View '".Utils::getUrl($this->uri_components)."' not found.");
         $this->redirect('404');
       }
-
       if(isset($_POST['event'])) {
         $this->eh->trigger($_POST['event'], $_POST);
       }
-
       $this->displayView($requiredView);
     }
-    
-    private function displayView($view) {
+
+    public function displayView($view) {
       ob_start();
       if($view->standalone) {
         echo $this->content($view);
@@ -74,7 +68,7 @@ class App {
         ));
       } else {
         echo $this->render(TEMPLATE_DIR, "layout", array(
-            "head" => $this->header(),
+            "head" => $this->header($view),
             "content" => $this->content($view),
             "messages" => $this->displayMessages(),
             "sticky" => $this->sticky
@@ -83,20 +77,24 @@ class App {
       ob_end_flush();      
     }
 
-    public function header() {
+    public function header($view) {
       $loader = Loader::instance();
       return $this->render(TEMPLATE_DIR, "head", array(
-        'scripts' => $loader->getScripts(),
-        'styles' => $loader->getStyles()
+          'title' => $this->getTitle($view),
+          'scripts' => $loader->getScripts(),
+          'styles' => $loader->getStyles()
       ));
     }
+
+    public function getTitle($view) {
+      return $view->title();
+    } 
 
     public function content($view) {
       $view->initEssential();
       array_shift($this->uri_components);
       return $view->content($this->uri_components);
     }
-
 
     public function render($template_dir, $template_file, $args=array()) {
       if(!class_exists('RainTPL')) {
@@ -139,10 +137,10 @@ class App {
       }
     }
 
-    public function refresh($target, $content) {
+    public function refresh($target, $content, $update=false) {
       if(Utils::isAjax()) {
         exit(json_encode(array(
-            "action" => "refresh",
+            "action" => $update ? "update" : "refresh",
             "target" => $target,
             "content" => $content
         )));
@@ -150,6 +148,10 @@ class App {
         Logger::debug("Tryed to refresh without ajax. Target:".$target);
         // cannot refresh particular content without ajax.
       }
+    }
+    
+    public function updatePart($target, $content) {
+      $this->refresh($target, $content, true);
     }
 
     public function redirectBack() {

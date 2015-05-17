@@ -27,3 +27,9 @@
   transition: 250ms;
   opacity: 1;
 }
+.width-200 {
+  width: 200px;
+}
+.center {
+  text-align: center;
+}

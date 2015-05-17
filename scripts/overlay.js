@@ -42,6 +42,11 @@ var overlay = {
                 overlay.setContent($(data), the_overlay);
             }
         });
+        $(document).keyup(function(e) {
+            if(e.keyCode == 27) {
+                overlay.hide();
+            }
+        });
     },
 
     setContent : function(content, overlay) {
