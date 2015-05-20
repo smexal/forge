@@ -1,4 +1,7 @@
 <div class="padded">
     <h2>{$title}</h2>
-    <div class="update-container" data-url="{$url}" data-finished-target="{$targeturl}"></div>
+    {if="$bar"}
+      <div class="bar">{$bar}</div>
+    {/if}
+    <div class="update-container" data-url="{$url}" {if="$targeturl"}data-finished-target="{$targeturl}"{/if}></div>
 </div>

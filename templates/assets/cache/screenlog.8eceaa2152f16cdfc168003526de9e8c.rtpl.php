@@ -1,0 +1,1 @@
+<?php if(!class_exists('raintpl')){exit;}?><code class="fullwidth"><?php echo $time;?> - <?php echo $message;?></code><br />

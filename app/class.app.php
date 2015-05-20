@@ -5,6 +5,7 @@ class App {
     public $eh = null;
     public $vm = null;
     public $user = null;
+    public $stream = false;
     public $sticky = false;
     private $uri_components = false;
 
@@ -205,6 +206,17 @@ class App {
       }
     }
 
+    public function stream($start = false) {
+      if($start) {
+        $this->stream = true;
+      } else {
+        $this->stream = false;
+      }
+    }
+    
+    public function streamActive() {
+      return $this->stream;
+    }
 
     private function __construct(){}
     private function __clone(){}

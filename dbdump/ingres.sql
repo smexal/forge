@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Mai 2015 um 22:58
+-- Erstellungszeit: 20. Mai 2015 um 21:59
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -82,13 +82,25 @@ INSERT INTO `languages` (`id`, `code`, `name`, `default`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `language_strings`
+--
+
+CREATE TABLE IF NOT EXISTS `language_strings` (
+`id` int(11) NOT NULL,
+  `string` varchar(1000) NOT NULL,
+  `domain` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `permissions`
 --
 
 CREATE TABLE IF NOT EXISTS `permissions` (
 `id` int(7) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions`
@@ -112,7 +124,9 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 (42, 'manage.modules'),
 (43, 'manage.navigations'),
 (44, 'manage.locales'),
-(45, 'manage.locales.add');
+(45, 'manage.locales.add'),
+(46, 'manage.locales.strings'),
+(47, 'manage.locales.strings.update');
 
 -- --------------------------------------------------------
 
@@ -124,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `permissions_groups` (
 `id` int(7) NOT NULL,
   `groupid` int(7) NOT NULL,
   `permissionid` int(7) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions_groups`
@@ -148,7 +162,9 @@ INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
 (20, 1, 43),
 (21, 1, 42),
 (22, 1, 44),
-(23, 1, 45);
+(23, 1, 45),
+(24, 1, 47),
+(25, 1, 46);
 
 -- --------------------------------------------------------
 
@@ -197,6 +213,12 @@ ALTER TABLE `languages`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `language_strings`
+--
+ALTER TABLE `language_strings`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `permissions`
 --
 ALTER TABLE `permissions`
@@ -234,15 +256,20 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 ALTER TABLE `languages`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT für Tabelle `language_strings`
+--
+ALTER TABLE `language_strings`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT für Tabelle `permissions`
 --
 ALTER TABLE `permissions`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT für Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --

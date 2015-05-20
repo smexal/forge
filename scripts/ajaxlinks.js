@@ -11,20 +11,30 @@ var ajaxlinks = {
           return;
         var container = $(this);
         container.css({
-          "maxHeight": $(window).height()/2,
+          "maxHeight": $(window).height()/1.6,
           "overflow": "auto"
         });
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', $(this).data('url') + "?forceAjax=true&buffer=false", true);
+        xhr.open('GET', $(this).data('url') + "?forceAjax=true", true);
         xhr.send(null);
         var timer;
         timer = window.setInterval(function() {
-          container.html('data: ' + xhr.responseText + '<br />');
-          if (xhr.readyState == XMLHttpRequest.DONE) {
-            container.addClass("done");
-            window.clearTimeout(timer);
-            redirect(container.data('finished-target'));
-          }
+            var data = $(xhr.responseText);
+            var updater = data.filter(".bar-updater:last");
+            if(updater.length > 0) {
+                updateProgressBar(updater);
+            }
+            container.html(data);
+            
+            // done
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                container.addClass("done");
+                window.clearTimeout(timer);
+                var target = container.data('finished-target');
+                if(typeof target !== 'undefined') {
+                    redirect(target);
+                }
+            }
         }, 500);
       });
     },

@@ -26,6 +26,30 @@ class Utils {
     public static function getUrl($params = array()) {
         return WWW_ROOT.implode("/", $params);
     }
+    
+    public static function getProgressBar($id, $current, $text="") {
+      return App::instance()->render(TEMPLATE_DIR."assets/", "progressbar", array(
+          "id" => $id,
+          "current" => $current,
+          "min" => "0",
+          "max" => "100",
+          "text" => $text
+      ));
+    }
+    
+    public static function barUpdater($id, $value) {
+      return App::instance()->render(TEMPLATE_DIR."assets/", "barupdater", array(
+          "id" => $id,
+          "value" => $value
+      ));
+    }
+    
+    public static function screenLog($message) {
+      return App::instance()->render(TEMPLATE_DIR."assets/", "screenlog", array(
+          "time" => date("H:i:s"),
+          "message" => $message
+      ));
+    }
 
     public static function isAjax() {
         if ((!empty($_SERVER['HTTP_X_REQUESTED_WITH'])

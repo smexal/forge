@@ -23,6 +23,10 @@ function hideLoading(element, callback) {
     setTimeout(callback, 250);
 }
 
+function updateProgressBar(updater) {
+    $("#"+updater.data('id')).width(updater.data('value')+"%");
+}
+
 function redirect(target, special) {
     var container = $(".ajax-reload-container");
     if(special=="in_overlay") {

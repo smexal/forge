@@ -161,3 +161,6 @@ label {
   font-size: 90%;
   font-weight: normal;
 }
+.bar-updater {
+  display: none;
+}
