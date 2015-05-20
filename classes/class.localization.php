@@ -1,7 +1,7 @@
 <?php
 
 class Localization {
-  
+
   public static function addNewLanguage($code, $name) {
     $db = App::instance()->db;
     $db->where("code", $code);
@@ -15,6 +15,18 @@ class Localization {
       return i('A language with that code already exists.');
     }
   }
+
+  public static function setDefault($id) {
+    $db = App::instance()->db;
+    $db->update("languages", array(
+      "default" => 0
+    ));
+    $db->where("id", $id);
+    $db->update("languages", array(
+      "default" => 1
+    ));
+  }
+
 }
 
 ?>

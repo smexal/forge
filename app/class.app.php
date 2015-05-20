@@ -7,7 +7,7 @@ class App {
     public $user = null;
     public $sticky = false;
     private $uri_components = false;
-    
+
     static private $instance = null;
 
     static public function instance() {
@@ -35,7 +35,7 @@ class App {
       $base_view = $this->uri_components[0];
       $requiredView = false;
       $load_main = $base_view == '' ? true : false;
-      
+
       foreach($this->vm->views as $view) {
         $view = $view::instance();
         $this->eh->add($view->events);
@@ -74,7 +74,8 @@ class App {
             "sticky" => $this->sticky
         ));
       }
-      ob_end_flush();      
+      if(ob_get_level() > 0)
+        ob_end_flush();
     }
 
     public function header($view) {
@@ -88,7 +89,7 @@ class App {
 
     public function getTitle($view) {
       return $view->title();
-    } 
+    }
 
     public function content($view) {
       $view->initEssential();
@@ -149,7 +150,7 @@ class App {
         // cannot refresh particular content without ajax.
       }
     }
-    
+
     public function updatePart($target, $content) {
       $this->refresh($target, $content, true);
     }
