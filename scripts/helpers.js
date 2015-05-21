@@ -12,8 +12,8 @@ function hideLoading(element, callback) {
         var spinner = $(this);
         spinner.addClass("fadeOut");
         var attr = spinner.parent().attr('data-original-content');
-        if(typeof attr !== typeof undefined 
-            && attr !== false 
+        if(typeof attr !== typeof undefined
+            && attr !== false
             && attr !== 'undefined') {
             var content = decodeURIComponent(spinner.parent().attr('data-original-content'));
             spinner.parent().attr('data-original-content', 'undefined');
@@ -25,6 +25,7 @@ function hideLoading(element, callback) {
 
 function updateProgressBar(updater) {
     $("#"+updater.data('id')).width(updater.data('value')+"%");
+    updater.remove();
 }
 
 function redirect(target, special) {
@@ -54,13 +55,13 @@ function redirect(target, special) {
 var substringMatcher = function(strs) {
     return function findMatches(q, cb) {
       var matches, substringRegex;
-   
+
       // an array that will be populated with substring matches
       matches = [];
-   
+
       // regex used to determine if a string contains the substring `q`
       substrRegex = new RegExp(q, 'i');
-   
+
       // iterate through the pool of strings and for any string that
       // contains the substring `q`, add it to the `matches` array
       $.each(strs, function(i, str) {
@@ -68,7 +69,7 @@ var substringMatcher = function(strs) {
           matches.push(str);
         }
       });
-   
+
       cb(matches);
     };
   };

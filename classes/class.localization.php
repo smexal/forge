@@ -26,14 +26,14 @@ class Localization {
       "default" => 1
     ));
   }
-  
+
   public static function updateStrings($directory=DOC_ROOT, $recursive=true, $bar=false) {
     $app = App::instance();
     $files = self::scanDirectory($directory, $recursive);
-    
+
     if($app->streamActive())
       echo Utils::screenLog(sprintf(i('Scanning %s *.php Files'), count($files)));
-    
+
     $current = 0;
     foreach($files as $file) {
       $current++;
@@ -41,20 +41,34 @@ class Localization {
         echo Utils::barUpdater($bar, 100/count($files)*$current);
       }
       $handle = fopen($file, "r");
+      $linecount = 0;
       if ($handle) {
         while (($line = fgets($handle)) !== false) {
-          $matches = preg_match_all("/i\(['\"](.*)['\"]\)/", $line, $match_set, PREG_PATTERN_ORDER);
+          $linecount++;
+          $matches = preg_match_all("/i\(['\"](.*?)['\"]\)/", $line, $match_set, PREG_PATTERN_ORDER);
           if($matches > 0) {
-            echo Utils::screenLog("String: &lt;".htmlentities($match_set[1][0])."&gt;");
+            if(!is_array($match_set[1])) {
+              continue;
+            }
+            foreach($match_set[1] as $match) {
+              echo Utils::screenLog(
+                sprintf(
+                  i('String: &lt;%1$s&gt; in file \'%2$s\' on line %3$s.'),
+                  htmlentities($match),
+                  basename($file),
+                  $linecount
+                )
+              );
+            }
           }
         }
         fclose($handle);
       } else {
-        echo Utils::screenLog(sprintf(i('Could not read file: \'%s\''), $file));
+        echo Utils::screenLog(sprintf(i('Could not read file: \'%s\''), basename($file)));
       }
     }
   }
-  
+
   private static function scanDirectory($directory, $recursive) {
     $iterator = new DirectoryIterator($directory);
     $files = array();
