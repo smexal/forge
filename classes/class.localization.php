@@ -2,6 +2,32 @@
 
 class Localization {
 
+  public static function getLanguages() {
+    $db = App::instance()->db;
+    return $db->get('languages');
+  }
+  
+  public static function stringTranslation($string, $domain, $lang=false) {
+    $db = App::instance()->db;
+    $db->where("string", $string);
+    $db->where("domain", $domain);
+    $string = $db->getOne("language_strings");
+    $db->where("code", $lang);
+    $lang = $db->getOne("languages");
+    if($string && $lang) {
+      $db->where("stringid", $string['id']);
+      $db->where("languageid", $lang['id']);
+      $translation = $db->getOne("language_strings_translations");
+      if($translation) {
+        return $translation['translation'];
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   public static function addNewLanguage($code, $name) {
     $db = App::instance()->db;
     $db->where("code", $code);
@@ -27,38 +53,83 @@ class Localization {
     ));
   }
 
+  public static function stringExists($string, $domain='') {
+    $db = App::instance()->db;
+    $db->where("string", $string);
+    $db->where("domain", $domain);
+    if($db->getOne("language_strings") == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
+  public static function addString($string, $domain='') {
+    if(!Auth::allowed("manage.locales.strings.update")) {
+      return;
+    }
+
+    if(! self::stringExists($string, $domain)) {
+      $db = App::instance()->db;
+      $db->insert("language_strings", array(
+          "string" => $string,
+          "domain" => $domain
+      ));
+    }
+  }
+
+  public static function getStringById($id) {
+    $db = App::instance()->db;
+    $db->where('id', $id);
+    return $db->getOne("language_strings");
+  }
+
   public static function updateStrings($directory=DOC_ROOT, $recursive=true, $bar=false) {
+    if(!Auth::allowed("manage.locales.strings.update")) {
+      return;
+    }
+
     $app = App::instance();
     $files = self::scanDirectory($directory, $recursive);
 
-    if($app->streamActive())
+    if($app->streamActive()) {
       echo Utils::screenLog(sprintf(i('Scanning %s *.php Files'), count($files)));
+    }
 
     $current = 0;
+    $strings = array();
+    $newStrings = false;
     foreach($files as $file) {
       $current++;
       if($bar) {
-        echo Utils::barUpdater($bar, 100/count($files)*$current);
+        echo Utils::barUpdater($bar, 50/count($files)*$current);
       }
       $handle = fopen($file, "r");
       $linecount = 0;
       if ($handle) {
         while (($line = fgets($handle)) !== false) {
           $linecount++;
-          $matches = preg_match_all("/i\(['\"](.*?)['\"]\)/", $line, $match_set, PREG_PATTERN_ORDER);
+          $matches = preg_match_all('/i\\([\\"\\\'](.*?)(?<!\\\\)[\\"\\\'][, ]*[\\\'\\"]?(.*?)[\\"\\\']?\\)/', $line, $match_set, PREG_SET_ORDER);
+          // non php escaped regex: /i\([\"\'](.*?)(?<!\\)[\"\'][, ]*[\'\"]?(.*?)[\"\']?\)/
           if($matches > 0) {
-            if(!is_array($match_set[1])) {
-              continue;
-            }
-            foreach($match_set[1] as $match) {
-              echo Utils::screenLog(
-                sprintf(
-                  i('String: &lt;%1$s&gt; in file \'%2$s\' on line %3$s.'),
-                  htmlentities($match),
-                  basename($file),
-                  $linecount
-                )
-              );
+            foreach($match_set as $match) {
+              array_push($strings, array(
+                  "string" => $match[1],
+                  "domain" => $match[2]
+              ));              
+              if(! Localization::stringExists($match[1], $match[2])) {
+                $newStrings = true;
+                Localization::addString($match[1], $match[2]);
+                echo Utils::screenLog(
+                    sprintf(
+                        i('NEW STRING: &lt;%1$s&gt; - <small>FILE:\'%2$s\'</small> - <small>LINE:\'%3$s\'</small> - DOMAIN:\'%4$s\'', "logs"),
+                        htmlentities($match[1]),
+                        basename($file),
+                        $linecount,
+                        strlen($match[2]) > 0 ? htmlentities($match[2]) : i('Default')
+                    )
+                );
+              }
             }
           }
         }
@@ -67,6 +138,57 @@ class Localization {
         echo Utils::screenLog(sprintf(i('Could not read file: \'%s\''), basename($file)));
       }
     }
+    if(!$newStrings) {
+      echo Utils::screenLog(i('No new strings found.'));
+    }
+    
+    // check database for unused strings.
+    $current = 0;
+    $databaseStrings = self::getAllStrings();
+    $amount = count($databaseStrings);
+    echo Utils::screenLog("Checking for inactive Strings in the database...");
+    $action = false;
+    foreach($databaseStrings as $databaseString) {
+      $current++;
+      if($bar) {
+        echo Utils::barUpdater($bar, (50/$amount*$current)+50);
+      }
+      $found = false;
+      foreach($strings as $activeString) {
+        if($databaseString['string'] == $activeString['string'] && $databaseString['domain'] == $activeString['domain']) {
+          $found = true;
+        }
+      }
+      $db = App::instance()->db;
+      $db->where("id", $databaseString['id']);
+      if(! $found) {
+        if($databaseString['used'] == 1) {
+          $action = true;
+          $db->update("language_strings", array(
+            "used" => 0
+          ));
+          echo Utils::screenLog(sprintf(i('INACTIVE STRING: %s'),$databaseString['string']));
+        }
+      } else {
+        if($databaseString['used'] == 0) {
+          $action = true;
+          $db->update("language_strings", array(
+            "used" => "1"
+          ));
+          echo Utils::screenLog(sprintf(i('ACTIVATE STRING: &gt;%s&lt;'),htmlentities($databaseString['string'])));
+        }
+      }
+    }
+    if(!$action) {
+      echo Utils::screenLog(i('Nothing has changed, me friend..'));
+    }
+    echo Utils::screenLog(i('Translation String update complete.'));
+  }
+  
+  public static function getAllStrings() {
+    $db = App::instance()->db;
+    $db->orderBy("string", "asc");
+    return $db->get("language_strings");
   }
 
   private static function scanDirectory($directory, $recursive) {

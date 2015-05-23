@@ -76,7 +76,7 @@ class Group {
         return i('The given group name is too short.');
       }
       if(Group::exists($newName)) {
-        return i('A group with that name already exists');
+        return i('A group with that name already exists.');
       }
       $app = App::instance();
       $app->db->where("id", $this->get('id'));

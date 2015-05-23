@@ -48,6 +48,16 @@ class Form {
         'hint' => $hint
       )));
     }
+    
+    public function area($id, $label, $value=false, $hint = false) {
+      array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "textarea", array(
+          'id' => $id,
+          'name' => $id,
+          'label' => $label,
+          'value' => $value,
+          'hint' => $hint
+      )));
+    }
 
     public function tags($name, $id, $label, $values=false, $getter=false) {
       if($values && !is_null($values)) {

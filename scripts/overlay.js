@@ -29,6 +29,9 @@ var overlay = {
         setTimeout(function() {
             the_overlay.addClass('show');
         }, 50);
+        if(button.hasClass("big-overlay")) {
+            the_overlay.find(".overlay-right").addClass("big");
+        }
         $.ajax({
           url: button.data('open'),
           context: the_overlay.find(".content")

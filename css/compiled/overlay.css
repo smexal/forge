@@ -31,6 +31,9 @@
   animation-timing-function: ease-in;
   transition: 250ms;
 }
+.overlay-container .overlay-right.big {
+  width: 70%;
+}
 .overlay-container .overlay-right .close {
   opacity: 1;
   display: block;

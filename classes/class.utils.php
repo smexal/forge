@@ -110,6 +110,10 @@ class Utils {
       }
       return $data;
     }
+    
+    public static function icon($name) {
+      return '<span class="glyphicon glyphicon-'.$name.'" aria-hidden="true"></span>';
+    }
 }
 
 

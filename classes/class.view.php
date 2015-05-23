@@ -23,6 +23,10 @@ abstract class AbstractView implements IView {
           $this->app->redirect('denied');
         }
     }
+    
+    public function init() {
+      return;
+    }
 
     /*
       Registers permission in the database if they do not yet exist.
@@ -85,6 +89,7 @@ abstract class AbstractView implements IView {
         if(!array_key_exists($class, static::$instances)) {
             static::$instances[$class] = new $class();
         }
+        static::$instances[$class]->init();
         return static::$instances[$class];
     }
     private function __construct() {}

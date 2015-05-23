@@ -90,12 +90,9 @@ class I18N {
     I18N::$clang = false;
   }
 
-  public function i($msgid, $mapping=false) {
+  public function i($msgid, $domain=false) {
     $msgid = array_key_exists(preg_replace('/\s/', '', $msgid), $this->messages) ? $this->messages[preg_replace('/\s/', '', $msgid)] : $msgid;
     $msgid = array_key_exists(preg_replace('/\n/', '\n', $msgid), $this->messages) ? $this->messages[preg_replace('/\n/', '\n', $msgid)] : $msgid;
-    if($mapping)
-      foreach($mapping as $key => $value)
-        $msgid = str_replace('{'.$key.'}', $value, $msgid);
     return $msgid;
   }
 
@@ -105,8 +102,8 @@ class I18N {
 
 }
 
-function i($msgid, $mapping=false) {
-  return I18N::instance()->i(trim($msgid), $mapping);
+function i($msgid, $domain=false) {
+  return I18N::instance()->i(trim($msgid));
 }
 
 ?>

@@ -3,7 +3,7 @@
         <div class="col-lg-8"><h1><?php echo $title;?></h1></div>
         <div class="col-lg-4 align-right">
             <?php if( $add_permission ){ ?>
-                <a href="javascript://" data-open="<?php echo $add_url;?>" class="btn btn-primary open-overlay btn-sm"><?php echo $add;?></a>
+                <a href="javascript://" data-open="<?php echo $add_url;?>" class="btn btn-primary open-overlay btn-sm big-overlay"><?php echo $add;?></a>
             <?php } ?>
         </div>
     </div>
