@@ -6,7 +6,7 @@ class Localization {
     $db = App::instance()->db;
     return $db->get('languages');
   }
-  
+
   public static function stringTranslation($string, $domain, $lang=false) {
     $db = App::instance()->db;
     $db->where("string", $string);
@@ -63,7 +63,7 @@ class Localization {
       return true;
     }
   }
-  
+
   public static function addString($string, $domain='') {
     if(!Auth::allowed("manage.locales.strings.update")) {
       return;
@@ -116,7 +116,7 @@ class Localization {
               array_push($strings, array(
                   "string" => $match[1],
                   "domain" => $match[2]
-              ));              
+              ));
               if(! Localization::stringExists($match[1], $match[2])) {
                 $newStrings = true;
                 Localization::addString($match[1], $match[2]);
@@ -141,7 +141,7 @@ class Localization {
     if(!$newStrings) {
       echo Utils::screenLog(i('No new strings found.'));
     }
-    
+
     // check database for unused strings.
     $current = 0;
     $databaseStrings = self::getAllStrings();
@@ -184,7 +184,7 @@ class Localization {
     }
     echo Utils::screenLog(i('Translation String update complete.'));
   }
-  
+
   public static function getAllStrings() {
     $db = App::instance()->db;
     $db->orderBy("string", "asc");

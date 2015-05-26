@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 class UserManagement extends AbstractView {
     public $parent = 'manage';
-    public $permission = 'manage.users.display';
+    public $permission = 'manage.users';
     public $name = 'users';
     public $permissions = array(
         0 => 'manage.users.add'
