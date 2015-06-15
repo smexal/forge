@@ -49,13 +49,14 @@ class Form {
       )));
     }
     
-    public function area($id, $label, $value=false, $hint = false) {
+    public function area($id, $label, $value=false, $hint = false, $disabled = false) {
       array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "textarea", array(
           'id' => $id,
           'name' => $id,
           'label' => $label,
           'value' => $value,
-          'hint' => $hint
+          'hint' => $hint,
+          'disabled' => $disabled
       )));
     }
 

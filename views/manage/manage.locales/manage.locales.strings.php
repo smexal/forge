@@ -40,7 +40,8 @@ class StringTranslationManagement extends AbstractView {
       return $this->app->render(TEMPLATE_DIR."assets/", "table", array(
           'id' => "string_translations_table",
           'th' => array_merge(array(
-              Utils::tableCell(i('String'))
+              Utils::tableCell(i('String')),
+              Utils::tableCell(i('Domain'))
           ), $this->getLanguageNameCells(), array(
               Utils::tableCell(i('In use'), "center"),
               Utils::tableCell(i('Translate'), "center")
@@ -63,7 +64,8 @@ class StringTranslationManagement extends AbstractView {
         array_push($rows,
             array_merge(
               array(
-                  Utils::tableCell(htmlentities($string['string']))
+                  Utils::tableCell(htmlentities($string['string'])),
+                  Utils::tableCell(htmlentities($string['domain']))
               ),
               $this->getLanguageTranslationState($string),
               array(

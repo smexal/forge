@@ -7,9 +7,9 @@ class Localization {
     return $db->get('languages');
   }
 
-  public static function stringTranslation($string, $domain, $lang=false) {
+  public static function stringTranslation($orignal, $domain, $lang=false) {
     $db = App::instance()->db;
-    $db->where("string", $string);
+    $db->where("string", $orignal);
     $db->where("domain", $domain);
     $string = $db->getOne("language_strings");
     $db->where("code", $lang);
@@ -21,10 +21,10 @@ class Localization {
       if($translation) {
         return $translation['translation'];
       } else {
-        return false;
+        return $orignal;
       }
     } else {
-      return false;
+      return $orignal;
     }
   }
 
@@ -175,7 +175,7 @@ class Localization {
           $db->update("language_strings", array(
             "used" => "1"
           ));
-          echo Utils::screenLog(sprintf(i('ACTIVATE STRING: &gt;%s&lt;'),htmlentities($databaseString['string'])));
+          echo Utils::screenLog(sprintf(i('ACTIVATE STRING: &gt;%s&lt;', "logs"),htmlentities($databaseString['string'])));
         }
       }
     }

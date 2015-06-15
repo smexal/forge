@@ -16,21 +16,31 @@ class StringTranslationTranslate extends AbstractView {
             'form' => $this->form($uri[0])
       ));
     }
+    public function onUpdateTranslation($data) {
+      foreach($data as $name => $value) {
+        Logger::debug($name." = ". $value);
+      }
+    }
 
     private function form($id) {
-        $form = new Form(Utils::getUrl(array('manage', 'string-translation', 'translate', 'save')));
+        $form = new Form(Utils::getUrl(array('manage', 'string-translation', 'translate', $id)));
         $form->ajax(".content");
-        $form->hidden("event", $id);
+        $form->hidden("event", "onUpdateTranslation");
         $string = Localization::getStringById($id);
+        $form->area(
+            "string-original",
+            i('Orignal String'), 
+            $string['string'],
+            i('Do not replace <code>%s</code> or strings like <code>%1$s</code>, these are placeholders and will be filled with actual values.'),
+            true);
         foreach(Localization::getLanguages() as $language) {
           $form->area(
               "lang-".$language['id'], 
               $language['name'],
-              Localization::stringTranslation($string['string'], $string['domain'], $language['code']),
-              i('Do not replace <code>%s</code> or strings like <code>%1$s</code>, these are placeholders and will be filled with actual values.')
+              Localization::stringTranslation($string['string'], $string['domain'], $language['code'])
           );
         }
-        $form->submit(i('Save Translation'));
+        $form->submit(i('Update Translation'));
         return $form->render();
     }
 }
