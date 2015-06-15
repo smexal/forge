@@ -18,7 +18,9 @@ class StringTranslationTranslate extends AbstractView {
     }
     public function onUpdateTranslation($data) {
       foreach($data as $name => $value) {
-        Logger::debug($name." = ". $value);
+        if(strstr($name, "lang-")) {
+          Logger::debug($name." = ". $value);
+        }
       }
     }
 

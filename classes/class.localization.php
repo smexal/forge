@@ -78,6 +78,10 @@ class Localization {
     }
   }
 
+  public static function translate($stringid, $lang, $translation) {
+    $db = App::instance()->db;
+  }
+
   public static function getStringById($id) {
     $db = App::instance()->db;
     $db->where('id', $id);
