@@ -79,7 +79,24 @@ class Localization {
   }
 
   public static function translate($stringid, $lang, $translation) {
+    $table = "language_strings_translations";
     $db = App::instance()->db;
+    $data = array(
+        "translation" => $translation,
+        "languageid" => $lang 
+    );
+    $db->where("stringid", $stringid);
+    $db->where("languageid", $lang);
+    if(count($db->getOne($table)) > 0) {
+      $db->where("stringid", $stringid);
+      $db->where("languageid", $lang);
+      $db->update($table, $data);
+    } else {
+      $db->insert($table, array_merge(
+          $data,
+          array("stringid" => $stringid
+       )));
+    }
   }
 
   public static function getStringById($id) {
@@ -189,8 +206,11 @@ class Localization {
     echo Utils::screenLog(i('Translation String update complete.'));
   }
 
-  public static function getAllStrings() {
+  public static function getAllStrings($sort=false) {
     $db = App::instance()->db;
+    if($sort && is_array($sort)) {
+      $db->orderBy($sort[0], $sort[1]);
+    }
     $db->orderBy("string", "asc");
     return $db->get("language_strings");
   }

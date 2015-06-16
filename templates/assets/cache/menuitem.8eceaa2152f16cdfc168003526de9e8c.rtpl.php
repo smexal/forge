@@ -1,5 +1,5 @@
 <?php if(!class_exists('raintpl')){exit;}?><li <?php if( $active ){ ?>class="active"<?php } ?>>
-    <a class="<?php if( $icon ){ ?>icon<?php } ?> <?php if( $image ){ ?>image<?php } ?> <?php if( $children ){ ?>dropdown-toggle<?php } ?>" href="<?php echo $url;?>" title="<?php echo $name;?>"
+    <a class="<?php if( $icon ){ ?>icon<?php } ?> <?php if( $classes ){ ?><?php echo $classes;?><?php } ?> <?php if( $image ){ ?>image<?php } ?> <?php if( $children ){ ?>dropdown-toggle<?php } ?>" href="<?php echo $url;?>" title="<?php echo $name;?>"
     <?php if( $children ){ ?> data-toggle="dropdown" role="button" aria-expanded="false"<?php } ?>>
     <?php if( $icon ){ ?>
     <span class="glyphicon glyphicon-<?php echo $icon;?>" aria-hidden="true"></span>

@@ -60,7 +60,7 @@ class StringTranslationManagement extends AbstractView {
     
     private function getStringRows() {
       $rows = array();
-      foreach(Localization::getAllStrings() as $string) {
+      foreach(Localization::getAllStrings(array("used", "desc")) as $string) {
         array_push($rows,
             array_merge(
               array(

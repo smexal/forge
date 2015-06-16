@@ -11,3 +11,6 @@
 a.ajax {
   transition: 300ms;
 }
+.bgc-white {
+  background-color: white;
+}

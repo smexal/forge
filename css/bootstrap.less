@@ -1,14 +1,13 @@
-@import url(//fonts.googleapis.com/css?family=Coda);
+@import url(//fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400);
 
 body {
-    font-family: Coda, sans-serif;
+    font-family: Roboto, sans-serif;
     color: #404040;
-}
-* {
-  -webkit-font-smoothing: subpixel-antialiased;
+    font-weight: 300;
 }
 h1 {
-    font-size: 30px;
+    font-size: 34px;
+    font-weight: 100;
 }
 h2 {
     font-size: 26px;
@@ -104,9 +103,11 @@ label {
 .navbar-nav li a {
     font-size: 13px;
     font-weight: normal;
+    transition: 200ms;
 }
 
-.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>.open>a,
 .navbar-default .navbar-nav>.open>a:focus,
 .navbar-default .navbar-nav>.open>a:hover {
@@ -183,4 +184,15 @@ code {
 }
 .border-bottom {
   border-bottom: 1px solid #F0F0F0;
+}
+.table>tbody>tr {
+ transition: 100ms;
+}
+.table>tbody>tr>th {
+ font-weight: 500;
+}
+.table>tbody>tr>th,
+.table>tbody>tr>td {
+ vertical-align: middle;
+ border-top: 1px solid #efefef;
 }

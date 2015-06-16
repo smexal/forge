@@ -22,11 +22,12 @@ class Navigation {
         return $name;
     }
 
-    public function add($id, $name, $url, $panel, $icon=false, $parent=false, $img=false) {
+    public function add($id, $name, $url, $panel, $icon=false, $parent=false, $img=false, $classes = array()) {
         $this->items[$id]['name']       = $name;
         $this->items[$id]['url']        = $url;
         $this->items[$id]['icon']       = $icon;
         $this->items[$id]['img']        = $img;
+        $this->items[$id]['classes']    = $classes;
         $this->items[$id]['children']   = array();
         if(!$parent) {
             $this->panels[$panel]['items'][] = $id;
@@ -46,6 +47,7 @@ class Navigation {
             'icon' => $this->items[$id]['icon'],
             'image' => $this->items[$id]['img'],
             'active' => $this->active == $id ? true : false,
+            'classes' => implode(" ", $this->items[$id]['classes']),
             'children' => count($this->items[$id]['children']) > 0 ? $this->renderChildren($id) : false
         ));
     }

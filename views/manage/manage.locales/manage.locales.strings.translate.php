@@ -19,7 +19,9 @@ class StringTranslationTranslate extends AbstractView {
     public function onUpdateTranslation($data) {
       foreach($data as $name => $value) {
         if(strstr($name, "lang-")) {
-          Logger::debug($name." = ". $value);
+          $langid = explode("-", $name);
+          $langid = $langid[1];
+          Localization::translate($data['stringid'], $langid, $value);
         }
       }
     }
@@ -28,6 +30,7 @@ class StringTranslationTranslate extends AbstractView {
         $form = new Form(Utils::getUrl(array('manage', 'string-translation', 'translate', $id)));
         $form->ajax(".content");
         $form->hidden("event", "onUpdateTranslation");
+        $form->hidden("stringid", $id);
         $string = Localization::getStringById($id);
         $form->area(
             "string-original",
