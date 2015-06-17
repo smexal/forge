@@ -49,7 +49,7 @@ class StringTranslationManagement extends AbstractView {
           'td' => $this->getStringRows()
       ));
     }
-    
+
     private function getLanguageNameCells() {
       $cells = array();
       foreach($this->languages as $lang) {
@@ -57,7 +57,7 @@ class StringTranslationManagement extends AbstractView {
       }
       return $cells;
     }
-    
+
     private function getStringRows() {
       $rows = array();
       foreach(Localization::getAllStrings(array("used", "desc")) as $string) {
@@ -77,14 +77,14 @@ class StringTranslationManagement extends AbstractView {
       }
       return $rows;
     }
-    
+
     private function stringInUse($string) {
       return Utils::tableCell(
           $string['used'] == 1 ? Utils::icon("ok-sign") : Utils::icon("question-sign"),
           "center"
       );
     }
-    
+
     private function translateAction($string) {
       return Utils::tableCell($this->app->render(TEMPLATE_DIR."assets/", "table.actions", array(
           'actions' => array(
@@ -98,11 +98,11 @@ class StringTranslationManagement extends AbstractView {
           )
       )), "center");
     }
-    
+
     private function getLanguageTranslationState($string) {
       $cells = array();
       foreach(Localization::getLanguages() as $language) {
-        $translated = Localization::stringTranslation($string['string'], $string['domain'], $language['code']);
+        $translated = Localization::stringTranslationState($string['string'], $string['domain'], $language['code']);
         if(! $translated) {
           array_push($cells, Utils::tableCell(Utils::icon("remove"), "center"));
         } else {

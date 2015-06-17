@@ -29,7 +29,6 @@ class App {
       if(is_null($this->vm)) {
         $this->vm = new ViewManager();
       }
-      I18N::instance();
       Auth::setSessionUser();
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
@@ -213,7 +212,7 @@ class App {
         $this->stream = false;
       }
     }
-    
+
     public function streamActive() {
       return $this->stream;
     }

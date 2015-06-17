@@ -7,11 +7,44 @@ class Localization {
     return $db->get('languages');
   }
 
-  public static function stringTranslation($orignal, $domain, $lang=false) {
+  public static function getCurrentLanguage() {
+    $avail = self::getLanguages();
+    for($index = 0; $index < count($avail); $index++) {
+      $avail[$index] = $avail[$index]['code'];
+    }
+    if(array_key_exists('lang', $_SESSION) && in_array($_SESSION['lang'], $avail)) {
+      return $_SESSION['lang'];
+    }
+    if(!($list = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE'])))
+      return DEFAULT_LANGUAGE;
+    if(preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/', $list, $list)) {
+      $res = array_combine($list[1], $list[2]);
+      $lang = false;
+      $prio = 0;
+      foreach($res as $n => $v) {
+        $n = substr($n, 0, 2);
+        $v = +$v ? +$v : 1;
+        if((!$lang || $v > $prio) && in_array($n, $avail)) {
+          $prio = $v;
+          $lang = $n;
+        }
+      }
+      if($lang) {
+        $_SESSION['lang'] = $lang;
+        return $lang;
+      }
+    }
+    return DEFAULT_LANGUAGE;
+  }
+
+  public static function stringTranslation($orignal, $domain='', $lang=false) {
     $db = App::instance()->db;
     $db->where("string", $orignal);
     $db->where("domain", $domain);
     $string = $db->getOne("language_strings");
+    if(!$lang) {
+      $lang = self::getCurrentLanguage();
+    }
     $db->where("code", $lang);
     $lang = $db->getOne("languages");
     if($string && $lang) {
@@ -26,6 +59,24 @@ class Localization {
     } else {
       return $orignal;
     }
+  }
+
+  public static function stringTranslationState($orignal, $domain, $lang=false) {
+    $db = App::instance()->db;
+    $db->where("string", $orignal);
+    $db->where("domain", $domain);
+    $string = $db->getOne("language_strings");
+    $db->where("code", $lang);
+    $lang = $db->getOne("languages");
+    if($string && $lang) {
+      $db->where("stringid", $string['id']);
+      $db->where("languageid", $lang['id']);
+      $translation = $db->getOne("language_strings_translations");
+      if($translation) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static function addNewLanguage($code, $name) {
@@ -83,7 +134,7 @@ class Localization {
     $db = App::instance()->db;
     $data = array(
         "translation" => $translation,
-        "languageid" => $lang 
+        "languageid" => $lang
     );
     $db->where("stringid", $stringid);
     $db->where("languageid", $lang);
@@ -233,6 +284,10 @@ class Localization {
     return $files;
   }
 
+}
+
+function i($stringid, $domain=false, $lang=false) {
+  return Localization::stringTranslation($stringid, $domain, $lang);
 }
 
 ?>
