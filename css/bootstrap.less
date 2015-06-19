@@ -88,10 +88,28 @@ label {
 .navbar-default {
     background-color: #404040;
     border-bottom: none;
-}
-.navbar-default .navbar-nav > li>a {
-    text-transform: uppercase;
-    color: #FFF;
+
+    .navbar-nav {
+      > li {
+        &.active {
+         > a {
+           background-color: #666;
+           border-bottom: 1px solid #666;
+           color: #FFFFFF;
+
+           &:hover {
+             background-color: #777;
+             border-bottom: 1px solid #777;
+             color: #FFF;
+           }
+         }
+        }
+        > a {
+          text-transform: uppercase;
+          color: #FFF;
+        }
+      }
+    }
 }
 .navbar-nav>li>a {
     padding: 20px 30px;
