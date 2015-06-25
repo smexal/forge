@@ -6,4 +6,5 @@
         <script src="<?php echo $value1;?>"></script>
     <?php } ?>
     <title><?php echo $title;?></title>
+    <link rel="icon" type="image/png" href="<?php echo $favicon;?>">
 </head>

@@ -91,6 +91,10 @@ label {
   border-bottom: 1px solid #666;
   color: #FFFFFF;
 }
+.navbar-default .navbar-nav > li.active > a.bgc-white {
+  background-color: white;
+  border-bottom: 1px solid white;
+}
 .navbar-default .navbar-nav > li.active > a:hover {
   background-color: #777;
   border-bottom: 1px solid #777;
@@ -111,11 +115,13 @@ label {
   font-weight: normal;
   transition: 200ms;
 }
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover,
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover {
+.navbar-default .navbar-nav > li a.bgc-white:hover,
+.navbar-default .navbar-nav > li a.bgc-white:focus {
+  background-color: white;
+  color: #333;
+}
+.navbar-default .navbar-nav > li a:hover,
+.navbar-default .navbar-nav > li a:focus {
   color: #FFF;
   background-color: #666666;
 }

@@ -9,6 +9,7 @@ abstract class AbstractView implements IView {
     public $permissions = array();
     public $events = array();
     public $activeSubview = false;
+    public $favicon = WWW_ROOT."images/favicon.png";
 
     public $app = null;
 
@@ -23,7 +24,7 @@ abstract class AbstractView implements IView {
           $this->app->redirect('denied');
         }
     }
-    
+
     public function init() {
       return;
     }
@@ -52,12 +53,12 @@ abstract class AbstractView implements IView {
       $load_main_subview = $subview == '' ? true : false;
       foreach($vm->views as $view) {
         $rc = new ReflectionClass($view);
-        
+
         if($rc->isAbstract())
           continue;
         $instance = 'instance';
         $view = $view::$instance();
-        if($load_main_subview && $view->default 
+        if($load_main_subview && $view->default
           || $subview == $view->name()
           && $view->parent == $parent->name) {
           $found = true;
@@ -72,9 +73,9 @@ abstract class AbstractView implements IView {
         return $this->app->content($view);
       }
     }
-    
 
-    public function name() { 
+
+    public function name() {
         return $this->name;
     }
     public function title() {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Login extends AbstractView {
     private $message = false;
@@ -26,7 +26,7 @@ class Login extends AbstractView {
         $form->input("password", "password", i('Password'), 'password');
         $form->submit(i('Log in'));
         return $form->render();
-    }    
+    }
 
     public function onLoginSuccess() {
         App::instance()->redirectBack();
@@ -35,7 +35,7 @@ class Login extends AbstractView {
     public function onLoginFailed() {
         $this->message = i('Username and/or password is wrong.');
     }
- 
+
     public function onLoginSubmit($data) {
         Auth::login($data['name'], $data['password']);
     }

@@ -93,6 +93,10 @@ label {
       > li {
         &.active {
          > a {
+           &.bgc-white {
+             background-color: white;
+             border-bottom: 1px solid white;
+           }
            background-color: #666;
            border-bottom: 1px solid #666;
            color: #FFFFFF;
@@ -124,13 +128,23 @@ label {
     transition: 200ms;
 }
 
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover,
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover {
-    color: #FFF;
-    background-color: #666666;
+.navbar-default {
+  .navbar-nav {
+    > li {
+      a {
+        &.bgc-white {
+          &:hover, &:focus {
+            background-color: white;
+            color: #333;
+          }
+        }
+        &:hover, &:focus {
+          color: #FFF;
+          background-color: #666666;
+        }
+      }
+    }
+  }
 }
 .dropdown-menu>li>a {
     padding: 6px 60px 6px 20px;

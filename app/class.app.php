@@ -83,8 +83,13 @@ class App {
       return $this->render(TEMPLATE_DIR, "head", array(
           'title' => $this->getTitle($view),
           'scripts' => $loader->getScripts(),
-          'styles' => $loader->getStyles()
+          'styles' => $loader->getStyles(),
+          'favicon' => $this->getFavicon($view)
       ));
+    }
+
+    public function getFavicon($view) {
+      return $view->favicon;
     }
 
     public function getTitle($view) {
