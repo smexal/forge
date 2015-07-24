@@ -32,7 +32,6 @@ class ManageSites extends AbstractView {
           'id' => "pageTable",
           'th' => array(
                 Utils::tableCell(i('Name')),
-                Utils::tableCell(i('Title')),
                 Utils::tableCell(i('Last Modified')),
                 Utils::tableCell(i('Creator'))
           ),
@@ -52,7 +51,6 @@ class ManageSites extends AbstractView {
         foreach($sites as $site) {
             array_push($rows, array(
                 Utils::tableCell(str_repeat('&nbsp;', $level).($level > 0 ? chr(8627) : '').$site['name']),
-                Utils::tableCell($site['title']),
                 Utils::tableCell($site['modified']),
                 Utils::tableCell($site['creator'])
             ));

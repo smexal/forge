@@ -71,6 +71,8 @@ class Loader {
                     $content = $this->lessc->compileFile($less_path);
                     fwrite($handle, $content);
                     fclose($handle);
+                } else {
+                  Logger::error("Problems while compiling less: Cannot write css file.");
                 }
             }
             return WWW_ROOT."css/compiled/".$pathinfo['filename'].".css";
@@ -90,16 +92,23 @@ class Loader {
     }
 
     public function loadViews() {
-        $this->loadDirectory(DOC_ROOT."views/");
+        $this->loadDirectory(DOC_ROOT."views/", true);
     }    
 
-    public function loadDirectory($directory) {
+    public function loadDirectory($directory, $inquery=false) {
         $dir = new DirectoryIterator($directory);
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot() &&  strstr($fileinfo->getFilename(), ".php")) {
                 require_once($directory.$fileinfo->getFilename());
             } elseif(!$fileinfo->isDot() && $fileinfo->isDir()) {
+              // check if the subdirectory is part of the queried url. (no manage views without manage queried)
+              if($inquery) {
+                if(in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
+                  $this->loadDirectory($directory.$fileinfo->getFilename()."/");
+                }
+              } else {
                 $this->loadDirectory($directory.$fileinfo->getFilename()."/");
+              }
             }
         }
     }
