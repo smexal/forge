@@ -16,14 +16,16 @@ $loader->addRessource("lessc/lessc.inc.php");
 // all php loaded; instance the app
 $app = App::instance();
 
-// all Styles
+// required styles
 $loader->addStyle("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css", true);
-$loader->addStyle("css/bootstrap.less");
-$loader->addStyle("css/tagsinput.less");
-$loader->addStyle("css/overlay.less");
-$loader->addStyle("css/layout.less");
-$loader->addStyle("css/elements.less");
-$loader->addStyle("css/loader.less");
+
+// admin styles
+$loader->addStyle("css/bootstrap.less", false, "manage");
+$loader->addStyle("css/tagsinput.less", false, "manage");
+$loader->addStyle("css/overlay.less", false, "manage");
+$loader->addStyle("css/layout.less", false, "manage");
+$loader->addStyle("css/elements.less", false, "manage");
+$loader->addStyle("css/loader.less", false, "manage");
 
 // all Scripts
 $loader->addScript("//code.jquery.com/jquery-1.11.2.min.js", true);

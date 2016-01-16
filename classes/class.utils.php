@@ -22,6 +22,11 @@ class Utils {
     public static function getCurrentUrl() {
         return self::getUrl(self::getUriComponents());
     }
+    
+    public static function getUsername($id) {
+      $user = new User($id);
+      return $user->get('username');
+    }
 
     public static function getUrl($params = array()) {
         return WWW_ROOT.implode("/", $params);

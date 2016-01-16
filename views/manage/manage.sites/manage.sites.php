@@ -12,8 +12,8 @@ class ManageSites extends AbstractView {
         if(count($uri) == 0) {
             return $this->mainContent();
         }
-        if($uri[0] == 'new') {
-            return 'newSite';
+        if(count($uri) > 0 && Auth::allowed($this->permissions[0])) {
+            return $this->getSubview($uri, $this);
         }
     }
 
@@ -22,7 +22,7 @@ class ManageSites extends AbstractView {
               'title' => i('Site Management'),
               'add_permission' => Auth::allowed($this->permissions[0]),
               'add_text' => i('Create new Site'),
-              'add_url' => Utils::getUrl(array('manage', 'sites', 'new')),
+              'add_url' => Utils::getUrl(array('manage', 'sites', 'add')),
               'table' => $this->siteList()
       ));
     }
@@ -41,7 +41,7 @@ class ManageSites extends AbstractView {
     
     private function getPageRows($parent=null, $level = 0) {
         if(is_null($parent)) {
-            $this->app->db->where("parent", "NULL");
+            $this->app->db->where("parent", 0);
         } else {
             $this->app->db->where("parent", $parent);
         }
@@ -49,14 +49,17 @@ class ManageSites extends AbstractView {
         $sites = $this->app->db->get("sites");
         $rows = array();
         foreach($sites as $site) {
-            array_push($rows, array(
-                Utils::tableCell(str_repeat('&nbsp;', $level).($level > 0 ? chr(8627) : '').$site['name']),
-                Utils::tableCell($site['modified']),
-                Utils::tableCell($site['creator'])
-            ));
-            if($subrows = $this->getPageRows($site['id'], $level+=1)) {
-                array_merge($rows, $subrows);
-            }
+          $namewithlink = '<a href="'.Utils::getUrl(array("manage", "sites", "detail", $site['id'])).'">'.$site['name'].'</a>';
+          array_push($rows, array(
+              Utils::tableCell(str_repeat('&nbsp;&nbsp;', $level).($level > 0 ? "&ndash; " : '').$namewithlink),
+              Utils::tableCell($site['modified']),
+              Utils::tableCell(Utils::getUsername($site['creator']))
+          ));
+          $subrows = $this->getPageRows($site['id'], $level+1);
+           
+          if(is_array($subrows)) {
+              $rows = array_merge($rows, $subrows);
+          }
         }
         if(count($rows) > 0) {
             return $rows;

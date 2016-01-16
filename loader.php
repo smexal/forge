@@ -45,12 +45,19 @@ class Loader {
         return $this->scripts;
     }
 
-    public function addStyle($style, $absolute=false) {
+    public function addStyle($style, $absolute=false, $viewCondition = false) {
         if(!$absolute && ! strstr($style, ".less"))
             $style = WWW_ROOT.$style;
         if(!$absolute && strstr($style, ".less"))
             $style = $this->compileLess($style);
-        array_push($this->styles, $style);
+        if($viewCondition) {
+          if(in_array($viewCondition, Utils::getUriComponents())) {
+            array_push($this->styles, $style);
+          }
+        } else {
+          array_push($this->styles, $style);
+        }
+          
     }
     public function getStyles() {
         return $this->styles;
@@ -93,7 +100,7 @@ class Loader {
 
     public function loadViews() {
         $this->loadDirectory(DOC_ROOT."views/", true);
-    }    
+    }
 
     public function loadDirectory($directory, $inquery=false) {
         $dir = new DirectoryIterator($directory);
