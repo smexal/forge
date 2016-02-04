@@ -10,7 +10,8 @@ class Manager extends AbstractView {
         2 => 'manage.sites',
         3 => 'manage.navigations',
         4 => 'manage.modules',
-        5 => 'manage.locales'
+        5 => 'manage.locales',
+        6 => 'manage.configuration'
     );
 
     public function content($uri=array()) {
@@ -29,7 +30,7 @@ class Manager extends AbstractView {
         $this->navigation = new Navigation($this->activeSubview);
         $this->navigation->setMaxWidth();
         $panelLeft = $this->navigation->addPanel();
-        $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "backend-logo.png")), array("bgc-white"));
+        $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2])) {
           $this->navigation->add('sites', i('Sites'), Utils::getUrl(array('manage', 'sites')), $panelLeft);
         }
@@ -56,8 +57,12 @@ class Manager extends AbstractView {
             $this->navigation->add('groups', i('Groups'), Utils::getUrl(array('manage', 'groups')), $panelRight, false, 'users_container');
             $this->navigation->add('permissions', i('Permissions'), Utils::getUrl(array('manage', 'permissions')), $panelRight, false, 'users_container');
         }
-        $this->navigation->add('settings', i('Settings'), Utils::getUrl(array('manage', 'settings')), $panelRight, 'wrench');
-        $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelRight, 'remove');
+        $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelRight);
+        $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', 'profile')), $panelRight, false, 'usermenu');
+        if(Auth::allowed($this->permissions[1])) {
+          $this->navigation->add('settings', i('Settings'), Utils::getUrl(array('manage', 'settings')), $panelRight, false, 'usermenu');
+          $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelRight, false, 'usermenu');
+        }
 
 
 

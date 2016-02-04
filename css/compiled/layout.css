@@ -5,13 +5,10 @@
   min-height: 400px;
 }
 .content.sticky {
-  margin-top: 60px;
+  margin-top: 65px;
 }
 .padded {
   padding: 20px 40px;
-}
-.heading-row .align-right > * {
-  margin-top: 15px;
 }
 .align-right > * {
   float: right;

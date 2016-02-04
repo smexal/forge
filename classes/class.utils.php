@@ -22,7 +22,7 @@ class Utils {
     public static function getCurrentUrl() {
         return self::getUrl(self::getUriComponents());
     }
-    
+
     public static function getUsername($id) {
       $user = new User($id);
       return $user->get('username');
@@ -31,7 +31,19 @@ class Utils {
     public static function getUrl($params = array()) {
         return WWW_ROOT.implode("/", $params);
     }
-    
+
+    public static function checkdatabase($host, $user, $pw, $dbname) {
+      $link = mysql_connect($host, $user, $pw);
+      if (!$link) {
+        die('<h1>Not connected : ' . mysql_error().'</h1>');
+      }
+      $db_selected = mysql_select_db($dbname, $link);
+      if (!$db_selected) {
+        die ('<h1>Cannot use '.$dbname.' : ' . mysql_error().'</h1>');
+      }
+      mysql_close($link);
+    }
+
     public static function getProgressBar($id, $current, $text="") {
       return App::instance()->render(TEMPLATE_DIR."assets/", "progressbar", array(
           "id" => $id,
@@ -41,14 +53,14 @@ class Utils {
           "text" => $text
       ));
     }
-    
+
     public static function barUpdater($id, $value) {
       return App::instance()->render(TEMPLATE_DIR."assets/", "barupdater", array(
           "id" => $id,
           "value" => $value
       ));
     }
-    
+
     public static function screenLog($message) {
       return App::instance()->render(TEMPLATE_DIR."assets/", "screenlog", array(
           "time" => date("H:i:s"),
@@ -115,7 +127,7 @@ class Utils {
       }
       return $data;
     }
-    
+
     public static function icon($name) {
       return '<span class="glyphicon glyphicon-'.$name.'" aria-hidden="true"></span>';
     }

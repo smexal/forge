@@ -8,14 +8,26 @@ class Loader {
     private $scripts = array();
     private $styles = array();
     private $lessc = null;
+    private $lessVariablesSet = false;
 
     static private $instance = null;
-  
+
     static public function instance() {
         if (null === self::$instance) {
             self::$instance = new self;
         }
         return self::$instance;
+    }
+
+    public function setLessVariables() {
+      if(!$this->lessVariablesSet) {
+        $this->lessc->setVariables(array(
+          "primary_color" => "#1bd27e",
+          "dark_grey" => "#262626",
+          "light_grey" => "#f0f0f0"
+        ));
+      }
+      $this->lessVariablesSet = true;
     }
 
     // gets called on app initialization
@@ -30,7 +42,7 @@ class Loader {
         $this->loadClasses();
         $this->loadViews();
         $this->loadApp();
-    }    
+    }
 
     public function addRessource($path) {
         require_once(DOC_ROOT."ressources/".$path);
@@ -46,6 +58,7 @@ class Loader {
     }
 
     public function addStyle($style, $absolute=false, $viewCondition = false) {
+        $this->setLessVariables();
         if(!$absolute && ! strstr($style, ".less"))
             $style = WWW_ROOT.$style;
         if(!$absolute && strstr($style, ".less"))
@@ -57,7 +70,7 @@ class Loader {
         } else {
           array_push($this->styles, $style);
         }
-          
+
     }
     public function getStyles() {
         return $this->styles;

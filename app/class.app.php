@@ -24,6 +24,7 @@ class App {
         $this->eh = EventHandler::instance();
       }
       if(is_null($this->db)) {
+        Utils::checkdatabase(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
       if(is_null($this->vm)) {

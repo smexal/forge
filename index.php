@@ -26,6 +26,7 @@ $loader->addStyle("css/overlay.less", false, "manage");
 $loader->addStyle("css/layout.less", false, "manage");
 $loader->addStyle("css/elements.less", false, "manage");
 $loader->addStyle("css/loader.less", false, "manage");
+$loader->addStyle("css/fonts.less", false, "manage");
 
 // all Scripts
 $loader->addScript("//code.jquery.com/jquery-1.11.2.min.js", true);
