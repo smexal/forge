@@ -1,6 +1,6 @@
 <?php
 
-class Sites {
+class Sites extends DataCollection {
     private $app;
     private $data = false;
     private $fields = array(
@@ -40,7 +40,7 @@ class Sites {
             }
         }
     }
-    
+
     public static function create($name, $parent = 0) {
       if(! Auth::allowed("manage.sites.add")) {
         return;
@@ -48,7 +48,7 @@ class Sites {
       if(strlen($name) == 0) {
         $name = i('Untitled');
       }
-      
+
       $app = App::instance();
       // add number of amount +1 to name, to idenfity "duplicates"
       $no = 1;
@@ -65,7 +65,7 @@ class Sites {
       $no = $no - 1;
       if($no > 1)
         $name = $name . " " . $no;
-      
+
       // find right sequence
       $app->db->where("parent", $parent);
       $app->db->get("sites");
@@ -80,7 +80,7 @@ class Sites {
           'name' => $name,
           'creator' => $app->user->get('id')
       );
-      
+
       $app->db->insert('sites', $data);
       return $name;
     }

@@ -8,6 +8,7 @@ class Form {
     private $action = false;
     private $ajax = false;
     private $ajaxTarget = false;
+    private $multilanguage = false;
 
     public function __construct($action=false) {
         if(is_null($this->app)) {
@@ -18,6 +19,10 @@ class Form {
 
     public function disableAuto() {
         $this->noAutocomplete = true;
+    }
+
+    public function enableMultilanguage() {
+      $this->multilanguage = true;
     }
 
     public function horizontal() {
@@ -48,7 +53,7 @@ class Form {
         'hint' => $hint
       )));
     }
-    
+
     public function area($id, $label, $value=false, $hint = false, $disabled = false) {
       array_push($this->content, $this->app->render(TEMPLATE_DIR."assets/", "textarea", array(
           'id' => $id,
