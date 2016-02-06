@@ -40,6 +40,7 @@ class Loader {
     private function __construct(){
         $this->loadInterfaces();
         $this->loadClasses();
+        $this->loadCollections();
         $this->loadViews();
         $this->loadApp();
     }
@@ -105,6 +106,10 @@ class Loader {
 
     public function loadClasses() {
         $this->loadDirectory(DOC_ROOT."classes/");
+    }
+
+    public function loadCollections() {
+      $this->loadDirectory(DOC_ROOT."collections/");
     }
 
     public function loadInterfaces() {

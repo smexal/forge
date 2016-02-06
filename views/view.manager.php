@@ -7,7 +7,7 @@ class Manager extends AbstractView {
     public $permissions = array(
         0 => 'manage',
         1 => 'manage.users',
-        2 => 'manage.sites',
+        2 => 'manage.collections',
         3 => 'manage.navigations',
         4 => 'manage.modules',
         5 => 'manage.locales',
@@ -32,7 +32,7 @@ class Manager extends AbstractView {
         $panelLeft = $this->navigation->addPanel();
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2])) {
-          $this->navigation->add('sites', i('Sites'), Utils::getUrl(array('manage', 'sites')), $panelLeft);
+          $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft);
         }
 
         if(Auth::allowed($this->permissions[3])) {

@@ -4,6 +4,7 @@ class App {
     public $db = null;
     public $eh = null;
     public $vm = null;
+    public $cm = null;
     public $user = null;
     public $stream = false;
     public $sticky = false;
@@ -30,12 +31,20 @@ class App {
       if(is_null($this->vm)) {
         $this->vm = new ViewManager();
       }
+      if(is_null($this->cm)) {
+        $this->cm = new CollectionManager();
+      }
       Auth::setSessionUser();
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
       $base_view = $this->uri_components[0];
       $requiredView = false;
       $load_main = $base_view == '' ? true : false;
+
+      // loading all collections
+      foreach ($this->cm->collections as $collection) {
+        $collection = $collection::instance();
+      }
 
       foreach($this->vm->views as $view) {
         $view = $view::instance();

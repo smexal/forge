@@ -30,7 +30,7 @@ class Logger {
               echo '<script>console.log("'.$level. " - ".$key." => ".$value.'")</script>';
             }
             $filename = "error-".date("Y-m-d").".log";
-  
+
             $file = fopen(DOC_ROOT."logs/".$filename, "a+") or die("Unable to open Log File!");
             fwrite($file, $output);
             fclose($file);
