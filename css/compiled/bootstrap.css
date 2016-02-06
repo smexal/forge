@@ -106,6 +106,12 @@ label {
   color: #1bd27e;
   background-color: #262626;
 }
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li.active a:hover,
+.navbar-default .navbar-nav > li.active a:focus {
+  color: #1bd27e;
+}
 .navbar-default .navbar-nav > li > a.logo,
 .navbar-default .navbar-nav > li.active a.logo {
   height: 65px;
