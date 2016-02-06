@@ -1,20 +1,29 @@
 <?php
 
 abstract class DataCollection implements IDataCollection {
-  protected static $instances = array();  
+  public $permission = null;
+  protected static $instances = array();
   protected $app;
+  public $preferences = array();
 
-  protected function preferences() {
-    return array(
-      'name' => 'collection',
-      'title' => i('Data'),
-      'add' => i('New item'),
-      'alltitle' => i('All Collection Items')
-    );
+  abstract protected function setup();
+
+  public function getPref($name) {
+    return $this->preferences[$name];
   }
 
   private function init() {
     $this->app = App::instance();
+    $this->setup();
+    if(!is_null($this->permission)) {
+      Auth::registerPermissions($this->permission);
+    }
+    $this->preferences = array(
+      'name' => strtolower(get_class($this)),
+      'title' => i('Data'),
+      'all-title' => i('All Collection Items')
+    );
+    $this->setup();
   }
 
   static public function instance() {

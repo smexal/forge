@@ -33,6 +33,18 @@ class Manager extends AbstractView {
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2])) {
           $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft);
+
+          foreach($this->app->cm->collections as $collection) {
+            $this->navigation->add(
+              $collection->getPref('name'),
+              $collection->getPref('title'),
+              Utils::getUrl(array('manage', 'collections', $collection->getPref('name'))),
+              $panelLeft,
+              false,
+              'collections'
+            );
+          }
+
         }
 
         if(Auth::allowed($this->permissions[3])) {

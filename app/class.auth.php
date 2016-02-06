@@ -11,7 +11,7 @@ class Auth {
     public static function setSessionUser() {
         if(Auth::any())
             App::instance()->user = new User($_SESSION['auth']);
-    }    
+    }
 
     public static function destroy() {
         App::instance()->user = null;
@@ -63,21 +63,22 @@ class Auth {
                 ));
             }
             return;
+        } else {
+          $dbPerms = App::instance()->db->get('permissions');
+          foreach($permissions as $toRegisterPerm) {
+              $found = false;
+              foreach($dbPerms as $dbPerm) {
+                  if($toRegisterPerm == $dbPerm['name']) {
+                      $found = true;
+                  }
+              }
+              if(!$found) {
+                  App::instance()->db->insert('permissions', array(
+                      'name' => $toRegisterPerm
+                  ));
+              }
+          }           
         }
-        $dbPerms = App::instance()->db->get('permissions');
-        foreach($permissions as $toRegisterPerm) {
-            $found = false;
-            foreach($dbPerms as $dbPerm) {
-                if($toRegisterPerm == $dbPerm['name']) {
-                    $found = true;
-                }
-            }
-            if(!$found) {
-                App::instance()->db->insert('permissions', array(
-                    'name' => $toRegisterPerm
-                ));
-            }
-        }        
     }
 
     function session() {
@@ -96,14 +97,14 @@ class Auth {
         // Gets current cookies params.
         $cookieParams = session_get_cookie_params();
         session_set_cookie_params($cookieParams["lifetime"],
-            $cookieParams["path"], 
-            $cookieParams["domain"], 
+            $cookieParams["path"],
+            $cookieParams["domain"],
             $secure,
             $httponly);
         // Sets the session name to the one set above.
         session_name($session_name);
         session_start(); // Start the PHP session
-    }    
+    }
 }
 
 

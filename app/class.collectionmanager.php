@@ -18,7 +18,11 @@ class CollectionManager {
                   $implementsIModule[] = $klass;
           }
       }
-      return $implementsIModule;
+      $collections = array();
+      foreach($implementsIModule as $collection) {
+        $collections[] = $collection::instance();
+      }
+      return $collections;
   }
 }
 
