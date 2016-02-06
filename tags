@@ -1,0 +1,1927 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+$.fn.tagsinput	.\scripts\externals\bootstrap-tagsinput.min.js	/^  $.fn.tagsinput = function(arg1, arg2) {$/;"	c
+AVAILABLE_LANGUAGES	.\config.php	/^define('AVAILABLE_LANGUAGES', 'de,en');$/;"	d
+AbstractView	.\classes\class.view.php	/^abstract class AbstractView implements IView {$/;"	c
+ApiView	.\views\view.api.php	/^class ApiView extends AbstractView {$/;"	c
+App	.\app\class.app.php	/^class App {$/;"	c
+Auth	.\app\class.auth.php	/^class Auth {$/;"	c
+CollectionManagement	.\views\manage\manage.collections\manage.collections.php	/^class CollectionManagement extends AbstractView {$/;"	c
+CollectionManagementAdd	.\views\manage\manage.collections\manage.collections.add.php	/^class CollectionManagementAdd extends AbstractView {$/;"	c
+CollectionManager	.\app\class.collectionmanager.php	/^class CollectionManager {$/;"	c
+DB_HOST	.\config.php	/^define('DB_HOST', "localhost");$/;"	d
+DB_NAME	.\config.php	/^define('DB_NAME', "forge");$/;"	d
+DB_PASSWORD	.\config.php	/^define('DB_PASSWORD', "");$/;"	d
+DB_USER	.\config.php	/^define('DB_USER', "root");$/;"	d
+DEFAULT_LANGUAGE	.\config.php	/^define('DEFAULT_LANGUAGE', 'de');$/;"	d
+DOC_ROOT	.\config.php	/^define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].$ext);$/;"	d
+DataCollection	.\classes\class.datacollection.php	/^abstract class DataCollection implements IDataCollection {$/;"	c
+EventHandler	.\app\class.events.php	/^class EventHandler {$/;"	c
+FALSE	.\ressources\lessc\lessc.inc.php	/^	static protected $FALSE = array("keyword", "false");$/;"	v
+FOOTPRINT_SIZE	.\config.php	/^define('FOOTPRINT_SIZE', 10);$/;"	d
+Form	.\classes\class.forms.php	/^class Form {$/;"	c
+FourOhFour	.\views\view.404.php	/^class FourOhFour extends AbstractView {$/;"	c
+Group	.\classes\class.group.php	/^class Group {$/;"	c
+GroupsManagement	.\views\manage\manage.groups\manage.groups.php	/^class GroupsManagement extends AbstractView {$/;"	c
+H	.\ressources\lessc\lessc.inc.php	/^			elseif ($b == $max) $H = 4.0 + ($r - $g)\/($max - $min);$/;"	v
+H	.\ressources\lessc\lessc.inc.php	/^			elseif ($g == $max) $H = 2.0 + ($b - $r)\/($max - $min);$/;"	v
+H	.\ressources\lessc\lessc.inc.php	/^			if ($r == $max) $H = ($g - $b)\/($max - $min);$/;"	v
+H	.\ressources\lessc\lessc.inc.php	/^		$H = $color[1] \/ 360;$/;"	v
+IDataCollection	.\interfaces\interface.datacollection.php	/^interface IDataCollection {$/;"	i
+IView	.\interfaces\interface.view.php	/^interface IView {$/;"	i
+L	.\ressources\lessc\lessc.inc.php	/^		$L = $color[3] \/ 100;$/;"	v
+L	.\ressources\lessc\lessc.inc.php	/^		$L = ($min + $max) \/ 2;$/;"	v
+LOG_LEVEL	.\config.php	/^define('LOG_LEVEL', 'DEBUG');$/;"	d
+Loader	.\loader.php	/^class Loader {$/;"	c
+LocalesManagent	.\views\manage\manage.locales\manage.locales.php	/^class LocalesManagent extends AbstractView {$/;"	c
+Localization	.\classes\class.localization.php	/^class Localization {$/;"	c
+Logger	.\classes\class.logger.php	/^class Logger {$/;"	c
+Login	.\views\view.login.php	/^class Login extends AbstractView {$/;"	c
+Logout	.\views\view.logout.php	/^class Logout extends AbstractView {$/;"	c
+Main	.\views\view.main.php	/^class Main extends AbstractView {$/;"	c
+ManageAddGroup	.\views\manage\manage.groups\manage.groups.add.php	/^class ManageAddGroup extends AbstractView {$/;"	c
+ManageAddUser	.\views\manage\manage.users\manage.users.add.php	/^class ManageAddUser extends AbstractView {$/;"	c
+ManageDeleteGroup	.\views\manage\manage.groups\manage.groups.delete.php	/^class ManageDeleteGroup extends AbstractView {$/;"	c
+ManageDeleteUser	.\views\manage\manage.users\manage.users.delete.php	/^class ManageDeleteUser extends AbstractView {$/;"	c
+ManageEditGroup	.\views\manage\manage.groups\manage.groups.edit.php	/^class ManageEditGroup extends AbstractView {$/;"	c
+ManageEditUser	.\views\manage\manage.users\manage.users.edit.php	/^class ManageEditUser extends AbstractView {$/;"	c
+ManageGroupMembers	.\views\manage\manage.groups\manage.groups.members.php	/^class ManageGroupMembers extends AbstractView {$/;"	c
+ManageLocalesAdd	.\views\manage\manage.locales\manage.locales.add.php	/^class ManageLocalesAdd extends AbstractView {$/;"	c
+ManagementDashboard	.\views\manage\manage.dashboard.php	/^class ManagementDashboard extends AbstractView {$/;"	c
+Manager	.\views\view.manager.php	/^class Manager extends AbstractView {$/;"	c
+MysqliDb	.\ressources\mysqlidb\mysqlidb.php	/^class MysqliDb$/;"	c
+Navigation	.\classes\class.navigation.php	/^class Navigation {$/;"	c
+PermissionDenied	.\views\view.denied.php	/^class PermissionDenied extends AbstractView {$/;"	c
+PermissionManagement	.\views\manage\manage.permissions\manage.permissions.php	/^class PermissionManagement extends AbstractView {$/;"	c
+RainTPL	.\ressources\raintpl\rain.tpl.class.php	/^class RainTPL{$/;"	c
+RainTpl_Exception	.\ressources\raintpl\rain.tpl.class.php	/^class RainTpl_Exception extends Exception{$/;"	c
+RainTpl_NotFoundException	.\ressources\raintpl\rain.tpl.class.php	/^class RainTpl_NotFoundException extends RainTpl_Exception{$/;"	c
+RainTpl_SyntaxException	.\ressources\raintpl\rain.tpl.class.php	/^class RainTpl_SyntaxException extends RainTpl_Exception{$/;"	c
+S	.\ressources\lessc\lessc.inc.php	/^				$S = ($max - $min)\/($max + $min);$/;"	v
+S	.\ressources\lessc\lessc.inc.php	/^				$S = ($max - $min)\/(2.0 - $max - $min);$/;"	v
+S	.\ressources\lessc\lessc.inc.php	/^			$S = $H = 0;$/;"	v
+S	.\ressources\lessc\lessc.inc.php	/^		$S = $color[2] \/ 100;$/;"	v
+SECURE	.\config.php	/^define('SECURE', false);$/;"	d
+SettingsManagement	.\views\manage\manage.settings.php	/^class SettingsManagement extends AbstractView {$/;"	c
+Sites	.\collections\class.sites.php	/^class Sites extends DataCollection {$/;"	c
+StringTranslationManagement	.\views\manage\manage.locales\manage.locales.strings.php	/^class StringTranslationManagement extends AbstractView {$/;"	c
+StringTranslationTranslate	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^class StringTranslationTranslate extends AbstractView {$/;"	c
+StringTranslationUpdateManagement	.\views\manage\manage.locales\manage.locales.strings.update.php	/^class StringTranslationUpdateManagement extends AbstractView {$/;"	c
+TEMPLATE_DIR	.\config.php	/^define('TEMPLATE_DIR', DOC_ROOT."templates\/");$/;"	d
+TRUE	.\ressources\lessc\lessc.inc.php	/^	static protected $TRUE = array("keyword", "true");$/;"	v
+TagsInput	.\scripts\externals\bootstrap-tagsinput.min.js	/^  function TagsInput(element, options) {$/;"	c
+TagsInput.add	.\scripts\externals\bootstrap-tagsinput.min.js	/^    add: function(item, dontPushVal) {$/;"	m
+TagsInput.build	.\scripts\externals\bootstrap-tagsinput.min.js	/^    build: function(options) {$/;"	m
+TagsInput.destroy	.\scripts\externals\bootstrap-tagsinput.min.js	/^    destroy: function() {$/;"	m
+TagsInput.findInputWrapper	.\scripts\externals\bootstrap-tagsinput.min.js	/^    findInputWrapper: function() {$/;"	m
+TagsInput.focus	.\scripts\externals\bootstrap-tagsinput.min.js	/^    focus: function() {$/;"	m
+TagsInput.input	.\scripts\externals\bootstrap-tagsinput.min.js	/^    input: function() {$/;"	m
+TagsInput.items	.\scripts\externals\bootstrap-tagsinput.min.js	/^    items: function() {$/;"	m
+TagsInput.pushVal	.\scripts\externals\bootstrap-tagsinput.min.js	/^    pushVal: function() {$/;"	m
+TagsInput.refresh	.\scripts\externals\bootstrap-tagsinput.min.js	/^    refresh: function() {$/;"	m
+TagsInput.remove	.\scripts\externals\bootstrap-tagsinput.min.js	/^    remove: function(item, dontPushVal) {$/;"	m
+TagsInput.removeAll	.\scripts\externals\bootstrap-tagsinput.min.js	/^    removeAll: function() {$/;"	m
+User	.\classes\class.user.php	/^class User {$/;"	c
+UserManagement	.\views\manage\manage.users\manage.users.php	/^class UserManagement extends AbstractView {$/;"	c
+Utils	.\classes\class.utils.php	/^class Utils {$/;"	c
+VERSION	.\ressources\lessc\lessc.inc.php	/^	static public $VERSION = "v0.4.0";$/;"	v
+ViewManager	.\app\class.viewmanager.php	/^class ViewManager {$/;"	c
+WWW_ROOT	.\config.php	/^define('WWW_ROOT', $ext);$/;"	d
+_	.\ressources\raintpl\rain.tpl.class.php	/^		$_    = $matches[2];$/;"	v
+__clone	.\app\class.app.php	/^    private function __clone(){}$/;"	f
+__clone	.\app\class.events.php	/^    private function __clone(){}$/;"	f
+__clone	.\classes\class.datacollection.php	/^  private function __clone() {}$/;"	f
+__clone	.\classes\class.view.php	/^    private function __clone() {}$/;"	f
+__clone	.\loader.php	/^    private function __clone(){}$/;"	f
+__construct	.\app\class.app.php	/^    private function __construct(){}$/;"	f
+__construct	.\app\class.collectionmanager.php	/^  public function __construct() {$/;"	f
+__construct	.\app\class.events.php	/^    private function __construct(){$/;"	f
+__construct	.\app\class.viewmanager.php	/^    public function __construct() {$/;"	f
+__construct	.\classes\class.datacollection.php	/^  private function __construct() {}$/;"	f
+__construct	.\classes\class.forms.php	/^    public function __construct($action=false) {$/;"	f
+__construct	.\classes\class.group.php	/^    public function __construct($id) {$/;"	f
+__construct	.\classes\class.navigation.php	/^    public function __construct($active) {$/;"	f
+__construct	.\classes\class.user.php	/^    public function __construct($id) {$/;"	f
+__construct	.\classes\class.view.php	/^    private function __construct() {}$/;"	f
+__construct	.\loader.php	/^    private function __construct(){$/;"	f
+__construct	.\ressources\lessc\lessc.inc.php	/^	public function __construct($fname = null) {$/;"	f
+__construct	.\ressources\lessc\lessc.inc.php	/^	public function __construct($lessc, $sourceName = null) {$/;"	f
+__construct	.\ressources\lessc\lessc.inc.php	/^	public function __construct() {$/;"	f
+__construct	.\ressources\mysqlidb\mysqlidb.php	/^    public function __construct($host = NULL, $username = NULL, $password = NULL, $db = NULL, $port = NULL, $charset = 'utf8')$/;"	f
+__destruct	.\ressources\mysqlidb\mysqlidb.php	/^    public function __destruct()$/;"	f
+_bindParam	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _bindParam($value) {$/;"	f
+_bindParams	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_bindParams = array(''); \/\/ Create the empty 0 index$/;"	v
+_bindParams	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_bindParams = array(''); \/\/ Create the empty 0 index$/;"	v
+_bindParams	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _bindParams ($values) {$/;"	f
+_buildGroupBy	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildGroupBy () {$/;"	f
+_buildJoin	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildJoin () {$/;"	f
+_buildLimit	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildLimit ($numRows) {$/;"	f
+_buildOrderBy	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildOrderBy () {$/;"	f
+_buildPair	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildPair ($operator, $value) {$/;"	f
+_buildQuery	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildQuery($numRows = null, $tableData = null)$/;"	f
+_buildTableData	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildTableData ($tableData) {$/;"	f
+_buildWhere	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildWhere () {$/;"	f
+_determineType	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _determineType($item)$/;"	f
+_dynamicBindResults	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _dynamicBindResults(mysqli_stmt $stmt)$/;"	f
+_groupBy	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_groupBy = array(); $/;"	v
+_groupBy	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_groupBy = array(); $/;"	v
+_instance	.\ressources\mysqlidb\mysqlidb.php	/^    protected static $_instance;$/;"	v
+_join	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_join = array();$/;"	v
+_join	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_join = array(); $/;"	v
+_lastQuery	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_lastQuery = $this->replacePlaceHolders ($this->_query, $this->_bindParams);$/;"	v
+_lastQuery	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_lastQuery;$/;"	v
+_mysqli	.\ressources\mysqlidb\mysqlidb.php	/^            $this->_mysqli = $host;$/;"	v
+_mysqli	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_mysqli = new mysqli ($this->host, $this->username, $this->password, $this->db, $this->port)$/;"	v
+_mysqli	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_mysqli;$/;"	v
+_orderBy	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_orderBy = array();$/;"	v
+_orderBy	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_orderBy = array(); $/;"	v
+_parseFile	.\ressources\lessc\lessc.inc.php	/^			$this->_parseFile = $fname;$/;"	v
+_prefix	.\ressources\mysqlidb\mysqlidb.php	/^    protected static $_prefix;$/;"	v
+_prepareQuery	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _prepareQuery()$/;"	f
+_query	.\ressources\mysqlidb\mysqlidb.php	/^            $this->_query = filter_var ($query, FILTER_SANITIZE_STRING,$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = "DELETE FROM " . self::$_prefix . $tableName;$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = "INSERT into " .self::$_prefix . $tableName;$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = "SELECT $column FROM " . self::$_prefix . $tableName;$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = "UPDATE " . self::$_prefix . $tableName ." SET ";$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = $query;$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = filter_var($query, FILTER_SANITIZE_STRING);$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = null;$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = rtrim ($this->_query, ', ') . " ";$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = rtrim($this->_query, ', ') . " ";$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_query = rtrim($this->_query, ', ');$/;"	v
+_query	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_query;$/;"	v
+_stmtError	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_stmtError = $stmt->error;$/;"	v
+_stmtError	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_stmtError;$/;"	v
+_transaction_in_progress	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_transaction_in_progress = false;$/;"	v
+_transaction_in_progress	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_transaction_in_progress = true;$/;"	v
+_transaction_in_progress	.\ressources\mysqlidb\mysqlidb.php	/^      $this->_transaction_in_progress = false;$/;"	v
+_transaction_status_check	.\ressources\mysqlidb\mysqlidb.php	/^    public function _transaction_status_check () {$/;"	f
+_where	.\ressources\mysqlidb\mysqlidb.php	/^        $this->_where = array();$/;"	v
+_where	.\ressources\mysqlidb\mysqlidb.php	/^    protected $_where = array();$/;"	v
+a	.\ressources\lessc\lessc.inc.php	/^		$a = $first_a - $second_a;$/;"	v
+absolute	.\loader.php	/^    public function addScript($script, $absolute=false) {$/;"	v
+absolute	.\loader.php	/^    public function addStyle($style, $absolute=false, $viewCondition = false) {$/;"	v
+action	.\classes\class.forms.php	/^        $this->action = $action;$/;"	v
+action	.\classes\class.forms.php	/^    private $action = false;$/;"	v
+action	.\classes\class.localization.php	/^          $action = true;$/;"	v
+action	.\classes\class.localization.php	/^    $action = false;$/;"	v
+action	.\views\manage\manage.permissions\manage.permissions.php	/^    private function action($groupid, $type, $permission) {$/;"	f
+actions	.\views\manage\manage.groups\manage.groups.members.php	/^    private function actions($id) {$/;"	f
+actions	.\views\manage\manage.groups\manage.groups.php	/^    public function actions($group) {$/;"	f
+actions	.\views\manage\manage.users\manage.users.php	/^    private function actions($id) {$/;"	f
+active	.\classes\class.navigation.php	/^            'active' => $this->active == $id ? true : false,$/;"	v
+active	.\classes\class.navigation.php	/^        $this->active = $active;$/;"	v
+active	.\classes\class.navigation.php	/^    private $active = false;$/;"	v
+activeSubview	.\classes\class.view.php	/^    public $activeSubview = false;$/;"	v
+actual_folder	.\ressources\raintpl\rain.tpl.class.php	/^                                        $actual_folder = substr( $this->tpl['template_directory'], strlen(self::$tpl_dir) );$/;"	v
+add	.\app\class.events.php	/^    public function add($event) {$/;"	f
+add	.\classes\class.navigation.php	/^    public function add($id, $name, $url, $panel, $icon=false, $parent=false, $img=false, $classes = array()) {$/;"	f
+addFootprint	.\app\class.app.php	/^    public function addFootprint($uri_components) {$/;"	f
+addForm	.\views\manage\manage.groups\manage.groups.members.php	/^    public function addForm() {$/;"	f
+addImportDir	.\ressources\lessc\lessc.inc.php	/^	public function addImportDir($dir) {$/;"	f
+addMembers	.\classes\class.group.php	/^    public function addMembers($members) {$/;"	f
+addMessage	.\app\class.app.php	/^    public function addMessage($message, $type="warning") {$/;"	f
+addNewLanguage	.\classes\class.localization.php	/^  public static function addNewLanguage($code, $name) {$/;"	f
+addPanel	.\classes\class.navigation.php	/^    public function addPanel($position='left') {$/;"	f
+addParsedFile	.\ressources\lessc\lessc.inc.php	/^	protected function addParsedFile($file) {$/;"	f
+addRessource	.\loader.php	/^    public function addRessource($path) {$/;"	f
+addScript	.\loader.php	/^    public function addScript($script, $absolute=false) {$/;"	f
+addString	.\classes\class.localization.php	/^  public static function addString($string, $domain='') {$/;"	f
+addStyle	.\loader.php	/^    public function addStyle($style, $absolute=false, $viewCondition = false) {$/;"	f
+add_button	.\views\manage\manage.collections\manage.collections.php	/^            $add_button = $this->app->render(TEMPLATE_DIR."assets\/", "overlay-button", array($/;"	v
+add_button	.\views\manage\manage.collections\manage.collections.php	/^            $add_button = '';$/;"	v
+ajax	.\classes\class.forms.php	/^        $this->ajax = true;$/;"	v
+ajax	.\classes\class.forms.php	/^    private $ajax = false;$/;"	v
+ajax	.\classes\class.forms.php	/^    public function ajax($target=".content") {$/;"	f
+ajaxTarget	.\classes\class.forms.php	/^        $this->ajaxTarget = $target;$/;"	v
+ajaxTarget	.\classes\class.forms.php	/^    private $ajaxTarget = false;$/;"	v
+ajaxlinks.ajaxLinks	.\scripts\ajaxlinks.js	/^    ajaxLinks : function() {$/;"	m
+ajaxlinks.init	.\scripts\ajaxlinks.js	/^    init : function() {$/;"	m
+ajaxlinks.updateContainer	.\scripts\ajaxlinks.js	/^    updateContainer : function() {$/;"	m
+allParsedFiles	.\ressources\lessc\lessc.inc.php	/^	protected $allParsedFiles = array();$/;"	v
+allParsedFiles	.\ressources\lessc\lessc.inc.php	/^	public function allParsedFiles() {$/;"	f
+allowed	.\app\class.auth.php	/^    public static function allowed($permission) {$/;"	f
+allowed	.\classes\class.user.php	/^    public function allowed($permission) {$/;"	f
+allowedDirection	.\ressources\mysqlidb\mysqlidb.php	/^        $allowedDirection = Array ("ASC", "DESC");$/;"	v
+allowedTypes	.\ressources\mysqlidb\mysqlidb.php	/^        $allowedTypes = array('LEFT', 'RIGHT', 'OUTER', 'INNER', 'LEFT OUTER', 'RIGHT OUTER');$/;"	v
+also	.\ressources\lessc\lessc.inc.php	/^ * then transforms the resulting tree to a CSS tree. This class also holds the$/;"	c
+amount	.\classes\class.localization.php	/^    $amount = count($databaseStrings);$/;"	v
+and	.\ressources\raintpl\rain.tpl.class.php	/^                                        \/\/ get the function and the parameters$/;"	f
+and	.\ressources\raintpl\rain.tpl.class.php	/^                    \/\/ get the function and the parameters$/;"	f
+any	.\app\class.auth.php	/^    public static function any() {$/;"	f
+app	.\classes\class.datacollection.php	/^    $this->app = App::instance();$/;"	v
+app	.\classes\class.datacollection.php	/^  protected $app;$/;"	v
+app	.\classes\class.forms.php	/^            $this->app = App::instance();$/;"	v
+app	.\classes\class.forms.php	/^    private $app = null;$/;"	v
+app	.\classes\class.group.php	/^            $this->app = App::instance();$/;"	v
+app	.\classes\class.group.php	/^      $app = App::instance();$/;"	v
+app	.\classes\class.group.php	/^    private $app = null;$/;"	v
+app	.\classes\class.localization.php	/^    $app = App::instance();$/;"	v
+app	.\classes\class.user.php	/^        $app = App::instance();$/;"	v
+app	.\classes\class.user.php	/^        $this->app = App::instance();$/;"	v
+app	.\classes\class.user.php	/^      $app = App::instance();$/;"	v
+app	.\classes\class.user.php	/^    private $app;$/;"	v
+app	.\classes\class.view.php	/^            $this->app = App::instance();$/;"	v
+app	.\classes\class.view.php	/^    public $app = null;$/;"	v
+app	.\index.php	/^$app = App::instance();$/;"	v
+append	.\ressources\lessc\lessc.inc.php	/^	protected function append($prop, $pos = null) {$/;"	f
+area	.\classes\class.forms.php	/^    public function area($id, $label, $value=false, $hint = false, $disabled = false) {$/;"	f
+arg	.\ressources\lessc\lessc.inc.php	/^					$arg = array("arg", $value[1]);$/;"	v
+args	.\app\class.app.php	/^    public function render($template_dir, $template_file, $args=array()) {$/;"	v
+args	.\ressources\lessc\lessc.inc.php	/^					$args = self::compressList($args[2], $args[1]);$/;"	v
+args	.\ressources\lessc\lessc.inc.php	/^			$args = array('list', ',', $args);$/;"	v
+args	.\ressources\lessc\lessc.inc.php	/^			$args = array();$/;"	v
+args	.\ressources\lessc\lessc.inc.php	/^		$args = $values;$/;"	v
+argumentDef	.\ressources\lessc\lessc.inc.php	/^	protected function argumentDef(&$args, &$isVararg) {$/;"	f
+argval	.\ressources\lessc\lessc.inc.php	/^				$argval = null;$/;"	v
+as	.\ressources\mysqlidb\mysqlidb.php	/^     * Method returns generated interval function as a string$/;"	f
+as	.\ressources\mysqlidb\mysqlidb.php	/^     * Method returns generated interval function as an insert\/update function$/;"	f
+assertArgs	.\ressources\lessc\lessc.inc.php	/^	protected function assertArgs($value, $expectedArgs, $name="") {$/;"	f
+assertColor	.\ressources\lessc\lessc.inc.php	/^	protected function assertColor($value, $error = "expected color value") {$/;"	f
+assertNumber	.\ressources\lessc\lessc.inc.php	/^	protected function assertNumber($value, $error = "expecting number") {$/;"	f
+assign	.\ressources\lessc\lessc.inc.php	/^	protected function assign($name = null) {$/;"	f
+assign	.\ressources\raintpl\rain.tpl.class.php	/^	function assign( $variable, $value = null ){$/;"	f
+assignSeparator	.\ressources\lessc\lessc.inc.php	/^	public $assignSeparator = ": ";$/;"	v
+assignSeparator	.\ressources\lessc\lessc.inc.php	/^	public $assignSeparator = ":";$/;"	v
+assignedValues	.\ressources\lessc\lessc.inc.php	/^		$assignedValues = array();$/;"	v
+attr	.\ressources\raintpl\rain.tpl.class.php	/^		$attr = $matches[3];$/;"	v
+attrParts	.\ressources\lessc\lessc.inc.php	/^			$attrParts = array("[");$/;"	v
+avail	.\classes\class.localization.php	/^    $avail = self::getLanguages();$/;"	v
+b	.\ressources\lessc\lessc.inc.php	/^			$b = $this->toRGB_helper($H - 1\/3, $temp1, $temp2);$/;"	v
+b	.\ressources\lessc\lessc.inc.php	/^			$b = round($b);$/;"	v
+b	.\ressources\lessc\lessc.inc.php	/^		$b = $color[3] \/ 255;$/;"	v
+b	.\ressources\lessc\lessc.inc.php	/^		$b = new stdclass;$/;"	v
+barUpdater	.\classes\class.utils.php	/^    public static function barUpdater($id, $value) {$/;"	f
+base_only	.\ressources\raintpl\rain.tpl.class.php	/^			$base_only = '\/\/';$/;"	v
+base_only	.\ressources\raintpl\rain.tpl.class.php	/^		$base_only = '\/^\\\/\/';$/;"	v
+base_url	.\ressources\raintpl\rain.tpl.class.php	/^		static $base_url = null;$/;"	v
+base_view	.\app\class.app.php	/^        if($load_main && $view->default || $base_view == $view->name()) {$/;"	v
+base_view	.\app\class.app.php	/^      $base_view = $this->uri_components[0];$/;"	v
+below	.\ressources\raintpl\rain.tpl.class.php	/^	* execute stripslaches() on the xml block. Invoqued by preg_replace_callback function below$/;"	f
+bindParams	.\ressources\mysqlidb\mysqlidb.php	/^    public function func ($expr, $bindParams = null) {$/;"	v
+bindParams	.\ressources\mysqlidb\mysqlidb.php	/^    public function rawQuery ($query, $bindParams = null, $sanitize = true)$/;"	v
+black_list	.\ressources\raintpl\rain.tpl.class.php	/^		static $black_list = array( '\\$this', 'raintpl::', 'self::', '_SESSION', '_SERVER', '_ENV',  'eval', 'exec', 'unlink', 'rmdir' );$/;"	v
+block	.\ressources\lessc\lessc.inc.php	/^				$block = $this->pop();$/;"	v
+block	.\ressources\lessc\lessc.inc.php	/^			$block = $this->pushBlock($this->fixTags(array($tag)));$/;"	v
+block	.\ressources\lessc\lessc.inc.php	/^	public function block($block) {$/;"	f
+blockDirectives	.\ressources\lessc\lessc.inc.php	/^	protected $blockDirectives = array("font-face", "keyframes", "page", "-moz-document", "viewport", "-moz-viewport", "-o-viewport", "-ms-viewport");$/;"	v
+blocks	.\ressources\lessc\lessc.inc.php	/^			$blocks = $searchIn->children[$name];$/;"	v
+body	.\ressources\mysqlidb\mysqlidb.php	/^     * @param string user function body$/;"	f
+break	.\ressources\lessc\lessc.inc.php	/^	public $break = "";$/;"	v
+break	.\ressources\lessc\lessc.inc.php	/^	public $break = "\\n";$/;"	v
+breakSelectors	.\ressources\lessc\lessc.inc.php	/^	public $breakSelectors = false;$/;"	v
+breakSelectors	.\ressources\lessc\lessc.inc.php	/^	public $breakSelectors = true;$/;"	v
+buffer	.\classes\class.utils.php	/^    public static function buffer() {$/;"	f
+buffer	.\ressources\lessc\lessc.inc.php	/^		$this->buffer = $this->writeComments ? $buffer : $this->removeComments($buffer);$/;"	v
+buffer	.\ressources\lessc\lessc.inc.php	/^		\/\/ 	$this->buffer = ltrim($this->buffer);$/;"	v
+c	.\ressources\lessc\lessc.inc.php	/^				$c = $this->reduce($c);$/;"	v
+c	.\ressources\lessc\lessc.inc.php	/^				$c = array("color", 0, 0, 0);$/;"	v
+cache	.\ressources\raintpl\rain.tpl.class.php	/^				  $cache = false,		\/\/ static cache enabled \/ disabled$/;"	v
+cache	.\ressources\raintpl\rain.tpl.class.php	/^			$this->cache = true;$/;"	v
+cache	.\ressources\raintpl\rain.tpl.class.php	/^	function cache( $tpl_name, $expire_time = self::CACHE_EXPIRE_TIME, $cache_id = null ){$/;"	f
+cache	.\ressources\raintpl\rain.tpl.class.php	/^                                                                  'if( $cache = $tpl->cache( "'.$include_template.'" ) )' .$/;"	v
+cache_dir	.\ressources\raintpl\rain.tpl.class.php	/^		static $cache_dir = "tmp\/";$/;"	v
+cache_id	.\ressources\raintpl\rain.tpl.class.php	/^                  $cache_id = null;       \/\/ identify only one cache$/;"	v
+cache_id	.\ressources\raintpl\rain.tpl.class.php	/^        $this->cache_id = $cache_id;$/;"	v
+cachedCompile	.\ressources\lessc\lessc.inc.php	/^	public function cachedCompile($in, $force = false) {$/;"	f
+call	.\ressources\mysqlidb\mysqlidb.php	/^     * Method generates change boolean function call$/;"	f
+call	.\ressources\mysqlidb\mysqlidb.php	/^     * Method generates decrimental function call$/;"	f
+call	.\ressources\mysqlidb\mysqlidb.php	/^     * Method generates incremental function call$/;"	f
+call	.\ressources\mysqlidb\mysqlidb.php	/^     * Method generates user defined function call$/;"	f
+ccompile	.\ressources\lessc\lessc.inc.php	/^	public static function ccompile($in, $out, $less = null) {$/;"	f
+cellId	.\views\manage\manage.permissions\manage.permissions.php	/^    private function cellId($permission, $group) {$/;"	f
+cells	.\views\manage\manage.locales\manage.locales.strings.php	/^      $cells = array();$/;"	v
+cells	.\views\manage\manage.permissions\manage.permissions.php	/^      $cells = array();$/;"	v
+cexecute	.\ressources\lessc\lessc.inc.php	/^	public static function cexecute($in, $force = false, $less = null) {$/;"	f
+char	.\ressources\lessc\lessc.inc.php	/^			$char = $this->buffer[$this->count];$/;"	v
+chars	.\ressources\lessc\lessc.inc.php	/^			$chars = '^@,:;{}\\][>\\(\\) "\\'';$/;"	v
+chars	.\ressources\lessc\lessc.inc.php	/^			$chars = '^@,;{}["\\'';$/;"	v
+charset	.\ressources\mysqlidb\mysqlidb.php	/^        $this->charset = $charset;$/;"	v
+charset	.\ressources\mysqlidb\mysqlidb.php	/^    protected $charset;$/;"	v
+checkMail	.\classes\class.user.php	/^    private static function checkMail($email) {$/;"	f
+checkName	.\classes\class.user.php	/^    private static function checkName($name) {$/;"	f
+checkPassword	.\classes\class.user.php	/^    private static function checkPassword($password) {$/;"	f
+check_template	.\ressources\raintpl\rain.tpl.class.php	/^	protected function check_template( $tpl_name ){$/;"	f
+check_template_update	.\ressources\raintpl\rain.tpl.class.php	/^		static $check_template_update = true;$/;"	v
+checkdatabase	.\classes\class.utils.php	/^    public static function checkdatabase($host, $user, $pw, $dbname) {$/;"	f
+checkedCompile	.\ressources\lessc\lessc.inc.php	/^	public function checkedCompile($in, $out) {$/;"	f
+childName	.\ressources\lessc\lessc.inc.php	/^		foreach ($root->children as $childName => $child) {$/;"	v
+childQueries	.\ressources\lessc\lessc.inc.php	/^	protected function multiplyMedia($env, $childQueries = null) {$/;"	v
+chunk	.\ressources\lessc\lessc.inc.php	/^						$chunk = str_replace($this->lessc->parentSelector, "$&$", $chunk);$/;"	v
+clamp	.\ressources\lessc\lessc.inc.php	/^				else $clamp = 1;$/;"	v
+clamp	.\ressources\lessc\lessc.inc.php	/^				elseif ($i < 3) $clamp = 100;$/;"	v
+clamp	.\ressources\lessc\lessc.inc.php	/^				if ($i == 0) $clamp = 360;$/;"	v
+clamp	.\ressources\lessc\lessc.inc.php	/^	protected function clamp($v, $max = 1, $min = 0) {$/;"	f
+class	.\classes\class.datacollection.php	/^    $class = get_called_class();$/;"	v
+class	.\classes\class.utils.php	/^    public static function tableCell($content, $class=false, $id=false, $structure=false) {$/;"	v
+class	.\classes\class.view.php	/^        $class = get_called_class();$/;"	v
+className	.\ressources\lessc\lessc.inc.php	/^			$className = "lessc_formatter_$this->formatterName";$/;"	v
+className	.\ressources\lessc\lessc.inc.php	/^		$className = "lessc_formatter_lessjs";$/;"	v
+classes	.\app\class.collectionmanager.php	/^      $classes = get_declared_classes();$/;"	v
+classes	.\app\class.viewmanager.php	/^        $classes = get_declared_classes();$/;"	v
+close	.\ressources\lessc\lessc.inc.php	/^	public $close = "}";$/;"	v
+closeSingle	.\ressources\lessc\lessc.inc.php	/^	public $closeSingle = " }";$/;"	v
+cm	.\app\class.app.php	/^        $this->cm = new CollectionManager();$/;"	v
+cm	.\app\class.app.php	/^    public $cm = null;$/;"	v
+coerceColor	.\ressources\lessc\lessc.inc.php	/^	protected function coerceColor($value) {$/;"	f
+coerceString	.\ressources\lessc\lessc.inc.php	/^	protected function coerceString($value) {$/;"	f
+collection	.\app\class.app.php	/^        $collection = $collection::instance();$/;"	v
+collection	.\views\manage\manage.collections\manage.collections.add.php	/^          $this->collection = $collection;$/;"	v
+collection	.\views\manage\manage.collections\manage.collections.add.php	/^    private $collection = false;$/;"	v
+collection	.\views\manage\manage.collections\manage.collections.php	/^          $this->collection = $collection;$/;"	v
+collection	.\views\manage\manage.collections\manage.collections.php	/^    private $collection = false;$/;"	v
+collectionName	.\views\manage\manage.collections\manage.collections.add.php	/^      $collectionName = $collectionName[count($collectionName)-2];$/;"	v
+collectionName	.\views\manage\manage.collections\manage.collections.add.php	/^      $collectionName = Utils::getUriComponents();$/;"	v
+collections	.\app\class.collectionmanager.php	/^      $collections = array();$/;"	v
+collections	.\app\class.collectionmanager.php	/^    $this->collections = $this->getCollections();$/;"	v
+collections	.\app\class.collectionmanager.php	/^  public $collections = array();$/;"	v
+color	.\ressources\lessc\lessc.inc.php	/^			$color = $this->funcToColor($value);$/;"	v
+color	.\ressources\lessc\lessc.inc.php	/^		$color = $this->assertColor($color);$/;"	v
+color	.\ressources\lessc\lessc.inc.php	/^		$color = $this->coerceColor($color);$/;"	v
+color	.\ressources\lessc\lessc.inc.php	/^		$color = $this->coerceColor($value);$/;"	v
+color	.\ressources\lessc\lessc.inc.php	/^	protected function color(&$out) {$/;"	f
+colorArgs	.\ressources\lessc\lessc.inc.php	/^	protected function colorArgs($args) {$/;"	f
+colorStr	.\ressources\lessc\lessc.inc.php	/^				$colorStr = substr($value[1], 1);$/;"	v
+column	.\ressources\mysqlidb\mysqlidb.php	/^        $column = is_array($columns) ? implode(', ', $columns) : $columns; $/;"	v
+column	.\ressources\mysqlidb\mysqlidb.php	/^        foreach ($tableData as $column => $value) {$/;"	v
+columns	.\ressources\mysqlidb\mysqlidb.php	/^            $columns = '*';$/;"	v
+columns	.\ressources\mysqlidb\mysqlidb.php	/^    public function getOne($tableName, $columns = '*') $/;"	v
+commentMulti	.\ressources\lessc\lessc.inc.php	/^	static protected $commentMulti;$/;"	v
+commentMultiLeft	.\ressources\lessc\lessc.inc.php	/^			$commentMultiLeft = lessc::preg_quote(self::$commentMultiLeft);$/;"	v
+commentMultiLeft	.\ressources\lessc\lessc.inc.php	/^	static protected $commentMultiLeft = "\/*";$/;"	v
+commentMultiRight	.\ressources\lessc\lessc.inc.php	/^			$commentMultiRight = lessc::preg_quote(self::$commentMultiRight);$/;"	v
+commentMultiRight	.\ressources\lessc\lessc.inc.php	/^	static protected $commentMultiRight = "*\/";$/;"	v
+commentSingle	.\ressources\lessc\lessc.inc.php	/^			$commentSingle = lessc::preg_quote(self::$commentSingle);$/;"	v
+commentSingle	.\ressources\lessc\lessc.inc.php	/^	static protected $commentSingle = "\/\/";$/;"	v
+comment_is_open	.\ressources\raintpl\rain.tpl.class.php	/^	 			$comment_is_open = false;$/;"	v
+comment_is_open	.\ressources\raintpl\rain.tpl.class.php	/^	 			$comment_is_open = true;$/;"	v
+commit	.\ressources\mysqlidb\mysqlidb.php	/^    public function commit () {$/;"	f
+comparison	.\ressources\mysqlidb\mysqlidb.php	/^                    $comparison = ' ' . $key . ' (';$/;"	v
+compile	.\ressources\lessc\lessc.inc.php	/^	public function compile($string, $name = null) {$/;"	f
+compileBlock	.\ressources\lessc\lessc.inc.php	/^	protected function compileBlock($block) {$/;"	f
+compileCSSBlock	.\ressources\lessc\lessc.inc.php	/^	protected function compileCSSBlock($block) {$/;"	f
+compileCode	.\ressources\raintpl\rain.tpl.class.php	/^	protected function compileCode( $parsed_code ){$/;"	f
+compileFile	.\ressources\lessc\lessc.inc.php	/^	public function compileFile($fname, $outFname = null) {$/;"	f
+compileFile	.\ressources\raintpl\rain.tpl.class.php	/^	protected function compileFile( $tpl_basename, $tpl_basedir, $tpl_filename, $cache_dir, $compiled_filename ){$/;"	f
+compileImportedProps	.\ressources\lessc\lessc.inc.php	/^	protected function compileImportedProps($props, $block, $out, $sourceParser, $importDir) {$/;"	f
+compileLess	.\loader.php	/^    public function compileLess($less) {$/;"	f
+compileMedia	.\ressources\lessc\lessc.inc.php	/^	protected function compileMedia($media) {$/;"	f
+compileMediaQuery	.\ressources\lessc\lessc.inc.php	/^	protected function compileMediaQuery($queries) {$/;"	f
+compileNestedBlock	.\ressources\lessc\lessc.inc.php	/^	protected function compileNestedBlock($block, $selectors) {$/;"	f
+compileProp	.\ressources\lessc\lessc.inc.php	/^	protected function compileProp($prop, $block, $out) {$/;"	f
+compileProps	.\ressources\lessc\lessc.inc.php	/^	protected function compileProps($block, $out) {$/;"	f
+compileRoot	.\ressources\lessc\lessc.inc.php	/^	protected function compileRoot($root) {$/;"	f
+compileSelectors	.\ressources\lessc\lessc.inc.php	/^	protected function compileSelectors($selectors) {$/;"	f
+compileTemplate	.\ressources\raintpl\rain.tpl.class.php	/^	protected function compileTemplate( $template_code, $tpl_basedir ){$/;"	f
+compileValue	.\ressources\lessc\lessc.inc.php	/^	protected function compileValue($value) {$/;"	f
+compiledQueries	.\ressources\lessc\lessc.inc.php	/^		$compiledQueries = array();$/;"	v
+compiled_code	.\ressources\raintpl\rain.tpl.class.php	/^		$compiled_code = $open_if = $comment_is_open = $ignore_is_open = null;$/;"	v
+compiled_code	.\ressources\raintpl\rain.tpl.class.php	/^		$compiled_code = $this->compileCode( $template_code );$/;"	v
+components	.\ressources\lessc\lessc.inc.php	/^			$components = array();$/;"	v
+compressColors	.\ressources\lessc\lessc.inc.php	/^	public $compressColors = false;$/;"	v
+compressColors	.\ressources\lessc\lessc.inc.php	/^	public $compressColors = true;$/;"	v
+compressList	.\ressources\lessc\lessc.inc.php	/^	static public function compressList($items, $delim) {$/;"	f
+condition	.\ressources\raintpl\rain.tpl.class.php	/^				$condition = $code[ 1 ];$/;"	v
+config	.\app\class.app.php	/^      $config = array($/;"	v
+config_name_sum	.\ressources\raintpl\rain.tpl.class.php	/^                protected static $config_name_sum = array();   \/\/ takes all the config to create the md5 of the file$/;"	v
+configure	.\ressources\raintpl\rain.tpl.class.php	/^	static function configure( $setting, $value = null ){$/;"	f
+confirmationScreen	.\views\manage\manage.groups\manage.groups.delete.php	/^    private function confirmationScreen($id) {$/;"	f
+confirmationScreen	.\views\manage\manage.users\manage.users.delete.php	/^    private function confirmationScreen($id) {$/;"	f
+connect	.\ressources\mysqlidb\mysqlidb.php	/^    public function connect()$/;"	f
+const_replace	.\ressources\raintpl\rain.tpl.class.php	/^	function const_replace( $html, $tag_left_delimiter, $tag_right_delimiter, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level = null, $echo = null ){$/;"	f
+content	.\app\class.app.php	/^    public function content($view) {$/;"	f
+content	.\classes\class.forms.php	/^    private $content = array();$/;"	v
+content	.\classes\class.navigation.php	/^        $content = '';$/;"	v
+content	.\classes\class.view.php	/^    public function content($uri=array()) {$/;"	f
+content	.\interfaces\interface.view.php	/^    public function content();$/;"	f
+content	.\loader.php	/^                    $content = $this->lessc->compileFile($less_path);$/;"	v
+content	.\ressources\lessc\lessc.inc.php	/^		$content = array();$/;"	v
+content	.\ressources\raintpl\rain.tpl.class.php	/^					$content = file_get_contents($code[1]);$/;"	v
+content	.\views\manage\manage.collections\manage.collections.add.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.collections\manage.collections.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.dashboard.php	/^    public function content() {$/;"	f
+content	.\views\manage\manage.groups\manage.groups.add.php	/^    public function content() {$/;"	f
+content	.\views\manage\manage.groups\manage.groups.delete.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.groups\manage.groups.edit.php	/^    public function content($parts = array()) {$/;"	f
+content	.\views\manage\manage.groups\manage.groups.members.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.groups\manage.groups.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.locales\manage.locales.add.php	/^    public function content() {$/;"	f
+content	.\views\manage\manage.locales\manage.locales.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.locales\manage.locales.strings.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.locales\manage.locales.strings.update.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.permissions\manage.permissions.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.settings.php	/^    public function content() {$/;"	f
+content	.\views\manage\manage.users\manage.users.add.php	/^    public function content() {$/;"	f
+content	.\views\manage\manage.users\manage.users.delete.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\manage\manage.users\manage.users.edit.php	/^    public function content($parts = array()) {$/;"	f
+content	.\views\manage\manage.users\manage.users.php	/^    public function content($uri=array()) {$/;"	f
+content	.\views\view.404.php	/^    public function content() {$/;"	f
+content	.\views\view.api.php	/^    public function content($query=array()) {$/;"	f
+content	.\views\view.denied.php	/^    public function content() {$/;"	f
+content	.\views\view.login.php	/^    public function content() {$/;"	f
+content	.\views\view.logout.php	/^    public function content() {$/;"	f
+content	.\views\view.main.php	/^    public function content($components=array()) {$/;"	f
+content	.\views\view.manager.php	/^                $content = $this->navigation() . $content;$/;"	v
+content	.\views\view.manager.php	/^            $content = $this->getSubview($uri, $this);$/;"	v
+content	.\views\view.manager.php	/^    public function content($uri=array()) {$/;"	f
+cookieParams	.\app\class.auth.php	/^        $cookieParams = session_get_cookie_params();$/;"	v
+copy	.\ressources\mysqlidb\mysqlidb.php	/^        $copy = unserialize (serialize ($this));$/;"	v
+copy	.\ressources\mysqlidb\mysqlidb.php	/^    public function copy ()$/;"	f
+count	.\app\class.app.php	/^      $count = 0;$/;"	v
+count	.\ressources\lessc\lessc.inc.php	/^				$count = $this->expandParentSelectors($child, $parent);$/;"	v
+count	.\ressources\lessc\lessc.inc.php	/^			$count = $min[1];$/;"	v
+count	.\ressources\lessc\lessc.inc.php	/^		$count = 0;$/;"	v
+count	.\ressources\lessc\lessc.inc.php	/^		$count = is_null($count) ? $this->count : $count;$/;"	v
+count	.\ressources\lessc\lessc.inc.php	/^		$this->count = 0;$/;"	v
+count	.\ressources\lessc\lessc.inc.php	/^		else $this->count = $where;$/;"	v
+count	.\ressources\lessc\lessc.inc.php	/^	public function throwError($msg = "parse error", $count = null) {$/;"	v
+count	.\ressources\mysqlidb\mysqlidb.php	/^        $this->count = $stmt->affected_rows;$/;"	v
+count	.\ressources\mysqlidb\mysqlidb.php	/^        $this->count = 0;$/;"	v
+count	.\ressources\mysqlidb\mysqlidb.php	/^    public $count = 0;$/;"	v
+counter	.\ressources\raintpl\rain.tpl.class.php	/^				$compiled_code .=  "<?php $counter=-1; if( isset($var) && is_array($var) && sizeof($var) ) foreach( $var as $key => $value ){ $counter++; ?>";$/;"	v
+counter	.\ressources\raintpl\rain.tpl.class.php	/^				$counter = "\\$counter$loop_level";       \/\/ count iteration$/;"	v
+counter	.\ressources\raintpl\rain.tpl.class.php	/^				$counter = "\\$counter$loop_level";$/;"	v
+counter1	.\templates\assets\cache\form.8eceaa2152f16cdfc168003526de9e8c.rtpl.php	/^    <?php $counter1=-1; if( isset($content) && is_array($content) && sizeof($content) ) foreach( $content as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\assets\cache\form.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^    <?php $counter1=-1; if( isset($content) && is_array($content) && sizeof($content) ) foreach( $content as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\assets\cache\table.8eceaa2152f16cdfc168003526de9e8c.rtpl.php	/^<?php $counter1=-1; if( isset($td) && is_array($td) && sizeof($td) ) foreach( $td as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\assets\cache\table.8eceaa2152f16cdfc168003526de9e8c.rtpl.php	/^<?php $counter1=-1; if( isset($th) && is_array($th) && sizeof($th) ) foreach( $th as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\assets\cache\table.actions.8eceaa2152f16cdfc168003526de9e8c.rtpl.php	/^    <?php $counter1=-1; if( isset($actions) && is_array($actions) && sizeof($actions) ) foreach( $actions as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\assets\cache\table.actions.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^    <?php $counter1=-1; if( isset($actions) && is_array($actions) && sizeof($actions) ) foreach( $actions as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\assets\cache\table.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^<?php $counter1=-1; if( isset($td) && is_array($td) && sizeof($td) ) foreach( $td as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\assets\cache\table.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^<?php $counter1=-1; if( isset($th) && is_array($th) && sizeof($th) ) foreach( $th as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\head.8ebb1bc936e1b5c79a1d1c9efdd15511.rtpl.php	/^    <?php $counter1=-1; if( isset($scripts) && is_array($scripts) && sizeof($scripts) ) foreach( $scripts as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\head.8ebb1bc936e1b5c79a1d1c9efdd15511.rtpl.php	/^    <?php $counter1=-1; if( isset($styles) && is_array($styles) && sizeof($styles) ) foreach( $styles as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\head.c670220ddd60f1a429cc3c18f882e909.rtpl.php	/^    <?php $counter1=-1; if( isset($scripts) && is_array($scripts) && sizeof($scripts) ) foreach( $scripts as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\head.c670220ddd60f1a429cc3c18f882e909.rtpl.php	/^    <?php $counter1=-1; if( isset($styles) && is_array($styles) && sizeof($styles) ) foreach( $styles as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\head.e577033a006d5a1bbeef475906c988a6.rtpl.php	/^    <?php $counter1=-1; if( isset($scripts) && is_array($scripts) && sizeof($scripts) ) foreach( $scripts as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\head.e577033a006d5a1bbeef475906c988a6.rtpl.php	/^    <?php $counter1=-1; if( isset($styles) && is_array($styles) && sizeof($styles) ) foreach( $styles as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\layout.8ebb1bc936e1b5c79a1d1c9efdd15511.rtpl.php	/^<?php $counter1=-1; if( isset($messages) && is_array($messages) && sizeof($messages) ) foreach( $messages as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\layout.ajax.8ebb1bc936e1b5c79a1d1c9efdd15511.rtpl.php	/^<?php $counter1=-1; if( isset($messages) && is_array($messages) && sizeof($messages) ) foreach( $messages as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\layout.ajax.e577033a006d5a1bbeef475906c988a6.rtpl.php	/^<?php $counter1=-1; if( isset($messages) && is_array($messages) && sizeof($messages) ) foreach( $messages as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\layout.e577033a006d5a1bbeef475906c988a6.rtpl.php	/^<?php $counter1=-1; if( isset($messages) && is_array($messages) && sizeof($messages) ) foreach( $messages as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\navigation.8ebb1bc936e1b5c79a1d1c9efdd15511.rtpl.php	/^    <?php $counter1=-1; if( isset($panels) && is_array($panels) && sizeof($panels) ) foreach( $panels as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\templates\cache\navigation.e577033a006d5a1bbeef475906c988a6.rtpl.php	/^    <?php $counter1=-1; if( isset($panels) && is_array($panels) && sizeof($panels) ) foreach( $panels as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter2	.\templates\assets\cache\table.8eceaa2152f16cdfc168003526de9e8c.rtpl.php	/^<?php $counter2=-1; if( isset($value1) && is_array($value1) && sizeof($value1) ) foreach( $value1 as $key2 => $value2 ){ $counter2++; ?>$/;"	v
+counter2	.\templates\assets\cache\table.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^<?php $counter2=-1; if( isset($value1) && is_array($value1) && sizeof($value1) ) foreach( $value1 as $key2 => $value2 ){ $counter2++; ?>$/;"	v
+create	.\classes\class.group.php	/^    public static function create($name) {$/;"	f
+create	.\classes\class.user.php	/^    public static function create($name, $password, $email) {$/;"	f
+creates	.\ressources\lessc\lessc.inc.php	/^ * The `lessc` class creates an intstance of the parser, feeds it LESS code,$/;"	c
+cssColors	.\ressources\lessc\lessc.inc.php	/^	static protected $cssColors = array($/;"	v
+css_file	.\loader.php	/^            $css_file = str_replace(".less", ".css", $pathinfo['dirname']."\/compiled\/".$pathinfo['basename']);$/;"	v
+current	.\classes\class.group.php	/^        $current = $this->members();$/;"	v
+current	.\classes\class.localization.php	/^    $current = 0;$/;"	v
+current	.\ressources\lessc\lessc.inc.php	/^				$current = isset($current->storeParent) ?$/;"	v
+current	.\ressources\lessc\lessc.inc.php	/^		$current = $this->env;$/;"	v
+currentProperty	.\ressources\lessc\lessc.inc.php	/^		if ($name) $this->currentProperty = $name;$/;"	v
+d	.\ressources\lessc\lessc.inc.php	/^		$d = $string[0] == "string" ? $string[1] : '"';$/;"	v
+darkColor	.\ressources\lessc\lessc.inc.php	/^		$darkColor = $this->assertColor($darkColor);$/;"	v
+data	.\app\class.app.php	/^        $data = $_SESSION['messages'];$/;"	v
+data	.\app\class.events.php	/^    public function trigger($event, $data=array()) {$/;"	v
+data	.\classes\class.localization.php	/^    $data = array($/;"	v
+data	.\classes\class.user.php	/^        $data = array($/;"	v
+data	.\classes\class.user.php	/^    private $data = false;$/;"	v
+data	.\classes\class.utils.php	/^      $data = array($/;"	v
+databaseStrings	.\classes\class.localization.php	/^    $databaseStrings = self::getAllStrings();$/;"	v
+db	.\app\class.app.php	/^        $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);$/;"	v
+db	.\app\class.app.php	/^    public $db = null;$/;"	v
+db	.\app\class.auth.php	/^        $db = App::instance()->db;$/;"	v
+db	.\classes\class.group.php	/^      $db = App::instance()->db;$/;"	v
+db	.\classes\class.localization.php	/^      $db = App::instance()->db;$/;"	v
+db	.\classes\class.localization.php	/^    $db = App::instance()->db;$/;"	v
+db	.\classes\class.user.php	/^      $db = App::instance()->db;$/;"	v
+db	.\ressources\mysqlidb\mysqlidb.php	/^        $this->db = $db;$/;"	v
+db	.\ressources\mysqlidb\mysqlidb.php	/^     * @uses $db = MySqliDb::getInstance();$/;"	v
+db	.\ressources\mysqlidb\mysqlidb.php	/^    protected $db;$/;"	v
+dbPerm	.\app\class.auth.php	/^            $dbPerm = App::instance()->db->get('permissions');$/;"	v
+dbPerms	.\app\class.auth.php	/^          $dbPerms = App::instance()->db->get('permissions');$/;"	v
+db_selected	.\classes\class.utils.php	/^      $db_selected = mysql_select_db($dbname, $link);$/;"	v
+debug	.\classes\class.logger.php	/^    public static function debug($message) {$/;"	f
+debug	.\ressources\raintpl\rain.tpl.class.php	/^		static $debug = false;$/;"	v
+dec	.\ressources\mysqlidb\mysqlidb.php	/^    public function dec ($num = 1) {$/;"	f
+default	.\classes\class.view.php	/^    public $default = false;$/;"	v
+default	.\ressources\lessc\lessc.inc.php	/^	protected function get($name, $default=null) {$/;"	v
+default	.\views\manage\manage.dashboard.php	/^    public $default = true;$/;"	v
+default	.\views\view.main.php	/^    public $default = true;$/;"	v
+defaultOptions.itemText	.\scripts\externals\bootstrap-tagsinput.min.js	/^    itemText: function(item) {$/;"	m
+defaultOptions.itemValue	.\scripts\externals\bootstrap-tagsinput.min.js	/^    itemValue: function(item) {$/;"	m
+defaultOptions.tagClass	.\scripts\externals\bootstrap-tagsinput.min.js	/^    tagClass: function(item) {$/;"	m
+defaultValue	.\ressources\lessc\lessc.inc.php	/^	static public $defaultValue = array("keyword", "");$/;"	v
+delete	.\classes\class.group.php	/^    public static function delete($id) {$/;"	f
+delete	.\classes\class.user.php	/^    public static function delete($id) {$/;"	f
+delete	.\ressources\mysqlidb\mysqlidb.php	/^    public function delete($tableName, $numRows = null)$/;"	f
+delim	.\ressources\lessc\lessc.inc.php	/^					$delim = ";";$/;"	v
+delim	.\ressources\lessc\lessc.inc.php	/^			$delim = "'";$/;"	v
+delim	.\ressources\lessc\lessc.inc.php	/^			$delim = '"';$/;"	v
+delim	.\ressources\lessc\lessc.inc.php	/^		$delim = ",";$/;"	v
+delim	.\ressources\lessc\lessc.inc.php	/^	protected function genericList(&$out, $parseItem, $delim="", $flatten=true) {$/;"	v
+delta	.\ressources\lessc\lessc.inc.php	/^		$delta = floatval($delta[1]);$/;"	v
+deny	.\classes\class.group.php	/^    public function deny($permission) {$/;"	f
+destroy	.\app\class.auth.php	/^    public static function destroy() {$/;"	f
+dir	.\config.php	/^$dir = str_replace("\\\\", "\/", dirname($_SERVER['SCRIPT_NAME']));$/;"	v
+dir	.\loader.php	/^        $dir = new DirectoryIterator($directory);$/;"	v
+dir	.\ressources\lessc\lessc.inc.php	/^						$dir = $this->pushSpecialBlock("directive");$/;"	v
+dir	.\ressources\lessc\lessc.inc.php	/^		$dir = $pi["dirname"];$/;"	v
+disableAuto	.\classes\class.forms.php	/^    public function disableAuto() {$/;"	f
+disableSingle	.\ressources\lessc\lessc.inc.php	/^	public $disableSingle = false;$/;"	v
+disableSingle	.\ressources\lessc\lessc.inc.php	/^	public $disableSingle = true;$/;"	v
+disabled	.\ressources\raintpl\rain.tpl.class.php	/^				\/\/ check if there's any function disabled by black_list$/;"	f
+disabled	.\ressources\raintpl\rain.tpl.class.php	/^			\/\/ check if there's any function disabled by black_list$/;"	f
+disabled	.\ressources\raintpl\rain.tpl.class.php	/^                            \/\/ check if there's any function disabled by black_list$/;"	f
+displayMessages	.\app\class.app.php	/^    public function displayMessages() {$/;"	f
+displayView	.\app\class.app.php	/^    public function displayView($view) {$/;"	f
+doGetCaretPosition	.\scripts\externals\bootstrap-tagsinput.min.js	/^  function doGetCaretPosition(oField) {$/;"	f
+domain	.\classes\class.localization.php	/^  public static function addString($string, $domain='') {$/;"	v
+domain	.\classes\class.localization.php	/^  public static function stringExists($string, $domain='') {$/;"	v
+domain	.\classes\class.localization.php	/^  public static function stringTranslation($orignal, $domain='', $lang=false) {$/;"	v
+domain	.\classes\class.localization.php	/^function i($stringid, $domain=false, $lang=false) {$/;"	v
+dot_position	.\ressources\raintpl\rain.tpl.class.php	/^                                    if( $dot_position = strpos( $function_var, ":" ) ){$/;"	v
+dot_position	.\ressources\raintpl\rain.tpl.class.php	/^                if( $dot_position = strpos( $function_var, ":" ) ){$/;"	v
+draw	.\ressources\raintpl\rain.tpl.class.php	/^	function draw( $tpl_name, $return_string = false ){$/;"	f
+e	.\ressources\lessc\lessc.inc.php	/^		$e = new stdclass;$/;"	v
+e	.\ressources\raintpl\rain.tpl.class.php	/^				$e = new RainTpl_NotFoundException( 'Template '. $tpl_basename .' not found!' );$/;"	v
+e	.\ressources\raintpl\rain.tpl.class.php	/^			$e = new RainTpl_SyntaxException('Error! You need to close an {if} tag in ' . $this->tpl['tpl_filename'] . ' template');$/;"	v
+e	.\ressources\raintpl\rain.tpl.class.php	/^			$e = new RainTpl_SyntaxException('Unallowed syntax in ' . $this->tpl['tpl_filename'] . ' template');$/;"	v
+eatWhiteDefault	.\ressources\lessc\lessc.inc.php	/^			$this->eatWhiteDefault = $oldWhite;$/;"	v
+eatWhiteDefault	.\ressources\lessc\lessc.inc.php	/^		$this->eatWhiteDefault = $oldWhite;$/;"	v
+eatWhiteDefault	.\ressources\lessc\lessc.inc.php	/^		$this->eatWhiteDefault = false;$/;"	v
+eatWhiteDefault	.\ressources\lessc\lessc.inc.php	/^		$this->eatWhiteDefault = true;$/;"	v
+eatWhitespace	.\ressources\lessc\lessc.inc.php	/^		if ($eatWhitespace === null) $eatWhitespace = $this->eatWhiteDefault;$/;"	v
+eatWhitespace	.\ressources\lessc\lessc.inc.php	/^	protected function literal($what, $eatWhitespace = null) {$/;"	v
+eatWhitespace	.\ressources\lessc\lessc.inc.php	/^	protected function match($regex, &$out, $eatWhitespace = null) {$/;"	v
+eh	.\app\class.app.php	/^        $this->eh = EventHandler::instance();$/;"	v
+eh	.\app\class.app.php	/^    public $eh = null;$/;"	v
+eh	.\app\class.auth.php	/^        $eh = App::instance()->eh;$/;"	v
+enableMultilanguage	.\classes\class.forms.php	/^    public function enableMultilanguage() {$/;"	f
+end	.\ressources\lessc\lessc.inc.php	/^	protected function end() {$/;"	f
+endsWith	.\ressources\helpers\additional_functions.php	/^function endsWith($haystack, $needle) {$/;"	f
+env	.\ressources\lessc\lessc.inc.php	/^			$env = $env->parent;$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$env = $this->env;$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$env = $this->pushEnv($media);$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$env = $this->pushEnv();$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$this->env = $b;$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$this->env = $e;$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$this->env = $this->env->parent;$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$this->env = null; \/\/ block stack$/;"	v
+env	.\ressources\lessc\lessc.inc.php	/^		$this->env = null;$/;"	v
+eq	.\ressources\lessc\lessc.inc.php	/^	protected function eq($left, $right) {$/;"	f
+error	.\classes\class.logger.php	/^    public static function error($message) {$/;"	f
+error	.\classes\class.utils.php	/^    public static function error($error) {$/;"	f
+error	.\ressources\lessc\lessc.inc.php	/^	protected function assertColor($value, $error = "expected color value") {$/;"	v
+error	.\ressources\lessc\lessc.inc.php	/^	protected function assertNumber($value, $error = "expecting number") {$/;"	v
+escape	.\ressources\mysqlidb\mysqlidb.php	/^    public function escape($str)$/;"	f
+evaluate	.\ressources\lessc\lessc.inc.php	/^	protected function evaluate($exp) {$/;"	f
+events	.\app\class.events.php	/^            $this->events = array_merge($this->events, $event);$/;"	v
+events	.\app\class.events.php	/^    public $events = array();$/;"	v
+events	.\classes\class.view.php	/^    public $events = array();$/;"	v
+events	.\views\manage\manage.groups\manage.groups.add.php	/^    public $events = array($/;"	v
+events	.\views\manage\manage.groups\manage.groups.edit.php	/^    public $events = array($/;"	v
+events	.\views\manage\manage.groups\manage.groups.members.php	/^    public $events = array($/;"	v
+events	.\views\manage\manage.locales\manage.locales.add.php	/^    public $events = array($/;"	v
+events	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    public $events = array($/;"	v
+events	.\views\manage\manage.users\manage.users.add.php	/^    public $events = array($/;"	v
+events	.\views\manage\manage.users\manage.users.delete.php	/^    public $events = array($/;"	v
+events	.\views\manage\manage.users\manage.users.edit.php	/^    public $events = array($/;"	v
+events	.\views\view.login.php	/^    public $events = array($/;"	v
+exists	.\classes\class.group.php	/^    public static function exists($name) {$/;"	f
+exists	.\classes\class.user.php	/^    public static function exists($userid) {$/;"	f
+exp	.\ressources\lessc\lessc.inc.php	/^			$exp = $this->reduce($exp);$/;"	v
+exp	.\ressources\raintpl\rain.tpl.class.php	/^			$exp = array();$/;"	v
+expHelper	.\ressources\lessc\lessc.inc.php	/^	protected function expHelper($lhs, $minP) {$/;"	f
+expandParentSelectors	.\ressources\lessc\lessc.inc.php	/^	protected function expandParentSelectors(&$tag, $replace) {$/;"	f
+expire_time	.\ressources\raintpl\rain.tpl.class.php	/^	function cache( $tpl_name, $expire_time = self::CACHE_EXPIRE_TIME, $cache_id = null ){$/;"	v
+expression	.\ressources\lessc\lessc.inc.php	/^	protected function expression(&$out) {$/;"	f
+expressionList	.\ressources\lessc\lessc.inc.php	/^	protected function expressionList(&$exps) {$/;"	f
+expressions	.\ressources\lessc\lessc.inc.php	/^		$expressions = null;$/;"	v
+exps	.\ressources\lessc\lessc.inc.php	/^		$exps = lessc::compressList($values, ' ');$/;"	v
+ext	.\config.php	/^$ext = str_replace($root, '', $dir);$/;"	v
+extra_var	.\ressources\raintpl\rain.tpl.class.php	/^			$extra_var = $matches[ 2 ][ $i ];$/;"	v
+extra_var	.\ressources\raintpl\rain.tpl.class.php	/^			$extra_var = $this->var_replace( $extra_var, null, null, null, null, $loop_level );$/;"	v
+extra_var	.\ressources\raintpl\rain.tpl.class.php	/^                                $extra_var = "=\\$this->var['{$var_name}']{$variable_path}" . $extra_var;$/;"	v
+extra_var	.\ressources\raintpl\rain.tpl.class.php	/^                            $extra_var = $array['extra_var'];$/;"	v
+extra_var	.\ressources\raintpl\rain.tpl.class.php	/^                            $extra_var = $this->var_replace( $extra_var, null, null, null, null, $loop_level );$/;"	v
+f	.\ressources\lessc\lessc.inc.php	/^			$f = isset($this->libFunctions[$name]) ?$/;"	v
+favicon	.\classes\class.view.php	/^    public $favicon = WWW_ROOT."images\/favicon.png";$/;"	v
+fields	.\classes\class.group.php	/^    private $fields = array($/;"	v
+fields	.\classes\class.user.php	/^    private $fields = array($/;"	v
+file	.\classes\class.logger.php	/^            $file = fopen(DOC_ROOT."logs\/".$filename, "a+") or die("Unable to open Log File!");$/;"	v
+fileExists	.\ressources\lessc\lessc.inc.php	/^	protected function fileExists($name) {$/;"	f
+filename	.\classes\class.logger.php	/^            $filename = "error-".date("Y-m-d").".log";$/;"	v
+files	.\classes\class.localization.php	/^        $files = array_merge(self::scanDirectory($fileInfo->getRealPath(), $recursive), $files);$/;"	v
+files	.\classes\class.localization.php	/^    $files = array();$/;"	v
+files	.\classes\class.localization.php	/^    $files = self::scanDirectory($directory, $recursive);$/;"	v
+findBlocks	.\ressources\lessc\lessc.inc.php	/^	protected function findBlocks($searchIn, $path, $orderedArgs, $keywordArgs, $seen=array()) {$/;"	f
+findClosestSelectors	.\ressources\lessc\lessc.inc.php	/^	protected function findClosestSelectors() {$/;"	f
+findImport	.\ressources\lessc\lessc.inc.php	/^	protected function findImport($url) {$/;"	f
+first	.\ressources\lessc\lessc.inc.php	/^		$first = $this->assertColor($first);$/;"	v
+first_a	.\ressources\lessc\lessc.inc.php	/^		$first_a = $this->lib_alpha($first);$/;"	v
+fixColor	.\ressources\lessc\lessc.inc.php	/^	protected function fixColor($c) {$/;"	f
+fixTags	.\ressources\lessc\lessc.inc.php	/^	protected function fixTags($tags) {$/;"	f
+flattenList	.\ressources\lessc\lessc.inc.php	/^	protected function flattenList($value) {$/;"	f
+fname	.\ressources\lessc\lessc.inc.php	/^				foreach ($in['files'] as $fname => $ftime ) {$/;"	v
+fname	.\ressources\lessc\lessc.inc.php	/^			$fname = $m[1];$/;"	v
+fname	.\ressources\lessc\lessc.inc.php	/^		$fname = "op_${ltype}_${rtype}";$/;"	v
+fname	.\ressources\lessc\lessc.inc.php	/^		$fname = $func[1];$/;"	v
+fname	.\ressources\lessc\lessc.inc.php	/^		if ($fname == 'hsl' || $fname == 'hsla') {$/;"	v
+fname	.\ressources\lessc\lessc.inc.php	/^		} elseif ($fname == 'rgb' || $fname == 'rgba') {$/;"	v
+forExpression	.\ressources\lessc\lessc.inc.php	/^	protected function reduce($value, $forExpression = false) {$/;"	v
+force	.\ressources\lessc\lessc.inc.php	/^	public function cachedCompile($in, $force = false) {$/;"	v
+force	.\ressources\lessc\lessc.inc.php	/^	public static function cexecute($in, $force = false, $less = null) {$/;"	v
+form	.\views\manage\manage.collections\manage.collections.add.php	/^        $form = new Form(Utils::getUrl($uri));$/;"	v
+form	.\views\manage\manage.collections\manage.collections.add.php	/^    public function form($uri) {$/;"	f
+form	.\views\manage\manage.groups\manage.groups.add.php	/^        $form = new Form(Utils::getUrl(array('manage', 'groups', 'add')));$/;"	v
+form	.\views\manage\manage.groups\manage.groups.add.php	/^    public function form() {$/;"	f
+form	.\views\manage\manage.groups\manage.groups.edit.php	/^        $form = new Form(Utils::getUrl(array('manage', 'groups', 'edit', $this->group->get('id'))));$/;"	v
+form	.\views\manage\manage.groups\manage.groups.edit.php	/^    public function form() {$/;"	f
+form	.\views\manage\manage.groups\manage.groups.members.php	/^      $form = new Form(Utils::getUrl(array('manage', 'groups', 'members', $this->group->get('id'))));$/;"	v
+form	.\views\manage\manage.locales\manage.locales.add.php	/^        $form = new Form(Utils::getUrl(array('manage', 'locales', 'add-language')));$/;"	v
+form	.\views\manage\manage.locales\manage.locales.add.php	/^    public function form() {$/;"	f
+form	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^        $form = new Form(Utils::getUrl(array('manage', 'string-translation', 'translate', $id)));$/;"	v
+form	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    private function form($id) {$/;"	f
+form	.\views\manage\manage.users\manage.users.add.php	/^        $form = new Form(Utils::getUrl(array('manage', 'users', 'add')));$/;"	v
+form	.\views\manage\manage.users\manage.users.add.php	/^    public function form() {$/;"	f
+form	.\views\manage\manage.users\manage.users.delete.php	/^    public function form() {$/;"	f
+form	.\views\manage\manage.users\manage.users.edit.php	/^        $form = new Form(Utils::getUrl(array('manage', 'users', 'edit', $this->user->get('id'))));$/;"	v
+form	.\views\manage\manage.users\manage.users.edit.php	/^    public function form() {$/;"	f
+form	.\views\view.login.php	/^        $form = new Form();$/;"	v
+form	.\views\view.login.php	/^    public function form() {$/;"	f
+formatter	.\ressources\lessc\lessc.inc.php	/^		$this->formatter = $this->newFormatter();$/;"	v
+formatterName	.\ressources\lessc\lessc.inc.php	/^		$this->formatterName = $name;$/;"	v
+forms.ajax	.\scripts\forms.js	/^    ajax : function() {$/;"	m
+forms.init	.\scripts\forms.js	/^    init : function() {$/;"	m
+forms.tags	.\scripts\forms.js	/^    tags : function() {$/;"	m
+forms.tagsInputByGetter	.\scripts\forms.js	/^    tagsInputByGetter : function(element) {$/;"	m
+forms.tagsInputByValues	.\scripts\forms.js	/^    tagsInputByValues : function(element, values) {$/;"	m
+found	.\app\class.auth.php	/^                      $found = true;$/;"	v
+found	.\app\class.auth.php	/^              $found = false;$/;"	v
+found	.\classes\class.localization.php	/^          $found = true;$/;"	v
+found	.\classes\class.localization.php	/^      $found = false;$/;"	v
+found	.\classes\class.view.php	/^          $found = true;$/;"	v
+found	.\classes\class.view.php	/^      $found = false;$/;"	v
+from	.\ressources\lessc\lessc.inc.php	/^		if (is_null($from)) $from = $this->count;$/;"	v
+from	.\ressources\lessc\lessc.inc.php	/^	protected function peek($regex, &$out = null, $from=null) {$/;"	v
+full	.\ressources\lessc\lessc.inc.php	/^			$full = $dir.(substr($dir, -1) != '\/' ? '\/' : '').$url;$/;"	v
+func	.\ressources\lessc\lessc.inc.php	/^					$func = array('function', $fname, $string);$/;"	v
+func	.\ressources\lessc\lessc.inc.php	/^				$func = array('function', $fname, $args);$/;"	v
+func	.\ressources\lessc\lessc.inc.php	/^	protected function func(&$func) {$/;"	f
+func	.\ressources\mysqlidb\mysqlidb.php	/^    public function func ($expr, $bindParams = null) {$/;"	f
+func	.\ressources\mysqlidb\mysqlidb.php	/^    public function interval ($diff, $func = "NOW()") {$/;"	v
+func	.\ressources\mysqlidb\mysqlidb.php	/^    public function now ($diff = null, $func = "NOW()") {$/;"	v
+funcToColor	.\ressources\lessc\lessc.inc.php	/^	protected function funcToColor($func) {$/;"	f
+func_replace	.\ressources\raintpl\rain.tpl.class.php	/^	function func_replace( $html, $tag_left_delimiter, $tag_right_delimiter, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level = null, $echo = null ){$/;"	f
+function	.\ressources\raintpl\rain.tpl.class.php	/^				$function = $code[ 1 ];$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^				$function = $params = null;$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^                                        $function = str_replace( "@double_dot@", "::", $function_var );$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^                                        $function = substr( $function_var, 0, $dot_position );$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^                                    $function = $params = null;$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^                                    $function = str_replace( "@double_dot@", "::", $function );$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^                    $function = str_replace( "@double_dot@", "::", $function_var );$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^                    $function = substr( $function_var, 0, $dot_position );$/;"	v
+function	.\ressources\raintpl\rain.tpl.class.php	/^                $function = str_replace( "@double_dot@", "::", $function );$/;"	v
+function_check	.\ressources\raintpl\rain.tpl.class.php	/^	protected function function_check( $code ){$/;"	f
+function_var	.\ressources\raintpl\rain.tpl.class.php	/^				$function_var = str_replace("::", "@double_dot@", $function_var );$/;"	v
+function_var	.\ressources\raintpl\rain.tpl.class.php	/^			$function_var = ( $extra_var and $extra_var[0] == '|') ? substr( $extra_var, 1 ) : null;$/;"	v
+function_var	.\ressources\raintpl\rain.tpl.class.php	/^                                    $function_var = str_replace("::", "@double_dot@", $function_var );$/;"	v
+function_var	.\ressources\raintpl\rain.tpl.class.php	/^                            $function_var = ( $extra_var and $extra_var[0] == '|') ? substr( $extra_var, 1 ) : null;$/;"	v
+g	.\ressources\lessc\lessc.inc.php	/^			$g = $this->toRGB_helper($H, $temp1, $temp2);$/;"	v
+g	.\ressources\lessc\lessc.inc.php	/^			$g = round($g);$/;"	v
+g	.\ressources\lessc\lessc.inc.php	/^		$g = $color[2] \/ 255;$/;"	v
+genericList	.\ressources\lessc\lessc.inc.php	/^	protected function genericList(&$out, $parseItem, $delim="", $flatten=true) {$/;"	f
+get	.\classes\class.group.php	/^    public function get($field) {$/;"	f
+get	.\classes\class.user.php	/^    public function get($field) {$/;"	f
+get	.\ressources\lessc\lessc.inc.php	/^	protected function get($name, $default=null) {$/;"	f
+get	.\ressources\mysqlidb\mysqlidb.php	/^    public function get($tableName, $numRows = null, $columns = '*')$/;"	f
+getAll	.\classes\class.user.php	/^    public static function getAll() {$/;"	f
+getAllStrings	.\classes\class.localization.php	/^  public static function getAllStrings($sort=false) {$/;"	f
+getCell	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getCell($group, $permission, $structure=false) {$/;"	f
+getCollections	.\app\class.collectionmanager.php	/^  public function getCollections() {$/;"	f
+getCurrentLanguage	.\classes\class.localization.php	/^  public static function getCurrentLanguage() {$/;"	f
+getCurrentUrl	.\classes\class.utils.php	/^    public static function getCurrentUrl() {$/;"	f
+getData	.\classes\class.user.php	/^    public function getData() {$/;"	f
+getFavicon	.\app\class.app.php	/^    public function getFavicon($view) {$/;"	f
+getGroupNames	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getGroupNames($groups) {$/;"	f
+getGroupRows	.\views\manage\manage.groups\manage.groups.php	/^    public function getGroupRows() {$/;"	f
+getGroups	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getGroups() {$/;"	f
+getGroupsPermission	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getGroupsPermission($groups, $permission) {$/;"	f
+getInsertId	.\ressources\mysqlidb\mysqlidb.php	/^    public function getInsertId()$/;"	f
+getInstance	.\ressources\mysqlidb\mysqlidb.php	/^    public static function getInstance()$/;"	f
+getLanguageNameCells	.\views\manage\manage.locales\manage.locales.strings.php	/^    private function getLanguageNameCells() {$/;"	f
+getLanguageRows	.\views\manage\manage.locales\manage.locales.php	/^    private function getLanguageRows() {$/;"	f
+getLanguageTranslationState	.\views\manage\manage.locales\manage.locales.strings.php	/^    private function getLanguageTranslationState($string) {$/;"	f
+getLanguages	.\classes\class.localization.php	/^  public static function getLanguages() {$/;"	f
+getLastError	.\ressources\mysqlidb\mysqlidb.php	/^    public function getLastError () {$/;"	f
+getLastQuery	.\ressources\mysqlidb\mysqlidb.php	/^    public function getLastQuery () {$/;"	f
+getMemberList	.\views\manage\manage.groups\manage.groups.members.php	/^    public function getMemberList() {$/;"	f
+getOne	.\ressources\mysqlidb\mysqlidb.php	/^    public function getOne($tableName, $columns = '*') $/;"	f
+getPermissionNames	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getPermissionNames($permissions) {$/;"	f
+getPermissions	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getPermissions() {$/;"	f
+getPref	.\classes\class.datacollection.php	/^  public function getPref($name) {$/;"	f
+getProgressBar	.\classes\class.utils.php	/^    public static function getProgressBar($id, $current, $text="") {$/;"	f
+getRows	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getRows($permissions, $groups) {$/;"	f
+getScripts	.\loader.php	/^    public function getScripts() {$/;"	f
+getStringById	.\classes\class.localization.php	/^  public static function getStringById($id) {$/;"	f
+getStringRows	.\views\manage\manage.locales\manage.locales.strings.php	/^    private function getStringRows() {$/;"	f
+getStyles	.\loader.php	/^    public function getStyles() {$/;"	f
+getSubQuery	.\ressources\mysqlidb\mysqlidb.php	/^    public function getSubQuery () {$/;"	f
+getSubview	.\classes\class.view.php	/^    public function getSubview($uri_components, $parent) {$/;"	f
+getTag	.\ressources\raintpl\rain.tpl.class.php	/^	public function getTag()$/;"	f
+getTemplateFile	.\ressources\raintpl\rain.tpl.class.php	/^	public function getTemplateFile()$/;"	f
+getTemplateLine	.\ressources\raintpl\rain.tpl.class.php	/^	public function getTemplateLine()$/;"	f
+getTitle	.\app\class.app.php	/^    public function getTitle($view) {$/;"	f
+getUriComponents	.\classes\class.utils.php	/^    public static function getUriComponents() {$/;"	f
+getUrl	.\classes\class.utils.php	/^    public static function getUrl($params = array()) {$/;"	f
+getUserRows	.\views\manage\manage.groups\manage.groups.members.php	/^    public function getUserRows() {$/;"	f
+getUserRows	.\views\manage\manage.users\manage.users.php	/^    public function getUserRows() {$/;"	f
+getUsername	.\classes\class.utils.php	/^    public static function getUsername($id) {$/;"	f
+getValue	.\ressources\mysqlidb\mysqlidb.php	/^    public function getValue($tableName, $column) $/;"	f
+getViews	.\app\class.viewmanager.php	/^    public function getViews() {$/;"	f
+glue	.\ressources\lessc\lessc.inc.php	/^			$glue = $this->break.$inner;$/;"	v
+go_back	.\app\class.app.php	/^    public function redirect($target, $go_back=false) {$/;"	v
+gotWhite	.\ressources\lessc\lessc.inc.php	/^				$gotWhite = true;$/;"	v
+gotWhite	.\ressources\lessc\lessc.inc.php	/^			$gotWhite = false;$/;"	v
+grant	.\classes\class.group.php	/^    public function grant($permission) {$/;"	f
+group	.\classes\class.group.php	/^        $group = $this->app->db->getOne("groups");$/;"	v
+group	.\views\manage\manage.groups\manage.groups.delete.php	/^      $group = new Group($id);$/;"	v
+group	.\views\manage\manage.groups\manage.groups.edit.php	/^        $this->group = new Group($parts[0]);$/;"	v
+group	.\views\manage\manage.groups\manage.groups.edit.php	/^      $group = new Group($data['group_id']);$/;"	v
+group	.\views\manage\manage.groups\manage.groups.edit.php	/^    private $group = null;$/;"	v
+group	.\views\manage\manage.groups\manage.groups.members.php	/^        $group = new Group($data['groupid']);$/;"	v
+group	.\views\manage\manage.groups\manage.groups.members.php	/^        $this->group = new Group($uri[0]);$/;"	v
+group	.\views\manage\manage.groups\manage.groups.members.php	/^    private $group = null;$/;"	v
+group	.\views\manage\manage.permissions\manage.permissions.php	/^          $group = new Group($groupid);$/;"	v
+groupBy	.\ressources\mysqlidb\mysqlidb.php	/^    public function groupBy($groupByField)$/;"	f
+groupByField	.\ressources\mysqlidb\mysqlidb.php	/^        $groupByField = preg_replace ("\/[^-a-z0-9\\.\\(\\),_]+\/i",'', $groupByField);$/;"	v
+groupPassed	.\ressources\lessc\lessc.inc.php	/^						$groupPassed = false;$/;"	v
+groupPassed	.\ressources\lessc\lessc.inc.php	/^						$groupPassed = true;$/;"	v
+groupPassed	.\ressources\lessc\lessc.inc.php	/^			$groupPassed = false;$/;"	v
+groupTable	.\views\manage\manage.groups\manage.groups.php	/^    public function groupTable() {$/;"	f
+groupid	.\views\manage\manage.permissions\manage.permissions.php	/^        $groupid = $uri[1];$/;"	v
+groups	.\classes\class.user.php	/^    public function groups() {$/;"	f
+groups	.\views\manage\manage.groups\manage.groups.php	/^        $groups = $this->app->db->get('groups');$/;"	v
+groups	.\views\manage\manage.permissions\manage.permissions.php	/^      $groups = $this->getGroups();$/;"	v
+groupsWithPermission	.\classes\class.user.php	/^        $groupsWithPermission = $this->app->db->get('permissions_groups');$/;"	v
+groups_enriched	.\views\manage\manage.groups\manage.groups.php	/^        $groups_enriched = array();$/;"	v
+guard	.\ressources\lessc\lessc.inc.php	/^						$guard = $guard[1];$/;"	v
+guard	.\ressources\lessc\lessc.inc.php	/^			$guard = $exp;$/;"	v
+guard	.\ressources\lessc\lessc.inc.php	/^			if ($negate) $guard = array("negate", $guard);$/;"	v
+guard	.\ressources\lessc\lessc.inc.php	/^	protected function guard(&$guard) {$/;"	f
+guardGroup	.\ressources\lessc\lessc.inc.php	/^			$guardGroup = null;$/;"	v
+guardGroup	.\ressources\lessc\lessc.inc.php	/^		$guardGroup = array();$/;"	v
+guardGroup	.\ressources\lessc\lessc.inc.php	/^	protected function guardGroup(&$guardGroup) {$/;"	f
+guards	.\ressources\lessc\lessc.inc.php	/^			$guards = null;$/;"	v
+guards	.\ressources\lessc\lessc.inc.php	/^		$guards = array();$/;"	v
+guards	.\ressources\lessc\lessc.inc.php	/^	protected function guards(&$guards) {$/;"	f
+h	.\ressources\lessc\lessc.inc.php	/^					$h = '#' . $h[1] . $h[3] . $h[5];$/;"	v
+h	.\ressources\lessc\lessc.inc.php	/^			$h = sprintf("#%02x%02x%02x", $r, $g, $b);$/;"	v
+handle	.\classes\class.localization.php	/^      $handle = fopen($file, "r");$/;"	v
+has	.\ressources\mysqlidb\mysqlidb.php	/^    public function has($tableName)$/;"	f
+has	.\ressources\raintpl\rain.tpl.class.php	/^	 * This function has no reason to be used anywhere but in `path_replace`.$/;"	f
+hasExpression	.\ressources\lessc\lessc.inc.php	/^					$hasExpression = true;$/;"	v
+hasExpression	.\ressources\lessc\lessc.inc.php	/^				$hasExpression = $hasExpression || $hasInterpolation;$/;"	v
+hasExpression	.\ressources\lessc\lessc.inc.php	/^		$hasExpression = false;$/;"	v
+hasGroup	.\classes\class.user.php	/^    public function hasGroup($id){$/;"	f
+hasInterpolation	.\ressources\lessc\lessc.inc.php	/^					$hasInterpolation = true;$/;"	v
+hasInterpolation	.\ressources\lessc\lessc.inc.php	/^		$hasInterpolation = false;$/;"	v
+hasPermission	.\classes\class.group.php	/^    public static function hasPermission($group, $permission) {$/;"	f
+haveArgs	.\ressources\lessc\lessc.inc.php	/^					$haveArgs = true;$/;"	v
+haveArgs	.\ressources\lessc\lessc.inc.php	/^				$haveArgs = false;$/;"	v
+haveScope	.\ressources\lessc\lessc.inc.php	/^					$haveScope = true;$/;"	v
+haveScope	.\ressources\lessc\lessc.inc.php	/^				$haveScope = false;$/;"	v
+header	.\app\class.app.php	/^    public function header($view) {$/;"	f
+hidden	.\classes\class.forms.php	/^    public function hidden($name, $value) {$/;"	f
+hidden	.\ressources\lessc\lessc.inc.php	/^							$hidden = false;$/;"	v
+hidden	.\ressources\lessc\lessc.inc.php	/^				$hidden = true;$/;"	v
+hidden	.\ressources\lessc\lessc.inc.php	/^			$hidden = false;$/;"	v
+hideLoading	.\scripts\helpers.js	/^function hideLoading(element, callback) {$/;"	f
+horizontal	.\classes\class.forms.php	/^        $this->horizontal = true;$/;"	v
+horizontal	.\classes\class.forms.php	/^    private $horizontal = false;$/;"	v
+horizontal	.\classes\class.forms.php	/^    public function horizontal() {$/;"	f
+host	.\ressources\mysqlidb\mysqlidb.php	/^            $this->host = $host;$/;"	v
+host	.\ressources\mysqlidb\mysqlidb.php	/^    protected $host;$/;"	v
+hsl	.\ressources\lessc\lessc.inc.php	/^			$hsl = array('hsl');$/;"	v
+hsl	.\ressources\lessc\lessc.inc.php	/^		$hsl = $this->toHSL($color);$/;"	v
+hsl	.\ressources\lessc\lessc.inc.php	/^		$hsl = $this->toHSL($inputColor);$/;"	v
+hsl	.\ressources\lessc\lessc.inc.php	/^		$hsl = $this->toHSL($this->assertColor($color));$/;"	v
+html	.\ressources\raintpl\rain.tpl.class.php	/^				$html = $this->const_replace( $html, $left_delimiter = '\\{', $right_delimiter = '\\}', $php_left_delimiter = '<?php ', $php_right_delimiter = ';?>', $loop_level, $echo = true );$/;"	v
+html	.\ressources\raintpl\rain.tpl.class.php	/^				$html = $this->var_replace( $html, $left_delimiter = '\\{', $right_delimiter = '\\}', $php_left_delimiter = '<?php ', $php_right_delimiter = ';?>', $loop_level, $echo = true );$/;"	v
+html	.\ressources\raintpl\rain.tpl.class.php	/^			$html = str_replace( $tag, $php_var, $html );$/;"	v
+html	.\ressources\raintpl\rain.tpl.class.php	/^	 * eg. 	$html = $tpl->draw( 'demo', TRUE ); \/\/ return template in string$/;"	v
+html	.\ressources\raintpl\rain.tpl.class.php	/^                            $html = str_replace( $tag, $php_var, $html );$/;"	v
+htmlEncode	.\scripts\externals\bootstrap-tagsinput.min.js	/^  function htmlEncode(value) {$/;"	f
+httponly	.\app\class.auth.php	/^        $httponly = true;$/;"	v
+i	.\classes\class.localization.php	/^function i($stringid, $domain=false, $lang=false) {$/;"	f
+i	.\ressources\lessc\lessc.inc.php	/^						foreach ($values as $i => $arg) {$/;"	v
+i	.\ressources\lessc\lessc.inc.php	/^			$i = 0;$/;"	v
+i	.\ressources\lessc\lessc.inc.php	/^			$i = 1;$/;"	v
+i	.\ressources\lessc\lessc.inc.php	/^		$i = -1; \/\/ no args$/;"	v
+i	.\ressources\lessc\lessc.inc.php	/^		$i = 0;$/;"	v
+i	.\ressources\lessc\lessc.inc.php	/^		foreach ($remainingArgs as $i => $arg) {$/;"	v
+i	.\ressources\mysqlidb\mysqlidb.php	/^        $i = 1;$/;"	v
+i	.\ressources\raintpl\rain.tpl.class.php	/^		for( $i=0, $n=count($matches[0]); $i<$n; $i++ ){$/;"	v
+icon	.\classes\class.navigation.php	/^    public function add($id, $name, $url, $panel, $icon=false, $parent=false, $img=false, $classes = array()) {$/;"	v
+icon	.\classes\class.utils.php	/^    public static function icon($name) {$/;"	f
+id	.\classes\class.group.php	/^            $this->id = $id;$/;"	v
+id	.\classes\class.group.php	/^    public $id = null;$/;"	v
+id	.\classes\class.user.php	/^            if( $id == App::instance()->user->get('id')) {$/;"	v
+id	.\ressources\lessc\lessc.inc.php	/^				$id = self::$nextImportId++;$/;"	v
+id	.\views\manage\manage.groups\manage.groups.delete.php	/^            $id = $uri[0];$/;"	v
+id	.\views\manage\manage.users\manage.users.delete.php	/^            $id = $uri[0];$/;"	v
+id_array	.\classes\class.group.php	/^      $id_array = array();$/;"	v
+idx	.\ressources\lessc\lessc.inc.php	/^		$idx = $this->assertNumber($idx);$/;"	v
+ignore_is_open	.\ressources\raintpl\rain.tpl.class.php	/^	 			$ignore_is_open = false;$/;"	v
+ignore_is_open	.\ressources\raintpl\rain.tpl.class.php	/^	 			$ignore_is_open = true;$/;"	v
+implementsIModule	.\app\class.collectionmanager.php	/^      $implementsIModule = array();$/;"	v
+implementsIModule	.\app\class.viewmanager.php	/^        $implementsIModule = array();$/;"	v
+import	.\ressources\lessc\lessc.inc.php	/^			$import = $this->env->imports[$importId];$/;"	v
+import	.\ressources\lessc\lessc.inc.php	/^	protected function import(&$out) {$/;"	f
+importDir	.\ressources\lessc\lessc.inc.php	/^		$this->importDir = $oldImport;$/;"	v
+importDir	.\ressources\lessc\lessc.inc.php	/^		$this->importDir = (array)$dirs;$/;"	v
+importDir	.\ressources\lessc\lessc.inc.php	/^		$this->importDir = (array)$this->importDir;$/;"	v
+importDir	.\ressources\lessc\lessc.inc.php	/^	public $importDir = '';$/;"	v
+importDisabled	.\ressources\lessc\lessc.inc.php	/^	public $importDisabled = false;$/;"	v
+importPath	.\ressources\lessc\lessc.inc.php	/^			$importPath = $this->flattenList($importPath[2]);$/;"	v
+importPath	.\ressources\lessc\lessc.inc.php	/^			$importPath = $this->reduce($importPath);$/;"	v
+imports	.\ressources\lessc\lessc.inc.php	/^		$imports = array();$/;"	v
+inExp	.\ressources\lessc\lessc.inc.php	/^		$this->inExp = true;$/;"	v
+inParens	.\ressources\lessc\lessc.inc.php	/^			$this->inParens = $inParens;$/;"	v
+inParens	.\ressources\lessc\lessc.inc.php	/^		$inParens = $this->inParens;$/;"	v
+inParens	.\ressources\lessc\lessc.inc.php	/^	protected $inParens = false;$/;"	v
+inc	.\ressources\mysqlidb\mysqlidb.php	/^    public function inc($num = 1) {$/;"	f
+include_template	.\ressources\raintpl\rain.tpl.class.php	/^                                        $include_template = $actual_folder . $include_var;$/;"	v
+include_template	.\ressources\raintpl\rain.tpl.class.php	/^                                        $include_template = $this->reduce_path( $include_template );$/;"	v
+include_var	.\ressources\raintpl\rain.tpl.class.php	/^					$include_var = $this->var_replace( $code[ 1 ], $left_delimiter = null, $right_delimiter = null, $php_left_delimiter = '".' , $php_right_delimiter = '."', $loop_level );$/;"	v
+incr	.\ressources\mysqlidb\mysqlidb.php	/^            if (!empty ($matches[1])) $incr = $matches[1];$/;"	v
+incr	.\ressources\mysqlidb\mysqlidb.php	/^        $incr = '+';$/;"	v
+indentChar	.\ressources\lessc\lessc.inc.php	/^	public $indentChar = "  ";$/;"	v
+indentLevel	.\ressources\lessc\lessc.inc.php	/^		$this->indentLevel = 0;$/;"	v
+indentStr	.\ressources\lessc\lessc.inc.php	/^	public function indentStr($n = 0) {$/;"	f
+info	.\classes\class.logger.php	/^    public static function info($message) {$/;"	f
+init	.\app\class.events.php	/^    public function init() {$/;"	f
+init	.\classes\class.datacollection.php	/^  private function init() {$/;"	f
+init	.\classes\class.view.php	/^    public function init() {$/;"	f
+init	.\views\manage\manage.locales\manage.locales.strings.php	/^    public function init() {$/;"	f
+initEssential	.\classes\class.view.php	/^    public function initEssential() {$/;"	f
+initialVariables	.\ressources\lessc\lessc.inc.php	/^			$initialVariables = $str;$/;"	v
+initialVariables	.\ressources\lessc\lessc.inc.php	/^	public function parse($str = null, $initialVariables = null) {$/;"	v
+injectVariables	.\ressources\lessc\lessc.inc.php	/^	protected function injectVariables($args) {$/;"	f
+inner	.\ressources\lessc\lessc.inc.php	/^				$inner = "";$/;"	v
+inner	.\ressources\lessc\lessc.inc.php	/^				$inner = $this->indentStr();$/;"	v
+inner	.\ressources\lessc\lessc.inc.php	/^				(($this->variable($inner) && $inner = array("variable", $inner)) ||$/;"	v
+inner	.\ressources\lessc\lessc.inc.php	/^		$inner = $pre = $this->indentStr();$/;"	v
+input	.\classes\class.forms.php	/^    public function input($name, $id, $label, $type="input", $value=false, $hint=false) {$/;"	f
+inputColor	.\ressources\lessc\lessc.inc.php	/^		$inputColor = $this->assertColor($inputColor);$/;"	v
+inquery	.\loader.php	/^    public function loadDirectory($directory, $inquery=false) {$/;"	v
+insert	.\ressources\mysqlidb\mysqlidb.php	/^    public function insert($tableName, $insertData)$/;"	f
+instance	.\app\class.app.php	/^    static private $instance = null;$/;"	v
+instance	.\app\class.app.php	/^    static public function instance() {$/;"	f
+instance	.\app\class.events.php	/^                    $instance = 'instance';$/;"	v
+instance	.\app\class.events.php	/^    private static $instance = null;$/;"	v
+instance	.\app\class.events.php	/^    public static function instance() {$/;"	f
+instance	.\classes\class.datacollection.php	/^  static public function instance() {$/;"	f
+instance	.\classes\class.view.php	/^    static public function instance() {$/;"	f
+instance	.\loader.php	/^    static private $instance = null;$/;"	v
+instance	.\loader.php	/^    static public function instance() {$/;"	f
+instances	.\classes\class.datacollection.php	/^  protected static $instances = array();$/;"	v
+instances	.\classes\class.view.php	/^    protected static $instances = array();$/;"	v
+interpolation	.\ressources\lessc\lessc.inc.php	/^	protected function interpolation(&$out) {$/;"	f
+interval	.\ressources\mysqlidb\mysqlidb.php	/^    public function interval ($diff, $func = "NOW()") {$/;"	f
+is	.\ressources\lessc\lessc.inc.php	/^	 * This function is called repeatedly until the entire document is$/;"	f
+is	.\ressources\lessc\lessc.inc.php	/^ * The `lessc_parser` class is only concerned with parsing its input.$/;"	c
+is	.\ressources\raintpl\rain.tpl.class.php	/^		\/\/ check if the function is in the black list (or not in white list)$/;"	f
+is	.\ressources\raintpl\rain.tpl.class.php	/^	 * Check if function is in black list (sandbox)$/;"	f
+isAjax	.\classes\class.utils.php	/^    public static function isAjax() {$/;"	f
+isArguments	.\ressources\lessc\lessc.inc.php	/^		$isArguments = $name == $this->vPrefix . 'arguments';$/;"	v
+isDefault	.\views\manage\manage.locales\manage.locales.php	/^                  "icon" => $isDefault === 0 ? "unchecked" : "ok",$/;"	v
+isDirective	.\ressources\lessc\lessc.inc.php	/^	protected function isDirective($dirname, $directives) {$/;"	f
+isEmpty	.\ressources\lessc\lessc.inc.php	/^	protected function isEmpty($block) {$/;"	f
+isInsert	.\ressources\mysqlidb\mysqlidb.php	/^        $isInsert = strpos ($this->_query, 'INSERT');$/;"	v
+isSingle	.\ressources\lessc\lessc.inc.php	/^		$isSingle = !$this->disableSingle &&$/;"	v
+isSubQuery	.\ressources\mysqlidb\mysqlidb.php	/^            $this->isSubQuery = true;$/;"	v
+isSubQuery	.\ressources\mysqlidb\mysqlidb.php	/^        $isSubQuery = false;$/;"	v
+isSubQuery	.\ressources\mysqlidb\mysqlidb.php	/^    protected $isSubQuery = false;$/;"	v
+isUpdate	.\ressources\mysqlidb\mysqlidb.php	/^        $isUpdate = strpos ($this->_query, 'UPDATE');$/;"	v
+isVararg	.\ressources\lessc\lessc.inc.php	/^							$isVararg = true;$/;"	v
+isVararg	.\ressources\lessc\lessc.inc.php	/^				$isVararg = true;$/;"	v
+isVararg	.\ressources\lessc\lessc.inc.php	/^		$isVararg = false;$/;"	v
+is_init_variable	.\ressources\raintpl\rain.tpl.class.php	/^			$is_init_variable = preg_match( "\/^(\\s*?)\\=[^=](.*?)$\/", $extra_var );$/;"	v
+is_init_variable	.\ressources\raintpl\rain.tpl.class.php	/^                            $is_init_variable = preg_match( "\/^[a-z_A-Z\\.\\[\\](\\-\\>)]*=[^=]*$\/", $extra_var );$/;"	v
+it	.\ressources\lessc\lessc.inc.php	/^	 * function it will attempt to match a keyword on the head of the buffer.$/;"	f
+item	.\ressources\lessc\lessc.inc.php	/^				$item = $this->reduce($item, $forExpression);$/;"	v
+items	.\classes\class.navigation.php	/^    private $items = array();$/;"	v
+items	.\ressources\lessc\lessc.inc.php	/^				$items = $arg[2];$/;"	v
+items	.\ressources\lessc\lessc.inc.php	/^		$items = array();$/;"	v
+items	.\ressources\mysqlidb\mysqlidb.php	/^            if (!empty ($matches[2])) $items = $matches[2];$/;"	v
+items	.\ressources\mysqlidb\mysqlidb.php	/^        $items = '';$/;"	v
+iterator	.\classes\class.localization.php	/^    $iterator = new DirectoryIterator($directory);$/;"	v
+join	.\ressources\mysqlidb\mysqlidb.php	/^     public function join($joinTable, $joinCondition, $joinType = '')$/;"	f
+joinStr	.\ressources\mysqlidb\mysqlidb.php	/^                $joinStr = $joinTable;$/;"	v
+joinStr	.\ressources\mysqlidb\mysqlidb.php	/^                $joinStr = $this->_buildPair ("", $joinTable);$/;"	v
+joinTable	.\ressources\mysqlidb\mysqlidb.php	/^            $joinTable = self::$_prefix . filter_var($joinTable, FILTER_SANITIZE_STRING);$/;"	v
+joinType	.\ressources\mysqlidb\mysqlidb.php	/^        $joinType = strtoupper (trim ($joinType));$/;"	v
+joinType	.\ressources\mysqlidb\mysqlidb.php	/^     public function join($joinTable, $joinCondition, $joinType = '')$/;"	v
+json	.\classes\class.utils.php	/^    public static function json($array) {$/;"	f
+key	.\app\class.app.php	/^      foreach($args as $key => $value)$/;"	v
+key	.\classes\class.logger.php	/^          foreach($text as $key => $value) {$/;"	v
+key	.\ressources\lessc\lessc.inc.php	/^				$key = $this->reduce($key);$/;"	v
+key	.\ressources\lessc\lessc.inc.php	/^				$key = $this->vPrefix . $this->compileValue($this->lib_e($key));$/;"	v
+key	.\ressources\lessc\lessc.inc.php	/^			$key = $value[1];$/;"	v
+key	.\ressources\mysqlidb\mysqlidb.php	/^            $key = key ($value);$/;"	v
+key	.\ressources\mysqlidb\mysqlidb.php	/^            $key = key ($wValue);$/;"	v
+key	.\ressources\mysqlidb\mysqlidb.php	/^            foreach ($arr as $key => $value) {$/;"	v
+key	.\ressources\mysqlidb\mysqlidb.php	/^            foreach ($customFields as $key => $value)$/;"	v
+key	.\ressources\mysqlidb\mysqlidb.php	/^            foreach ($host as $key => $val)$/;"	v
+key	.\ressources\mysqlidb\mysqlidb.php	/^            foreach ($row as $key => $val) {$/;"	v
+key	.\ressources\mysqlidb\mysqlidb.php	/^        foreach ($this->_groupBy as $key => $value)$/;"	v
+key	.\ressources\raintpl\rain.tpl.class.php	/^				$key = "\\$key$loop_level";               \/\/ key$/;"	v
+key	.\ressources\raintpl\rain.tpl.class.php	/^			foreach( $setting as $key => $value )$/;"	v
+keyCombinationInList	.\scripts\externals\bootstrap-tagsinput.min.js	/^  function keyCombinationInList(keyPressEvent, lookupList) {$/;"	f
+keyName	.\ressources\lessc\lessc.inc.php	/^	public function propertyValue(&$value, $keyName = null) {$/;"	v
+keyword	.\ressources\lessc\lessc.inc.php	/^	protected function keyword(&$word) {$/;"	f
+keywordArgs	.\ressources\lessc\lessc.inc.php	/^			$keywordArgs = array();$/;"	v
+lang	.\classes\class.localization.php	/^          $lang = $n;$/;"	v
+lang	.\classes\class.localization.php	/^      $lang = false;$/;"	v
+lang	.\classes\class.localization.php	/^      $lang = self::getCurrentLanguage();$/;"	v
+lang	.\classes\class.localization.php	/^    $lang = $db->getOne("languages");$/;"	v
+lang	.\classes\class.localization.php	/^  public static function stringTranslationState($orignal, $domain, $lang=false) {$/;"	v
+langid	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^          $langid = $langid[1];$/;"	v
+langid	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^          $langid = explode("-", $name);$/;"	v
+languageTable	.\views\manage\manage.locales\manage.locales.php	/^    private function languageTable() {$/;"	f
+language_prepared	.\views\manage\manage.locales\manage.locales.php	/^      $language_prepared = array();$/;"	v
+languages	.\views\manage\manage.locales\manage.locales.php	/^      $languages = $this->app->db->get('languages');$/;"	v
+languages	.\views\manage\manage.locales\manage.locales.strings.php	/^      $this->languages = Localization::getLanguages();$/;"	v
+languages	.\views\manage\manage.locales\manage.locales.strings.php	/^    public $languages = null;$/;"	v
+last	.\ressources\lessc\lessc.inc.php	/^		$last = end($args);$/;"	v
+lastCount	.\ressources\lessc\lessc.inc.php	/^		$lastCount = $this->count;$/;"	v
+left	.\ressources\lessc\lessc.inc.php	/^			$left = $leftColor;$/;"	v
+left	.\ressources\lessc\lessc.inc.php	/^		$left = $this->reduce($left, true);$/;"	v
+left	.\ressources\lessc\lessc.inc.php	/^		return $left == $right;$/;"	v
+left_delimiter	.\ressources\raintpl\rain.tpl.class.php	/^				$compiled_code .= $this->func_replace( $html, $left_delimiter = '\\{', $right_delimiter = '\\}', $php_left_delimiter = '<?php ', $php_right_delimiter = ';?>', $loop_level, $echo = true );$/;"	v
+less	.\ressources\lessc\lessc.inc.php	/^			$less = new self;$/;"	v
+less	.\ressources\lessc\lessc.inc.php	/^	public static function ccompile($in, $out, $less = null) {$/;"	v
+lessVariablesSet	.\loader.php	/^      $this->lessVariablesSet = true;$/;"	v
+lessVariablesSet	.\loader.php	/^    private $lessVariablesSet = false;$/;"	v
+less_path	.\loader.php	/^        $less_path = DOC_ROOT.$less;$/;"	v
+lessc	.\loader.php	/^            $this->lessc = new lessc;$/;"	v
+lessc	.\loader.php	/^    private $lessc = null;$/;"	v
+lessc	.\ressources\lessc\lessc.inc.php	/^		$this->lessc = $lessc;$/;"	v
+lessc	.\ressources\lessc\lessc.inc.php	/^	 * Consider the function lessc::keyword(). (all parse functions are$/;"	f
+lessc	.\ressources\lessc\lessc.inc.php	/^class lessc {$/;"	c
+lessc_formatter_classic	.\ressources\lessc\lessc.inc.php	/^class lessc_formatter_classic {$/;"	c
+lessc_formatter_compressed	.\ressources\lessc\lessc.inc.php	/^class lessc_formatter_compressed extends lessc_formatter_classic {$/;"	c
+lessc_formatter_lessjs	.\ressources\lessc\lessc.inc.php	/^class lessc_formatter_lessjs extends lessc_formatter_classic {$/;"	c
+lessc_parser	.\ressources\lessc\lessc.inc.php	/^class lessc_parser {$/;"	c
+level	.\classes\class.forms.php	/^    public function submit($text, $level="primary") {$/;"	v
+level	.\classes\class.logger.php	/^            $level = "INFO";$/;"	v
+level	.\classes\class.logger.php	/^    public static function log($text, $level=null) {$/;"	v
+level	.\classes\class.utils.php	/^          $level = ob_get_level();$/;"	v
+levels	.\classes\class.logger.php	/^    public static $levels = array("DEBUG", "INFO", "WARN", "ERROR");$/;"	v
+lhs	.\ressources\lessc\lessc.inc.php	/^				$lhs = array('expression', $m[1], $lhs, $rhs, $whiteBefore, $whiteAfter);$/;"	v
+libFunctions	.\ressources\lessc\lessc.inc.php	/^	protected $libFunctions = array();$/;"	v
+lib__sprintf	.\ressources\lessc\lessc.inc.php	/^	protected function lib__sprintf($args) {$/;"	f
+lib_acos	.\ressources\lessc\lessc.inc.php	/^	protected function lib_acos($num) {$/;"	f
+lib_alpha	.\ressources\lessc\lessc.inc.php	/^	protected function lib_alpha($value) {$/;"	f
+lib_argb	.\ressources\lessc\lessc.inc.php	/^	protected function lib_argb($color){$/;"	f
+lib_asin	.\ressources\lessc\lessc.inc.php	/^	protected function lib_asin($num) {$/;"	f
+lib_atan	.\ressources\lessc\lessc.inc.php	/^	protected function lib_atan($num) {$/;"	f
+lib_blue	.\ressources\lessc\lessc.inc.php	/^	function lib_blue($color){$/;"	f
+lib_ceil	.\ressources\lessc\lessc.inc.php	/^	protected function lib_ceil($arg) {$/;"	f
+lib_contrast	.\ressources\lessc\lessc.inc.php	/^	protected function lib_contrast($args) {$/;"	f
+lib_cos	.\ressources\lessc\lessc.inc.php	/^	protected function lib_cos($num) {$/;"	f
+lib_darken	.\ressources\lessc\lessc.inc.php	/^	protected function lib_darken($args) {$/;"	f
+lib_desaturate	.\ressources\lessc\lessc.inc.php	/^	protected function lib_desaturate($args) {$/;"	f
+lib_e	.\ressources\lessc\lessc.inc.php	/^	protected function lib_e($arg) {$/;"	f
+lib_extract	.\ressources\lessc\lessc.inc.php	/^	protected function lib_extract($value) {$/;"	f
+lib_fade	.\ressources\lessc\lessc.inc.php	/^	protected function lib_fade($args) {$/;"	f
+lib_fadein	.\ressources\lessc\lessc.inc.php	/^	protected function lib_fadein($args) {$/;"	f
+lib_fadeout	.\ressources\lessc\lessc.inc.php	/^	protected function lib_fadeout($args) {$/;"	f
+lib_floor	.\ressources\lessc\lessc.inc.php	/^	protected function lib_floor($arg) {$/;"	f
+lib_green	.\ressources\lessc\lessc.inc.php	/^	function lib_green($color){$/;"	f
+lib_hue	.\ressources\lessc\lessc.inc.php	/^	protected function lib_hue($color) {$/;"	f
+lib_iscolor	.\ressources\lessc\lessc.inc.php	/^	protected function lib_iscolor($value) {$/;"	f
+lib_isem	.\ressources\lessc\lessc.inc.php	/^	protected function lib_isem($value) {$/;"	f
+lib_iskeyword	.\ressources\lessc\lessc.inc.php	/^	protected function lib_iskeyword($value) {$/;"	f
+lib_isnumber	.\ressources\lessc\lessc.inc.php	/^	protected function lib_isnumber($value) {$/;"	f
+lib_ispercentage	.\ressources\lessc\lessc.inc.php	/^	protected function lib_ispercentage($value) {$/;"	f
+lib_ispixel	.\ressources\lessc\lessc.inc.php	/^	protected function lib_ispixel($value) {$/;"	f
+lib_isrem	.\ressources\lessc\lessc.inc.php	/^	protected function lib_isrem($value) {$/;"	f
+lib_isstring	.\ressources\lessc\lessc.inc.php	/^	protected function lib_isstring($value) {$/;"	f
+lib_lighten	.\ressources\lessc\lessc.inc.php	/^	protected function lib_lighten($args) {$/;"	f
+lib_lightness	.\ressources\lessc\lessc.inc.php	/^	protected function lib_lightness($color) {$/;"	f
+lib_mix	.\ressources\lessc\lessc.inc.php	/^	protected function lib_mix($args) {$/;"	f
+lib_mod	.\ressources\lessc\lessc.inc.php	/^	protected function lib_mod($args) {$/;"	f
+lib_percentage	.\ressources\lessc\lessc.inc.php	/^	protected function lib_percentage($arg) {$/;"	f
+lib_pi	.\ressources\lessc\lessc.inc.php	/^	protected function lib_pi() {$/;"	f
+lib_pow	.\ressources\lessc\lessc.inc.php	/^	protected function lib_pow($args) {$/;"	f
+lib_red	.\ressources\lessc\lessc.inc.php	/^	function lib_red($color){$/;"	f
+lib_rgbahex	.\ressources\lessc\lessc.inc.php	/^	protected function lib_rgbahex($color) {$/;"	f
+lib_round	.\ressources\lessc\lessc.inc.php	/^	protected function lib_round($arg) {$/;"	f
+lib_saturate	.\ressources\lessc\lessc.inc.php	/^	protected function lib_saturate($args) {$/;"	f
+lib_saturation	.\ressources\lessc\lessc.inc.php	/^	protected function lib_saturation($color) {$/;"	f
+lib_sin	.\ressources\lessc\lessc.inc.php	/^	protected function lib_sin($num) {$/;"	f
+lib_spin	.\ressources\lessc\lessc.inc.php	/^	protected function lib_spin($args) {$/;"	f
+lib_sqrt	.\ressources\lessc\lessc.inc.php	/^	protected function lib_sqrt($num) {$/;"	f
+lib_tan	.\ressources\lessc\lessc.inc.php	/^	protected function lib_tan($num) {$/;"	f
+lib_unit	.\ressources\lessc\lessc.inc.php	/^	protected function lib_unit($arg) {$/;"	f
+lightColor	.\ressources\lessc\lessc.inc.php	/^		$lightColor = $this->assertColor($lightColor);$/;"	v
+line	.\ressources\lessc\lessc.inc.php	/^		$line = $this->line +$/;"	v
+line	.\ressources\lessc\lessc.inc.php	/^		$this->line = 1;$/;"	v
+line	.\ressources\raintpl\rain.tpl.class.php	/^			$line = 0;$/;"	v
+lineDirectives	.\ressources\lessc\lessc.inc.php	/^	protected $lineDirectives = array("charset");$/;"	v
+linecount	.\classes\class.localization.php	/^      $linecount = 0;$/;"	v
+link	.\classes\class.utils.php	/^      $link = mysql_connect($host, $user, $pw);$/;"	v
+literal	.\ressources\lessc\lessc.inc.php	/^	protected function literal($what, $eatWhitespace = null) {$/;"	f
+literalCache	.\ressources\lessc\lessc.inc.php	/^	static protected $literalCache = array();$/;"	v
+loadApp	.\loader.php	/^    public function loadApp() {$/;"	f
+loadClasses	.\loader.php	/^    public function loadClasses() {$/;"	f
+loadCollections	.\loader.php	/^    public function loadCollections() {$/;"	f
+loadDirectory	.\loader.php	/^    public function loadDirectory($directory, $inquery=false) {$/;"	f
+loadInterfaces	.\loader.php	/^    public function loadInterfaces() {$/;"	f
+loadViews	.\loader.php	/^    public function loadViews() {$/;"	f
+load_main	.\app\class.app.php	/^      $load_main = $base_view == '' ? true : false;$/;"	v
+load_main_subview	.\classes\class.view.php	/^      $load_main_subview = $subview == '' ? true : false;$/;"	v
+loader	.\app\class.app.php	/^      $loader = Loader::instance();$/;"	v
+loader	.\index.php	/^$loader = Loader::instance();$/;"	v
+loc	.\ressources\lessc\lessc.inc.php	/^			$loc = "$this->sourceName on line $line";$/;"	v
+loc	.\ressources\lessc\lessc.inc.php	/^			$loc = "line: $line";$/;"	v
+locale	.\ressources\lessc\lessc.inc.php	/^		$locale = setlocale(LC_NUMERIC, 0);$/;"	v
+log	.\classes\class.logger.php	/^    public static function log($text, $level=null) {$/;"	f
+log_level	.\classes\class.logger.php	/^            $log_level = LOG_LEVEL;$/;"	v
+log_level	.\classes\class.logger.php	/^        $log_level = self::$log_level;$/;"	v
+log_level	.\classes\class.logger.php	/^    public static $log_level = "DEBUG";$/;"	v
+log_level_key	.\classes\class.logger.php	/^        $log_level_key = array_search($log_level, self::$levels);$/;"	v
+log_output_key	.\classes\class.logger.php	/^        $log_output_key = array_search($level, self::$levels);$/;"	v
+login	.\app\class.auth.php	/^    public static function login($name, $password) {$/;"	f
+look	.\ressources\lessc\lessc.inc.php	/^		$look = array($/;"	v
+loop_level	.\ressources\raintpl\rain.tpl.class.php	/^                $loop_level = 0;$/;"	v
+ltype	.\ressources\lessc\lessc.inc.php	/^		$ltype = $left[0];$/;"	v
+lval	.\ressources\lessc\lessc.inc.php	/^			$lval = isset($left[$i]) ? $left[$i] : 0;$/;"	v
+mPrefix	.\ressources\lessc\lessc.inc.php	/^	public $mPrefix = '$'; \/\/ prefix of abstract blocks$/;"	v
+mailStatus	.\classes\class.user.php	/^        $mailStatus = self::checkMail($email);$/;"	v
+mailStatus	.\classes\class.user.php	/^      $mailStatus = self::checkMail($newMail);$/;"	v
+makeOptionFunction	.\scripts\externals\bootstrap-tagsinput.min.js	/^  function makeOptionFunction(options, key) {$/;"	f
+makeOptionItemFunction	.\scripts\externals\bootstrap-tagsinput.min.js	/^  function makeOptionItemFunction(options, key) {$/;"	f
+makeOutputBlock	.\ressources\lessc\lessc.inc.php	/^	protected function makeOutputBlock($type, $selectors = null) {$/;"	f
+makeParser	.\ressources\lessc\lessc.inc.php	/^	protected function makeParser($name) {$/;"	f
+manageForm	.\views\manage\manage.collections\manage.collections.php	/^    private function manageForm() {$/;"	f
+match	.\ressources\lessc\lessc.inc.php	/^	protected function match($regex, &$out, $eatWhitespace = null) {$/;"	f
+matches	.\classes\class.localization.php	/^          $matches = preg_match_all('\/i\\\\([\\\\"\\\\\\'](.*?)(?<!\\\\\\\\)[\\\\"\\\\\\'][, ]*[\\\\\\'\\\\"]?(.*?)[\\\\"\\\\\\']?\\\\)\/', $line, $match_set, PREG_SET_ORDER);$/;"	v
+matches	.\ressources\lessc\lessc.inc.php	/^				$matches = $this->patternMatchAll($blocks, $orderedArgs, $keywordArgs, $seen);$/;"	v
+matches	.\ressources\lessc\lessc.inc.php	/^				$matches = array();$/;"	v
+matches	.\ressources\lessc\lessc.inc.php	/^		$matches = null;$/;"	v
+max	.\ressources\lessc\lessc.inc.php	/^		$max = count($left) > count($right) ? count($left) : count($right);$/;"	v
+max	.\ressources\lessc\lessc.inc.php	/^		$max = max($r, $g, $b);$/;"	v
+max	.\ressources\lessc\lessc.inc.php	/^	protected function clamp($v, $max = 1, $min = 0) {$/;"	v
+maxed	.\classes\class.navigation.php	/^        $this->maxed = true;$/;"	v
+maxed	.\classes\class.navigation.php	/^    private $maxed = false;$/;"	v
+media	.\ressources\lessc\lessc.inc.php	/^					$media = $this->pushSpecialBlock("media");$/;"	v
+mediaExpression	.\ressources\lessc\lessc.inc.php	/^	protected function mediaExpression(&$out) {$/;"	f
+mediaParent	.\ressources\lessc\lessc.inc.php	/^	protected function mediaParent($scope) {$/;"	f
+mediaQuery	.\ressources\lessc\lessc.inc.php	/^	protected function mediaQuery(&$out) {$/;"	f
+mediaQueryList	.\ressources\lessc\lessc.inc.php	/^	protected function mediaQueryList(&$out) {$/;"	f
+member	.\classes\class.user.php	/^      $member = $db->getOne("users");$/;"	v
+memberCount	.\classes\class.group.php	/^    public function memberCount() {$/;"	f
+memberTableId	.\views\manage\manage.groups\manage.groups.members.php	/^    private $memberTableId = "groupMemberList";$/;"	v
+members	.\classes\class.group.php	/^      $members = $this->app->db->get("groups_users");$/;"	v
+members	.\classes\class.group.php	/^    public function members() {$/;"	f
+members	.\views\manage\manage.groups\manage.groups.members.php	/^      $members = explode(",", $data['new_users']);$/;"	v
+menuItem	.\classes\class.navigation.php	/^    public function menuItem($id) {$/;"	f
+message	.\views\manage\manage.groups\manage.groups.add.php	/^        $this->message = $status;$/;"	v
+message	.\views\manage\manage.groups\manage.groups.add.php	/^    public $message = '';$/;"	v
+message	.\views\manage\manage.groups\manage.groups.edit.php	/^      $this->message = $group->setName($data['modify_name']);$/;"	v
+message	.\views\manage\manage.groups\manage.groups.edit.php	/^    public $message = '';$/;"	v
+message	.\views\manage\manage.groups\manage.groups.members.php	/^    public $message = '';$/;"	v
+message	.\views\manage\manage.locales\manage.locales.add.php	/^        $this->message = Localization::addNewLanguage($data['new_code'], $data['new_name']);$/;"	v
+message	.\views\manage\manage.locales\manage.locales.add.php	/^    public $message = '';$/;"	v
+message	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    private $message = '';$/;"	v
+message	.\views\manage\manage.users\manage.users.add.php	/^        $this->message = User::create($data['new_name'], $data['new_password'], $data['new_email']);$/;"	v
+message	.\views\manage\manage.users\manage.users.add.php	/^    public $message = '';$/;"	v
+message	.\views\manage\manage.users\manage.users.edit.php	/^      $this->message = false;$/;"	v
+message	.\views\manage\manage.users\manage.users.edit.php	/^    public $message = '';$/;"	v
+message	.\views\view.login.php	/^        $this->message = i('Username and\/or password is wrong.');$/;"	v
+message	.\views\view.login.php	/^    private $message = false;$/;"	v
+messages.containerFade	.\scripts\messages.js	/^    containerFade : function() {$/;"	m
+messages.init	.\scripts\messages.js	/^    init : function() {$/;"	m
+meta	.\ressources\mysqlidb\mysqlidb.php	/^        $meta = $stmt->result_metadata();$/;"	v
+method	.\ressources\lessc\lessc.inc.php	/^					$method = "propertyValue";$/;"	v
+method	.\ressources\lessc\lessc.inc.php	/^		$method = "expressionList";$/;"	v
+min	.\ressources\lessc\lessc.inc.php	/^					if (!isset($min) || $pos < $min[1]) $min = array($token, $pos);$/;"	v
+min	.\ressources\lessc\lessc.inc.php	/^			$min = null;$/;"	v
+min	.\ressources\lessc\lessc.inc.php	/^		$min = min($r, $g, $b);$/;"	v
+min	.\ressources\lessc\lessc.inc.php	/^		$min = null;$/;"	v
+mixinParentEnv	.\ressources\lessc\lessc.inc.php	/^					$mixinParentEnv = $this->pushEnv();$/;"	v
+mixinTags	.\ressources\lessc\lessc.inc.php	/^	protected function mixinTags(&$tags) {$/;"	f
+mixins	.\ressources\lessc\lessc.inc.php	/^			$mixins = $this->findBlocks($block, $path, $orderedArgs, $keywordArgs);$/;"	v
+multilanguage	.\classes\class.forms.php	/^      $this->multilanguage = true;$/;"	v
+multilanguage	.\classes\class.forms.php	/^    private $multilanguage = false;$/;"	v
+multiplyMedia	.\ressources\lessc\lessc.inc.php	/^	protected function multiplyMedia($env, $childQueries = null) {$/;"	f
+multiplySelectors	.\ressources\lessc\lessc.inc.php	/^	protected function multiplySelectors($selectors) {$/;"	f
+n	.\classes\class.localization.php	/^        $n = substr($n, 0, 2);$/;"	v
+n	.\classes\class.localization.php	/^      foreach($res as $n => $v) {$/;"	v
+name	.\classes\class.datacollection.php	/^    $this->name = $this->getPref('name');$/;"	v
+name	.\classes\class.datacollection.php	/^  public $name = false;$/;"	v
+name	.\classes\class.navigation.php	/^        $name = uniqid();$/;"	v
+name	.\classes\class.view.php	/^    public function name() {$/;"	f
+name	.\interfaces\interface.view.php	/^    public function name();$/;"	f
+name	.\ressources\lessc\lessc.inc.php	/^					$name = $name . ": ";$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^				$name = $this->lessc->vPrefix.$name;$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^				$name = $value[1];$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^				$name = array('variable', $sub);$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^			$name = "@" . $block->name;$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^			if ($name == "%") $name = "_sprintf";$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^			if ($name{0} != '@') $name = '@'.$name;$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^		$name = $path[0];$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^		$name = null;$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^		foreach ($args as $name => $strValue) {$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^	protected function assertArgs($value, $expectedArgs, $name="") {$/;"	v
+name	.\ressources\lessc\lessc.inc.php	/^	public function compile($string, $name = null) {$/;"	v
+name	.\views\manage\manage.collections\manage.collections.add.php	/^    public $name = 'add';$/;"	v
+name	.\views\manage\manage.collections\manage.collections.php	/^    public $name = 'collections';$/;"	v
+name	.\views\manage\manage.dashboard.php	/^    public $name = 'dashboard';$/;"	v
+name	.\views\manage\manage.groups\manage.groups.add.php	/^    public $name = 'add';$/;"	v
+name	.\views\manage\manage.groups\manage.groups.delete.php	/^    public $name = 'delete';$/;"	v
+name	.\views\manage\manage.groups\manage.groups.edit.php	/^    public $name = 'edit';$/;"	v
+name	.\views\manage\manage.groups\manage.groups.members.php	/^    public $name = 'members';$/;"	v
+name	.\views\manage\manage.groups\manage.groups.php	/^    public $name = 'groups';$/;"	v
+name	.\views\manage\manage.locales\manage.locales.add.php	/^    public $name = 'add-language';$/;"	v
+name	.\views\manage\manage.locales\manage.locales.php	/^    public $name = 'locales';$/;"	v
+name	.\views\manage\manage.locales\manage.locales.strings.php	/^    public $name = 'string-translation';$/;"	v
+name	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^      foreach($data as $name => $value) {$/;"	v
+name	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    public $name = 'translate';$/;"	v
+name	.\views\manage\manage.locales\manage.locales.strings.update.php	/^    public $name = 'update';$/;"	v
+name	.\views\manage\manage.permissions\manage.permissions.php	/^    public $name = 'permissions';$/;"	v
+name	.\views\manage\manage.settings.php	/^    public $name = 'settings';$/;"	v
+name	.\views\manage\manage.users\manage.users.add.php	/^    public $name = 'add';$/;"	v
+name	.\views\manage\manage.users\manage.users.delete.php	/^    public $name = 'delete';$/;"	v
+name	.\views\manage\manage.users\manage.users.edit.php	/^    public $name = 'edit';$/;"	v
+name	.\views\manage\manage.users\manage.users.php	/^    public $name = 'users';$/;"	v
+name	.\views\view.404.php	/^    public $name = '404';$/;"	v
+name	.\views\view.api.php	/^    public $name = 'api';$/;"	v
+name	.\views\view.denied.php	/^    public $name = 'denied';$/;"	v
+name	.\views\view.login.php	/^    public $name = 'login';$/;"	v
+name	.\views\view.logout.php	/^    public $name = 'logout';$/;"	v
+name	.\views\view.main.php	/^    public $name = 'main';$/;"	v
+name	.\views\view.manager.php	/^    public $name = 'manage';$/;"	v
+nameStatus	.\classes\class.user.php	/^        $nameStatus = self::checkName($name);$/;"	v
+nameStatus	.\classes\class.user.php	/^      $nameStatus = self::checkName($newName);$/;"	v
+names	.\views\manage\manage.permissions\manage.permissions.php	/^      $names = array();$/;"	v
+navigation	.\views\view.manager.php	/^        $this->navigation = new Navigation($this->activeSubview);$/;"	v
+navigation	.\views\view.manager.php	/^    private $navigation = false;$/;"	v
+navigation	.\views\view.manager.php	/^    private function navigation() {$/;"	f
+needWhite	.\ressources\lessc\lessc.inc.php	/^			$needWhite = $whiteBefore && !$this->inParens;$/;"	v
+needle	.\ressources\helpers\additional_functions.php	/^    return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);$/;"	v
+needle	.\ressources\helpers\additional_functions.php	/^    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;$/;"	v
+negate	.\ressources\lessc\lessc.inc.php	/^						$negate = true;$/;"	v
+negate	.\ressources\lessc\lessc.inc.php	/^					$negate = false;$/;"	v
+negate	.\ressources\lessc\lessc.inc.php	/^		$negate = $this->literal("not");$/;"	v
+nestingLevel	.\ressources\lessc\lessc.inc.php	/^		$nestingLevel = 0;$/;"	v
+nestingOpen	.\ressources\lessc\lessc.inc.php	/^	protected function openString($end, &$out, $nestingOpen=null, $rejectStrs = null) {$/;"	v
+new	.\ressources\lessc\lessc.inc.php	/^		$new = array('color',$/;"	v
+newArg	.\ressources\lessc\lessc.inc.php	/^							$newArg = array("arg", $values[0][1], $newList);$/;"	v
+newArg	.\ressources\lessc\lessc.inc.php	/^							$newArg = array("lit", $newList);$/;"	v
+newArg	.\ressources\lessc\lessc.inc.php	/^						$newArg = $values[0];$/;"	v
+newFormatter	.\ressources\lessc\lessc.inc.php	/^	protected function newFormatter() {$/;"	f
+newList	.\ressources\lessc\lessc.inc.php	/^						$newList = array("list", ", ", $newList);$/;"	v
+newList	.\ressources\lessc\lessc.inc.php	/^						$newList = array();$/;"	v
+newStr	.\ressources\mysqlidb\mysqlidb.php	/^        $newStr = "";$/;"	v
+newStrings	.\classes\class.localization.php	/^                $newStrings = true;$/;"	v
+newStrings	.\classes\class.localization.php	/^    $newStrings = false;$/;"	v
+new_code	.\views\manage\manage.locales\manage.locales.add.php	/^          $this->new_code = $data['new_code'];$/;"	v
+new_code	.\views\manage\manage.locales\manage.locales.add.php	/^    private $new_code = false;$/;"	v
+new_email	.\views\manage\manage.users\manage.users.add.php	/^            $this->new_email = $data['new_email'];$/;"	v
+new_email	.\views\manage\manage.users\manage.users.add.php	/^    private $new_email = false;$/;"	v
+new_email	.\views\manage\manage.users\manage.users.edit.php	/^    private $new_email = false;$/;"	v
+new_name	.\views\manage\manage.locales\manage.locales.add.php	/^          $this->new_name = $data['new_name'];$/;"	v
+new_name	.\views\manage\manage.locales\manage.locales.add.php	/^    private $new_name = false;$/;"	v
+new_name	.\views\manage\manage.users\manage.users.add.php	/^            $this->new_name = $data['new_name'];$/;"	v
+new_name	.\views\manage\manage.users\manage.users.add.php	/^    private $new_name = false;$/;"	v
+new_name	.\views\manage\manage.users\manage.users.edit.php	/^    private $new_name = false;$/;"	v
+new_url	.\ressources\raintpl\rain.tpl.class.php	/^		$new_url = $this->rewrite_url( $url, $tag, $this->path );$/;"	v
+newlines	.\ressources\lessc\lessc.inc.php	/^					$newlines = substr_count($m[0], "\\n");$/;"	v
+newlines	.\ressources\lessc\lessc.inc.php	/^			$newlines = 0;$/;"	v
+nextBlockId	.\ressources\lessc\lessc.inc.php	/^	static protected $nextBlockId = 0; \/\/ used to uniquely identify blocks$/;"	v
+nextImportId	.\ressources\lessc\lessc.inc.php	/^	static protected $nextImportId = 0; \/\/ uniquely identify imports$/;"	v
+noAutocomplete	.\classes\class.forms.php	/^        $this->noAutocomplete = true;$/;"	v
+noAutocomplete	.\classes\class.forms.php	/^    private $noAutocomplete = false;$/;"	v
+no_change	.\ressources\raintpl\rain.tpl.class.php	/^		$no_change = "\/(^($protocol)\\:)|(#$)\/i";$/;"	v
+not	.\ressources\mysqlidb\mysqlidb.php	/^    public function not ($col = null) {$/;"	f
+now	.\ressources\mysqlidb\mysqlidb.php	/^    public function now ($diff = null, $func = "NOW()") {$/;"	f
+num	.\ressources\lessc\lessc.inc.php	/^				$num = hexdec($colorStr);$/;"	v
+num	.\ressources\lessc\lessc.inc.php	/^				$num = round($num, $this->numberPrecision);$/;"	v
+num	.\ressources\lessc\lessc.inc.php	/^		$num = $this->assertNumber($arg);$/;"	v
+num	.\ressources\lessc\lessc.inc.php	/^		$num = acos($this->assertNumber($num));$/;"	v
+num	.\ressources\lessc\lessc.inc.php	/^		$num = asin($this->assertNumber($num));$/;"	v
+num	.\ressources\lessc\lessc.inc.php	/^		$num = atan($this->assertNumber($num));$/;"	v
+numMatched	.\ressources\lessc\lessc.inc.php	/^			$numMatched = $i + 1;$/;"	v
+numRows	.\ressources\mysqlidb\mysqlidb.php	/^    public function delete($tableName, $numRows = null)$/;"	v
+numRows	.\ressources\mysqlidb\mysqlidb.php	/^    public function get($tableName, $numRows = null, $columns = '*')$/;"	v
+numRows	.\ressources\mysqlidb\mysqlidb.php	/^    public function query($query, $numRows = null)$/;"	v
+numValues	.\ressources\lessc\lessc.inc.php	/^			$numValues = count($values);$/;"	v
+numberPrecision	.\ressources\lessc\lessc.inc.php	/^	protected $numberPrecision = null;$/;"	v
+obj	.\views\manage\manage.groups\manage.groups.php	/^            $obj = new Group($group['id']);$/;"	v
+octetStream	.\classes\class.utils.php	/^    public static function octetStream() {$/;"	f
+of	.\ressources\lessc\lessc.inc.php	/^ * The `parse` function of `lessc` is the entry point.$/;"	f
+old	.\ressources\lessc\lessc.inc.php	/^		$old = $this->env;$/;"	v
+oldImport	.\ressources\lessc\lessc.inc.php	/^		$oldImport = $this->importDir;$/;"	v
+oldParent	.\ressources\lessc\lessc.inc.php	/^				$oldParent = $mixin->parent;$/;"	v
+oldSourceParser	.\ressources\lessc\lessc.inc.php	/^		$oldSourceParser = $this->sourceParser;$/;"	v
+oldVars	.\ressources\lessc\lessc.inc.php	/^		$oldVars = $this->registeredVars;$/;"	v
+oldWhite	.\ressources\lessc\lessc.inc.php	/^		$oldWhite = $this->eatWhiteDefault;$/;"	v
+onAddNewGroupMember	.\views\manage\manage.groups\manage.groups.members.php	/^    public function onAddNewGroupMember($data) {$/;"	f
+onAddNewLanguage	.\views\manage\manage.locales\manage.locales.add.php	/^    public function onAddNewLanguage($data) {$/;"	f
+onCreateNewGroup	.\views\manage\manage.groups\manage.groups.add.php	/^    public function onCreateNewGroup($data) {$/;"	f
+onCreateNewUser	.\views\manage\manage.users\manage.users.add.php	/^    public function onCreateNewUser($data) {$/;"	f
+onDeleteUser	.\views\manage\manage.users\manage.users.delete.php	/^    public function onDeleteUser($data) {$/;"	f
+onEditGroup	.\views\manage\manage.groups\manage.groups.edit.php	/^    public function onEditGroup($data) {$/;"	f
+onEditUser	.\views\manage\manage.users\manage.users.edit.php	/^    public function onEditUser($data) {$/;"	f
+onLoginFailed	.\views\view.login.php	/^    public function onLoginFailed() {$/;"	f
+onLoginSubmit	.\views\view.login.php	/^    public function onLoginSubmit($data) {$/;"	f
+onLoginSuccess	.\views\view.login.php	/^    public function onLoginSuccess() {$/;"	f
+onUpdateTranslation	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    public function onUpdateTranslation($data) {$/;"	f
+op	.\ressources\lessc\lessc.inc.php	/^		if ($op == '+' || $op == '*') {$/;"	v
+op_color_color	.\ressources\lessc\lessc.inc.php	/^	protected function op_color_color($op, $left, $right) {$/;"	f
+op_color_number	.\ressources\lessc\lessc.inc.php	/^	protected function op_color_number($op, $lft, $rgt) {$/;"	f
+op_number_color	.\ressources\lessc\lessc.inc.php	/^	protected function op_number_color($op, $lft, $rgt) {$/;"	f
+op_number_number	.\ressources\lessc\lessc.inc.php	/^	protected function op_number_number($op, $left, $right) {$/;"	f
+open	.\ressources\lessc\lessc.inc.php	/^	public $open = " {";$/;"	v
+open	.\ressources\lessc\lessc.inc.php	/^	public $open = "{";$/;"	v
+openSingle	.\ressources\lessc\lessc.inc.php	/^	public $openSingle = " { ";$/;"	v
+openString	.\ressources\lessc\lessc.inc.php	/^	protected function openString($end, &$out, $nestingOpen=null, $rejectStrs = null) {$/;"	f
+operatorString	.\ressources\lessc\lessc.inc.php	/^	static protected $operatorString;$/;"	v
+options	.\scripts\externals\bootstrap-tagsinput.min.js	/^      options[key] = function(item) { return item[propertyName]; };$/;"	f
+or	.\ressources\raintpl\rain.tpl.class.php	/^                                    \/\/ check if there's a function or a static method and separate, function by parameters$/;"	f
+or	.\ressources\raintpl\rain.tpl.class.php	/^                \/\/ check if there's a function or a static method and separate, function by parameters$/;"	f
+orWhere	.\ressources\mysqlidb\mysqlidb.php	/^    public function orWhere($whereProp, $whereValue = null, $operator = null)$/;"	f
+orderBy	.\ressources\mysqlidb\mysqlidb.php	/^    public function orderBy($orderByField, $orderbyDirection = "DESC", $customFields = null)$/;"	f
+orderByField	.\ressources\mysqlidb\mysqlidb.php	/^            $orderByField = 'FIELD (' . $orderByField . ', "' . implode('","', $customFields) . '")';$/;"	v
+orderByField	.\ressources\mysqlidb\mysqlidb.php	/^        $orderByField = preg_replace ("\/[^-a-z0-9\\.\\(\\),_]+\/i",'', $orderByField);$/;"	v
+orderbyDirection	.\ressources\mysqlidb\mysqlidb.php	/^        $orderbyDirection = strtoupper (trim ($orderbyDirection));$/;"	v
+orderbyDirection	.\ressources\mysqlidb\mysqlidb.php	/^    public function orderBy($orderByField, $orderbyDirection = "DESC", $customFields = null)$/;"	v
+orderedArgs	.\ressources\lessc\lessc.inc.php	/^			$orderedArgs = array();$/;"	v
+orphan	.\ressources\lessc\lessc.inc.php	/^				$orphan = $this->makeOutputBlock(null, $orphanSelelectors);$/;"	v
+orphanSelelectors	.\ressources\lessc\lessc.inc.php	/^			$orphanSelelectors = $this->findClosestSelectors();$/;"	v
+other	.\ressources\lessc\lessc.inc.php	/^		$other = array();$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^					$out = array("list", "",$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^				$out = array("raw_color", $m[1]);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^				$out = array("string", "", array($m[1]));$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $exp;$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $items[0];$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $list[2];$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $queries;$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $this->$fname($op, $left, $right);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $this->compile($str);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $this->compileFile($this->_parseFile);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $this->expHelper($lhs, 0);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = $this->reduce($this->get($key, self::$defaultValue));$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = array("import", $value);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = array("interpolate", $interp);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = array("list", $delim, $items);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = array("mediaExp", $feature);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = array("string", $delim, $content);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = array('variable', $variable);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^			$out = array();$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = "@media";$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = $m[1];$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = $parts;$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = $this->compile(file_get_contents($fname), $fname);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = $this->makeOutputBlock(null, $env->selectors);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = '';$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = array("string", "", $content);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = array('color');$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = array('color', $r*255, $g*255, $b*255);$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = array('hsl',$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = array();$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		$out = ob_get_clean();$/;"	v
+out	.\ressources\lessc\lessc.inc.php	/^		\/\/ $out = array('color', round($r*255), round($g*255), round($b*255));$/;"	v
+outFname	.\ressources\lessc\lessc.inc.php	/^	public function compileFile($fname, $outFname = null) {$/;"	v
+output	.\classes\class.logger.php	/^            $output = date("Y-m-d H:i:s")." - ".$level." - ".$key." => ".$value."\\n";$/;"	v
+output	.\ressources\raintpl\rain.tpl.class.php	/^			$output = $this->printDebug($e);$/;"	v
+output	.\ressources\raintpl\rain.tpl.class.php	/^		$output = sprintf('<h2>Exception: %s<\/h2><h3>%s<\/h3><p>template: %s<\/p>',$/;"	v
+overlay.hide	.\scripts\overlay.js	/^    hide : function() {$/;"	m
+overlay.init	.\scripts\overlay.js	/^    init : function() {$/;"	m
+overlay.open	.\scripts\overlay.js	/^    open : function(button, the_overlay) {$/;"	m
+overlay.prepare	.\scripts\overlay.js	/^    prepare : function() {$/;"	m
+overlay.setContent	.\scripts\overlay.js	/^    setContent : function(content, overlay) {$/;"	m
+ownContent	.\views\manage\manage.groups\manage.groups.php	/^    public function ownContent() {$/;"	f
+ownContent	.\views\manage\manage.locales\manage.locales.php	/^    public function ownContent() {$/;"	f
+ownContent	.\views\manage\manage.locales\manage.locales.strings.php	/^    private function ownContent() {$/;"	f
+ownContent	.\views\manage\manage.permissions\manage.permissions.php	/^    public function ownContent() {$/;"	f
+ownContent	.\views\manage\manage.users\manage.users.php	/^    private function ownContent() {$/;"	f
+paddedOp	.\ressources\lessc\lessc.inc.php	/^		$paddedOp = $op;$/;"	v
+paddedOp	.\ressources\lessc\lessc.inc.php	/^		if ($whiteBefore) $paddedOp = " " . $paddedOp;$/;"	v
+panelLeft	.\views\view.manager.php	/^        $panelLeft = $this->navigation->addPanel();$/;"	v
+panelRight	.\views\view.manager.php	/^        $panelRight = $this->navigation->addPanel('right');$/;"	v
+panel_key	.\classes\class.navigation.php	/^        foreach($this->panels as $panel_key => $panel) {$/;"	v
+panels	.\classes\class.navigation.php	/^    private $panels = array();$/;"	v
+parameters	.\ressources\mysqlidb\mysqlidb.php	/^        $parameters = array();$/;"	v
+params	.\ressources\mysqlidb\mysqlidb.php	/^            $params = array(''); \/\/ Create the empty 0 index$/;"	v
+params	.\ressources\raintpl\rain.tpl.class.php	/^                                        $params = null;$/;"	v
+params	.\ressources\raintpl\rain.tpl.class.php	/^                                        $params = substr( $function_var, $dot_position+1 );$/;"	v
+params	.\ressources\raintpl\rain.tpl.class.php	/^                                    $params = str_replace( "@double_dot@", "::", $params );$/;"	v
+params	.\ressources\raintpl\rain.tpl.class.php	/^                    $params = null;$/;"	v
+params	.\ressources\raintpl\rain.tpl.class.php	/^                    $params = substr( $function_var, $dot_position+1 );$/;"	v
+params	.\ressources\raintpl\rain.tpl.class.php	/^                $params = str_replace( "@double_dot@", "::", $params );$/;"	v
+parenValue	.\ressources\lessc\lessc.inc.php	/^	protected function parenValue(&$out) {$/;"	f
+parent	.\classes\class.view.php	/^    public $parent = false;$/;"	v
+parent	.\views\manage\manage.collections\manage.collections.add.php	/^    public $parent = 'collections';$/;"	v
+parent	.\views\manage\manage.collections\manage.collections.php	/^    public $parent = 'manage';$/;"	v
+parent	.\views\manage\manage.dashboard.php	/^    public $parent = 'manage';$/;"	v
+parent	.\views\manage\manage.groups\manage.groups.add.php	/^    public $parent = 'groups';$/;"	v
+parent	.\views\manage\manage.groups\manage.groups.delete.php	/^    public $parent = 'groups';$/;"	v
+parent	.\views\manage\manage.groups\manage.groups.edit.php	/^    public $parent = 'groups';$/;"	v
+parent	.\views\manage\manage.groups\manage.groups.members.php	/^    public $parent = 'groups';$/;"	v
+parent	.\views\manage\manage.groups\manage.groups.php	/^    public $parent = 'manage';$/;"	v
+parent	.\views\manage\manage.locales\manage.locales.add.php	/^    public $parent = 'locales';$/;"	v
+parent	.\views\manage\manage.locales\manage.locales.php	/^    public $parent = 'manage';$/;"	v
+parent	.\views\manage\manage.locales\manage.locales.strings.php	/^    public $parent = 'manage';$/;"	v
+parent	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    public $parent = 'string-translation';$/;"	v
+parent	.\views\manage\manage.locales\manage.locales.strings.update.php	/^    public $parent = 'string-translation';$/;"	v
+parent	.\views\manage\manage.permissions\manage.permissions.php	/^    public $parent = 'manage';$/;"	v
+parent	.\views\manage\manage.settings.php	/^    public $parent = 'manage';$/;"	v
+parent	.\views\manage\manage.users\manage.users.add.php	/^    public $parent = 'users';$/;"	v
+parent	.\views\manage\manage.users\manage.users.delete.php	/^    public $parent = 'users';$/;"	v
+parent	.\views\manage\manage.users\manage.users.edit.php	/^    public $parent = 'users';$/;"	v
+parent	.\views\manage\manage.users\manage.users.php	/^    public $parent = 'manage';$/;"	v
+parentScope	.\ressources\lessc\lessc.inc.php	/^		$parentScope = $this->mediaParent($this->scope);$/;"	v
+parentSelector	.\ressources\lessc\lessc.inc.php	/^	public $parentSelector = '&';$/;"	v
+parentSelectors	.\ressources\lessc\lessc.inc.php	/^		$parentSelectors = $this->findClosestSelectors();$/;"	v
+parse	.\ressources\lessc\lessc.inc.php	/^	public function parse($buffer) {$/;"	f
+parse	.\ressources\lessc\lessc.inc.php	/^	public function parse($str = null, $initialVariables = null) {$/;"	f
+parseChunk	.\ressources\lessc\lessc.inc.php	/^	protected function parseChunk() {$/;"	f
+parsed	.\ressources\raintpl\rain.tpl.class.php	/^                    for( $parsed=array(), $i=0, $n=count($matches[0]); $i<$n; $i++ )$/;"	v
+parsed_condition	.\ressources\raintpl\rain.tpl.class.php	/^				$parsed_condition = $this->var_replace( $condition, $tag_left_delimiter = null, $tag_right_delimiter = null, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level );$/;"	v
+parsed_function	.\ressources\raintpl\rain.tpl.class.php	/^					$parsed_function = $function . "()";$/;"	v
+parsed_function	.\ressources\raintpl\rain.tpl.class.php	/^					$parsed_function = $function . $this->var_replace( $code[ 2 ], $tag_left_delimiter = null, $tag_right_delimiter = null, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level );$/;"	v
+parser	.\ressources\lessc\lessc.inc.php	/^		$parser = $this->makeParser($realPath);$/;"	v
+parser	.\ressources\lessc\lessc.inc.php	/^		$parser = new lessc_parser($this, $name);$/;"	v
+parser	.\ressources\lessc\lessc.inc.php	/^		$parser = new lessc_parser($this, __METHOD__);$/;"	v
+parser	.\ressources\lessc\lessc.inc.php	/^		$this->parser = $this->makeParser($name);$/;"	v
+part	.\ressources\lessc\lessc.inc.php	/^					$part = $this->compileValue($part);$/;"	v
+part	.\ressources\lessc\lessc.inc.php	/^					$part = $this->reduce($part);$/;"	v
+part	.\ressources\lessc\lessc.inc.php	/^					if ($strip) $part = $this->lib_e($part);$/;"	v
+part	.\ressources\lessc\lessc.inc.php	/^			$part = str_replace($this->parentSelector, $replace, $part, $c);$/;"	v
+part	.\views\view.api.php	/^      $part = array_shift($query);$/;"	v
+parts	.\ressources\lessc\lessc.inc.php	/^			$parts = array();$/;"	v
+parts	.\ressources\lessc\lessc.inc.php	/^			if (is_array($expressions)) $parts = array_merge($parts, $expressions[2]);$/;"	v
+parts	.\ressources\lessc\lessc.inc.php	/^		$parts = array();$/;"	v
+parts	.\ressources\lessc\lessc.inc.php	/^		$parts = explode("$&$", $tag);$/;"	v
+passed	.\ressources\lessc\lessc.inc.php	/^					$passed = $this->reduce($guard) == self::$TRUE;$/;"	v
+passed	.\ressources\lessc\lessc.inc.php	/^					if ($negate) $passed = !$passed;$/;"	v
+password	.\classes\class.utils.php	/^    public static function password($raw) {$/;"	f
+password	.\ressources\mysqlidb\mysqlidb.php	/^        $this->password = $password;$/;"	v
+password	.\ressources\mysqlidb\mysqlidb.php	/^    protected $password;$/;"	v
+passwordCheck	.\classes\class.utils.php	/^    public static function passwordCheck($password, $hash) {$/;"	f
+passwordStatus	.\classes\class.user.php	/^        $passwordStatus = self::checkPassword($password);$/;"	v
+path	.\ressources\raintpl\rain.tpl.class.php	/^			$this->path = $this->reduce_path( $tpl_dir );$/;"	v
+path	.\ressources\raintpl\rain.tpl.class.php	/^                $path = preg_replace('#\\w+\/\\.\\.\/#', '', $path );$/;"	v
+path	.\ressources\raintpl\rain.tpl.class.php	/^            $path = preg_replace( "#(\/+)#", "\/", $path );$/;"	v
+path	.\ressources\raintpl\rain.tpl.class.php	/^            $path = preg_replace( "#(\/\\.\/+)#", "\/", $path );$/;"	v
+path	.\ressources\raintpl\rain.tpl.class.php	/^            $path = str_replace( ":\/\/", "@not_replace@", $path );$/;"	v
+path	.\ressources\raintpl\rain.tpl.class.php	/^            $path = str_replace( "@not_replace@", ":\/\/", $path );$/;"	v
+path_replace	.\ressources\raintpl\rain.tpl.class.php	/^		static $path_replace = true;$/;"	v
+path_replace	.\ressources\raintpl\rain.tpl.class.php	/^	protected function path_replace( $html, $tpl_basedir ){$/;"	f
+path_replace_list	.\ressources\raintpl\rain.tpl.class.php	/^		static $path_replace_list = array( 'a', 'img', 'link', 'script', 'input' );$/;"	v
+pathinfo	.\loader.php	/^            $pathinfo = pathinfo($less_path);$/;"	v
+patt	.\ressources\lessc\lessc.inc.php	/^		$patt = '(.*?)('.implode("|", $stop).')';$/;"	v
+patt	.\ressources\lessc\lessc.inc.php	/^		$patt = '([^\\n]*?)(@\\{|\\\\\\\\|' .$/;"	v
+pattern	.\ressources\lessc\lessc.inc.php	/^		$pattern = '\/^(-[a-z-]+-)?(' . $pattern . ')$\/i';$/;"	v
+pattern	.\ressources\lessc\lessc.inc.php	/^		$pattern = implode("|",$/;"	v
+patternMatch	.\ressources\lessc\lessc.inc.php	/^	protected function patternMatch($block, $orderedArgs, $keywordArgs) {$/;"	f
+patternMatchAll	.\ressources\lessc\lessc.inc.php	/^	protected function patternMatchAll($blocks, $orderedArgs, $keywordArgs, $skip=array()) {$/;"	f
+peek	.\ressources\lessc\lessc.inc.php	/^	protected function peek($regex, &$out = null, $from=null) {$/;"	f
+permission	.\app\class.auth.php	/^            $permission = $permissions;$/;"	v
+permission	.\app\class.auth.php	/^      if(is_null($permission) || $permission == false) {$/;"	v
+permission	.\classes\class.datacollection.php	/^  public $permission = null;$/;"	v
+permission	.\classes\class.user.php	/^        $permission = $this->app->db->getOne('permissions');$/;"	v
+permission	.\classes\class.view.php	/^    public $permission = null;$/;"	v
+permission	.\collections\class.sites.php	/^  public $permission = "manage.collection.sites";$/;"	v
+permission	.\views\manage\manage.collections\manage.collections.add.php	/^    public $permission = 'manage.collections.add';$/;"	v
+permission	.\views\manage\manage.collections\manage.collections.php	/^    public $permission = 'manage.collections';$/;"	v
+permission	.\views\manage\manage.dashboard.php	/^    public $permission = 'manage';$/;"	v
+permission	.\views\manage\manage.groups\manage.groups.add.php	/^    public $permission = 'manage.groups.add';$/;"	v
+permission	.\views\manage\manage.groups\manage.groups.delete.php	/^    public $permission = 'manage.groups.delete';$/;"	v
+permission	.\views\manage\manage.groups\manage.groups.edit.php	/^    public $permission = 'manage.groups.edit';$/;"	v
+permission	.\views\manage\manage.groups\manage.groups.members.php	/^    public $permission = 'manage.groups.members';$/;"	v
+permission	.\views\manage\manage.groups\manage.groups.php	/^    public $permission = 'manage.groups';$/;"	v
+permission	.\views\manage\manage.locales\manage.locales.add.php	/^    public $permission = 'manage.locales.add';$/;"	v
+permission	.\views\manage\manage.locales\manage.locales.php	/^    public $permission = 'manage.locales';$/;"	v
+permission	.\views\manage\manage.locales\manage.locales.strings.php	/^    public $permission = 'manage.locales.strings';$/;"	v
+permission	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^    public $permission = 'manage.locales.strings.translate';$/;"	v
+permission	.\views\manage\manage.locales\manage.locales.strings.update.php	/^    public $permission = 'manage.locales.strings.update';$/;"	v
+permission	.\views\manage\manage.permissions\manage.permissions.php	/^        $permission = $uri[2];$/;"	v
+permission	.\views\manage\manage.permissions\manage.permissions.php	/^    public $permission = 'manage.permissions';$/;"	v
+permission	.\views\manage\manage.settings.php	/^    public $permission = 'manage.settings';$/;"	v
+permission	.\views\manage\manage.users\manage.users.add.php	/^    public $permission = 'manage.users.add';$/;"	v
+permission	.\views\manage\manage.users\manage.users.delete.php	/^    public $permission = 'manage.users.delete';$/;"	v
+permission	.\views\manage\manage.users\manage.users.edit.php	/^    public $permission = 'manage.users.edit';$/;"	v
+permission	.\views\manage\manage.users\manage.users.php	/^    public $permission = 'manage.users';$/;"	v
+permission	.\views\view.api.php	/^    public $permission = null;$/;"	v
+permission	.\views\view.manager.php	/^    public $permission = 'manage';$/;"	v
+permissionTable	.\views\manage\manage.permissions\manage.permissions.php	/^    public function permissionTable() {$/;"	f
+permissionTableId	.\views\manage\manage.permissions\manage.permissions.php	/^    private $permissionTableId = 'permissionTable';$/;"	v
+permissions	.\classes\class.view.php	/^    public $permissions = array();$/;"	v
+permissions	.\classes\class.view.php	/^    public function permissions() {$/;"	f
+permissions	.\views\manage\manage.collections\manage.collections.php	/^    public $permissions = array($/;"	v
+permissions	.\views\manage\manage.groups\manage.groups.php	/^    public $permissions = array($/;"	v
+permissions	.\views\manage\manage.locales\manage.locales.php	/^    public $permissions = array($/;"	v
+permissions	.\views\manage\manage.locales\manage.locales.strings.php	/^    public $permissions = array($/;"	v
+permissions	.\views\manage\manage.permissions\manage.permissions.php	/^      $permissions = $this->getPermissions();$/;"	v
+permissions	.\views\manage\manage.permissions\manage.permissions.php	/^    public $permissions = array($/;"	v
+permissions	.\views\manage\manage.users\manage.users.php	/^    public $permissions = array($/;"	v
+permissions	.\views\view.manager.php	/^    public $permissions = array($/;"	v
+php_enabled	.\ressources\raintpl\rain.tpl.class.php	/^		static $php_enabled = false;$/;"	v
+php_left_delimiter	.\ressources\raintpl\rain.tpl.class.php	/^	function const_replace( $html, $tag_left_delimiter, $tag_right_delimiter, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level = null, $echo = null ){$/;"	v
+php_left_delimiter	.\ressources\raintpl\rain.tpl.class.php	/^	function func_replace( $html, $tag_left_delimiter, $tag_right_delimiter, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level = null, $echo = null ){$/;"	v
+php_left_delimiter	.\ressources\raintpl\rain.tpl.class.php	/^	function var_replace( $html, $tag_left_delimiter, $tag_right_delimiter, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level = null, $echo = null ){$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^					$php_var = $php_left_delimiter . ( !$is_init_variable && $echo ? 'echo ' : null ) . ( $params ? "( $function( $params ) )" : "$function()" ) . $php_right_delimiter;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^					$php_var = $php_left_delimiter . ( !$is_init_variable && $echo ? 'echo ' : null ) . ( $params ? "( $function( $php_var, $params ) )" : "$function( $php_var )" ) . $php_right_delimiter;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^				$php_var = $php_left_delimiter . ( !$is_init_variable && $echo ? 'echo ' : null ) . $php_var . $extra_var . $php_right_delimiter;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^			$php_var = $var_name . $variable_path;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^                                            $php_var = '$' . $var_name . $variable_path;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^                                            $php_var = '$counter' . $loop_level;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^                                            $php_var = '$key' . $loop_level;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^                                            $php_var = '$value' . $loop_level . $variable_path;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^                                    $php_var = $php_left_delimiter . ( !$is_init_variable && $echo ? 'echo ' : null ) . $php_var . $extra_var . $php_right_delimiter;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^                                    $php_var = $php_left_delimiter . ( !$is_init_variable && $echo ? 'echo ' : null ) . ( $params ? "( $function( $php_var, $params ) )" : "$function( $php_var )" ) . $php_right_delimiter;$/;"	v
+php_var	.\ressources\raintpl\rain.tpl.class.php	/^                                    $php_var = '$' . $var_name . $variable_path;$/;"	v
+pi	.\ressources\lessc\lessc.inc.php	/^		$pi = pathinfo($fname);$/;"	v
+pi	.\ressources\lessc\lessc.inc.php	/^		$pi = pathinfo($realPath);$/;"	v
+ping	.\ressources\mysqlidb\mysqlidb.php	/^    public function ping() {$/;"	f
+pop	.\ressources\lessc\lessc.inc.php	/^	protected function pop() {$/;"	f
+popEnv	.\ressources\lessc\lessc.inc.php	/^	protected function popEnv() {$/;"	f
+port	.\ressources\mysqlidb\mysqlidb.php	/^        $this->port = $port;$/;"	v
+port	.\ressources\mysqlidb\mysqlidb.php	/^    protected $port;$/;"	v
+pos	.\ressources\lessc\lessc.inc.php	/^				$pos = strpos($text, $token);$/;"	v
+pos	.\ressources\lessc\lessc.inc.php	/^	protected function append($prop, $pos = null) {$/;"	v
+precedence	.\ressources\lessc\lessc.inc.php	/^	static protected $precedence = array($/;"	v
+preferences	.\classes\class.datacollection.php	/^    $this->preferences = array($/;"	v
+preferences	.\classes\class.datacollection.php	/^  public $preferences = array();$/;"	v
+preg	.\ressources\raintpl\rain.tpl.class.php	/^		$preg = '#(\\W|\\s)' . implode( '(\\W|\\s)|(\\W|\\s)', self::$black_list ) . '(\\W|\\s)#';$/;"	v
+preg_quote	.\ressources\lessc\lessc.inc.php	/^	static public function preg_quote($what) {$/;"	f
+prepare	.\loader.php	/^    public function prepare() {$/;"	f
+preserveComments	.\ressources\lessc\lessc.inc.php	/^		$this->preserveComments = $preserve;$/;"	v
+preserveComments	.\ressources\lessc\lessc.inc.php	/^	protected $preserveComments = false;$/;"	v
+printDebug	.\ressources\raintpl\rain.tpl.class.php	/^	protected function printDebug(RainTpl_Exception $e){$/;"	f
+prio	.\classes\class.localization.php	/^          $prio = $v;$/;"	v
+prio	.\classes\class.localization.php	/^      $prio = 0;$/;"	v
+progressBarId	.\views\manage\manage.locales\manage.locales.strings.update.php	/^    private $progressBarId = "string-translation-bar";$/;"	v
+prop	.\ressources\lessc\lessc.inc.php	/^			$prop = array("mediaType");$/;"	v
+prop	.\ressources\mysqlidb\mysqlidb.php	/^            foreach ($bindParams as $prop => $val) {$/;"	v
+prop	.\ressources\mysqlidb\mysqlidb.php	/^        foreach ($this->_orderBy as $prop => $value) {$/;"	v
+property	.\ressources\lessc\lessc.inc.php	/^	public function property($name, $value) {$/;"	f
+propertyValue	.\ressources\lessc\lessc.inc.php	/^	public function propertyValue(&$value, $keyName = null) {$/;"	f
+protocol	.\ressources\raintpl\rain.tpl.class.php	/^		$protocol = 'http|https|ftp|file|apt|magnet';$/;"	v
+pushBlock	.\ressources\lessc\lessc.inc.php	/^	protected function pushBlock($selectors=null, $type=null) {$/;"	f
+pushEnv	.\ressources\lessc\lessc.inc.php	/^	protected function pushEnv($block = null) {$/;"	f
+pushSpecialBlock	.\ressources\lessc\lessc.inc.php	/^	protected function pushSpecialBlock($type) {$/;"	f
+pwStatus	.\classes\class.user.php	/^      $pwStatus = self::checkPassword($new_pw);$/;"	v
+queries	.\ressources\lessc\lessc.inc.php	/^		$queries = $env->block->queries;$/;"	v
+query	.\ressources\lessc\lessc.inc.php	/^		$query = $this->compileMediaQuery($this->multiplyMedia($env));$/;"	v
+query	.\ressources\mysqlidb\mysqlidb.php	/^    public function query($query, $numRows = null)$/;"	f
+r	.\ressources\lessc\lessc.inc.php	/^			$r = $g = $b = $L;$/;"	v
+r	.\ressources\lessc\lessc.inc.php	/^			$r = $this->toRGB_helper($H + 1\/3, $temp1, $temp2);$/;"	v
+r	.\ressources\lessc\lessc.inc.php	/^			$r = round($r);$/;"	v
+r	.\ressources\lessc\lessc.inc.php	/^		$r = $color[1] \/ 255;$/;"	v
+r	.\ressources\lessc\lessc.inc.php	/^		$r = '\/'.$regex.'\/Ais';$/;"	v
+r	.\ressources\lessc\lessc.inc.php	/^		$r = '\/'.$regex.($eatWhitespace && !$this->writeComments ? '\\s*' : '').'\/Ais';$/;"	v
+raintpl_contents	.\ressources\raintpl\rain.tpl.class.php	/^                $raintpl_contents = ob_get_clean();$/;"	v
+rawComponents	.\ressources\lessc\lessc.inc.php	/^		$rawComponents = $func[2][2];$/;"	v
+rawQuery	.\ressources\mysqlidb\mysqlidb.php	/^    public function rawQuery ($query, $bindParams = null, $sanitize = true)$/;"	f
+rc	.\app\class.collectionmanager.php	/^              $rc = new ReflectionClass($klass);$/;"	v
+rc	.\app\class.events.php	/^                $rc = new ReflectionClass($view);   $/;"	v
+rc	.\app\class.viewmanager.php	/^                $rc = new ReflectionClass($klass);$/;"	v
+rc	.\classes\class.view.php	/^        $rc = new ReflectionClass($view);$/;"	v
+realPath	.\ressources\lessc\lessc.inc.php	/^		$realPath = $this->findImport($url);$/;"	v
+recursive	.\classes\class.localization.php	/^  public static function updateStrings($directory=DOC_ROOT, $recursive=true, $bar=false) {$/;"	v
+redirect	.\app\class.app.php	/^    public function redirect($target, $go_back=false) {$/;"	f
+redirect	.\scripts\helpers.js	/^function redirect(target, special) {$/;"	f
+redirectBack	.\app\class.app.php	/^    public function redirectBack() {$/;"	f
+reduce	.\ressources\lessc\lessc.inc.php	/^	protected function reduce($value, $forExpression = false) {$/;"	f
+reduce_path	.\ressources\raintpl\rain.tpl.class.php	/^	protected function reduce_path( $path ){$/;"	f
+reduced	.\ressources\lessc\lessc.inc.php	/^			$reduced = $this->reduce($value[1]);$/;"	v
+refValues	.\ressources\mysqlidb\mysqlidb.php	/^    protected function refValues($arr)$/;"	f
+reflect	.\app\class.collectionmanager.php	/^          $reflect = new ReflectionClass($klass);$/;"	v
+reflect	.\app\class.viewmanager.php	/^            $reflect = new ReflectionClass($klass);$/;"	v
+refresh	.\app\class.app.php	/^    public function refresh($target, $content, $update=false) {$/;"	f
+refs	.\ressources\mysqlidb\mysqlidb.php	/^            $refs = array();$/;"	v
+registerFunction	.\ressources\lessc\lessc.inc.php	/^	public function registerFunction($name, $func) {$/;"	f
+registerPermissions	.\app\class.auth.php	/^    public static function registerPermissions($permissions) {$/;"	f
+registeredVars	.\ressources\lessc\lessc.inc.php	/^		$this->registeredVars = $oldVars;$/;"	v
+registeredVars	.\ressources\lessc\lessc.inc.php	/^		$this->registeredVars = array_merge($this->registeredVars, $variables);$/;"	v
+registeredVars	.\ressources\lessc\lessc.inc.php	/^	protected $registeredVars = array();$/;"	v
+remainingArgs	.\ressources\lessc\lessc.inc.php	/^			$remainingArgs = array();$/;"	v
+remainingArgs	.\ressources\lessc\lessc.inc.php	/^		$remainingArgs = $block->args;$/;"	v
+removeComments	.\ressources\lessc\lessc.inc.php	/^	protected function removeComments($text) {$/;"	f
+render	.\app\class.app.php	/^    public function render($template_dir, $template_file, $args=array()) {$/;"	f
+render	.\classes\class.forms.php	/^    public function render($method="POST") {$/;"	f
+render	.\classes\class.navigation.php	/^    public function render() {$/;"	f
+renderChildren	.\classes\class.navigation.php	/^    public function renderChildren($id) {$/;"	f
+rep	.\ressources\lessc\lessc.inc.php	/^				$rep = $this->compileValue($this->lib_e($val));$/;"	v
+replacePlaceHolders	.\ressources\mysqlidb\mysqlidb.php	/^    protected function replacePlaceHolders ($str, $vals) {$/;"	f
+requiredView	.\app\class.app.php	/^          $requiredView = $view;$/;"	v
+requiredView	.\app\class.app.php	/^      $requiredView = false;$/;"	v
+res	.\classes\class.localization.php	/^      $res = array_combine($list[1], $list[2]);$/;"	v
+res	.\ressources\lessc\lessc.inc.php	/^				$res = $this->coerceColor($res);$/;"	v
+res	.\ressources\lessc\lessc.inc.php	/^			$res = $this->reduce(array("variable", $this->vPrefix . $var));$/;"	v
+res	.\ressources\lessc\lessc.inc.php	/^			if (empty($value[2])) $res = $this->lib_e($res);$/;"	v
+res	.\ressources\mysqlidb\mysqlidb.php	/^        $res = $this->get ($tableName, 1, "{$column} as retval");$/;"	v
+res	.\ressources\mysqlidb\mysqlidb.php	/^        $res = $this->get ($tableName, 1, $columns);$/;"	v
+reset	.\ressources\mysqlidb\mysqlidb.php	/^    protected function reset()$/;"	f
+rest	.\ressources\lessc\lessc.inc.php	/^			$rest = array_slice($orderedValues, count($args) - 1);$/;"	v
+result	.\ressources\lessc\lessc.inc.php	/^			$result = $this->tryImport($importPath, $block, $out);$/;"	v
+result	.\ressources\lessc\lessc.inc.php	/^			$this->env->imports[$importId] = $result === false ?$/;"	v
+result	.\ressources\lessc\lessc.inc.php	/^		$result = preg_match($r, $this->buffer, $out, null, $from);$/;"	v
+results	.\ressources\mysqlidb\mysqlidb.php	/^        $results = array();$/;"	v
+ret	.\ressources\lessc\lessc.inc.php	/^				$ret = call_user_func($f, $this->reduce($args, true), $this);$/;"	v
+ret	.\ressources\lessc\lessc.inc.php	/^				elseif (!is_array($ret)) $ret = array('keyword', $ret);$/;"	v
+ret	.\ressources\lessc\lessc.inc.php	/^				if (is_numeric($ret)) $ret = array('number', $ret, "");$/;"	v
+return_string	.\ressources\raintpl\rain.tpl.class.php	/^	function draw( $tpl_name, $return_string = false ){$/;"	v
+rewrite_url	.\ressources\raintpl\rain.tpl.class.php	/^	protected function rewrite_url( $url, $tag, $path ) {$/;"	f
+rgba	.\ressources\lessc\lessc.inc.php	/^					$rgba = explode(',', self::$cssColors[$name]);$/;"	v
+rhs	.\ressources\lessc\lessc.inc.php	/^					$rhs = $this->expHelper($rhs, self::$precedence[$next[1]]);$/;"	v
+right	.\ressources\lessc\lessc.inc.php	/^			$right = $rightColor;$/;"	v
+right	.\ressources\lessc\lessc.inc.php	/^			return $this->toBool($left == self::$TRUE && $right == self::$TRUE);$/;"	v
+right	.\ressources\lessc\lessc.inc.php	/^		$right = $this->reduce($right, true);$/;"	v
+rollback	.\ressources\mysqlidb\mysqlidb.php	/^    public function rollback () {$/;"	f
+root	.\config.php	/^$root = str_replace("\\\\", "\/", $_SERVER['DOCUMENT_ROOT']);$/;"	v
+root	.\ressources\lessc\lessc.inc.php	/^						$root = $in['root'];$/;"	v
+root	.\ressources\lessc\lessc.inc.php	/^				$root = $in['root'];$/;"	v
+root	.\ressources\lessc\lessc.inc.php	/^			$root = $in;$/;"	v
+root	.\ressources\lessc\lessc.inc.php	/^		$root = $parser->parse(file_get_contents($realPath));$/;"	v
+root	.\ressources\lessc\lessc.inc.php	/^		$root = $this->parser->parse($string);$/;"	v
+root	.\ressources\lessc\lessc.inc.php	/^		$root = null;$/;"	v
+root_dir	.\ressources\raintpl\rain.tpl.class.php	/^        static $root_dir = '';$/;"	v
+row	.\ressources\mysqlidb\mysqlidb.php	/^        $row = array();$/;"	v
+rows	.\ressources\raintpl\rain.tpl.class.php	/^				$rows=explode("\\n",  htmlspecialchars($this->tpl['source']));$/;"	v
+rows	.\ressources\raintpl\rain.tpl.class.php	/^			$rows=explode("\\n",$this->tpl['source']);$/;"	v
+rows	.\views\manage\manage.locales\manage.locales.strings.php	/^      $rows = array();$/;"	v
+rows	.\views\manage\manage.permissions\manage.permissions.php	/^      $rows = array();$/;"	v
+rtype	.\ressources\lessc\lessc.inc.php	/^		$rtype = $right[0];$/;"	v
+run	.\app\class.app.php	/^    public function run() {$/;"	f
+run	.\loader.php	/^                $run = true;$/;"	v
+run	.\loader.php	/^            $run = false;$/;"	v
+runUpdate	.\views\manage\manage.locales\manage.locales.strings.update.php	/^    private function runUpdate() {$/;"	f
+rval	.\ressources\lessc\lessc.inc.php	/^			$rval = isset($right[$i]) ? $right[$i] : 0;$/;"	v
+s	.\ressources\lessc\lessc.inc.php	/^				$s = $this->seek();$/;"	v
+s	.\ressources\lessc\lessc.inc.php	/^			$s = $this->seek();$/;"	v
+s	.\ressources\lessc\lessc.inc.php	/^		$s = $this->seek();$/;"	v
+s	.\ressources\lessc\lessc.inc.php	/^		$s = null;$/;"	v
+s	.\ressources\lessc\lessc.inc.php	/^	 * Before parsing a chain, use $s = $this->seek() to remember the current$/;"	v
+sPreArgs	.\ressources\lessc\lessc.inc.php	/^			$sPreArgs = $this->seek();$/;"	v
+scanDirectory	.\classes\class.localization.php	/^  private static function scanDirectory($directory, $recursive) {$/;"	f
+scope	.\ressources\lessc\lessc.inc.php	/^			$scope = $scope->parent;$/;"	v
+scope	.\ressources\lessc\lessc.inc.php	/^		$this->scope = $this->makeOutputBlock($block->type, $selectors);$/;"	v
+scope	.\ressources\lessc\lessc.inc.php	/^		$this->scope = $this->makeOutputBlock($media->type, array($query));$/;"	v
+scope	.\ressources\lessc\lessc.inc.php	/^		$this->scope = $this->makeOutputBlock($root->type);$/;"	v
+scope	.\ressources\lessc\lessc.inc.php	/^		$this->scope = $this->scope->parent;$/;"	v
+scope	.\ressources\lessc\lessc.inc.php	/^		$this->scope = null;$/;"	v
+screenLog	.\classes\class.utils.php	/^    public static function screenLog($message) {$/;"	f
+script	.\loader.php	/^            $script = WWW_ROOT.$script;$/;"	v
+scripts	.\loader.php	/^    private $scripts = array();$/;"	v
+search	.\classes\class.user.php	/^    public static function search($term) {$/;"	f
+second	.\ressources\lessc\lessc.inc.php	/^		$second = $this->assertColor($second);$/;"	v
+second_a	.\ressources\lessc\lessc.inc.php	/^		$second_a = $this->lib_alpha($second);$/;"	v
+secure	.\app\class.auth.php	/^        $secure = SECURE;$/;"	v
+seek	.\ressources\lessc\lessc.inc.php	/^	protected function seek($where = null) {$/;"	f
+seen	.\ressources\lessc\lessc.inc.php	/^			$seen =& $this->env->seenNames;$/;"	v
+seen	.\ressources\lessc\lessc.inc.php	/^	protected function findBlocks($searchIn, $path, $orderedArgs, $keywordArgs, $seen=array()) {$/;"	v
+seenComments	.\ressources\lessc\lessc.inc.php	/^		$this->seenComments = array();$/;"	v
+selectorSeparator	.\ressources\lessc\lessc.inc.php	/^				$selectorSeparator = $this->selectorSeparator . $this->break . $pre;$/;"	v
+selectorSeparator	.\ressources\lessc\lessc.inc.php	/^				$selectorSeparator = $this->selectorSeparator;$/;"	v
+selectorSeparator	.\ressources\lessc\lessc.inc.php	/^	public $selectorSeparator = ", ";$/;"	v
+selectorSeparator	.\ressources\lessc\lessc.inc.php	/^	public $selectorSeparator = ",";$/;"	v
+selectors	.\ressources\lessc\lessc.inc.php	/^				$selectors = $env->selectors;$/;"	v
+selectors	.\ressources\lessc\lessc.inc.php	/^		$selectors = $this->compileSelectors($block->tags);$/;"	v
+selectors	.\ressources\lessc\lessc.inc.php	/^		$selectors = null;$/;"	v
+selectors	.\ressources\lessc\lessc.inc.php	/^	protected function makeOutputBlock($type, $selectors = null) {$/;"	v
+session	.\app\class.auth.php	/^    function session() {$/;"	f
+session_name	.\app\class.auth.php	/^        $session_name = 'smexal_session';   \/\/ Set a custom session name$/;"	v
+set	.\ressources\lessc\lessc.inc.php	/^	protected function set($name, $value) {$/;"	f
+setDefault	.\classes\class.localization.php	/^  public static function setDefault($id) {$/;"	f
+setDefaultAction	.\views\manage\manage.locales\manage.locales.php	/^    private function setDefaultAction($id, $isDefault) {$/;"	f
+setFormatter	.\ressources\lessc\lessc.inc.php	/^	public function setFormatter($name) {$/;"	f
+setImportDir	.\ressources\lessc\lessc.inc.php	/^	public function setImportDir($dirs) {$/;"	f
+setLessVariables	.\loader.php	/^    public function setLessVariables() {$/;"	f
+setLoading	.\scripts\helpers.js	/^function setLoading(element, revert) {$/;"	f
+setMail	.\classes\class.user.php	/^    public function setMail($newMail) {$/;"	f
+setMaxWidth	.\classes\class.navigation.php	/^    public function setMaxWidth() {$/;"	f
+setName	.\classes\class.group.php	/^    public function setName($newName) {$/;"	f
+setName	.\classes\class.user.php	/^    public function setName($newName) {$/;"	f
+setPassword	.\classes\class.user.php	/^    public function setPassword($new_pw, $new_pw_rep) {$/;"	f
+setPrefix	.\ressources\mysqlidb\mysqlidb.php	/^    public function setPrefix($prefix = '')$/;"	f
+setPreserveComments	.\ressources\lessc\lessc.inc.php	/^	public function setPreserveComments($preserve) {$/;"	f
+setSessionUser	.\app\class.auth.php	/^    public static function setSessionUser() {$/;"	f
+setSticky	.\classes\class.navigation.php	/^    public function setSticky() {$/;"	f
+setTag	.\ressources\raintpl\rain.tpl.class.php	/^	public function setTag($tag)$/;"	f
+setTemplateFile	.\ressources\raintpl\rain.tpl.class.php	/^	public function setTemplateFile($templateFile)$/;"	f
+setTemplateLine	.\ressources\raintpl\rain.tpl.class.php	/^	public function setTemplateLine($templateLine)$/;"	f
+setVariables	.\ressources\lessc\lessc.inc.php	/^	public function setVariables($variables) {$/;"	f
+setup	.\classes\class.datacollection.php	/^  abstract protected function setup();$/;"	f
+setup	.\collections\class.sites.php	/^  protected function setup() {$/;"	f
+simple	.\ressources\lessc\lessc.inc.php	/^	protected function tag(&$tag, $simple = false) {$/;"	v
+simple	.\ressources\lessc\lessc.inc.php	/^	protected function tags(&$tags, $simple = false, $delim = ',') {$/;"	v
+single_path_replace	.\ressources\raintpl\rain.tpl.class.php	/^	protected function single_path_replace ( $matches ){$/;"	f
+skip	.\ressources\lessc\lessc.inc.php	/^					$skip = strlen($m[0]);$/;"	v
+skip	.\ressources\lessc\lessc.inc.php	/^				$skip = strpos($text, "\\n", $count);$/;"	v
+skip	.\ressources\lessc\lessc.inc.php	/^				if ($skip === false) $skip = strlen($text) - $count;$/;"	v
+skip	.\ressources\lessc\lessc.inc.php	/^			$skip = 0;$/;"	v
+skip	.\ressources\lessc\lessc.inc.php	/^	protected function patternMatchAll($blocks, $orderedArgs, $keywordArgs, $skip=array()) {$/;"	v
+sortProps	.\ressources\lessc\lessc.inc.php	/^	protected function sortProps($props, $split = false) {$/;"	f
+sourceLoc	.\ressources\lessc\lessc.inc.php	/^		$this->sourceLoc = isset($prop[-1]) ? $prop[-1] : -1;$/;"	v
+sourceLoc	.\ressources\lessc\lessc.inc.php	/^	protected $sourceLoc = null;$/;"	v
+sourceName	.\ressources\lessc\lessc.inc.php	/^		$this->sourceName = $sourceName; \/\/ name used for error messages$/;"	v
+sourceName	.\ressources\lessc\lessc.inc.php	/^	public function __construct($lessc, $sourceName = null) {$/;"	v
+sourceParser	.\ressources\lessc\lessc.inc.php	/^		$this->sourceParser = $oldSourceParser;$/;"	v
+sourceParser	.\ressources\lessc\lessc.inc.php	/^		$this->sourceParser = $this->parser; \/\/ used for error messages$/;"	v
+sourceParser	.\ressources\lessc\lessc.inc.php	/^	protected $sourceParser = null;$/;"	v
+split	.\ressources\lessc\lessc.inc.php	/^	protected function sortProps($props, $split = false) {$/;"	v
+ss	.\ressources\lessc\lessc.inc.php	/^					$ss = $this->seek();$/;"	v
+ss	.\ressources\lessc\lessc.inc.php	/^				$ss = $this->seek();$/;"	v
+ss	.\ressources\lessc\lessc.inc.php	/^		$ss = $this->seek();$/;"	v
+standalone	.\classes\class.view.php	/^    public $standalone = false;$/;"	v
+standalone	.\views\view.api.php	/^    public $standalone = true;$/;"	v
+startTransaction	.\ressources\mysqlidb\mysqlidb.php	/^    public function startTransaction () {$/;"	f
+startsWith	.\ressources\helpers\additional_functions.php	/^function startsWith($haystack, $needle) {$/;"	f
+status	.\ressources\mysqlidb\mysqlidb.php	/^        $status = $stmt->execute();$/;"	v
+status	.\views\manage\manage.groups\manage.groups.add.php	/^      $status = Group::create($data['new_name']);$/;"	v
+statusMail	.\views\manage\manage.users\manage.users.edit.php	/^      $statusMail = $user->setMail($data['modify_email']);$/;"	v
+statusName	.\views\manage\manage.users\manage.users.edit.php	/^      $statusName = $user->setName($data['modify_name']);$/;"	v
+statusPassword	.\views\manage\manage.users\manage.users.edit.php	/^        $statusPassword = $user->setPassword($data['new_password'], $data['new_password_repeat']);$/;"	v
+statusPassword	.\views\manage\manage.users\manage.users.edit.php	/^      $statusPassword = true;$/;"	v
+sticky	.\app\class.app.php	/^    public $sticky = false;$/;"	v
+sticky	.\classes\class.navigation.php	/^        $this->sticky = true;$/;"	v
+sticky	.\classes\class.navigation.php	/^    private $sticky = false;$/;"	v
+stmt	.\ressources\mysqlidb\mysqlidb.php	/^        $stmt = $this->_buildQuery (null, $tableData);$/;"	v
+stmt	.\ressources\mysqlidb\mysqlidb.php	/^        $stmt = $this->_buildQuery($numRows);$/;"	v
+stmt	.\ressources\mysqlidb\mysqlidb.php	/^        $stmt = $this->_buildQuery(null, $insertData);$/;"	v
+stmt	.\ressources\mysqlidb\mysqlidb.php	/^        $stmt = $this->_prepareQuery();$/;"	v
+stop	.\ressources\lessc\lessc.inc.php	/^			$stop = array_merge($stop, $rejectStrs);$/;"	v
+stop	.\ressources\lessc\lessc.inc.php	/^		$stop = array("'", '"', "@{", $end);$/;"	v
+stop	.\ressources\lessc\lessc.inc.php	/^		$stop = array_map(array("lessc", "preg_quote"), $stop);$/;"	v
+str	.\ressources\lessc\lessc.inc.php	/^			$str = null;$/;"	v
+str	.\ressources\lessc\lessc.inc.php	/^		$str = $this->coerceString($importPath);$/;"	v
+str	.\ressources\mysqlidb\mysqlidb.php	/^            $str = substr ($str, $pos + 1);$/;"	v
+stream	.\app\class.app.php	/^        $this->stream = false;$/;"	v
+stream	.\app\class.app.php	/^        $this->stream = true;$/;"	v
+stream	.\app\class.app.php	/^    public $stream = false;$/;"	v
+stream	.\app\class.app.php	/^    public function stream($start = false) {$/;"	f
+streamActive	.\app\class.app.php	/^    public function streamActive() {$/;"	f
+string	.\classes\class.localization.php	/^    $string = $db->getOne("language_strings");$/;"	v
+string	.\ressources\lessc\lessc.inc.php	/^		$string = array_shift($values);$/;"	v
+string	.\ressources\lessc\lessc.inc.php	/^	protected function string(&$out) {$/;"	f
+string	.\views\manage\manage.locales\manage.locales.strings.translate.php	/^        $string = Localization::getStringById($id);$/;"	v
+stringConcatenate	.\ressources\lessc\lessc.inc.php	/^	protected function stringConcatenate($left, $right) {$/;"	f
+stringExists	.\classes\class.localization.php	/^  public static function stringExists($string, $domain='') {$/;"	f
+stringInUse	.\views\manage\manage.locales\manage.locales.strings.php	/^    private function stringInUse($string) {$/;"	f
+stringTranslation	.\classes\class.localization.php	/^  public static function stringTranslation($orignal, $domain='', $lang=false) {$/;"	f
+stringTranslationState	.\classes\class.localization.php	/^  public static function stringTranslationState($orignal, $domain, $lang=false) {$/;"	f
+strings	.\classes\class.localization.php	/^    $strings = array();$/;"	v
+stringsTable	.\views\manage\manage.locales\manage.locales.strings.php	/^    private function stringsTable() {$/;"	f
+strip	.\ressources\lessc\lessc.inc.php	/^					$strip = $part[0] == "variable";$/;"	v
+structure	.\views\manage\manage.permissions\manage.permissions.php	/^    private function getCell($group, $permission, $structure=false) {$/;"	v
+style	.\loader.php	/^            $style = $this->compileLess($style);$/;"	v
+style	.\loader.php	/^            $style = WWW_ROOT.$style;$/;"	v
+styles	.\loader.php	/^    private $styles = array();$/;"	v
+subMatches	.\ressources\lessc\lessc.inc.php	/^					$subMatches = $this->findBlocks($subBlock,$/;"	v
+subQuery	.\ressources\mysqlidb\mysqlidb.php	/^        $subQuery = $value->getSubQuery ();$/;"	v
+subQuery	.\ressources\mysqlidb\mysqlidb.php	/^    public static function subQuery($subQueryAlias = "")$/;"	f
+submit	.\classes\class.forms.php	/^    public function submit($text, $level="primary") {$/;"	f
+substringMatcher	.\scripts\helpers.js	/^var substringMatcher = function(strs) {$/;"	f
+subview	.\classes\class.view.php	/^          $subview = $uri_components[0];$/;"	v
+subview	.\classes\class.view.php	/^          $subview = '';$/;"	v
+subview	.\classes\class.view.php	/^          || $subview == $view->name()$/;"	v
+subview	.\classes\class.view.php	/^        $subview = $uri_components;$/;"	v
+supressDivisionProps	.\ressources\lessc\lessc.inc.php	/^	static protected $supressDivisionProps =$/;"	v
+t	.\ressources\lessc\lessc.inc.php	/^					$t = $num % $width;$/;"	v
+table	.\classes\class.localization.php	/^    $table = "language_strings_translations";$/;"	v
+tableCell	.\classes\class.utils.php	/^    public static function tableCell($content, $class=false, $id=false, $structure=false) {$/;"	f
+tableData	.\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildQuery($numRows = null, $tableData = null)$/;"	v
+tag	.\ressources\lessc\lessc.inc.php	/^			$tag = array("exp", array("string", "", $parts));$/;"	v
+tag	.\ressources\lessc\lessc.inc.php	/^			$tag = trim(implode($parts));$/;"	v
+tag	.\ressources\lessc\lessc.inc.php	/^		$tag = implode($this->parentSelector, $parts);$/;"	v
+tag	.\ressources\lessc\lessc.inc.php	/^	protected function tag(&$tag, $simple = false) {$/;"	f
+tag	.\ressources\raintpl\rain.tpl.class.php	/^				$tag  = '{$template_info}';$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^				$tag = $code[ 0 ];$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^			$tag = $matches[ 0 ][ $i ];$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^		$tag  = $matches[1];$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^		$this->tag = (string) $tag;$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^		if ( $tag == 'a' ) {$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^		if ( $tag == 'a' or $tag == 'form' ) {$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^	protected $tag = null;$/;"	v
+tag	.\ressources\raintpl\rain.tpl.class.php	/^                    foreach( $parsed as $tag => $array ){$/;"	v
+tagBracket	.\ressources\lessc\lessc.inc.php	/^	protected function tagBracket(&$parts, &$hasExpression) {$/;"	f
+tag_regexp	.\ressources\raintpl\rain.tpl.class.php	/^		$tag_regexp = "\/" . join( "|", $tag_regexp ) . "\/";$/;"	v
+tag_regexp	.\ressources\raintpl\rain.tpl.class.php	/^		$tag_regexp = array( 'loop'         => '(\\{loop(?: name){0,1}="\\${0,1}[^"]*"\\})',$/;"	v
+tags	.\classes\class.forms.php	/^    public function tags($name, $id, $label, $values=false, $getter=false) {$/;"	f
+tags	.\ressources\lessc\lessc.inc.php	/^			$tags = $this->fixTags($tags);$/;"	v
+tags	.\ressources\lessc\lessc.inc.php	/^		$tags = array();$/;"	v
+tags	.\ressources\lessc\lessc.inc.php	/^	protected function tags(&$tags, $simple = false, $delim = ',') {$/;"	f
+tags	.\ressources\raintpl\rain.tpl.class.php	/^			$tags = array_intersect( array( "form" ), self::$path_replace_list );$/;"	v
+tags	.\ressources\raintpl\rain.tpl.class.php	/^			$tags = array_intersect( array( "img", "script", "input" ), self::$path_replace_list );$/;"	v
+tags	.\ressources\raintpl\rain.tpl.class.php	/^			$tags = array_intersect( array( "link", "a" ), self::$path_replace_list );$/;"	v
+takes	.\ressources\lessc\lessc.inc.php	/^	 * The function takes a single reference argument. When calling the$/;"	f
+takes	.\ressources\mysqlidb\mysqlidb.php	/^     * This function takes the input, determines what type it is,$/;"	f
+target	.\app\class.app.php	/^          $target = WWW_ROOT.$target;$/;"	v
+target	.\app\class.app.php	/^        $target = WWW_ROOT.implode("\/", $target);$/;"	v
+temp	.\ressources\raintpl\rain.tpl.class.php	/^			$temp = preg_split( "\/\\.|\\[|\\-\\>\/", $var );$/;"	v
+temp	.\ressources\raintpl\rain.tpl.class.php	/^                            $temp = preg_split( "\/\\.|\\[|\\-\\>\/", $var );$/;"	v
+temp1	.\ressources\lessc\lessc.inc.php	/^			$temp1 = 2.0 * $L - $temp2;$/;"	v
+temp2	.\ressources\lessc\lessc.inc.php	/^			$temp2 = $L < 0.5 ?$/;"	v
+temp_compiled_filename	.\ressources\raintpl\rain.tpl.class.php	/^			$temp_compiled_filename             = self::$root_dir . self::$cache_dir . $tpl_basename . "." . md5( $this->tpl['template_directory'] . serialize(self::$config_name_sum));$/;"	v
+template	.\ressources\lessc\lessc.inc.php	/^				$template = preg_replace('\/'.self::preg_quote($match).'\/',$/;"	v
+template	.\ressources\lessc\lessc.inc.php	/^		$template = $this->compileValue($this->lib_e($string));$/;"	v
+templateFile	.\ressources\raintpl\rain.tpl.class.php	/^		$this->templateFile = (string) $templateFile;$/;"	v
+templateFile	.\ressources\raintpl\rain.tpl.class.php	/^	protected $templateFile = '';$/;"	v
+templateLine	.\ressources\raintpl\rain.tpl.class.php	/^		$this->templateLine = (int) $templateLine;$/;"	v
+templateLine	.\ressources\raintpl\rain.tpl.class.php	/^	protected $templateLine = null;$/;"	v
+template_code	.\ressources\raintpl\rain.tpl.class.php	/^			$template_code = str_replace( array("<?","?>"), array("&lt;?","?&gt;"), $template_code );$/;"	v
+template_code	.\ressources\raintpl\rain.tpl.class.php	/^		$template_code = $this->path_replace( $template_code, $tpl_basedir );$/;"	v
+template_code	.\ressources\raintpl\rain.tpl.class.php	/^		$template_code = preg_replace( "\/<\\?xml(.*?)\\?>\/s", "##XML\\\\1XML##", $template_code );$/;"	v
+template_code	.\ressources\raintpl\rain.tpl.class.php	/^		$template_code = preg_replace_callback ( "\/##XML(.*?)XML##\/s", array($this, 'xml_reSubstitution'), $template_code ); $/;"	v
+template_code	.\ressources\raintpl\rain.tpl.class.php	/^		$template_code = preg_split ( $tag_regexp, $template_code, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY );$/;"	v
+template_code	.\ressources\raintpl\rain.tpl.class.php	/^		$this->tpl['source'] = $template_code = file_get_contents( $tpl_filename );$/;"	v
+template_compiled	.\ressources\raintpl\rain.tpl.class.php	/^		$template_compiled = "<?php if(!class_exists('raintpl')){exit;}?>" . $this->compileTemplate( $template_code, $tpl_basedir );$/;"	v
+template_compiled	.\ressources\raintpl\rain.tpl.class.php	/^		$template_compiled = str_replace( "?>\\n", "?>\\n\\n", $template_compiled );$/;"	v
+text	.\classes\class.logger.php	/^            $text = array($text);$/;"	v
+text	.\classes\class.utils.php	/^    public static function getProgressBar($id, $current, $text="") {$/;"	v
+text	.\ressources\lessc\lessc.inc.php	/^			$text = substr($text, $count + $skip);$/;"	v
+that	.\ressources\mysqlidb\mysqlidb.php	/^     * A convenient function that returns TRUE if exists at least an element that$/;"	f
+throwError	.\ressources\lessc\lessc.inc.php	/^	protected function throwError($msg = null) {$/;"	f
+throwError	.\ressources\lessc\lessc.inc.php	/^	public function throwError($msg = "parse error", $count = null) {$/;"	f
+title	.\classes\class.view.php	/^    public function title() {$/;"	f
+to	.\ressources\lessc\lessc.inc.php	/^	 * Helper function to get arguments for color manipulation functions.$/;"	f
+to	.\ressources\lessc\lessc.inc.php	/^	protected function to($what, &$out, $until = false, $allowNewline = false) {$/;"	f
+to	.\ressources\mysqlidb\mysqlidb.php	/^     * A convenient SELECT * function to get one record.$/;"	f
+to	.\ressources\mysqlidb\mysqlidb.php	/^     * A convenient SELECT * function to get one value.$/;"	f
+to	.\ressources\mysqlidb\mysqlidb.php	/^     * Helper function to add variables into bind parameters array and will return$/;"	f
+to	.\ressources\mysqlidb\mysqlidb.php	/^     * Helper function to add variables into bind parameters array in bulk$/;"	f
+to	.\ressources\mysqlidb\mysqlidb.php	/^     * Helper function to add variables into bind parameters array$/;"	f
+toBool	.\ressources\lessc\lessc.inc.php	/^	protected function toBool($a) {$/;"	f
+toHSL	.\ressources\lessc\lessc.inc.php	/^	protected function toHSL($color) {$/;"	f
+toRGB	.\ressources\lessc\lessc.inc.php	/^	protected function toRGB($color) {$/;"	f
+toRGB_helper	.\ressources\lessc\lessc.inc.php	/^	protected function toRGB_helper($comp, $temp1, $temp2) {$/;"	f
+tok	.\ressources\lessc\lessc.inc.php	/^			$tok = $m[2];$/;"	v
+tok	.\ressources\lessc\lessc.inc.php	/^			if (($tok == "'" || $tok == '"') && $this->string($str)) {$/;"	v
+tpl	.\app\class.app.php	/^      $tpl = new RainTPL();$/;"	v
+tpl	.\ressources\raintpl\rain.tpl.class.php	/^		protected $tpl = array(),		\/\/ variables to keep the template directories and info$/;"	v
+tpl	.\ressources\raintpl\rain.tpl.class.php	/^                                                $compiled_code .= '<?php $tpl = new '.get_called_class().';' .$/;"	v
+tpl_basedir	.\ressources\raintpl\rain.tpl.class.php	/^			$tpl_basedir                        = strpos($tpl_name,"\/") ? dirname($tpl_name) . '\/' : null;						\/\/ template basedirectory$/;"	v
+tpl_basename	.\ressources\raintpl\rain.tpl.class.php	/^			$tpl_basename                       = basename( $tpl_name );														\/\/ template basename$/;"	v
+tpl_dir	.\ressources\raintpl\rain.tpl.class.php	/^			$tpl_dir = self::$base_url . self::$tpl_dir . $tpl_basedir;$/;"	v
+tpl_dir	.\ressources\raintpl\rain.tpl.class.php	/^		static $tpl_dir = "tpl\/";$/;"	v
+tpl_ext	.\ressources\raintpl\rain.tpl.class.php	/^		static $tpl_ext = "html";$/;"	v
+translate	.\classes\class.localization.php	/^  public static function translate($stringid, $lang, $translation) {$/;"	f
+translateAction	.\views\manage\manage.locales\manage.locales.strings.php	/^    private function translateAction($string) {$/;"	f
+translated	.\views\manage\manage.locales\manage.locales.strings.php	/^        $translated = Localization::stringTranslationState($string['string'], $string['domain'], $language['code']);$/;"	v
+translation	.\classes\class.localization.php	/^      $translation = $db->getOne("language_strings_translations");$/;"	v
+trigger	.\app\class.events.php	/^    public function trigger($event, $data=array()) {$/;"	f
+tryImport	.\ressources\lessc\lessc.inc.php	/^	protected function tryImport($importPath, $parentBlock, $out) {$/;"	f
+type	.\app\class.app.php	/^    public function addMessage($message, $type="warning") {$/;"	v
+type	.\classes\class.forms.php	/^    public function input($name, $id, $label, $type="input", $value=false, $hint=false) {$/;"	v
+type	.\ressources\lessc\lessc.inc.php	/^	 * Convert the rgb, rgba, hsl color literals of function type$/;"	f
+type	.\ressources\lessc\lessc.inc.php	/^	protected function pushBlock($selectors=null, $type=null) {$/;"	v
+type	.\ressources\mysqlidb\mysqlidb.php	/^            if (!empty ($matches[3])) $type = $matches[3];$/;"	v
+type	.\ressources\mysqlidb\mysqlidb.php	/^        $type = 'd';$/;"	v
+type	.\views\manage\manage.permissions\manage.permissions.php	/^                  "icon" => $type == "grant" ? "unchecked" : "ok",$/;"	v
+type	.\views\manage\manage.permissions\manage.permissions.php	/^                  "name" => $type == "grant" ? i('Add Permission') : i('Remove Permission'),$/;"	v
+types	.\ressources\mysqlidb\mysqlidb.php	/^        $types = Array ("s" => "second", "m" => "minute", "h" => "hour", "d" => "day", "M" => "month", "Y" => "year");$/;"	v
+unit	.\ressources\lessc\lessc.inc.php	/^			$unit = array("number", $m[1], empty($m[2]) ? "" : $m[2]);$/;"	v
+unit	.\ressources\lessc\lessc.inc.php	/^		$unit = empty($left[2]) ? $right[2] : $left[2];$/;"	v
+unit	.\ressources\lessc\lessc.inc.php	/^	protected function unit(&$unit) {$/;"	f
+unregisterFunction	.\ressources\lessc\lessc.inc.php	/^	public function unregisterFunction($name) {$/;"	f
+unsetVariable	.\ressources\lessc\lessc.inc.php	/^	public function unsetVariable($name) {$/;"	f
+until	.\ressources\lessc\lessc.inc.php	/^	protected function to($what, &$out, $until = false, $allowNewline = false) {$/;"	v
+update	.\app\class.app.php	/^    public function refresh($target, $content, $update=false) {$/;"	v
+update	.\ressources\mysqlidb\mysqlidb.php	/^    public function update($tableName, $tableData)$/;"	f
+updatePart	.\app\class.app.php	/^    public function updatePart($target, $content) {$/;"	f
+updateProgressBar	.\scripts\helpers.js	/^function updateProgressBar(updater) {$/;"	f
+updateStrings	.\classes\class.localization.php	/^  public static function updateStrings($directory=DOC_ROOT, $recursive=true, $bar=false) {$/;"	f
+uri	.\classes\class.utils.php	/^          $uri = $_SERVER['REQUEST_URI'];$/;"	v
+uri	.\classes\class.utils.php	/^          $uri = $uri[1][0];$/;"	v
+uri	.\classes\class.utils.php	/^        $uri = str_replace(WWW_ROOT, "",$uri);$/;"	v
+uri_components	.\app\class.app.php	/^      $this->uri_components = Utils::getUriComponents();$/;"	v
+uri_components	.\app\class.app.php	/^    private $uri_components = false;$/;"	v
+url	.\ressources\lessc\lessc.inc.php	/^		$url = $this->compileValue($this->lib_e($str));$/;"	v
+url	.\ressources\raintpl\rain.tpl.class.php	/^			$url = '(?:(?:\\\\{.*?\\\\})?[^{}]*?)*?'; \/\/ allow " inside {} for cases in which url contains {function="foo()"}$/;"	v
+url	.\ressources\raintpl\rain.tpl.class.php	/^		$url  = $matches[4];$/;"	v
+user	.\app\class.app.php	/^    public $user = null;$/;"	v
+user	.\classes\class.user.php	/^        $user = $this->app->db->getOne('users');$/;"	v
+user	.\classes\class.utils.php	/^      $user = new User($id);$/;"	v
+user	.\views\manage\manage.groups\manage.groups.members.php	/^        $user = new User($userid);$/;"	v
+user	.\views\manage\manage.users\manage.users.delete.php	/^      $user = new User($id);$/;"	v
+user	.\views\manage\manage.users\manage.users.edit.php	/^        $this->user = new User($parts[0]);$/;"	v
+user	.\views\manage\manage.users\manage.users.edit.php	/^      $user = new User($data['user_id']);$/;"	v
+user	.\views\manage\manage.users\manage.users.edit.php	/^    private $user = null;$/;"	v
+userTable	.\views\manage\manage.users\manage.users.php	/^    public function userTable() {$/;"	f
+user_enriched	.\views\manage\manage.groups\manage.groups.members.php	/^      $user_enriched = array();$/;"	v
+user_enriched	.\views\manage\manage.users\manage.users.php	/^        $user_enriched = array();$/;"	v
+userid	.\views\manage\manage.groups\manage.groups.members.php	/^          $userid = $uri[2];$/;"	v
+username	.\ressources\mysqlidb\mysqlidb.php	/^        $this->username = $username;$/;"	v
+username	.\ressources\mysqlidb\mysqlidb.php	/^    protected $username;$/;"	v
+username	.\ressources\mysqlidb\mysqlidb.php	/^    public function __construct($host = NULL, $username = NULL, $password = NULL, $db = NULL, $port = NULL, $charset = 'utf8')$/;"	v
+users	.\app\class.auth.php	/^        $users = $db->get('users');$/;"	v
+users	.\views\manage\manage.users\manage.users.php	/^        $users = $this->app->db->get('users');$/;"	v
+users	.\views\view.api.php	/^    private function users($query) {$/;"	f
+usr	.\classes\class.user.php	/^      $usr = $this->app->db->getOne('users');$/;"	v
+v	.\classes\class.localization.php	/^        $v = +$v ? +$v : 1;$/;"	v
+vPrefix	.\ressources\lessc\lessc.inc.php	/^	public $vPrefix = '@'; \/\/ prefix of abstract properties$/;"	v
+val	.\ressources\lessc\lessc.inc.php	/^					$val = $color;$/;"	v
+val	.\ressources\lessc\lessc.inc.php	/^				$val = $this->reduce($c);$/;"	v
+val	.\ressources\lessc\lessc.inc.php	/^				$val = isset($val[1]) ? floatval($val[1]) : 0;$/;"	v
+val	.\ressources\lessc\lessc.inc.php	/^				$val = isset($values[$i]) ?$/;"	v
+val	.\ressources\mysqlidb\mysqlidb.php	/^                $val = '[object]';$/;"	v
+val	.\ressources\mysqlidb\mysqlidb.php	/^            $val = $vals[$i++];$/;"	v
+val	.\ressources\mysqlidb\mysqlidb.php	/^            $val = $value[$key];$/;"	v
+val	.\ressources\mysqlidb\mysqlidb.php	/^            $val = $wValue[$key];$/;"	v
+val	.\ressources\mysqlidb\mysqlidb.php	/^        $val = Array ('query' => $this->_query,$/;"	v
+validChars	.\ressources\lessc\lessc.inc.php	/^			$validChars = $allowNewline ? "." : "[^\\n]";$/;"	v
+validChars	.\ressources\lessc\lessc.inc.php	/^			$validChars = $allowNewline;$/;"	v
+value	.\classes\class.forms.php	/^    public function area($id, $label, $value=false, $hint = false, $disabled = false) {$/;"	v
+value	.\classes\class.logger.php	/^              $value = implode(", ", $value);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^					$value = $a[2];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^					$value = $keywordValues[$a[1]];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^					$value = $orderedValues[$i];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^					$value = null; \/\/ :($/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^				$value = $this->reduce($value);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^				$value = array("unary", "-", $inner);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = $left[1] % $right[1];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = $left[1] * $right[1];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = $left[1] + $right[1];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = $left[1] - $right[1];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = $left[1] \/ $right[1];$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = array("escape", $str);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = array('keyword', $word);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = array('keyword', '\\\\'.$m[1]);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^			$value = array('variable', $var);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^		$value = $this->assertNumber($arg);$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^		$value = 0;$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^		$value = lessc::compressList($values, ', ');$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^		$value = null;$/;"	v
+value	.\ressources\lessc\lessc.inc.php	/^	protected function value(&$value) {$/;"	f
+value	.\ressources\raintpl\rain.tpl.class.php	/^				$value = "\\$value$loop_level";           \/\/ value$/;"	v
+value	.\ressources\raintpl\rain.tpl.class.php	/^	function assign( $variable, $value = null ){$/;"	v
+value	.\ressources\raintpl\rain.tpl.class.php	/^	static function configure( $setting, $value = null ){$/;"	v
+values	.\classes\class.forms.php	/^        $values = Utils::json($values);$/;"	v
+values	.\classes\class.forms.php	/^    public function tags($name, $id, $label, $values=false, $getter=false) {$/;"	v
+values	.\ressources\lessc\lessc.inc.php	/^						$values = array($newArg);$/;"	v
+values	.\ressources\lessc\lessc.inc.php	/^			$values = $value[2];$/;"	v
+values	.\ressources\lessc\lessc.inc.php	/^		$values = $args[2];$/;"	v
+values	.\ressources\lessc\lessc.inc.php	/^		$values = array();$/;"	v
+var	.\ressources\lessc\lessc.inc.php	/^			$var = $this->compileValue($reduced);$/;"	v
+var	.\ressources\raintpl\rain.tpl.class.php	/^				$var = $this->var_replace( '$' . $code[ 1 ], $tag_left_delimiter=null, $tag_right_delimiter=null, $php_left_delimiter=null, $php_right_delimiter=null, $loop_level-1 );$/;"	v
+var	.\ressources\raintpl\rain.tpl.class.php	/^			$this->var = $variable + $this->var;$/;"	v
+var	.\ressources\raintpl\rain.tpl.class.php	/^			$var = $matches[ 1 ][ $i ];$/;"	v
+var	.\ressources\raintpl\rain.tpl.class.php	/^		public $var = array();$/;"	v
+var	.\ressources\raintpl\rain.tpl.class.php	/^                            $var = $array['var'];$/;"	v
+var_name	.\ressources\raintpl\rain.tpl.class.php	/^			$var_name = $temp[ 0 ];$/;"	v
+var_name	.\ressources\raintpl\rain.tpl.class.php	/^                                    elseif( $var_name == 'counter' )$/;"	v
+var_name	.\ressources\raintpl\rain.tpl.class.php	/^                                    elseif( $var_name == 'value' )$/;"	v
+var_name	.\ressources\raintpl\rain.tpl.class.php	/^                                    if( $var_name == 'key' )$/;"	v
+var_name	.\ressources\raintpl\rain.tpl.class.php	/^                            $var_name = $temp[ 0 ];$/;"	v
+var_replace	.\ressources\raintpl\rain.tpl.class.php	/^	function var_replace( $html, $tag_left_delimiter, $tag_right_delimiter, $php_left_delimiter = null, $php_right_delimiter = null, $loop_level = null, $echo = null ){$/;"	f
+variable	.\ressources\lessc\lessc.inc.php	/^	protected function variable(&$name) {$/;"	f
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^			$variable_path = preg_replace('\/\\.(\\w+)\/', '["\\\\1"]', $variable_path );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^			$variable_path = preg_replace('\/\\.\\$(\\w+)\/', '["$\\\\1"]', $variable_path );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^			$variable_path = str_replace( '[', '["', $variable_path );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^			$variable_path = str_replace( ']', '"]', $variable_path );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^			$variable_path = substr( $var, strlen( $var_name ) );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^                            $variable_path = preg_replace('\/\\.(\\${0,1}\\w+)\/', '["\\\\1"]', $variable_path );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^                            $variable_path = str_replace( '[', '["', $variable_path );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^                            $variable_path = str_replace( ']', '"]', $variable_path );$/;"	v
+variable_path	.\ressources\raintpl\rain.tpl.class.php	/^                            $variable_path = substr( $var, strlen( $var_name ) );$/;"	v
+vars	.\ressources\lessc\lessc.inc.php	/^		$vars = array();$/;"	v
+view	.\app\class.app.php	/^        $view = $view::instance();$/;"	v
+view	.\app\class.events.php	/^                    $view = $view::$instance();$/;"	v
+view	.\classes\class.view.php	/^        $view = $view::instance();$/;"	v
+views	.\app\class.viewmanager.php	/^        $this->views = $this->getViews();$/;"	v
+views	.\app\class.viewmanager.php	/^    public $views = null;$/;"	v
+vm	.\app\class.app.php	/^        $this->vm = new ViewManager();$/;"	v
+vm	.\app\class.app.php	/^    public $vm = null;$/;"	v
+vm	.\app\class.events.php	/^            $vm = new ViewManager();$/;"	v
+vm	.\classes\class.view.php	/^      $vm = new ViewManager();$/;"	v
+w	.\ressources\lessc\lessc.inc.php	/^		$w = $weight * 2 - 1;$/;"	v
+w1	.\ressources\lessc\lessc.inc.php	/^		$w1 = (($w * $a == -1 ? $w : ($w + $a)\/(1 + $w * $a)) + 1) \/ 2.0;$/;"	v
+w2	.\ressources\lessc\lessc.inc.php	/^		$w2 = 1.0 - $w1;$/;"	v
+wValue	.\ressources\mysqlidb\mysqlidb.php	/^                $wValue = Array ('=' => $wValue);$/;"	v
+warn	.\classes\class.logger.php	/^    public static function warn($message) {$/;"	f
+weight	.\ressources\lessc\lessc.inc.php	/^			$weight = $args[2][2][1] \/ 100.0;$/;"	v
+weight	.\ressources\lessc\lessc.inc.php	/^			$weight = 0.5;$/;"	v
+where	.\ressources\mysqlidb\mysqlidb.php	/^    public function where($whereProp, $whereValue = null, $operator = null)$/;"	f
+whereValue	.\ressources\mysqlidb\mysqlidb.php	/^            $whereValue = Array ($operator => $whereValue);$/;"	v
+whereValue	.\ressources\mysqlidb\mysqlidb.php	/^    public function orWhere($whereProp, $whereValue = null, $operator = null)$/;"	v
+whereValue	.\ressources\mysqlidb\mysqlidb.php	/^    public function where($whereProp, $whereValue = null, $operator = null)$/;"	v
+whiteAfter	.\ressources\lessc\lessc.inc.php	/^				$whiteAfter = isset($this->buffer[$this->count - 1]) &&$/;"	v
+whiteBefore	.\ressources\lessc\lessc.inc.php	/^			$whiteBefore = isset($this->buffer[$this->count - 1]) &&$/;"	v
+whitePattern	.\ressources\lessc\lessc.inc.php	/^	static protected $whitePattern;$/;"	v
+whitespace	.\ressources\lessc\lessc.inc.php	/^	protected function whitespace() {$/;"	f
+width	.\ressources\lessc\lessc.inc.php	/^				$width = strlen($colorStr) == 3 ? 16 : 256;$/;"	v
+will	.\ressources\lessc\lessc.inc.php	/^	 * The input is expected to be reduced. This function will not work on$/;"	f
+word	.\ressources\lessc\lessc.inc.php	/^			$word = $m[1];$/;"	v
+would	.\ressources\mysqlidb\mysqlidb.php	/^     * Inheriting this class would require reloading connection info.$/;"	c
+writeComments	.\ressources\lessc\lessc.inc.php	/^		$this->writeComments = false;$/;"	v
+x	.\ressources\mysqlidb\mysqlidb.php	/^            $x = array();$/;"	v
+xml_reSubstitution	.\ressources\raintpl\rain.tpl.class.php	/^	protected function xml_reSubstitution($capture) {$/;"	f
+zipSetArgs	.\ressources\lessc\lessc.inc.php	/^	protected function zipSetArgs($args, $orderedValues, $keywordValues) {$/;"	f

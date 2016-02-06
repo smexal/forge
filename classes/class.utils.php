@@ -131,6 +131,11 @@ class Utils {
     public static function icon($name) {
       return '<span class="glyphicon glyphicon-'.$name.'" aria-hidden="true"></span>';
     }
+
+    public static function error($error) {
+      return '<div class="bs-callout bs-callout-danger"><p>'.$error.'</p></div>';
+
+    }
 }
 
 

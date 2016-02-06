@@ -5,6 +5,8 @@ class Sites extends DataCollection {
 
   protected function setup() {
     $this->preferences['title'] = i('Sites');
+    $this->preferences['all-title'] = i('Manage Sites');
+    $this->preferences['add-label'] = i('Add site');
   }
 }
 

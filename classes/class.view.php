@@ -44,10 +44,14 @@ abstract class AbstractView implements IView {
 
     public function getSubview($uri_components, $parent) {
       $vm = new ViewManager();
-      if(count($uri_components) == 0) {
-        $subview = '';
+      if(!is_array($uri_components)) {
+        $subview = $uri_components;
       } else {
-        $subview = $uri_components[0];
+        if(count($uri_components) == 0) {
+          $subview = '';
+        } else {
+          $subview = $uri_components[0];
+        }
       }
       $found = false;
       $load_main_subview = $subview == '' ? true : false;
@@ -56,8 +60,7 @@ abstract class AbstractView implements IView {
 
         if($rc->isAbstract())
           continue;
-        $instance = 'instance';
-        $view = $view::$instance();
+        $view = $view::instance();
         if($load_main_subview && $view->default
           || $subview == $view->name()
           && $view->parent == $parent->name) {

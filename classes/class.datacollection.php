@@ -5,6 +5,7 @@ abstract class DataCollection implements IDataCollection {
   protected static $instances = array();
   protected $app;
   public $preferences = array();
+  public $name = false;
 
   abstract protected function setup();
 
@@ -21,9 +22,11 @@ abstract class DataCollection implements IDataCollection {
     $this->preferences = array(
       'name' => strtolower(get_class($this)),
       'title' => i('Data'),
-      'all-title' => i('All Collection Items')
+      'all-title' => i('All Collection Items'),
+      'add-label' => i('Add item')
     );
     $this->setup();
+    $this->name = $this->getPref('name');
   }
 
   static public function instance() {
