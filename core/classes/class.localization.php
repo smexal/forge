@@ -218,8 +218,9 @@ class Localization {
     $current = 0;
     $databaseStrings = self::getAllStrings();
     $amount = count($databaseStrings);
-    echo Utils::screenLog("Checking for inactive Strings in the database...");
+    echo Utils::screenLog(i("Checking for inactive Strings in the database..."));
     $action = false;
+    $db = App::instance()->db;
     foreach($databaseStrings as $databaseString) {
       $current++;
       if($bar) {
@@ -231,7 +232,7 @@ class Localization {
           $found = true;
         }
       }
-      $db = App::instance()->db;
+      // TODO: Somewhat this setting to used = 0 is not working. need to investiage *sherlock*
       $db->where("id", $databaseString['id']);
       if(! $found) {
         if($databaseString['used'] == 1) {
@@ -245,7 +246,7 @@ class Localization {
         if($databaseString['used'] == 0) {
           $action = true;
           $db->update("language_strings", array(
-            "used" => "1"
+            "used" => 1
           ));
           echo Utils::screenLog(sprintf(i('ACTIVATE STRING: &gt;%s&lt;', "logs"),htmlentities($databaseString['string'])));
         }

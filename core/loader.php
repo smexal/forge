@@ -41,8 +41,10 @@ class Loader {
         $this->ressources();
         $this->loadCoreScripts();
         $this->loadInterfaces();
+        $this->loadAbstracts();
         $this->loadClasses();
         $this->loadCollections();
+        $this->loadModules();
         $this->loadViews();
         $this->loadApp();
     }
@@ -113,6 +115,14 @@ class Loader {
 
     public function loadApp() {
         $this->loadDirectory(CORE_ROOT."app/");
+    }
+
+    public function loadModules() {
+      $this->loadDirectory(DOC_ROOT."modules/");
+    }
+
+    public function loadAbstracts() {
+      $this->loadDirectory(CORE_ROOT."abstracts/");
     }
 
     public function loadClasses() {

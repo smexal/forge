@@ -1,5 +1,5 @@
 <?php
-
+/** DEPRECATED IN CONCEPT... **/
 class Sites extends DataCollection {
   public $permission = "manage.collection.sites";
 

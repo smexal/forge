@@ -5,6 +5,7 @@ class App {
     public $eh = null;
     public $vm = null;
     public $cm = null;
+    public $mm = null;
     public $user = null;
     public $stream = false;
     public $sticky = false;
@@ -20,7 +21,7 @@ class App {
         return self::$instance;
     }
 
-    public function run() {
+    private function managers() {
       if(is_null($this->eh)){
         $this->eh = EventHandler::instance();
       }
@@ -31,9 +32,17 @@ class App {
       if(is_null($this->vm)) {
         $this->vm = new ViewManager();
       }
+      if(is_null($this->mm)) {
+        $this->mm = new ModuleManager();
+      }
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();
       }
+    }
+
+    public function run() {
+      $this->managers();
+      
       Auth::setSessionUser();
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
