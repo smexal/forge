@@ -1,1 +1,0 @@
-<?php if(!class_exists('raintpl')){exit;}?><input type="hidden" value="<?php echo $value;?>" name="<?php echo $name;?>">

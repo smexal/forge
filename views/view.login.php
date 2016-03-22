@@ -11,7 +11,7 @@ class Login extends AbstractView {
         if(Auth::any()) {
             $this->app->redirectBack();
         }
-        return $this->app->render(TEMPLATE_DIR, "login", array(
+        return $this->app->render(CORE_TEMPLATE_DIR, "login", array(
             "title" => i("Login"),
             "message" => $this->message,
             "text" => i("login_intro_text"),

@@ -1,1 +1,0 @@
-<?php if(!class_exists('raintpl')){exit;}?><i class="bar-updater" data-value=<?php echo $value;?> data-id="<?php echo $id;?>"></i>

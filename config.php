@@ -11,11 +11,12 @@ if(substr($ext, strlen($ext)-1) != '/') {
 // GETTING PLACES
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].$ext);
 define('WWW_ROOT', $ext);
-define('TEMPLATE_DIR', DOC_ROOT."templates/");
+define('CORE_ROOT', DOC_ROOT."core/");
+define('CORE_TEMPLATE_DIR', CORE_ROOT."templates/");
+define('FOOTPRINT_SIZE', 10);
 
 // DEVELOPMENTZ
 define('LOG_LEVEL', 'DEBUG');
-define('FOOTPRINT_SIZE', 10);
 
 // LANGUAGE DEFINTIONS
 define('DEFAULT_LANGUAGE', 'de');
