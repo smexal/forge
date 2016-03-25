@@ -19,7 +19,8 @@ class ModuleManagent extends AbstractView {
       return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
           'title' => i('Module Management'),
           'global_actions' => '',
-          'content' => $this->modules()
+          'content' => $this->modules(),
+          'grid' => true
       ));
     }
 
@@ -31,7 +32,11 @@ class ModuleManagent extends AbstractView {
         if($check === true) {
           // save to display this module
           $return.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "grid-block", array(
-              
+              'title' => $module->name,
+              'meta' => i('Version: ', 'core').$module->version,
+              'text' => $module->description,
+              'image' => $module->image,
+              'image_alt' => $module->name.' '.i('Name', 'core')
           ));
         } else {
           $errors[] = $check;

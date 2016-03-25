@@ -1,3 +1,10 @@
 <div class="block">
-
+  <div class="img">
+    <img src="{$image}" alt="{$image_alt}" />
+  </div>
+  <div class="content">
+    <h3>{$title}</h3>
+    {if="$meta"}<small>{$meta}</small>{/if}
+    {if="$text"}<p>{$text}</p>{/if}
+  </div>
 </div>
