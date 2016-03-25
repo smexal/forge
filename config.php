@@ -12,6 +12,7 @@ if(substr($ext, strlen($ext)-1) != '/') {
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].$ext);
 define('WWW_ROOT', $ext);
 define('CORE_ROOT', DOC_ROOT."core/");
+define('CORE_WWW_ROOT', $ext."core/");
 define('CORE_TEMPLATE_DIR', CORE_ROOT."templates/");
 define('FOOTPRINT_SIZE', 10);
 

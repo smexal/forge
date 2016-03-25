@@ -3,7 +3,12 @@
 abstract class Module implements IModule {
   protected static $instances = array();
   abstract protected function setup();
+  
+  // initial variables for module
   public $name = null;
+  public $version = "0.1";
+  public $description = "";
+  public $image = CORE_WWW_ROOT."images/default-icon-module.svg";
 
   public function check() {
     if(is_null($this->name)) {

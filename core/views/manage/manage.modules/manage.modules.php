@@ -30,7 +30,9 @@ class ModuleManagent extends AbstractView {
         $check = $module->check();
         if($check === true) {
           // save to display this module
-          $return.=$module->name;
+          $return.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "grid-block", array(
+              
+          ));
         } else {
           $errors[] = $check;
         }
