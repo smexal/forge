@@ -13,7 +13,7 @@ abstract class Module implements IModule {
 
   public function check() {
     if(is_null($this->name)) {
-      return sprintf(i('Name for Module not set. Set public->$name in setup Method in Module `%s`'), get_called_class());
+      return sprintf(i('Name for Module not set. Set $name in setup Method in Module `%s`'), get_called_class());
     }
     return true;
   }

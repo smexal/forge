@@ -18,6 +18,9 @@ a.ajax {
 
 .grid {
 	display: flex;
+	flex-wrap: wrap;
+	margin-left: -20px;
+	margin-top: -40px;
 	
 	.block {
 		display:flex;
@@ -27,6 +30,17 @@ a.ajax {
 		border: 1px solid #F2F2F2;
 		border-radius: 3px;
 		position: relative;
+
+		margin-left: 20px;
+		margin-top: 60px;
+
+		&.active {
+			background-color: #fafafa;
+			border-color: #f0f0f0;
+			.img {
+				background-color:#FFF;
+			}
+		}
 		
 		.content {
 			min-height: auto;

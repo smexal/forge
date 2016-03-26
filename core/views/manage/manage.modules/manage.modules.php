@@ -46,10 +46,11 @@ class ModuleManagent extends AbstractView {
               'image' => $module->image,
               'image_alt' => $module->name.' '.i('Module Image', 'core'),
               'button' => in_array($module->id, $activeModules) ?
-                Utils::getCurrentUrl().'/deactivate/'.$module->id : 
-                Utils::getCurrentUrl().'/activate/'.$module->id ,
+                Utils::getUrl(array("manage", "modules", "deactivate", $module->id)) : 
+                Utils::getUrl(array("manage", "modules", "activate", $module->id)),
               'button_text' => in_array($module->id, $activeModules) ? i('Deactivate', 'core') : i('Activate', 'core'),
-              'button_class' => 'ajax'
+              'button_class' => 'ajax',
+              'additional_class' => in_array($module->id, $activeModules) ? 'active' : ''
           ));
         } else {
           $errors[] = $check;
