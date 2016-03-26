@@ -9,6 +9,7 @@ abstract class Module implements IModule {
   public $version = "0.1";
   public $description = "";
   public $image = CORE_WWW_ROOT."images/default-icon-module.svg";
+  public $id = null;
 
   public function check() {
     if(is_null($this->name)) {
@@ -22,6 +23,7 @@ abstract class Module implements IModule {
     if(!array_key_exists($class, static::$instances)) {
         static::$instances[$class] = new $class();
     }
+    static::$instances[$class]->id = $class;
     static::$instances[$class]->setup();
     return static::$instances[$class];
   }

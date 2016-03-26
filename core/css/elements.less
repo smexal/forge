@@ -15,3 +15,61 @@ a.ajax {
 .bgc-white {
  background-color: white;
 }
+
+.grid {
+	display: flex;
+	
+	.block {
+		display:flex;
+		height: 120px;
+		width: 380px;
+		padding: 20px;
+		border: 1px solid #F2F2F2;
+		border-radius: 3px;
+		position: relative;
+		
+		.content {
+			min-height: auto;
+			h4 {
+				margin: 0;
+			}
+			p {
+				max-height: 40px;
+				overflow: hidden;
+			}
+		}
+		
+		.button {
+			position: absolute;
+			width: 100%;
+    		padding: 7px 0px;
+    		line-height: 22px;
+    		bottom: -38px;
+			left: 0;
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+		
+		.img {
+			background-color: #fafafa;
+			width:78px;
+			min-width: 78px;
+			height: 78px;
+			text-align:center;
+			white-space: nowrap;
+			margin-right: 20px;
+			border-radius: 3px;
+			
+			.helper {
+				display:inline-block;
+				height: 100%;
+				vertical-align: middle;
+			}
+			
+			img {
+				width: 60px;
+				vertical-align: middle;
+			}
+		}
+	}
+}
