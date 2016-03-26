@@ -11,7 +11,9 @@ class Manager extends AbstractView {
         3 => 'manage.builder',
         4 => 'manage.modules',
         5 => 'manage.locales',
-        6 => 'manage.configuration'
+        6 => 'manage.configuration',
+        7 => 'manage.builder.pages',
+        8 => 'manage.builder.navigation'
     );
 
     public function content($uri=array()) {
@@ -32,13 +34,18 @@ class Manager extends AbstractView {
         $panelLeft = $this->navigation->addPanel();
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2])) {
-
           $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft);
           $this->collectionSubmenu($panelLeft);
         }
 
         if(Auth::allowed($this->permissions[3])) {
           $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft);
+          if(Auth::allowed($this->permissions[7])) {
+            $this->navigation->add('Pages', i('Pages'), Utils::getUrl(array('manage', 'pages')), $panelLeft, false, 'builder');
+          }
+          if(Auth::allowed($this->permissions[8])) {
+            $this->navigation->add('Navigations', i('Navigations'), Utils::getUrl(array('manage', 'navigation')), $panelLeft, false, 'builder');
+          }
         }
 
         if(Auth::allowed($this->permissions[4])) {

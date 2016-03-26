@@ -12,6 +12,7 @@ App	.\core\app\class.app.php	/^class App {$/;"	c
 Auth	.\core\app\class.auth.php	/^class Auth {$/;"	c
 CORE_ROOT	.\config.php	/^define('CORE_ROOT', DOC_ROOT."core\/");$/;"	d
 CORE_TEMPLATE_DIR	.\config.php	/^define('CORE_TEMPLATE_DIR', CORE_ROOT."templates\/");$/;"	d
+CORE_WWW_ROOT	.\config.php	/^define('CORE_WWW_ROOT', $ext."core\/");$/;"	d
 CollectionManagement	.\core\views\manage\manage.collections\manage.collections.php	/^class CollectionManagement extends AbstractView {$/;"	c
 CollectionManagementAdd	.\core\views\manage\manage.collections\manage.collections.add.php	/^class CollectionManagementAdd extends AbstractView {$/;"	c
 CollectionManager	.\core\app\class.collectionmanager.php	/^class CollectionManager {$/;"	c
@@ -62,6 +63,7 @@ ModuleManagent	.\core\views\manage\manage.modules\manage.modules.php	/^class Mod
 ModuleManager	.\core\app\class.modulemanager.php	/^class ModuleManager {$/;"	c
 MysqliDb	.\core\ressources\mysqlidb\mysqlidb.php	/^class MysqliDb$/;"	c
 Navigation	.\core\classes\class.navigation.php	/^class Navigation {$/;"	c
+PageBuilderManagement	.\core\views\manage\manage.builder\manage.builder.pages.php	/^class PageBuilderManagement extends AbstractView {$/;"	c
 PermissionDenied	.\views\view.denied.php	/^class PermissionDenied extends AbstractView {$/;"	c
 PermissionManagement	.\core\views\manage\manage.permissions\manage.permissions.php	/^class PermissionManagement extends AbstractView {$/;"	c
 RainTPL	.\core\ressources\raintpl\rain.tpl.class.php	/^class RainTPL{$/;"	c
@@ -182,9 +184,11 @@ action	.\core\views\manage\manage.permissions\manage.permissions.php	/^    priva
 actions	.\core\views\manage\manage.groups\manage.groups.members.php	/^    private function actions($id) {$/;"	f
 actions	.\core\views\manage\manage.groups\manage.groups.php	/^    public function actions($group) {$/;"	f
 actions	.\core\views\manage\manage.users\manage.users.php	/^    private function actions($id) {$/;"	f
+activate	.\core\app\class.modulemanager.php	/^  public function activate($module) {$/;"	f
 active	.\core\classes\class.navigation.php	/^            'active' => $this->active == $id ? true : false,$/;"	v
 active	.\core\classes\class.navigation.php	/^        $this->active = $active;$/;"	v
 active	.\core\classes\class.navigation.php	/^    private $active = false;$/;"	v
+activeModules	.\core\views\manage\manage.modules\manage.modules.php	/^          $activeModules = $this->app->mm->getActiveModules();$/;"	v
 activeSubview	.\core\abstracts\class.view.php	/^    public $activeSubview = false;$/;"	v
 actual_folder	.\core\ressources\raintpl\rain.tpl.class.php	/^                                        $actual_folder = substr( $this->tpl['template_directory'], strlen(self::$tpl_dir) );$/;"	v
 add	.\core\app\class.events.php	/^    public function add($event) {$/;"	f
@@ -226,6 +230,8 @@ app	.\core\abstracts\class.datacollection.php	/^    $this->app = App::instance()
 app	.\core\abstracts\class.datacollection.php	/^  protected $app;$/;"	v
 app	.\core\abstracts\class.view.php	/^            $this->app = App::instance();$/;"	v
 app	.\core\abstracts\class.view.php	/^    public $app = null;$/;"	v
+app	.\core\app\class.modulemanager.php	/^    $this->app = App::instance();$/;"	v
+app	.\core\app\class.modulemanager.php	/^  private $app = null;$/;"	v
 app	.\core\classes\class.forms.php	/^            $this->app = App::instance();$/;"	v
 app	.\core\classes\class.forms.php	/^    private $app = null;$/;"	v
 app	.\core\classes\class.group.php	/^            $this->app = App::instance();$/;"	v
@@ -416,6 +422,7 @@ content	.\core\interfaces\interface.view.php	/^    public function content();$/;
 content	.\core\loader.php	/^                    $content = $this->lessc->compileFile($less_path);$/;"	v
 content	.\core\ressources\lessc\lessc.inc.php	/^		$content = array();$/;"	v
 content	.\core\ressources\raintpl\rain.tpl.class.php	/^					$content = file_get_contents($code[1]);$/;"	v
+content	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.collections\manage.collections.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.dashboard.php	/^    public function content() {$/;"	f
@@ -526,6 +533,7 @@ db	.\core\ressources\mysqlidb\mysqlidb.php	/^    protected $db;$/;"	v
 dbPerm	.\core\app\class.auth.php	/^            $dbPerm = App::instance()->db->get('permissions');$/;"	v
 dbPerms	.\core\app\class.auth.php	/^          $dbPerms = App::instance()->db->get('permissions');$/;"	v
 db_selected	.\core\classes\class.utils.php	/^      $db_selected = mysql_select_db($dbname, $link);$/;"	v
+deactivate	.\core\app\class.modulemanager.php	/^  public function deactivate($module) {$/;"	f
 debug	.\core\classes\class.logger.php	/^    public static function debug($message) {$/;"	f
 debug	.\core\ressources\raintpl\rain.tpl.class.php	/^		static $debug = false;$/;"	v
 dec	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function dec ($num = 1) {$/;"	f
@@ -547,6 +555,8 @@ delim	.\core\ressources\lessc\lessc.inc.php	/^		$delim = ",";$/;"	v
 delim	.\core\ressources\lessc\lessc.inc.php	/^	protected function genericList(&$out, $parseItem, $delim="", $flatten=true) {$/;"	v
 delta	.\core\ressources\lessc\lessc.inc.php	/^		$delta = floatval($delta[1]);$/;"	v
 deny	.\core\classes\class.group.php	/^    public function deny($permission) {$/;"	f
+description	.\core\abstracts\class.module.php	/^  public $description = "";$/;"	v
+description	.\modules\forge_news\module.php	/^    $this->description = i('Module for adding news collection and builder elements.');$/;"	v
 destroy	.\core\app\class.auth.php	/^    public static function destroy() {$/;"	f
 dir	.\config.php	/^$dir = str_replace("\\\\", "\/", dirname($_SERVER['SCRIPT_NAME']));$/;"	v
 dir	.\core\loader.php	/^        $dir = new DirectoryIterator($directory);$/;"	v
@@ -722,6 +732,7 @@ get	.\core\classes\class.group.php	/^    public function get($field) {$/;"	f
 get	.\core\classes\class.user.php	/^    public function get($field) {$/;"	f
 get	.\core\ressources\lessc\lessc.inc.php	/^	protected function get($name, $default=null) {$/;"	f
 get	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function get($tableName, $numRows = null, $columns = '*')$/;"	f
+getActiveModules	.\core\app\class.modulemanager.php	/^  public function getActiveModules() {$/;"	f
 getAll	.\core\classes\class.user.php	/^    public static function getAll() {$/;"	f
 getAllStrings	.\core\classes\class.localization.php	/^  public static function getAllStrings($sort=false) {$/;"	f
 getCell	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function getCell($group, $permission, $structure=false) {$/;"	f
@@ -852,6 +863,7 @@ i	.\core\ressources\mysqlidb\mysqlidb.php	/^        $i = 1;$/;"	v
 i	.\core\ressources\raintpl\rain.tpl.class.php	/^		for( $i=0, $n=count($matches[0]); $i<$n; $i++ ){$/;"	v
 icon	.\core\classes\class.navigation.php	/^    public function add($id, $name, $url, $panel, $icon=false, $parent=false, $img=false, $classes = array()) {$/;"	v
 icon	.\core\classes\class.utils.php	/^    public static function icon($name) {$/;"	f
+id	.\core\abstracts\class.module.php	/^  public $id = null;$/;"	v
 id	.\core\classes\class.group.php	/^            $this->id = $id;$/;"	v
 id	.\core\classes\class.group.php	/^    public $id = null;$/;"	v
 id	.\core\classes\class.user.php	/^            if( $id == App::instance()->user->get('id')) {$/;"	v
@@ -862,6 +874,7 @@ id_array	.\core\classes\class.group.php	/^      $id_array = array();$/;"	v
 idx	.\core\ressources\lessc\lessc.inc.php	/^		$idx = $this->assertNumber($idx);$/;"	v
 ignore_is_open	.\core\ressources\raintpl\rain.tpl.class.php	/^	 			$ignore_is_open = false;$/;"	v
 ignore_is_open	.\core\ressources\raintpl\rain.tpl.class.php	/^	 			$ignore_is_open = true;$/;"	v
+image	.\core\abstracts\class.module.php	/^  public $image = CORE_WWW_ROOT."images\/default-icon-module.svg";$/;"	v
 implementsIModule	.\core\app\class.collectionmanager.php	/^      $implementsIModule = array();$/;"	v
 implementsIModule	.\core\app\class.modulemanager.php	/^      $implementsIModule = array();$/;"	v
 implementsIModule	.\core\app\class.viewmanager.php	/^        $implementsIModule = array();$/;"	v
@@ -924,6 +937,7 @@ is	.\core\ressources\lessc\lessc.inc.php	/^	 * This function is called repeatedl
 is	.\core\ressources\lessc\lessc.inc.php	/^ * The `lessc_parser` class is only concerned with parsing its input.$/;"	c
 is	.\core\ressources\raintpl\rain.tpl.class.php	/^		\/\/ check if the function is in the black list (or not in white list)$/;"	f
 is	.\core\ressources\raintpl\rain.tpl.class.php	/^	 * Check if function is in black list (sandbox)$/;"	f
+isActive	.\core\app\class.modulemanager.php	/^  public function isActive($moduleName) {$/;"	f
 isAjax	.\core\classes\class.utils.php	/^    public static function isAjax() {$/;"	f
 isArguments	.\core\ressources\lessc\lessc.inc.php	/^		$isArguments = $name == $this->vPrefix . 'arguments';$/;"	v
 isDefault	.\core\views\manage\manage.locales\manage.locales.php	/^                  "icon" => $isDefault === 0 ? "unchecked" : "ok",$/;"	v
@@ -1153,6 +1167,7 @@ mixins	.\core\ressources\lessc\lessc.inc.php	/^			$mixins = $this->findBlocks($b
 mm	.\core\app\class.app.php	/^        $this->mm = new ModuleManager();$/;"	v
 mm	.\core\app\class.app.php	/^    public $mm = null;$/;"	v
 modules	.\core\app\class.modulemanager.php	/^      $modules = array();$/;"	v
+modules	.\core\app\class.modulemanager.php	/^    $modules = $this->app->db->get('modules');$/;"	v
 modules	.\core\app\class.modulemanager.php	/^    $this->modules = $this->getModules();$/;"	v
 modules	.\core\app\class.modulemanager.php	/^  public $modules = array();$/;"	v
 modules	.\core\views\manage\manage.modules\manage.modules.php	/^    private function modules() {$/;"	f
@@ -1180,6 +1195,7 @@ name	.\core\ressources\lessc\lessc.inc.php	/^		$name = null;$/;"	v
 name	.\core\ressources\lessc\lessc.inc.php	/^		foreach ($args as $name => $strValue) {$/;"	v
 name	.\core\ressources\lessc\lessc.inc.php	/^	protected function assertArgs($value, $expectedArgs, $name="") {$/;"	v
 name	.\core\ressources\lessc\lessc.inc.php	/^	public function compile($string, $name = null) {$/;"	v
+name	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $name = 'pages';$/;"	v
 name	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $name = 'add';$/;"	v
 name	.\core\views\manage\manage.collections\manage.collections.php	/^    public $name = 'collections';$/;"	v
 name	.\core\views\manage\manage.dashboard.php	/^    public $name = 'dashboard';$/;"	v
@@ -1371,6 +1387,7 @@ params	.\core\ressources\raintpl\rain.tpl.class.php	/^                    $param
 params	.\core\ressources\raintpl\rain.tpl.class.php	/^                $params = str_replace( "@double_dot@", "::", $params );$/;"	v
 parenValue	.\core\ressources\lessc\lessc.inc.php	/^	protected function parenValue(&$out) {$/;"	f
 parent	.\core\abstracts\class.view.php	/^    public $parent = false;$/;"	v
+parent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $parent = 'manage';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $parent = 'collections';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.php	/^    public $parent = 'manage';$/;"	v
 parent	.\core\views\manage\manage.dashboard.php	/^    public $parent = 'manage';$/;"	v
@@ -1444,6 +1461,7 @@ permission	.\core\abstracts\class.view.php	/^    public $permission = null;$/;"	
 permission	.\core\app\class.auth.php	/^            $permission = $permissions;$/;"	v
 permission	.\core\app\class.auth.php	/^      if(is_null($permission) || $permission == false) {$/;"	v
 permission	.\core\classes\class.user.php	/^        $permission = $this->app->db->getOne('permissions');$/;"	v
+permission	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $permission = 'manage.builder.pages';$/;"	v
 permission	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $permission = 'manage.collections.add';$/;"	v
 permission	.\core\views\manage\manage.collections\manage.collections.php	/^    public $permission = 'manage.collections';$/;"	v
 permission	.\core\views\manage\manage.dashboard.php	/^    public $permission = 'manage';$/;"	v
@@ -1471,6 +1489,7 @@ permissionTable	.\core\views\manage\manage.permissions\manage.permissions.php	/^
 permissionTableId	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private $permissionTableId = 'permissionTable';$/;"	v
 permissions	.\core\abstracts\class.view.php	/^    public $permissions = array();$/;"	v
 permissions	.\core\abstracts\class.view.php	/^    public function permissions() {$/;"	f
+permissions	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $permissions = array($/;"	v
 permissions	.\core\views\manage\manage.collections\manage.collections.php	/^    public $permissions = array($/;"	v
 permissions	.\core\views\manage\manage.groups\manage.groups.php	/^    public $permissions = array($/;"	v
 permissions	.\core\views\manage\manage.locales\manage.locales.php	/^    public $permissions = array($/;"	v
@@ -1589,6 +1608,7 @@ results	.\core\ressources\mysqlidb\mysqlidb.php	/^        $results = array();$/;
 ret	.\core\ressources\lessc\lessc.inc.php	/^				$ret = call_user_func($f, $this->reduce($args, true), $this);$/;"	v
 ret	.\core\ressources\lessc\lessc.inc.php	/^				elseif (!is_array($ret)) $ret = array('keyword', $ret);$/;"	v
 ret	.\core\ressources\lessc\lessc.inc.php	/^				if (is_numeric($ret)) $ret = array('number', $ret, "");$/;"	v
+return	.\core\app\class.modulemanager.php	/^    $return = array();$/;"	v
 return	.\core\views\manage\manage.modules\manage.modules.php	/^      $return = '';$/;"	v
 return_string	.\core\ressources\raintpl\rain.tpl.class.php	/^	function draw( $tpl_name, $return_string = false ){$/;"	v
 rewrite_url	.\core\ressources\raintpl\rain.tpl.class.php	/^	protected function rewrite_url( $url, $tag, $path ) {$/;"	f
@@ -1850,6 +1870,7 @@ unsetVariable	.\core\ressources\lessc\lessc.inc.php	/^	public function unsetVari
 until	.\core\ressources\lessc\lessc.inc.php	/^	protected function to($what, &$out, $until = false, $allowNewline = false) {$/;"	v
 update	.\core\app\class.app.php	/^    public function refresh($target, $content, $update=false) {$/;"	v
 update	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function update($tableName, $tableData)$/;"	f
+updateContainer	.\core\views\manage\manage.modules\manage.modules.php	/^    public $updateContainer = 'modulesgrid';$/;"	v
 updatePart	.\core\app\class.app.php	/^    public function updatePart($target, $content) {$/;"	f
 updateProgressBar	.\core\scripts\helpers.js	/^function updateProgressBar(updater) {$/;"	f
 updateStrings	.\core\classes\class.localization.php	/^  public static function updateStrings($directory=DOC_ROOT, $recursive=true, $bar=false) {$/;"	f
@@ -1947,6 +1968,7 @@ variable_path	.\core\ressources\raintpl\rain.tpl.class.php	/^                   
 variable_path	.\core\ressources\raintpl\rain.tpl.class.php	/^                            $variable_path = str_replace( ']', '"]', $variable_path );$/;"	v
 variable_path	.\core\ressources\raintpl\rain.tpl.class.php	/^                            $variable_path = substr( $var, strlen( $var_name ) );$/;"	v
 vars	.\core\ressources\lessc\lessc.inc.php	/^		$vars = array();$/;"	v
+version	.\core\abstracts\class.module.php	/^  public $version = "0.1";$/;"	v
 view	.\core\abstracts\class.view.php	/^        $view = $view::instance();$/;"	v
 view	.\core\app\class.app.php	/^        $view = $view::instance();$/;"	v
 view	.\core\app\class.events.php	/^                    $view = $view::$instance();$/;"	v
