@@ -18,6 +18,9 @@ class Manager extends AbstractView {
 
     public function content($uri=array()) {
         if(Auth::allowed($this->permissions[0])) {
+            if(count($uri) == 0) {
+              array_push($uri, "dashboard");
+            }
             $content = $this->getSubview($uri, $this);
             if(! Utils::isAjax()) {
                 $content = $this->navigation() . $content;

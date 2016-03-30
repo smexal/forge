@@ -42,7 +42,7 @@ class App {
 
     public function run() {
       $this->managers();
-      
+
       Auth::setSessionUser();
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
@@ -158,7 +158,10 @@ class App {
           "target" => $target
         )));
       } else {
-        exit(header("Location: ".$target));
+        if(substr(strlen($target) -1, 1) == "/") {
+
+        }
+        exit(header("Location: ".rtrim($target, "/")));
       }
     }
 

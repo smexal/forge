@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 26. Mrz 2016 um 18:15
--- Server Version: 5.6.21
--- PHP-Version: 5.6.3
+-- Erstellungszeit: 30. Mrz 2016 um 20:52
+-- Server-Version: 10.1.9-MariaDB
+-- PHP-Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Datenbank: `forge`
@@ -26,10 +26,10 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `groups`
 --
 
-CREATE TABLE IF NOT EXISTS `groups` (
-`id` int(7) NOT NULL,
+CREATE TABLE `groups` (
+  `id` int(7) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `groups`
@@ -44,11 +44,11 @@ INSERT INTO `groups` (`id`, `name`) VALUES
 -- Tabellenstruktur für Tabelle `groups_users`
 --
 
-CREATE TABLE IF NOT EXISTS `groups_users` (
-`id` int(11) NOT NULL,
+CREATE TABLE `groups_users` (
+  `id` int(11) NOT NULL,
   `groupid` int(11) NOT NULL,
   `userid` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `groups_users`
@@ -64,12 +64,12 @@ INSERT INTO `groups_users` (`id`, `groupid`, `userid`) VALUES
 -- Tabellenstruktur für Tabelle `languages`
 --
 
-CREATE TABLE IF NOT EXISTS `languages` (
-`id` int(11) NOT NULL,
+CREATE TABLE `languages` (
+  `id` int(11) NOT NULL,
   `code` varchar(50) NOT NULL,
   `name` varchar(250) NOT NULL,
   `default` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `languages`
@@ -85,12 +85,12 @@ INSERT INTO `languages` (`id`, `code`, `name`, `default`) VALUES
 -- Tabellenstruktur für Tabelle `language_strings`
 --
 
-CREATE TABLE IF NOT EXISTS `language_strings` (
-`id` int(11) NOT NULL,
+CREATE TABLE `language_strings` (
+  `id` int(11) NOT NULL,
   `string` varchar(1000) NOT NULL,
   `domain` varchar(100) NOT NULL,
   `used` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `language_strings`
@@ -224,12 +224,12 @@ INSERT INTO `language_strings` (`id`, `string`, `domain`, `used`) VALUES
 -- Tabellenstruktur für Tabelle `language_strings_translations`
 --
 
-CREATE TABLE IF NOT EXISTS `language_strings_translations` (
-`id` int(11) NOT NULL,
+CREATE TABLE `language_strings_translations` (
+  `id` int(11) NOT NULL,
   `stringid` int(11) NOT NULL,
   `translation` varchar(1500) NOT NULL,
   `languageid` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `language_strings_translations`
@@ -299,10 +299,10 @@ INSERT INTO `language_strings_translations` (`id`, `stringid`, `translation`, `l
 -- Tabellenstruktur für Tabelle `modules`
 --
 
-CREATE TABLE IF NOT EXISTS `modules` (
-`id` int(11) NOT NULL,
+CREATE TABLE `modules` (
+  `id` int(11) NOT NULL,
   `module` varchar(150) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `modules`
@@ -314,13 +314,41 @@ INSERT INTO `modules` (`id`, `module`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `pages`
+--
+
+CREATE TABLE `pages` (
+  `id` int(11) NOT NULL,
+  `parent` int(11) DEFAULT NULL,
+  `sequence` int(11) NOT NULL,
+  `name` varchar(350) NOT NULL,
+  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `creator` int(11) NOT NULL,
+  `url` text NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'draft'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `pages`
+--
+
+INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`, `url`, `status`) VALUES
+(36, 0, 0, 'Untitled', '2016-01-16 15:29:07', '2016-01-16 15:29:07', 21, '', 'draft'),
+(37, 36, 1, 'Untitled 2', '2016-01-16 15:29:09', '2016-01-16 15:29:09', 21, '', 'draft'),
+(38, 36, 2, 'Testpage', '2016-01-16 15:29:17', '2016-01-16 15:29:17', 21, '', 'draft'),
+(39, 0, 3, 'Untitled 3', '2016-01-16 18:14:06', '2016-01-16 18:14:06', 21, '', 'draft');
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `permissions`
 --
 
-CREATE TABLE IF NOT EXISTS `permissions` (
-`id` int(7) NOT NULL,
+CREATE TABLE `permissions` (
+  `id` int(7) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions`
@@ -354,7 +382,10 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 (52, 'manage.collections'),
 (53, 'manage.configuration'),
 (54, 'manage.builder'),
-(55, 'manage.modules.add');
+(55, 'manage.modules.add'),
+(56, 'manage.builder.pages'),
+(57, 'manage.builder.navigation'),
+(58, 'manage.collections.add');
 
 -- --------------------------------------------------------
 
@@ -362,11 +393,11 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 -- Tabellenstruktur für Tabelle `permissions_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `permissions_groups` (
-`id` int(7) NOT NULL,
+CREATE TABLE `permissions_groups` (
+  `id` int(7) NOT NULL,
   `groupid` int(7) NOT NULL,
   `permissionid` int(7) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions_groups`
@@ -400,33 +431,10 @@ INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
 (30, 1, 51),
 (31, 1, 52),
 (32, 1, 53),
-(33, 1, 55);
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `sites`
---
-
-CREATE TABLE IF NOT EXISTS `sites` (
-`id` int(11) NOT NULL,
-  `parent` int(11) DEFAULT NULL,
-  `sequence` int(11) NOT NULL,
-  `name` varchar(350) NOT NULL,
-  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `creator` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
-
---
--- Daten für Tabelle `sites`
---
-
-INSERT INTO `sites` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`) VALUES
-(36, 0, 0, 'Untitled', '2016-01-16 15:29:07', '2016-01-16 15:29:07', 21),
-(37, 0, 1, 'Untitled 2', '2016-01-16 15:29:09', '2016-01-16 15:29:09', 21),
-(38, 0, 2, 'Testpage', '2016-01-16 15:29:17', '2016-01-16 15:29:17', 21),
-(39, 0, 3, 'Untitled 3', '2016-01-16 18:14:06', '2016-01-16 18:14:06', 21);
+(33, 1, 55),
+(34, 1, 57),
+(35, 1, 56),
+(36, 1, 58);
 
 -- --------------------------------------------------------
 
@@ -434,12 +442,12 @@ INSERT INTO `sites` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, 
 -- Tabellenstruktur für Tabelle `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-`id` int(11) NOT NULL,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `username` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `users`
@@ -457,61 +465,69 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
 -- Indizes für die Tabelle `groups`
 --
 ALTER TABLE `groups`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `groups_users`
 --
 ALTER TABLE `groups_users`
- ADD PRIMARY KEY (`id`), ADD KEY `groupid` (`groupid`), ADD KEY `userid` (`userid`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `groupid` (`groupid`),
+  ADD KEY `userid` (`userid`);
 
 --
 -- Indizes für die Tabelle `languages`
 --
 ALTER TABLE `languages`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `language_strings`
 --
 ALTER TABLE `language_strings`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `language_strings_translations`
 --
 ALTER TABLE `language_strings_translations`
- ADD PRIMARY KEY (`id`), ADD KEY `stringid` (`stringid`), ADD KEY `languageid` (`languageid`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `stringid` (`stringid`),
+  ADD KEY `languageid` (`languageid`);
 
 --
 -- Indizes für die Tabelle `modules`
 --
 ALTER TABLE `modules`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `pages`
+--
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `creator` (`creator`);
 
 --
 -- Indizes für die Tabelle `permissions`
 --
 ALTER TABLE `permissions`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
- ADD PRIMARY KEY (`id`), ADD KEY `groupid` (`groupid`), ADD KEY `permissionid` (`permissionid`);
-
---
--- Indizes für die Tabelle `sites`
---
-ALTER TABLE `sites`
- ADD PRIMARY KEY (`id`), ADD KEY `creator` (`creator`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `groupid` (`groupid`),
+  ADD KEY `permissionid` (`permissionid`);
 
 --
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -521,52 +537,52 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `groups`
 --
 ALTER TABLE `groups`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT für Tabelle `groups_users`
 --
 ALTER TABLE `groups_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT für Tabelle `languages`
 --
 ALTER TABLE `languages`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT für Tabelle `language_strings`
 --
 ALTER TABLE `language_strings`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 --
 -- AUTO_INCREMENT für Tabelle `language_strings_translations`
 --
 ALTER TABLE `language_strings_translations`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 --
 -- AUTO_INCREMENT für Tabelle `modules`
 --
 ALTER TABLE `modules`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT für Tabelle `pages`
+--
+ALTER TABLE `pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT für Tabelle `permissions`
 --
 ALTER TABLE `permissions`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT für Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
---
--- AUTO_INCREMENT für Tabelle `sites`
---
-ALTER TABLE `sites`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- Constraints der exportierten Tabellen
 --
@@ -575,28 +591,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 -- Constraints der Tabelle `groups_users`
 --
 ALTER TABLE `groups_users`
-ADD CONSTRAINT `groups_users_ibfk_1` FOREIGN KEY (`groupid`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `groups_users_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `groups_users_ibfk_1` FOREIGN KEY (`groupid`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `groups_users_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `language_strings_translations`
 --
 ALTER TABLE `language_strings_translations`
-ADD CONSTRAINT `language_strings_translations_ibfk_1` FOREIGN KEY (`stringid`) REFERENCES `language_strings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `language_strings_translations_ibfk_2` FOREIGN KEY (`languageid`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `language_strings_translations_ibfk_1` FOREIGN KEY (`stringid`) REFERENCES `language_strings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `language_strings_translations_ibfk_2` FOREIGN KEY (`languageid`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
-ADD CONSTRAINT `permissions_groups_ibfk_1` FOREIGN KEY (`groupid`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `permissions_groups_ibfk_2` FOREIGN KEY (`permissionid`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints der Tabelle `sites`
---
-ALTER TABLE `sites`
-ADD CONSTRAINT `sites_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `permissions_groups_ibfk_1` FOREIGN KEY (`groupid`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `permissions_groups_ibfk_2` FOREIGN KEY (`permissionid`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
