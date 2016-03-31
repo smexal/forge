@@ -63,7 +63,9 @@ ModuleManagent	.\core\views\manage\manage.modules\manage.modules.php	/^class Mod
 ModuleManager	.\core\app\class.modulemanager.php	/^class ModuleManager {$/;"	c
 MysqliDb	.\core\ressources\mysqlidb\mysqlidb.php	/^class MysqliDb$/;"	c
 Navigation	.\core\classes\class.navigation.php	/^class Navigation {$/;"	c
+Page	.\core\classes\class.page.php	/^class Page {$/;"	c
 PageBuilderManagement	.\core\views\manage\manage.builder\manage.builder.pages.php	/^class PageBuilderManagement extends AbstractView {$/;"	c
+Pages	.\core\classes\class.pages.php	/^class Pages {$/;"	c
 PermissionDenied	.\views\view.denied.php	/^class PermissionDenied extends AbstractView {$/;"	c
 PermissionManagement	.\core\views\manage\manage.permissions\manage.permissions.php	/^class PermissionManagement extends AbstractView {$/;"	c
 RainTPL	.\core\ressources\raintpl\rain.tpl.class.php	/^class RainTPL{$/;"	c
@@ -117,6 +119,8 @@ __construct	.\core\app\class.viewmanager.php	/^    public function __construct()
 __construct	.\core\classes\class.forms.php	/^    public function __construct($action=false) {$/;"	f
 __construct	.\core\classes\class.group.php	/^    public function __construct($id) {$/;"	f
 __construct	.\core\classes\class.navigation.php	/^    public function __construct($active) {$/;"	f
+__construct	.\core\classes\class.page.php	/^  public function __construct($id) {$/;"	f
+__construct	.\core\classes\class.pages.php	/^  public function __construct() {$/;"	f
 __construct	.\core\classes\class.user.php	/^    public function __construct($id) {$/;"	f
 __construct	.\core\loader.php	/^    private function __construct(){$/;"	f
 __construct	.\core\ressources\lessc\lessc.inc.php	/^	public function __construct($fname = null) {$/;"	f
@@ -238,6 +242,8 @@ app	.\core\classes\class.group.php	/^            $this->app = App::instance();$/
 app	.\core\classes\class.group.php	/^      $app = App::instance();$/;"	v
 app	.\core\classes\class.group.php	/^    private $app = null;$/;"	v
 app	.\core\classes\class.localization.php	/^    $app = App::instance();$/;"	v
+app	.\core\classes\class.pages.php	/^    $this->app = App::instance();$/;"	v
+app	.\core\classes\class.pages.php	/^  private $app;$/;"	v
 app	.\core\classes\class.user.php	/^        $app = App::instance();$/;"	v
 app	.\core\classes\class.user.php	/^        $this->app = App::instance();$/;"	v
 app	.\core\classes\class.user.php	/^      $app = App::instance();$/;"	v
@@ -526,6 +532,8 @@ db	.\core\app\class.auth.php	/^        $db = App::instance()->db;$/;"	v
 db	.\core\classes\class.group.php	/^      $db = App::instance()->db;$/;"	v
 db	.\core\classes\class.localization.php	/^      $db = App::instance()->db;$/;"	v
 db	.\core\classes\class.localization.php	/^    $db = App::instance()->db;$/;"	v
+db	.\core\classes\class.pages.php	/^    $this->db = $this->app->db;$/;"	v
+db	.\core\classes\class.pages.php	/^  private $db;$/;"	v
 db	.\core\classes\class.user.php	/^      $db = App::instance()->db;$/;"	v
 db	.\core\ressources\mysqlidb\mysqlidb.php	/^        $this->db = $db;$/;"	v
 db	.\core\ressources\mysqlidb\mysqlidb.php	/^     * @uses $db = MySqliDb::getInstance();$/;"	v
@@ -541,6 +549,7 @@ default	.\core\abstracts\class.view.php	/^    public $default = false;$/;"	v
 default	.\core\ressources\lessc\lessc.inc.php	/^	protected function get($name, $default=null) {$/;"	v
 default	.\core\views\manage\manage.dashboard.php	/^    public $default = true;$/;"	v
 default	.\views\view.main.php	/^    public $default = true;$/;"	v
+defaultContent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function defaultContent() {$/;"	f
 defaultOptions.itemText	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    itemText: function(item) {$/;"	m
 defaultOptions.itemValue	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    itemValue: function(item) {$/;"	m
 defaultOptions.tagClass	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    tagClass: function(item) {$/;"	m
@@ -729,6 +738,7 @@ g	.\core\ressources\lessc\lessc.inc.php	/^			$g = round($g);$/;"	v
 g	.\core\ressources\lessc\lessc.inc.php	/^		$g = $color[2] \/ 255;$/;"	v
 genericList	.\core\ressources\lessc\lessc.inc.php	/^	protected function genericList(&$out, $parseItem, $delim="", $flatten=true) {$/;"	f
 get	.\core\classes\class.group.php	/^    public function get($field) {$/;"	f
+get	.\core\classes\class.pages.php	/^  public function get($parent="0") {$/;"	f
 get	.\core\classes\class.user.php	/^    public function get($field) {$/;"	f
 get	.\core\ressources\lessc\lessc.inc.php	/^	protected function get($name, $default=null) {$/;"	f
 get	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function get($tableName, $numRows = null, $columns = '*')$/;"	f
@@ -866,6 +876,7 @@ icon	.\core\classes\class.utils.php	/^    public static function icon($name) {$/
 id	.\core\abstracts\class.module.php	/^  public $id = null;$/;"	v
 id	.\core\classes\class.group.php	/^            $this->id = $id;$/;"	v
 id	.\core\classes\class.group.php	/^    public $id = null;$/;"	v
+id	.\core\classes\class.page.php	/^    $this->id = $page['id'];$/;"	v
 id	.\core\classes\class.user.php	/^            if( $id == App::instance()->user->get('id')) {$/;"	v
 id	.\core\ressources\lessc\lessc.inc.php	/^				$id = self::$nextImportId++;$/;"	v
 id	.\core\views\manage\manage.groups\manage.groups.delete.php	/^            $id = $uri[0];$/;"	v
@@ -961,6 +972,7 @@ items	.\core\ressources\lessc\lessc.inc.php	/^				$items = $arg[2];$/;"	v
 items	.\core\ressources\lessc\lessc.inc.php	/^		$items = array();$/;"	v
 items	.\core\ressources\mysqlidb\mysqlidb.php	/^            if (!empty ($matches[2])) $items = $matches[2];$/;"	v
 items	.\core\ressources\mysqlidb\mysqlidb.php	/^        $items = '';$/;"	v
+items	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $items = '';$/;"	v
 iterator	.\core\classes\class.localization.php	/^    $iterator = new DirectoryIterator($directory);$/;"	v
 join	.\core\ressources\mysqlidb\mysqlidb.php	/^     public function join($joinTable, $joinCondition, $joinType = '')$/;"	f
 joinStr	.\core\ressources\mysqlidb\mysqlidb.php	/^                $joinStr = $joinTable;$/;"	v
@@ -1182,6 +1194,7 @@ name	.\core\abstracts\class.datacollection.php	/^  public $name = false;$/;"	v
 name	.\core\abstracts\class.module.php	/^  public $name = null;$/;"	v
 name	.\core\abstracts\class.view.php	/^    public function name() {$/;"	f
 name	.\core\classes\class.navigation.php	/^        $name = uniqid();$/;"	v
+name	.\core\classes\class.page.php	/^    $this->name = $page['name'];$/;"	v
 name	.\core\interfaces\interface.view.php	/^    public function name();$/;"	f
 name	.\core\ressources\lessc\lessc.inc.php	/^					$name = $name . ": ";$/;"	v
 name	.\core\ressources\lessc\lessc.inc.php	/^				$name = $this->lessc->vPrefix.$name;$/;"	v
@@ -1373,6 +1386,10 @@ ownContent	.\core\views\manage\manage.permissions\manage.permissions.php	/^    p
 ownContent	.\core\views\manage\manage.users\manage.users.php	/^    private function ownContent() {$/;"	f
 paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		$paddedOp = $op;$/;"	v
 paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		if ($whiteBefore) $paddedOp = " " . $paddedOp;$/;"	v
+page	.\core\classes\class.page.php	/^    $page = App::instance()->db->getOne('pages');$/;"	v
+page	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $page = new Page($p['id']);$/;"	v
+pageList	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function pageList() {$/;"	f
+pages	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $pages = new Pages();$/;"	v
 panelLeft	.\core\views\view.manager.php	/^        $panelLeft = $this->navigation->addPanel();$/;"	v
 panelRight	.\core\views\view.manager.php	/^        $panelRight = $this->navigation->addPanel('right');$/;"	v
 panel_key	.\core\classes\class.navigation.php	/^        foreach($this->panels as $panel_key => $panel) {$/;"	v
@@ -1387,6 +1404,7 @@ params	.\core\ressources\raintpl\rain.tpl.class.php	/^                    $param
 params	.\core\ressources\raintpl\rain.tpl.class.php	/^                $params = str_replace( "@double_dot@", "::", $params );$/;"	v
 parenValue	.\core\ressources\lessc\lessc.inc.php	/^	protected function parenValue(&$out) {$/;"	f
 parent	.\core\abstracts\class.view.php	/^    public $parent = false;$/;"	v
+parent	.\core\classes\class.page.php	/^    $this->parent = $page['parent'];$/;"	v
 parent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $parent = 'manage';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $parent = 'collections';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.php	/^    public $parent = 'manage';$/;"	v
@@ -1669,6 +1687,7 @@ selectors	.\core\ressources\lessc\lessc.inc.php	/^				$selectors = $env->selecto
 selectors	.\core\ressources\lessc\lessc.inc.php	/^		$selectors = $this->compileSelectors($block->tags);$/;"	v
 selectors	.\core\ressources\lessc\lessc.inc.php	/^		$selectors = null;$/;"	v
 selectors	.\core\ressources\lessc\lessc.inc.php	/^	protected function makeOutputBlock($type, $selectors = null) {$/;"	v
+sequence	.\core\classes\class.page.php	/^    $this->sequence = $page['sequence'];$/;"	v
 session	.\core\app\class.auth.php	/^    function session() {$/;"	f
 session_name	.\core\app\class.auth.php	/^        $session_name = 'smexal_session';   \/\/ Set a custom session name$/;"	v
 set	.\core\ressources\lessc\lessc.inc.php	/^	protected function set($name, $value) {$/;"	f
