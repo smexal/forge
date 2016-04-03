@@ -22,6 +22,15 @@ label {
     font-weight: 400;
 }
 
+a {
+  color: darken(@primary_color, 10%);
+  transition: 300ms;
+
+  &:hover {
+    color: @primary_color;
+  }
+}
+
 .form-control, .bootstrap-tagsinput {
     border-radius: 0px;
     background-color: #f2f2f2;

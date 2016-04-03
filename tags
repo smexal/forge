@@ -185,6 +185,7 @@ action	.\core\classes\class.forms.php	/^    private $action = false;$/;"	v
 action	.\core\classes\class.localization.php	/^          $action = true;$/;"	v
 action	.\core\classes\class.localization.php	/^    $action = false;$/;"	v
 action	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function action($groupid, $type, $permission) {$/;"	f
+actions	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function actions($id) {$/;"	f
 actions	.\core\views\manage\manage.groups\manage.groups.members.php	/^    private function actions($id) {$/;"	f
 actions	.\core\views\manage\manage.groups\manage.groups.php	/^    public function actions($group) {$/;"	f
 actions	.\core\views\manage\manage.users\manage.users.php	/^    private function actions($id) {$/;"	f
@@ -271,6 +272,8 @@ assignSeparator	.\core\ressources\lessc\lessc.inc.php	/^	public $assignSeparator
 assignedValues	.\core\ressources\lessc\lessc.inc.php	/^		$assignedValues = array();$/;"	v
 attr	.\core\ressources\raintpl\rain.tpl.class.php	/^		$attr = $matches[3];$/;"	v
 attrParts	.\core\ressources\lessc\lessc.inc.php	/^			$attrParts = array("[");$/;"	v
+author	.\core\classes\class.page.php	/^  public function author() {$/;"	f
+author	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $author = $page->author();$/;"	v
 avail	.\core\classes\class.localization.php	/^    $avail = self::getLanguages();$/;"	v
 b	.\core\ressources\lessc\lessc.inc.php	/^			$b = $this->toRGB_helper($H - 1\/3, $temp1, $temp2);$/;"	v
 b	.\core\ressources\lessc\lessc.inc.php	/^			$b = round($b);$/;"	v
@@ -509,6 +512,7 @@ counter2	.\core\templates\assets\cache\table.8eceaa2152f16cdfc168003526de9e8c.rt
 counter2	.\core\templates\assets\cache\table.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^<?php $counter2=-1; if( isset($value1) && is_array($value1) && sizeof($value1) ) foreach( $value1 as $key2 => $value2 ){ $counter2++; ?>$/;"	v
 create	.\core\classes\class.group.php	/^    public static function create($name) {$/;"	f
 create	.\core\classes\class.user.php	/^    public static function create($name, $password, $email) {$/;"	f
+created	.\core\classes\class.page.php	/^    $this->created = $page['created'];$/;"	v
 creates	.\core\ressources\lessc\lessc.inc.php	/^ * The `lessc` class creates an intstance of the parser, feeds it LESS code,$/;"	c
 cssColors	.\core\ressources\lessc\lessc.inc.php	/^	static protected $cssColors = array($/;"	v
 css_file	.\core\loader.php	/^            $css_file = str_replace(".less", ".css", $pathinfo['dirname']."\/compiled\/".$pathinfo['basename']);$/;"	v
@@ -526,6 +530,7 @@ data	.\core\classes\class.user.php	/^        $data = array($/;"	v
 data	.\core\classes\class.user.php	/^    private $data = false;$/;"	v
 data	.\core\classes\class.utils.php	/^      $data = array($/;"	v
 databaseStrings	.\core\classes\class.localization.php	/^    $databaseStrings = self::getAllStrings();$/;"	v
+dateFormat	.\core\classes\class.utils.php	/^    public static function dateFormat($date) {$/;"	f
 db	.\core\app\class.app.php	/^        $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);$/;"	v
 db	.\core\app\class.app.php	/^    public $db = null;$/;"	v
 db	.\core\app\class.auth.php	/^        $db = App::instance()->db;$/;"	v
@@ -766,6 +771,7 @@ getLastQuery	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function getLa
 getMemberList	.\core\views\manage\manage.groups\manage.groups.members.php	/^    public function getMemberList() {$/;"	f
 getModules	.\core\app\class.modulemanager.php	/^  public function getModules() {$/;"	f
 getOne	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function getOne($tableName, $columns = '*') $/;"	f
+getPageRows	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function getPageRows($parent=0, $level=0) {$/;"	f
 getPermissionNames	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function getPermissionNames($permissions) {$/;"	f
 getPermissions	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function getPermissions() {$/;"	f
 getPref	.\core\abstracts\class.datacollection.php	/^  public function getPref($name) {$/;"	f
@@ -909,6 +915,7 @@ include_template	.\core\ressources\raintpl\rain.tpl.class.php	/^                
 include_var	.\core\ressources\raintpl\rain.tpl.class.php	/^					$include_var = $this->var_replace( $code[ 1 ], $left_delimiter = null, $right_delimiter = null, $php_left_delimiter = '".' , $php_right_delimiter = '."', $loop_level );$/;"	v
 incr	.\core\ressources\mysqlidb\mysqlidb.php	/^            if (!empty ($matches[1])) $incr = $matches[1];$/;"	v
 incr	.\core\ressources\mysqlidb\mysqlidb.php	/^        $incr = '+';$/;"	v
+indent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $indent = '';$/;"	v
 indentChar	.\core\ressources\lessc\lessc.inc.php	/^	public $indentChar = "  ";$/;"	v
 indentLevel	.\core\ressources\lessc\lessc.inc.php	/^		$this->indentLevel = 0;$/;"	v
 indentStr	.\core\ressources\lessc\lessc.inc.php	/^	public function indentStr($n = 0) {$/;"	f
@@ -1035,6 +1042,7 @@ level	.\core\classes\class.forms.php	/^    public function submit($text, $level=
 level	.\core\classes\class.logger.php	/^            $level = "INFO";$/;"	v
 level	.\core\classes\class.logger.php	/^    public static function log($text, $level=null) {$/;"	v
 level	.\core\classes\class.utils.php	/^          $level = ob_get_level();$/;"	v
+level	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function getPageRows($parent=0, $level=0) {$/;"	v
 levels	.\core\classes\class.logger.php	/^    public static $levels = array("DEBUG", "INFO", "WARN", "ERROR");$/;"	v
 lhs	.\core\ressources\lessc\lessc.inc.php	/^				$lhs = array('expression', $m[1], $lhs, $rhs, $whiteBefore, $whiteAfter);$/;"	v
 libFunctions	.\core\ressources\lessc\lessc.inc.php	/^	protected $libFunctions = array();$/;"	v
@@ -1090,6 +1098,7 @@ line	.\core\ressources\raintpl\rain.tpl.class.php	/^			$line = 0;$/;"	v
 lineDirectives	.\core\ressources\lessc\lessc.inc.php	/^	protected $lineDirectives = array("charset");$/;"	v
 linecount	.\core\classes\class.localization.php	/^      $linecount = 0;$/;"	v
 link	.\core\classes\class.utils.php	/^      $link = mysql_connect($host, $user, $pw);$/;"	v
+link	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $link = $this->app->render(CORE_TEMPLATE_DIR."assets\/", "a", array($/;"	v
 literal	.\core\ressources\lessc\lessc.inc.php	/^	protected function literal($what, $eatWhitespace = null) {$/;"	f
 literalCache	.\core\ressources\lessc\lessc.inc.php	/^	static protected $literalCache = array();$/;"	v
 loadAbstracts	.\core\loader.php	/^    public function loadAbstracts() {$/;"	f
@@ -1178,6 +1187,7 @@ mixinTags	.\core\ressources\lessc\lessc.inc.php	/^	protected function mixinTags(
 mixins	.\core\ressources\lessc\lessc.inc.php	/^			$mixins = $this->findBlocks($block, $path, $orderedArgs, $keywordArgs);$/;"	v
 mm	.\core\app\class.app.php	/^        $this->mm = new ModuleManager();$/;"	v
 mm	.\core\app\class.app.php	/^    public $mm = null;$/;"	v
+modified	.\core\classes\class.page.php	/^    $this->modified = $page['modified'];$/;"	v
 modules	.\core\app\class.modulemanager.php	/^      $modules = array();$/;"	v
 modules	.\core\app\class.modulemanager.php	/^    $modules = $this->app->db->get('modules');$/;"	v
 modules	.\core\app\class.modulemanager.php	/^    $this->modules = $this->getModules();$/;"	v
@@ -1388,7 +1398,7 @@ paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		$paddedOp = $op;$/;"	v
 paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		if ($whiteBefore) $paddedOp = " " . $paddedOp;$/;"	v
 page	.\core\classes\class.page.php	/^    $page = App::instance()->db->getOne('pages');$/;"	v
 page	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $page = new Page($p['id']);$/;"	v
-pageList	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function pageList() {$/;"	f
+pageTable	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function pageTable() {$/;"	f
 pages	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $pages = new Pages();$/;"	v
 panelLeft	.\core\views\view.manager.php	/^        $panelLeft = $this->navigation->addPanel();$/;"	v
 panelRight	.\core\views\view.manager.php	/^        $panelRight = $this->navigation->addPanel('right');$/;"	v
@@ -1647,6 +1657,8 @@ root_dir	.\core\ressources\raintpl\rain.tpl.class.php	/^        static $root_dir
 row	.\core\ressources\mysqlidb\mysqlidb.php	/^        $row = array();$/;"	v
 rows	.\core\ressources\raintpl\rain.tpl.class.php	/^				$rows=explode("\\n",  htmlspecialchars($this->tpl['source']));$/;"	v
 rows	.\core\ressources\raintpl\rain.tpl.class.php	/^			$rows=explode("\\n",$this->tpl['source']);$/;"	v
+rows	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $rows = array_merge($rows, $this->getPageRows($page->id, $level+1));$/;"	v
+rows	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $rows = array();$/;"	v
 rows	.\core\views\manage\manage.locales\manage.locales.strings.php	/^      $rows = array();$/;"	v
 rows	.\core\views\manage\manage.permissions\manage.permissions.php	/^      $rows = array();$/;"	v
 rtype	.\core\ressources\lessc\lessc.inc.php	/^		$rtype = $right[0];$/;"	v
@@ -1738,6 +1750,7 @@ standalone	.\core\abstracts\class.view.php	/^    public $standalone = false;$/;"
 standalone	.\core\views\view.api.php	/^    public $standalone = true;$/;"	v
 startTransaction	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function startTransaction () {$/;"	f
 startsWith	.\core\ressources\helpers\additional_functions.php	/^function startsWith($haystack, $needle) {$/;"	f
+status	.\core\classes\class.page.php	/^    $this->status = $page['status'];$/;"	v
 status	.\core\ressources\mysqlidb\mysqlidb.php	/^        $status = $stmt->execute();$/;"	v
 status	.\core\views\manage\manage.groups\manage.groups.add.php	/^      $status = Group::create($data['new_name']);$/;"	v
 statusMail	.\core\views\manage\manage.users\manage.users.edit.php	/^      $statusMail = $user->setMail($data['modify_email']);$/;"	v
@@ -1844,6 +1857,7 @@ text	.\core\ressources\lessc\lessc.inc.php	/^			$text = substr($text, $count + $
 that	.\core\ressources\mysqlidb\mysqlidb.php	/^     * A convenient function that returns TRUE if exists at least an element that$/;"	f
 throwError	.\core\ressources\lessc\lessc.inc.php	/^	protected function throwError($msg = null) {$/;"	f
 throwError	.\core\ressources\lessc\lessc.inc.php	/^	public function throwError($msg = "parse error", $count = null) {$/;"	f
+time	.\core\classes\class.utils.php	/^      $time = strtotime($date);$/;"	v
 title	.\core\abstracts\class.view.php	/^    public function title() {$/;"	f
 to	.\core\ressources\lessc\lessc.inc.php	/^	 * Helper function to get arguments for color manipulation functions.$/;"	f
 to	.\core\ressources\lessc\lessc.inc.php	/^	protected function to($what, &$out, $until = false, $allowNewline = false) {$/;"	f
@@ -1898,6 +1912,7 @@ uri	.\core\classes\class.utils.php	/^          $uri = $uri[1][0];$/;"	v
 uri	.\core\classes\class.utils.php	/^        $uri = str_replace(WWW_ROOT, "",$uri);$/;"	v
 uri_components	.\core\app\class.app.php	/^      $this->uri_components = Utils::getUriComponents();$/;"	v
 uri_components	.\core\app\class.app.php	/^    private $uri_components = false;$/;"	v
+url	.\core\classes\class.page.php	/^    $this->url = $page['url'];$/;"	v
 url	.\core\ressources\lessc\lessc.inc.php	/^		$url = $this->compileValue($this->lib_e($str));$/;"	v
 url	.\core\ressources\raintpl\rain.tpl.class.php	/^			$url = '(?:(?:\\\\{.*?\\\\})?[^{}]*?)*?'; \/\/ allow " inside {} for cases in which url contains {function="foo()"}$/;"	v
 url	.\core\ressources\raintpl\rain.tpl.class.php	/^		$url  = $matches[4];$/;"	v

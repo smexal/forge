@@ -1,1 +1,8 @@
-<li><span>{$value}</span></li>
+<li>
+  <div class="main">
+    {if="$link"}<a href="{$link.url}">{/if}
+    {$value}
+    {if="$link"}</a>{/if}
+  </div>
+  {if="$children"}{$children}{/if}
+</li>

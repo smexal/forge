@@ -23,6 +23,13 @@ h4 {
 label {
   font-weight: 400;
 }
+a {
+  color: #15a563;
+  transition: 300ms;
+}
+a:hover {
+  color: #1bd27e;
+}
 .form-control,
 .bootstrap-tagsinput {
   border-radius: 0px;

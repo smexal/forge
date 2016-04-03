@@ -23,6 +23,7 @@ class Loader {
       if(!$this->lessVariablesSet) {
         $this->lessc->setVariables(array(
           "primary_color" => "#1bd27e",
+          "accent_color" => "#4194e1",
           "dark_grey" => "#262626",
           "light_grey" => "#f0f0f0",
           "dark_grey" => "#262626"
