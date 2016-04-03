@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 30. Mrz 2016 um 20:52
+-- Erstellungszeit: 03. Apr 2016 um 13:25
 -- Server-Version: 10.1.9-MariaDB
 -- PHP-Version: 5.6.15
 
@@ -216,7 +216,32 @@ INSERT INTO `language_strings` (`id`, `string`, `domain`, `used`) VALUES
 (120, 'Create new Site', '', 1),
 (121, 'Title', '', 1),
 (122, 'Last Modified', '', 1),
-(123, 'Creator', '', 1);
+(123, 'Creator', '', 1),
+(124, 'News', 'forge-news', 1),
+(125, 'Module for adding news collection and builder elements.', '', 1),
+(126, 'Module Management', '', 1),
+(127, 'Version: ', 'core', 1),
+(128, 'Module Image', 'core', 1),
+(129, 'Deactivate', 'core', 1),
+(130, 'Activate', 'core', 1),
+(131, 'Collection ', '%1$s" has not been found.', 1),
+(132, 'Save as new Draft', '', 1),
+(133, 'Pages', '', 1),
+(134, 'Collections', '', 1),
+(135, 'Builder', '', 1),
+(136, 'Profile Settings', '', 1),
+(137, 'Checking for inactive Strings in the database...', '', 1),
+(138, 'Tried to activate plugin, which is already active: %1$s', '', 1),
+(139, 'Data', '', 1),
+(140, 'All Collection Items', '', 1),
+(141, 'Add item', '', 1),
+(142, 'Name for Module not set. Set $name in setup Method in Module `%s`', '', 1),
+(143, 'Manage Sites', '', 1),
+(144, 'Add site', '', 1),
+(145, 'Author', '', 1),
+(146, 'status', '', 1),
+(147, 'draft', '', 1),
+(148, 'published', '', 1);
 
 -- --------------------------------------------------------
 
@@ -291,7 +316,11 @@ INSERT INTO `language_strings_translations` (`id`, `stringid`, `translation`, `l
 (53, 9, 'Benutzer \\''%s\\'' löschen?', 1),
 (54, 9, 'Delete user \\''%s\\''?', 2),
 (55, 114, 'Du darfst Zeichen wie <code>%s</code> oder <code>%1$s</code> nicht entfernen. Diese sind Platzhalter und werden durch das System mit richtigen Werten ersetzt.', 1),
-(56, 114, 'Do not replace <code>%s</code> or strings like <code>%1$s</code>, these are placeholders and will be filled with actual values.', 2);
+(56, 114, 'Do not replace <code>%s</code> or strings like <code>%1$s</code>, these are placeholders and will be filled with actual values.', 2),
+(57, 147, 'Entwurf', 1),
+(58, 147, 'draft', 2),
+(59, 148, 'Veröffentlicht', 1),
+(60, 148, 'published', 2);
 
 -- --------------------------------------------------------
 
@@ -326,18 +355,21 @@ CREATE TABLE `pages` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `creator` int(11) NOT NULL,
   `url` text NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'draft'
+  `status` varchar(20) NOT NULL DEFAULT 'draft',
+  `start` int(7) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `pages`
 --
 
-INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`, `url`, `status`) VALUES
-(36, 0, 0, 'Untitled', '2016-01-16 15:29:07', '2016-01-16 15:29:07', 21, '', 'draft'),
-(37, 36, 1, 'Untitled 2', '2016-01-16 15:29:09', '2016-01-16 15:29:09', 21, '', 'draft'),
-(38, 36, 2, 'Testpage', '2016-01-16 15:29:17', '2016-01-16 15:29:17', 21, '', 'draft'),
-(39, 0, 3, 'Untitled 3', '2016-01-16 18:14:06', '2016-01-16 18:14:06', 21, '', 'draft');
+INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`, `url`, `status`, `start`) VALUES
+(36, 0, 0, 'Untitled', '2016-01-16 15:29:07', '2016-01-16 15:29:07', 21, '', 'draft', 0),
+(37, 36, 1, 'Untitled 2', '2016-01-16 15:29:09', '2016-01-16 15:29:09', 21, '', 'draft', 0),
+(38, 36, 2, 'Testpage', '2016-01-16 15:29:17', '2016-01-16 15:29:17', 21, '', 'draft', 0),
+(39, 0, 3, 'Untitled 3', '2016-01-16 18:14:06', '2016-01-16 18:14:06', 21, '', 'draft', 0),
+(40, 37, 0, 'A Page', '2016-04-02 17:31:47', '2016-04-02 17:31:47', 21, '', 'draft', 0),
+(41, 37, 1, 'jeay', '2016-04-02 17:58:47', '2016-04-02 17:58:47', 21, '', 'draft', 0);
 
 -- --------------------------------------------------------
 
@@ -552,22 +584,22 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT für Tabelle `language_strings`
 --
 ALTER TABLE `language_strings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 --
 -- AUTO_INCREMENT für Tabelle `language_strings_translations`
 --
 ALTER TABLE `language_strings_translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT für Tabelle `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT für Tabelle `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT für Tabelle `permissions`
 --
