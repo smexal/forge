@@ -5,11 +5,23 @@ class PageBuilderManagement extends AbstractView {
     public $name = 'pages';
     public $permission = 'manage.builder.pages';
     public $permissions = array(
+      0 => 'manage.builder.pages.delete'
     );
 
     public function content($uri=array()) {
       if(count($uri) == 0) {
         return $this->defaultContent();
+      }
+      if(count($uri) > 0 ) {
+        switch ($uri[0]) {
+          case 'delete':
+            if(Auth::allowed($this->permissions[0])) {
+              return $this->getSubview($uri, $this);
+            }
+            break;
+          default:
+            break;
+        }
       }
     }
 
@@ -71,24 +83,27 @@ class PageBuilderManagement extends AbstractView {
     }
 
     private function actions($id) {
-        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table.actions", array(
-            'actions' => array(
-              array(
-                  "url" => Utils::getUrl(array("manage", "pages", "edit", $id)),
-                  "icon" => "pencil",
-                  "name" => i('edit page'),
-                  "ajax" => false,
-                  "confirm" => false
-              ),
-              array(
-                  "url" => Utils::getUrl(array("manage", "pages", "delete", $id)),
-                  "icon" => "remove",
-                  "name" => i('delete page'),
-                  "ajax" => true,
-                  "confirm" => true
-              )
-            )
+      $actions = array(
+        array(
+            "url" => Utils::getUrl(array("manage", "pages", "edit", $id)),
+            "icon" => "pencil",
+            "name" => i('edit page'),
+            "ajax" => false,
+            "confirm" => false
+        )
+      );
+      if(Auth::allowed($this->permissions[0])) {
+        array_push($actions, array(
+            "url" => Utils::getUrl(array("manage", "pages", "delete", $id)),
+            "icon" => "remove",
+            "name" => i('delete page'),
+            "ajax" => true,
+            "confirm" => true
         ));
+      }
+      return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table.actions", array(
+          'actions' => $actions
+      ));
     }
 }
 

@@ -51,6 +51,7 @@ Main	.\views\view.main.php	/^class Main extends AbstractView {$/;"	c
 ManageAddGroup	.\core\views\manage\manage.groups\manage.groups.add.php	/^class ManageAddGroup extends AbstractView {$/;"	c
 ManageAddUser	.\core\views\manage\manage.users\manage.users.add.php	/^class ManageAddUser extends AbstractView {$/;"	c
 ManageDeleteGroup	.\core\views\manage\manage.groups\manage.groups.delete.php	/^class ManageDeleteGroup extends AbstractView {$/;"	c
+ManageDeletePage	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^class ManageDeletePage extends AbstractView {$/;"	c
 ManageDeleteUser	.\core\views\manage\manage.users\manage.users.delete.php	/^class ManageDeleteUser extends AbstractView {$/;"	c
 ManageEditGroup	.\core\views\manage\manage.groups\manage.groups.edit.php	/^class ManageEditGroup extends AbstractView {$/;"	c
 ManageEditUser	.\core\views\manage\manage.users\manage.users.edit.php	/^class ManageEditUser extends AbstractView {$/;"	c
@@ -185,6 +186,7 @@ action	.\core\classes\class.forms.php	/^    private $action = false;$/;"	v
 action	.\core\classes\class.localization.php	/^          $action = true;$/;"	v
 action	.\core\classes\class.localization.php	/^    $action = false;$/;"	v
 action	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function action($groupid, $type, $permission) {$/;"	f
+actions	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $actions = array($/;"	v
 actions	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function actions($id) {$/;"	f
 actions	.\core\views\manage\manage.groups\manage.groups.members.php	/^    private function actions($id) {$/;"	f
 actions	.\core\views\manage\manage.groups\manage.groups.php	/^    public function actions($group) {$/;"	f
@@ -243,6 +245,7 @@ app	.\core\classes\class.group.php	/^            $this->app = App::instance();$/
 app	.\core\classes\class.group.php	/^      $app = App::instance();$/;"	v
 app	.\core\classes\class.group.php	/^    private $app = null;$/;"	v
 app	.\core\classes\class.localization.php	/^    $app = App::instance();$/;"	v
+app	.\core\classes\class.pages.php	/^    $app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^    $this->app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^  private $app;$/;"	v
 app	.\core\classes\class.user.php	/^        $app = App::instance();$/;"	v
@@ -419,6 +422,7 @@ condition	.\core\ressources\raintpl\rain.tpl.class.php	/^				$condition = $code[
 config	.\core\app\class.app.php	/^      $config = array($/;"	v
 config_name_sum	.\core\ressources\raintpl\rain.tpl.class.php	/^                protected static $config_name_sum = array();   \/\/ takes all the config to create the md5 of the file$/;"	v
 configure	.\core\ressources\raintpl\rain.tpl.class.php	/^	static function configure( $setting, $value = null ){$/;"	f
+confirmationScreen	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    private function confirmationScreen($id) {$/;"	f
 confirmationScreen	.\core\views\manage\manage.groups\manage.groups.delete.php	/^    private function confirmationScreen($id) {$/;"	f
 confirmationScreen	.\core\views\manage\manage.users\manage.users.delete.php	/^    private function confirmationScreen($id) {$/;"	f
 connect	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function connect()$/;"	f
@@ -432,6 +436,7 @@ content	.\core\loader.php	/^                    $content = $this->lessc->compile
 content	.\core\ressources\lessc\lessc.inc.php	/^		$content = array();$/;"	v
 content	.\core\ressources\raintpl\rain.tpl.class.php	/^					$content = file_get_contents($code[1]);$/;"	v
 content	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public function content($uri=array()) {$/;"	f
+content	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.collections\manage.collections.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.dashboard.php	/^    public function content() {$/;"	f
@@ -560,6 +565,7 @@ defaultOptions.itemValue	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^ 
 defaultOptions.tagClass	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    tagClass: function(item) {$/;"	m
 defaultValue	.\core\ressources\lessc\lessc.inc.php	/^	static public $defaultValue = array("keyword", "");$/;"	v
 delete	.\core\classes\class.group.php	/^    public static function delete($id) {$/;"	f
+delete	.\core\classes\class.pages.php	/^  public function delete($id) {$/;"	f
 delete	.\core\classes\class.user.php	/^    public static function delete($id) {$/;"	f
 delete	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function delete($tableName, $numRows = null)$/;"	f
 delim	.\core\ressources\lessc\lessc.inc.php	/^					$delim = ";";$/;"	v
@@ -885,6 +891,7 @@ id	.\core\classes\class.group.php	/^    public $id = null;$/;"	v
 id	.\core\classes\class.page.php	/^    $this->id = $page['id'];$/;"	v
 id	.\core\classes\class.user.php	/^            if( $id == App::instance()->user->get('id')) {$/;"	v
 id	.\core\ressources\lessc\lessc.inc.php	/^				$id = self::$nextImportId++;$/;"	v
+id	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^        $id = $uri[0];$/;"	v
 id	.\core\views\manage\manage.groups\manage.groups.delete.php	/^            $id = $uri[0];$/;"	v
 id	.\core\views\manage\manage.users\manage.users.delete.php	/^            $id = $uri[0];$/;"	v
 id_array	.\core\classes\class.group.php	/^      $id_array = array();$/;"	v
@@ -1219,6 +1226,7 @@ name	.\core\ressources\lessc\lessc.inc.php	/^		foreach ($args as $name => $strVa
 name	.\core\ressources\lessc\lessc.inc.php	/^	protected function assertArgs($value, $expectedArgs, $name="") {$/;"	v
 name	.\core\ressources\lessc\lessc.inc.php	/^	public function compile($string, $name = null) {$/;"	v
 name	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $name = 'pages';$/;"	v
+name	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public $name = 'delete';$/;"	v
 name	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $name = 'add';$/;"	v
 name	.\core\views\manage\manage.collections\manage.collections.php	/^    public $name = 'collections';$/;"	v
 name	.\core\views\manage\manage.dashboard.php	/^    public $name = 'dashboard';$/;"	v
@@ -1398,6 +1406,7 @@ paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		$paddedOp = $op;$/;"	v
 paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		if ($whiteBefore) $paddedOp = " " . $paddedOp;$/;"	v
 page	.\core\classes\class.page.php	/^    $page = App::instance()->db->getOne('pages');$/;"	v
 page	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $page = new Page($p['id']);$/;"	v
+page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^      $page = new Page($id);$/;"	v
 pageTable	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function pageTable() {$/;"	f
 pages	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $pages = new Pages();$/;"	v
 panelLeft	.\core\views\view.manager.php	/^        $panelLeft = $this->navigation->addPanel();$/;"	v
@@ -1416,6 +1425,7 @@ parenValue	.\core\ressources\lessc\lessc.inc.php	/^	protected function parenValu
 parent	.\core\abstracts\class.view.php	/^    public $parent = false;$/;"	v
 parent	.\core\classes\class.page.php	/^    $this->parent = $page['parent'];$/;"	v
 parent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $parent = 'manage';$/;"	v
+parent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public $parent = 'pages';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $parent = 'collections';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.php	/^    public $parent = 'manage';$/;"	v
 parent	.\core\views\manage\manage.dashboard.php	/^    public $parent = 'manage';$/;"	v
@@ -1490,6 +1500,7 @@ permission	.\core\app\class.auth.php	/^            $permission = $permissions;$/
 permission	.\core\app\class.auth.php	/^      if(is_null($permission) || $permission == false) {$/;"	v
 permission	.\core\classes\class.user.php	/^        $permission = $this->app->db->getOne('permissions');$/;"	v
 permission	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $permission = 'manage.builder.pages';$/;"	v
+permission	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public $permission = 'manage.builder.pages.delete';$/;"	v
 permission	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $permission = 'manage.collections.add';$/;"	v
 permission	.\core\views\manage\manage.collections\manage.collections.php	/^    public $permission = 'manage.collections';$/;"	v
 permission	.\core\views\manage\manage.dashboard.php	/^    public $permission = 'manage';$/;"	v

@@ -9,8 +9,9 @@ class Auth {
         }
     }
     public static function setSessionUser() {
-        if(Auth::any())
-            App::instance()->user = new User($_SESSION['auth']);
+        if(Auth::any()) {
+          App::instance()->user = new User($_SESSION['auth']);
+        }
     }
 
     public static function destroy() {
@@ -77,7 +78,7 @@ class Auth {
                       'name' => $toRegisterPerm
                   ));
               }
-          }           
+          }
         }
     }
 

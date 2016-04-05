@@ -10,9 +10,9 @@ class UserManagement extends AbstractView {
 
     public function content($uri=array()) {
         if(count($uri) > 0 && Auth::allowed($this->permissions[0])) {
-            return $this->getSubview($uri, $this);
+          return $this->getSubview($uri, $this);
         } else {
-            return $this->ownContent();
+          return $this->ownContent();
         }
     }
     private function ownContent() {
