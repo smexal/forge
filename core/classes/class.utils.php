@@ -121,6 +121,10 @@ class Utils {
       }
     }
 
+    public static function overlayButton($url, $label) {
+      return '<a href="javascript://" data-open="'.$url.'" class="btn btn-primary open-overlay btn-sm">'.$label.'</a>';
+    }
+
     public static function tableCell($content, $class=false, $id=false, $structure=false) {
       $data = array(
           'content' => $content,

@@ -65,7 +65,7 @@ class Form {
       )));
     }
 
-    public function tags($name, $id, $label, $values=false, $getter=false) {
+    public function tags($name, $id, $label, $values=false, $getter=false, $multiple=true) {
       if($values && !is_null($values)) {
         $values = Utils::json($values);
       }
@@ -80,7 +80,8 @@ class Form {
         'label' => $label,
         'getter' => $getter,
         'values' => $values,
-        'hor' => $this->horizontal
+        'hor' => $this->horizontal,
+        'multiple' => $multiple
       )));
     }
 

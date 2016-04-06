@@ -2,10 +2,11 @@
     <label class='control-label {if="$hor"}col-lg-3{/if}' for="{$id}">{$label}</label>
     <input
         {if="$values"}data-values="{$values}"{/if}
-        class="form-control tags" 
-        value="" 
-        id="{$id}" 
-        name="{$name}" 
+        class="form-control tags"
+        value=""
+        id="{$id}"
+        name="{$name}"
         type="text"
+        {if="!$multiple"}data-single="true"{/if}
         {if="$getter"}data-getter="{$getter.url}" data-getter-name="{$getter.name}" data-getter-value="{$getter.value}"{/if}>
 </div>

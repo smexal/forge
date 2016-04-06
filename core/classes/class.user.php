@@ -90,7 +90,7 @@ class User {
         $this->data['permissions'][$permission['name']] = false;
         return false;
     }
-    
+
     public static function exists($userid) {
       $db = App::instance()->db;
       $db->where("id", $userid);
@@ -165,14 +165,14 @@ class User {
       ));
       return true;
     }
-    
+
     public static function getAll() {
       if(! Auth::allowed("manage.users")) {
         return array();
       }
       return App::instance()->db->get('users', null, array("id", "username", "email"));
     }
-    
+
     public static function search($term) {
       if(! Auth::allowed("manage.users")) {
         return array();
@@ -196,18 +196,6 @@ class User {
         $nameStatus = self::checkName($name);
         if($nameStatus !== true) {
           return $nameStatus;
-        }
-
-        $app = App::instance();
-        $app->db->where("username", $name);
-        $app->db->get("users");
-        if($app->db->count > 0) {
-            return i('User with that name already exists');
-        }
-        $app->db->where("email", $email);
-        $app->db->get("users");
-        if($app->db->count > 0) {
-            return i('User with that email already exists');
         }
 
         $data = array(

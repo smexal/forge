@@ -5,7 +5,9 @@ class PageBuilderManagement extends AbstractView {
     public $name = 'pages';
     public $permission = 'manage.builder.pages';
     public $permissions = array(
-      0 => 'manage.builder.pages.delete'
+      0 => 'manage.builder.pages.delete',
+      1 => 'manage.builder.pages.add',
+      2 => 'manage.builder.pages.edit'
     );
 
     public function content($uri=array()) {
@@ -14,11 +16,20 @@ class PageBuilderManagement extends AbstractView {
       }
       if(count($uri) > 0 ) {
         switch ($uri[0]) {
-          case 'delete':
+          case 'add':
             if(Auth::allowed($this->permissions[0])) {
               return $this->getSubview($uri, $this);
             }
             break;
+          case 'delete':
+            if(Auth::allowed($this->permissions[1])) {
+              return $this->getSubview($uri, $this);
+            }
+            break;
+          case 'edit':
+            if(Auth::allowed($this->permission[2])) {
+              return $this->getSubview($uri, $this);
+            }
           default:
             break;
         }
@@ -29,8 +40,17 @@ class PageBuilderManagement extends AbstractView {
       return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
           'title' => i('Pages'),
           'content' => $this->pageTable(),
-          'global_actions' => ''
+          'global_actions' => $this->getGlobalActions()
       ));
+    }
+
+    private function getGlobalActions() {
+      $return = '';
+      // allowed to add pages?
+      if(Auth::allowed($this->permissions[1])) {
+        $return.= Utils::overlayButton(Utils::getUrl(array("manage" , "pages", "add")), i('Add new page', 'core'));
+      }
+      return $return;
     }
 
     private function pageTable() {

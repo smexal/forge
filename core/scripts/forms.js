@@ -15,7 +15,7 @@ var forms = {
         }
       });
     },
-    
+
     tagsInputByGetter : function(element) {
         var engine = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -26,13 +26,14 @@ var forms = {
           }
         });
         engine.initialize();
-        
+
         element.tagsinput({
             allowDuplicates: false,
             freeInput: false,
             itemValue: element.data('getter-value'),
             itemText: element.data('getter-name'),
             inputSize: 10,
+            maxTags : element.data('data-single'),
             typeaheadjs: {
               hint: true,
               highlight: true,
@@ -42,7 +43,7 @@ var forms = {
               source: engine.ttAdapter()
             }
         });
-      },    
+      },
 
     tagsInputByValues : function(element, values) {
       element.tagsinput({

@@ -49,6 +49,7 @@ Login	.\views\view.login.php	/^class Login extends AbstractView {$/;"	c
 Logout	.\views\view.logout.php	/^class Logout extends AbstractView {$/;"	c
 Main	.\views\view.main.php	/^class Main extends AbstractView {$/;"	c
 ManageAddGroup	.\core\views\manage\manage.groups\manage.groups.add.php	/^class ManageAddGroup extends AbstractView {$/;"	c
+ManageAddPage	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^class ManageAddPage extends AbstractView {$/;"	c
 ManageAddUser	.\core\views\manage\manage.users\manage.users.add.php	/^class ManageAddUser extends AbstractView {$/;"	c
 ManageDeleteGroup	.\core\views\manage\manage.groups\manage.groups.delete.php	/^class ManageDeleteGroup extends AbstractView {$/;"	c
 ManageDeletePage	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^class ManageDeletePage extends AbstractView {$/;"	c
@@ -57,6 +58,7 @@ ManageEditGroup	.\core\views\manage\manage.groups\manage.groups.edit.php	/^class
 ManageEditUser	.\core\views\manage\manage.users\manage.users.edit.php	/^class ManageEditUser extends AbstractView {$/;"	c
 ManageGroupMembers	.\core\views\manage\manage.groups\manage.groups.members.php	/^class ManageGroupMembers extends AbstractView {$/;"	c
 ManageLocalesAdd	.\core\views\manage\manage.locales\manage.locales.add.php	/^class ManageLocalesAdd extends AbstractView {$/;"	c
+ManagePageEdit	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^class ManagePageEdit extends AbstractView {$/;"	c
 ManagementDashboard	.\core\views\manage\manage.dashboard.php	/^class ManagementDashboard extends AbstractView {$/;"	c
 Manager	.\core\views\view.manager.php	/^class Manager extends AbstractView {$/;"	c
 Module	.\core\abstracts\class.module.php	/^abstract class Module implements IModule {$/;"	c
@@ -245,10 +247,10 @@ app	.\core\classes\class.group.php	/^            $this->app = App::instance();$/
 app	.\core\classes\class.group.php	/^      $app = App::instance();$/;"	v
 app	.\core\classes\class.group.php	/^    private $app = null;$/;"	v
 app	.\core\classes\class.localization.php	/^    $app = App::instance();$/;"	v
+app	.\core\classes\class.pages.php	/^      $app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^    $app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^    $this->app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^  private $app;$/;"	v
-app	.\core\classes\class.user.php	/^        $app = App::instance();$/;"	v
 app	.\core\classes\class.user.php	/^        $this->app = App::instance();$/;"	v
 app	.\core\classes\class.user.php	/^      $app = App::instance();$/;"	v
 app	.\core\classes\class.user.php	/^    private $app;$/;"	v
@@ -333,6 +335,7 @@ charset	.\core\ressources\mysqlidb\mysqlidb.php	/^    protected $charset;$/;"	v
 check	.\core\abstracts\class.module.php	/^  public function check() {$/;"	f
 check	.\core\views\manage\manage.modules\manage.modules.php	/^        $check = $module->check();$/;"	v
 checkMail	.\core\classes\class.user.php	/^    private static function checkMail($email) {$/;"	f
+checkName	.\core\classes\class.pages.php	/^  private static function checkName($name) {$/;"	f
 checkName	.\core\classes\class.user.php	/^    private static function checkName($name) {$/;"	f
 checkPassword	.\core\classes\class.user.php	/^    private static function checkPassword($password) {$/;"	f
 check_template	.\core\ressources\raintpl\rain.tpl.class.php	/^	protected function check_template( $tpl_name ){$/;"	f
@@ -436,7 +439,9 @@ content	.\core\loader.php	/^                    $content = $this->lessc->compile
 content	.\core\ressources\lessc\lessc.inc.php	/^		$content = array();$/;"	v
 content	.\core\ressources\raintpl\rain.tpl.class.php	/^					$content = file_get_contents($code[1]);$/;"	v
 content	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public function content($uri=array()) {$/;"	f
+content	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public function content($uri=array()) {$/;"	f
+content	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.collections\manage.collections.php	/^    public function content($uri=array()) {$/;"	f
 content	.\core\views\manage\manage.dashboard.php	/^    public function content() {$/;"	f
@@ -516,6 +521,7 @@ counter2	.\core\templates\assets\cache\table.5cd4a7257c92563527ec836c9f7e72cd.rt
 counter2	.\core\templates\assets\cache\table.8eceaa2152f16cdfc168003526de9e8c.rtpl.php	/^<?php $counter2=-1; if( isset($value1) && is_array($value1) && sizeof($value1) ) foreach( $value1 as $key2 => $value2 ){ $counter2++; ?>$/;"	v
 counter2	.\core\templates\assets\cache\table.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^<?php $counter2=-1; if( isset($value1) && is_array($value1) && sizeof($value1) ) foreach( $value1 as $key2 => $value2 ){ $counter2++; ?>$/;"	v
 create	.\core\classes\class.group.php	/^    public static function create($name) {$/;"	f
+create	.\core\classes\class.pages.php	/^  public static function create($name, $parent) {$/;"	f
 create	.\core\classes\class.user.php	/^    public static function create($name, $password, $email) {$/;"	f
 created	.\core\classes\class.page.php	/^    $this->created = $page['created'];$/;"	v
 creates	.\core\ressources\lessc\lessc.inc.php	/^ * The `lessc` class creates an intstance of the parser, feeds it LESS code,$/;"	c
@@ -531,6 +537,7 @@ darkColor	.\core\ressources\lessc\lessc.inc.php	/^		$darkColor = $this->assertCo
 data	.\core\app\class.app.php	/^        $data = $_SESSION['messages'];$/;"	v
 data	.\core\app\class.events.php	/^    public function trigger($event, $data=array()) {$/;"	v
 data	.\core\classes\class.localization.php	/^    $data = array($/;"	v
+data	.\core\classes\class.pages.php	/^      $data = array($/;"	v
 data	.\core\classes\class.user.php	/^        $data = array($/;"	v
 data	.\core\classes\class.user.php	/^    private $data = false;$/;"	v
 data	.\core\classes\class.utils.php	/^      $data = array($/;"	v
@@ -560,6 +567,7 @@ default	.\core\ressources\lessc\lessc.inc.php	/^	protected function get($name, $
 default	.\core\views\manage\manage.dashboard.php	/^    public $default = true;$/;"	v
 default	.\views\view.main.php	/^    public $default = true;$/;"	v
 defaultContent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function defaultContent() {$/;"	f
+defaultContent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    private function defaultContent() {$/;"	f
 defaultOptions.itemText	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    itemText: function(item) {$/;"	m
 defaultOptions.itemValue	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    itemValue: function(item) {$/;"	m
 defaultOptions.tagClass	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    tagClass: function(item) {$/;"	m
@@ -635,6 +643,7 @@ evaluate	.\core\ressources\lessc\lessc.inc.php	/^	protected function evaluate($e
 events	.\core\abstracts\class.view.php	/^    public $events = array();$/;"	v
 events	.\core\app\class.events.php	/^            $this->events = array_merge($this->events, $event);$/;"	v
 events	.\core\app\class.events.php	/^    public $events = array();$/;"	v
+events	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public $events = array($/;"	v
 events	.\core\views\manage\manage.groups\manage.groups.add.php	/^    public $events = array($/;"	v
 events	.\core\views\manage\manage.groups\manage.groups.edit.php	/^    public $events = array($/;"	v
 events	.\core\views\manage\manage.groups\manage.groups.members.php	/^    public $events = array($/;"	v
@@ -688,6 +697,8 @@ fname	.\core\ressources\lessc\lessc.inc.php	/^		} elseif ($fname == 'rgb' || $fn
 forExpression	.\core\ressources\lessc\lessc.inc.php	/^	protected function reduce($value, $forExpression = false) {$/;"	v
 force	.\core\ressources\lessc\lessc.inc.php	/^	public function cachedCompile($in, $force = false) {$/;"	v
 force	.\core\ressources\lessc\lessc.inc.php	/^	public static function cexecute($in, $force = false, $less = null) {$/;"	v
+form	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^        $form = new Form(Utils::getUrl(array('manage', 'pages', 'add')));$/;"	v
+form	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public function form() {$/;"	f
 form	.\core\views\manage\manage.collections\manage.collections.add.php	/^        $form = new Form(Utils::getUrl($uri));$/;"	v
 form	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public function form($uri) {$/;"	f
 form	.\core\views\manage\manage.groups\manage.groups.add.php	/^        $form = new Form(Utils::getUrl(array('manage', 'groups', 'add')));$/;"	v
@@ -754,6 +765,7 @@ get	.\core\classes\class.user.php	/^    public function get($field) {$/;"	f
 get	.\core\ressources\lessc\lessc.inc.php	/^	protected function get($name, $default=null) {$/;"	f
 get	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function get($tableName, $numRows = null, $columns = '*')$/;"	f
 getActiveModules	.\core\app\class.modulemanager.php	/^  public function getActiveModules() {$/;"	f
+getAll	.\core\classes\class.pages.php	/^  public static function getAll() {$/;"	f
 getAll	.\core\classes\class.user.php	/^    public static function getAll() {$/;"	f
 getAllStrings	.\core\classes\class.localization.php	/^  public static function getAllStrings($sort=false) {$/;"	f
 getCell	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function getCell($group, $permission, $structure=false) {$/;"	f
@@ -762,6 +774,7 @@ getCurrentLanguage	.\core\classes\class.localization.php	/^  public static funct
 getCurrentUrl	.\core\classes\class.utils.php	/^    public static function getCurrentUrl() {$/;"	f
 getData	.\core\classes\class.user.php	/^    public function getData() {$/;"	f
 getFavicon	.\core\app\class.app.php	/^    public function getFavicon($view) {$/;"	f
+getGlobalActions	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function getGlobalActions() {$/;"	f
 getGroupNames	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function getGroupNames($groups) {$/;"	f
 getGroupRows	.\core\views\manage\manage.groups\manage.groups.php	/^    public function getGroupRows() {$/;"	f
 getGroups	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function getGroups() {$/;"	f
@@ -1166,6 +1179,8 @@ members	.\core\classes\class.group.php	/^      $members = $this->app->db->get("g
 members	.\core\classes\class.group.php	/^    public function members() {$/;"	f
 members	.\core\views\manage\manage.groups\manage.groups.members.php	/^      $members = explode(",", $data['new_users']);$/;"	v
 menuItem	.\core\classes\class.navigation.php	/^    public function menuItem($id) {$/;"	f
+message	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^      $this->message = Pages::create($data['new_name'], $data['parent']);$/;"	v
+message	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public $message = '';$/;"	v
 message	.\core\views\manage\manage.groups\manage.groups.add.php	/^        $this->message = $status;$/;"	v
 message	.\core\views\manage\manage.groups\manage.groups.add.php	/^    public $message = '';$/;"	v
 message	.\core\views\manage\manage.groups\manage.groups.edit.php	/^      $this->message = $group->setName($data['modify_name']);$/;"	v
@@ -1226,7 +1241,9 @@ name	.\core\ressources\lessc\lessc.inc.php	/^		foreach ($args as $name => $strVa
 name	.\core\ressources\lessc\lessc.inc.php	/^	protected function assertArgs($value, $expectedArgs, $name="") {$/;"	v
 name	.\core\ressources\lessc\lessc.inc.php	/^	public function compile($string, $name = null) {$/;"	v
 name	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $name = 'pages';$/;"	v
+name	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public $name = 'add';$/;"	v
 name	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public $name = 'delete';$/;"	v
+name	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    public $name = 'edit';$/;"	v
 name	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $name = 'add';$/;"	v
 name	.\core\views\manage\manage.collections\manage.collections.php	/^    public $name = 'collections';$/;"	v
 name	.\core\views\manage\manage.dashboard.php	/^    public $name = 'dashboard';$/;"	v
@@ -1256,6 +1273,7 @@ name	.\views\view.denied.php	/^    public $name = 'denied';$/;"	v
 name	.\views\view.login.php	/^    public $name = 'login';$/;"	v
 name	.\views\view.logout.php	/^    public $name = 'logout';$/;"	v
 name	.\views\view.main.php	/^    public $name = 'main';$/;"	v
+nameStatus	.\core\classes\class.pages.php	/^      $nameStatus = self::checkName($name);$/;"	v
 nameStatus	.\core\classes\class.user.php	/^        $nameStatus = self::checkName($name);$/;"	v
 nameStatus	.\core\classes\class.user.php	/^      $nameStatus = self::checkName($newName);$/;"	v
 names	.\core\views\manage\manage.permissions\manage.permissions.php	/^      $names = array();$/;"	v
@@ -1285,6 +1303,8 @@ new_code	.\core\views\manage\manage.locales\manage.locales.add.php	/^    private
 new_email	.\core\views\manage\manage.users\manage.users.add.php	/^            $this->new_email = $data['new_email'];$/;"	v
 new_email	.\core\views\manage\manage.users\manage.users.add.php	/^    private $new_email = false;$/;"	v
 new_email	.\core\views\manage\manage.users\manage.users.edit.php	/^    private $new_email = false;$/;"	v
+new_name	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^          $this->new_name = $data['new_name'];$/;"	v
+new_name	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public $new_name = false;$/;"	v
 new_name	.\core\views\manage\manage.locales\manage.locales.add.php	/^          $this->new_name = $data['new_name'];$/;"	v
 new_name	.\core\views\manage\manage.locales\manage.locales.add.php	/^    private $new_name = false;$/;"	v
 new_name	.\core\views\manage\manage.users\manage.users.add.php	/^            $this->new_name = $data['new_name'];$/;"	v
@@ -1323,6 +1343,7 @@ oldVars	.\core\ressources\lessc\lessc.inc.php	/^		$oldVars = $this->registeredVa
 oldWhite	.\core\ressources\lessc\lessc.inc.php	/^		$oldWhite = $this->eatWhiteDefault;$/;"	v
 onAddNewGroupMember	.\core\views\manage\manage.groups\manage.groups.members.php	/^    public function onAddNewGroupMember($data) {$/;"	f
 onAddNewLanguage	.\core\views\manage\manage.locales\manage.locales.add.php	/^    public function onAddNewLanguage($data) {$/;"	f
+onAddNewPage	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public function onAddNewPage($data) {$/;"	f
 onCreateNewGroup	.\core\views\manage\manage.groups\manage.groups.add.php	/^    public function onCreateNewGroup($data) {$/;"	f
 onCreateNewUser	.\core\views\manage\manage.users\manage.users.add.php	/^    public function onCreateNewUser($data) {$/;"	f
 onDeleteUser	.\core\views\manage\manage.users\manage.users.delete.php	/^    public function onDeleteUser($data) {$/;"	f
@@ -1396,6 +1417,7 @@ overlay.init	.\core\scripts\overlay.js	/^    init : function() {$/;"	m
 overlay.open	.\core\scripts\overlay.js	/^    open : function(button, the_overlay) {$/;"	m
 overlay.prepare	.\core\scripts\overlay.js	/^    prepare : function() {$/;"	m
 overlay.setContent	.\core\scripts\overlay.js	/^    setContent : function(content, overlay) {$/;"	m
+overlayButton	.\core\classes\class.utils.php	/^    public static function overlayButton($url, $label) {$/;"	f
 ownContent	.\core\views\manage\manage.groups\manage.groups.php	/^    public function ownContent() {$/;"	f
 ownContent	.\core\views\manage\manage.locales\manage.locales.php	/^    public function ownContent() {$/;"	f
 ownContent	.\core\views\manage\manage.locales\manage.locales.strings.php	/^    private function ownContent() {$/;"	f
@@ -1407,8 +1429,11 @@ paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		if ($whiteBefore) $paddedOp =
 page	.\core\classes\class.page.php	/^    $page = App::instance()->db->getOne('pages');$/;"	v
 page	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $page = new Page($p['id']);$/;"	v
 page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^      $page = new Page($id);$/;"	v
+page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^        $this->page = new Page($uri[0]);$/;"	v
+page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    private $page = null;$/;"	v
 pageTable	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function pageTable() {$/;"	f
 pages	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $pages = new Pages();$/;"	v
+pages	.\core\views\view.api.php	/^    private function pages($query) {$/;"	f
 panelLeft	.\core\views\view.manager.php	/^        $panelLeft = $this->navigation->addPanel();$/;"	v
 panelRight	.\core\views\view.manager.php	/^        $panelRight = $this->navigation->addPanel('right');$/;"	v
 panel_key	.\core\classes\class.navigation.php	/^        foreach($this->panels as $panel_key => $panel) {$/;"	v
@@ -1425,7 +1450,11 @@ parenValue	.\core\ressources\lessc\lessc.inc.php	/^	protected function parenValu
 parent	.\core\abstracts\class.view.php	/^    public $parent = false;$/;"	v
 parent	.\core\classes\class.page.php	/^    $this->parent = $page['parent'];$/;"	v
 parent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $parent = 'manage';$/;"	v
+parent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^        $parent = $data['parent'];$/;"	v
+parent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^      $parent = 0;$/;"	v
+parent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public $parent = 'pages';$/;"	v
 parent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public $parent = 'pages';$/;"	v
+parent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    public $parent = 'pages';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $parent = 'collections';$/;"	v
 parent	.\core\views\manage\manage.collections\manage.collections.php	/^    public $parent = 'manage';$/;"	v
 parent	.\core\views\manage\manage.dashboard.php	/^    public $parent = 'manage';$/;"	v
@@ -1500,7 +1529,9 @@ permission	.\core\app\class.auth.php	/^            $permission = $permissions;$/
 permission	.\core\app\class.auth.php	/^      if(is_null($permission) || $permission == false) {$/;"	v
 permission	.\core\classes\class.user.php	/^        $permission = $this->app->db->getOne('permissions');$/;"	v
 permission	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $permission = 'manage.builder.pages';$/;"	v
+permission	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.add.php	/^    public $permission = 'manage.builder.pages.add';$/;"	v
 permission	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^    public $permission = 'manage.builder.pages.delete';$/;"	v
+permission	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    public $permission = 'manage.builder.pages.edit';$/;"	v
 permission	.\core\views\manage\manage.collections\manage.collections.add.php	/^    public $permission = 'manage.collections.add';$/;"	v
 permission	.\core\views\manage\manage.collections\manage.collections.php	/^    public $permission = 'manage.collections';$/;"	v
 permission	.\core\views\manage\manage.dashboard.php	/^    public $permission = 'manage';$/;"	v
@@ -1529,6 +1560,7 @@ permissionTableId	.\core\views\manage\manage.permissions\manage.permissions.php	
 permissions	.\core\abstracts\class.view.php	/^    public $permissions = array();$/;"	v
 permissions	.\core\abstracts\class.view.php	/^    public function permissions() {$/;"	f
 permissions	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    public $permissions = array($/;"	v
+permissions	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    public $permissions = array($/;"	v
 permissions	.\core\views\manage\manage.collections\manage.collections.php	/^    public $permissions = array($/;"	v
 permissions	.\core\views\manage\manage.groups\manage.groups.php	/^    public $permissions = array($/;"	v
 permissions	.\core\views\manage\manage.locales\manage.locales.php	/^    public $permissions = array($/;"	v
@@ -1648,6 +1680,7 @@ ret	.\core\ressources\lessc\lessc.inc.php	/^				$ret = call_user_func($f, $this-
 ret	.\core\ressources\lessc\lessc.inc.php	/^				elseif (!is_array($ret)) $ret = array('keyword', $ret);$/;"	v
 ret	.\core\ressources\lessc\lessc.inc.php	/^				if (is_numeric($ret)) $ret = array('number', $ret, "");$/;"	v
 return	.\core\app\class.modulemanager.php	/^    $return = array();$/;"	v
+return	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $return = '';$/;"	v
 return	.\core\views\manage\manage.modules\manage.modules.php	/^      $return = '';$/;"	v
 return_string	.\core\ressources\raintpl\rain.tpl.class.php	/^	function draw( $tpl_name, $return_string = false ){$/;"	v
 rewrite_url	.\core\ressources\raintpl\rain.tpl.class.php	/^	protected function rewrite_url( $url, $tag, $path ) {$/;"	f
@@ -1694,6 +1727,7 @@ scope	.\core\ressources\lessc\lessc.inc.php	/^		$this->scope = null;$/;"	v
 screenLog	.\core\classes\class.utils.php	/^    public static function screenLog($message) {$/;"	f
 script	.\core\loader.php	/^            $script = WWW_ROOT.$script;$/;"	v
 scripts	.\core\loader.php	/^    private $scripts = array();$/;"	v
+search	.\core\classes\class.pages.php	/^  public static function search($term) {$/;"	f
 search	.\core\classes\class.user.php	/^    public static function search($term) {$/;"	f
 second	.\core\ressources\lessc\lessc.inc.php	/^		$second = $this->assertColor($second);$/;"	v
 second_a	.\core\ressources\lessc\lessc.inc.php	/^		$second_a = $this->lib_alpha($second);$/;"	v
@@ -1832,7 +1866,7 @@ tag	.\core\ressources\raintpl\rain.tpl.class.php	/^                    foreach( 
 tagBracket	.\core\ressources\lessc\lessc.inc.php	/^	protected function tagBracket(&$parts, &$hasExpression) {$/;"	f
 tag_regexp	.\core\ressources\raintpl\rain.tpl.class.php	/^		$tag_regexp = "\/" . join( "|", $tag_regexp ) . "\/";$/;"	v
 tag_regexp	.\core\ressources\raintpl\rain.tpl.class.php	/^		$tag_regexp = array( 'loop'         => '(\\{loop(?: name){0,1}="\\${0,1}[^"]*"\\})',$/;"	v
-tags	.\core\classes\class.forms.php	/^    public function tags($name, $id, $label, $values=false, $getter=false) {$/;"	f
+tags	.\core\classes\class.forms.php	/^    public function tags($name, $id, $label, $values=false, $getter=false, $multiple=true) {$/;"	f
 tags	.\core\ressources\lessc\lessc.inc.php	/^			$tags = $this->fixTags($tags);$/;"	v
 tags	.\core\ressources\lessc\lessc.inc.php	/^		$tags = array();$/;"	v
 tags	.\core\ressources\lessc\lessc.inc.php	/^	protected function tags(&$tags, $simple = false, $delim = ',') {$/;"	f
@@ -1985,7 +2019,7 @@ value	.\core\ressources\raintpl\rain.tpl.class.php	/^				$value = "\\$value$loop
 value	.\core\ressources\raintpl\rain.tpl.class.php	/^	function assign( $variable, $value = null ){$/;"	v
 value	.\core\ressources\raintpl\rain.tpl.class.php	/^	static function configure( $setting, $value = null ){$/;"	v
 values	.\core\classes\class.forms.php	/^        $values = Utils::json($values);$/;"	v
-values	.\core\classes\class.forms.php	/^    public function tags($name, $id, $label, $values=false, $getter=false) {$/;"	v
+values	.\core\classes\class.forms.php	/^    public function tags($name, $id, $label, $values=false, $getter=false, $multiple=true) {$/;"	v
 values	.\core\ressources\lessc\lessc.inc.php	/^						$values = array($newArg);$/;"	v
 values	.\core\ressources\lessc\lessc.inc.php	/^			$values = $value[2];$/;"	v
 values	.\core\ressources\lessc\lessc.inc.php	/^		$values = $args[2];$/;"	v
