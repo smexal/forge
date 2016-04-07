@@ -7,6 +7,11 @@ class Localization {
     return $db->get('languages');
   }
 
+  // TODO: When time, allow to disable a language.. then this will come useful..
+  public static function getActiveLanguages() {
+      return self::getLanguages();
+  }
+
   public static function getCurrentLanguage() {
     $avail = self::getLanguages();
     for($index = 0; $index < count($avail); $index++) {

@@ -16,9 +16,15 @@ class Page {
     $this->status = $page['status'];
   }
 
+  /**
+   * This is the shit
+   * 
+   * @return User Object
+   */
   public function author() {
     return new User($this->creator);
   }
+
 
 }
 

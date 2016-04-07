@@ -26,6 +26,7 @@ DataCollection	.\core\abstracts\class.datacollection.php	/^abstract class DataCo
 EventHandler	.\core\app\class.events.php	/^class EventHandler {$/;"	c
 FALSE	.\core\ressources\lessc\lessc.inc.php	/^	static protected $FALSE = array("keyword", "false");$/;"	v
 FOOTPRINT_SIZE	.\config.php	/^define('FOOTPRINT_SIZE', 10);$/;"	d
+Fields	.\core\classes\class.formfields.php	/^class Fields {$/;"	c
 ForgeNews	.\modules\forge_news\module.php	/^class ForgeNews extends Module {$/;"	c
 Form	.\core\classes\class.forms.php	/^class Form {$/;"	c
 FourOhFour	.\views\view.404.php	/^class FourOhFour extends AbstractView {$/;"	c
@@ -202,6 +203,8 @@ activeSubview	.\core\abstracts\class.view.php	/^    public $activeSubview = fals
 actual_folder	.\core\ressources\raintpl\rain.tpl.class.php	/^                                        $actual_folder = substr( $this->tpl['template_directory'], strlen(self::$tpl_dir) );$/;"	v
 add	.\core\app\class.events.php	/^    public function add($event) {$/;"	f
 add	.\core\classes\class.navigation.php	/^    public function add($id, $name, $url, $panel, $icon=false, $parent=false, $img=false, $classes = array()) {$/;"	f
+addField	.\core\classes\class.pages.php	/^    public function addField($field=array()) {$/;"	f
+addFields	.\core\classes\class.pages.php	/^    public function addFields( $fields=array() ) {$/;"	f
 addFootprint	.\core\app\class.app.php	/^    public function addFootprint($uri_components) {$/;"	f
 addForm	.\core\views\manage\manage.groups\manage.groups.members.php	/^    public function addForm() {$/;"	f
 addImportDir	.\core\ressources\lessc\lessc.inc.php	/^	public function addImportDir($dir) {$/;"	f
@@ -247,6 +250,7 @@ app	.\core\classes\class.group.php	/^            $this->app = App::instance();$/
 app	.\core\classes\class.group.php	/^      $app = App::instance();$/;"	v
 app	.\core\classes\class.group.php	/^    private $app = null;$/;"	v
 app	.\core\classes\class.localization.php	/^    $app = App::instance();$/;"	v
+app	.\core\classes\class.pages.php	/^        $app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^      $app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^    $app = App::instance();$/;"	v
 app	.\core\classes\class.pages.php	/^    $this->app = App::instance();$/;"	v
@@ -265,6 +269,8 @@ args	.\core\ressources\lessc\lessc.inc.php	/^			$args = array();$/;"	v
 args	.\core\ressources\lessc\lessc.inc.php	/^		$args = $values;$/;"	v
 argumentDef	.\core\ressources\lessc\lessc.inc.php	/^	protected function argumentDef(&$args, &$isVararg) {$/;"	f
 argval	.\core\ressources\lessc\lessc.inc.php	/^				$argval = null;$/;"	v
+array	.\core\ressources\helpers\additional_functions.php	/^    $array = $sorted;$/;"	v
+array_msort	.\core\ressources\helpers\additional_functions.php	/^function array_msort($array, $cols) {$/;"	f
 as	.\core\ressources\mysqlidb\mysqlidb.php	/^     * Method returns generated interval function as a string$/;"	f
 as	.\core\ressources\mysqlidb\mysqlidb.php	/^     * Method returns generated interval function as an insert\/update function$/;"	f
 assertArgs	.\core\ressources\lessc\lessc.inc.php	/^	protected function assertArgs($value, $expectedArgs, $name="") {$/;"	f
@@ -308,6 +314,7 @@ breakSelectors	.\core\ressources\lessc\lessc.inc.php	/^	public $breakSelectors =
 buffer	.\core\classes\class.utils.php	/^    public static function buffer() {$/;"	f
 buffer	.\core\ressources\lessc\lessc.inc.php	/^		$this->buffer = $this->writeComments ? $buffer : $this->removeComments($buffer);$/;"	v
 buffer	.\core\ressources\lessc\lessc.inc.php	/^		\/\/ 	$this->buffer = ltrim($this->buffer);$/;"	v
+build	.\core\classes\class.formfields.php	/^    public static function build($args) {$/;"	f
 c	.\core\ressources\lessc\lessc.inc.php	/^				$c = $this->reduce($c);$/;"	v
 c	.\core\ressources\lessc\lessc.inc.php	/^				$c = array("color", 0, 0, 0);$/;"	v
 cache	.\core\ressources\raintpl\rain.tpl.class.php	/^				  $cache = false,		\/\/ static cache enabled \/ disabled$/;"	v
@@ -364,6 +371,9 @@ cm	.\core\app\class.app.php	/^        $this->cm = new CollectionManager();$/;"	v
 cm	.\core\app\class.app.php	/^    public $cm = null;$/;"	v
 coerceColor	.\core\ressources\lessc\lessc.inc.php	/^	protected function coerceColor($value) {$/;"	f
 coerceString	.\core\ressources\lessc\lessc.inc.php	/^	protected function coerceString($value) {$/;"	f
+col	.\core\ressources\helpers\additional_functions.php	/^    foreach ($colarr as $col => $arr) {$/;"	v
+col	.\core\ressources\helpers\additional_functions.php	/^    foreach ($cols as $col => $order) {$/;"	v
+colarr	.\core\ressources\helpers\additional_functions.php	/^    $colarr = array();$/;"	v
 collection	.\core\app\class.app.php	/^        $collection = $collection::instance();$/;"	v
 collection	.\core\views\manage\manage.collections\manage.collections.add.php	/^          $this->collection = $collection;$/;"	v
 collection	.\core\views\manage\manage.collections\manage.collections.add.php	/^    private $collection = false;$/;"	v
@@ -382,6 +392,7 @@ color	.\core\ressources\lessc\lessc.inc.php	/^		$color = $this->coerceColor($val
 color	.\core\ressources\lessc\lessc.inc.php	/^	protected function color(&$out) {$/;"	f
 colorArgs	.\core\ressources\lessc\lessc.inc.php	/^	protected function colorArgs($args) {$/;"	f
 colorStr	.\core\ressources\lessc\lessc.inc.php	/^				$colorStr = substr($value[1], 1);$/;"	v
+cols	.\core\ressources\helpers\additional_functions.php	/^    $cols = (array) $cols;$/;"	v
 column	.\core\ressources\mysqlidb\mysqlidb.php	/^        $column = is_array($columns) ? implode(', ', $columns) : $columns; $/;"	v
 column	.\core\ressources\mysqlidb\mysqlidb.php	/^        foreach ($tableData as $column => $value) {$/;"	v
 columns	.\core\ressources\mysqlidb\mysqlidb.php	/^            $columns = '*';$/;"	v
@@ -500,6 +511,7 @@ counter1	.\core\templates\assets\cache\table.actions.8eceaa2152f16cdfc168003526d
 counter1	.\core\templates\assets\cache\table.actions.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^    <?php $counter1=-1; if( isset($actions) && is_array($actions) && sizeof($actions) ) foreach( $actions as $key1 => $value1 ){ $counter1++; ?>$/;"	v
 counter1	.\core\templates\assets\cache\table.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^<?php $counter1=-1; if( isset($td) && is_array($td) && sizeof($td) ) foreach( $td as $key1 => $value1 ){ $counter1++; ?>$/;"	v
 counter1	.\core\templates\assets\cache\table.e189b98ccf3018684b9e28e3edc9e970.rtpl.php	/^<?php $counter1=-1; if( isset($th) && is_array($th) && sizeof($th) ) foreach( $th as $key1 => $value1 ){ $counter1++; ?>$/;"	v
+counter1	.\core\templates\assets\cache\tabs.5cd4a7257c92563527ec836c9f7e72cd.rtpl.php	/^    <?php $counter1=-1; if( isset($tabs) && is_array($tabs) && sizeof($tabs) ) foreach( $tabs as $key1 => $value1 ){ $counter1++; ?>$/;"	v
 counter1	.\core\templates\cache\head.4d4aef6228341a4a5f4aa664b52e4c39.rtpl.php	/^    <?php $counter1=-1; if( isset($scripts) && is_array($scripts) && sizeof($scripts) ) foreach( $scripts as $key1 => $value1 ){ $counter1++; ?>$/;"	v
 counter1	.\core\templates\cache\head.4d4aef6228341a4a5f4aa664b52e4c39.rtpl.php	/^    <?php $counter1=-1; if( isset($styles) && is_array($styles) && sizeof($styles) ) foreach( $styles as $key1 => $value1 ){ $counter1++; ?>$/;"	v
 counter1	.\core\templates\cache\head.8ebb1bc936e1b5c79a1d1c9efdd15511.rtpl.php	/^    <?php $counter1=-1; if( isset($scripts) && is_array($scripts) && sizeof($scripts) ) foreach( $scripts as $key1 => $value1 ){ $counter1++; ?>$/;"	v
@@ -532,6 +544,7 @@ current	.\core\classes\class.localization.php	/^    $current = 0;$/;"	v
 current	.\core\ressources\lessc\lessc.inc.php	/^				$current = isset($current->storeParent) ?$/;"	v
 current	.\core\ressources\lessc\lessc.inc.php	/^		$current = $this->env;$/;"	v
 currentProperty	.\core\ressources\lessc\lessc.inc.php	/^		if ($name) $this->currentProperty = $name;$/;"	v
+customFields	.\core\classes\class.pages.php	/^  private $customFields = array();$/;"	v
 d	.\core\ressources\lessc\lessc.inc.php	/^		$d = $string[0] == "string" ? $string[1] : '"';$/;"	v
 darkColor	.\core\ressources\lessc\lessc.inc.php	/^		$darkColor = $this->assertColor($darkColor);$/;"	v
 data	.\core\app\class.app.php	/^        $data = $_SESSION['messages'];$/;"	v
@@ -568,6 +581,7 @@ default	.\core\views\manage\manage.dashboard.php	/^    public $default = true;$/
 default	.\views\view.main.php	/^    public $default = true;$/;"	v
 defaultContent	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function defaultContent() {$/;"	f
 defaultContent	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    private function defaultContent() {$/;"	f
+defaultFields	.\core\classes\class.pages.php	/^    private function defaultFields() {$/;"	f
 defaultOptions.itemText	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    itemText: function(item) {$/;"	m
 defaultOptions.itemValue	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    itemValue: function(item) {$/;"	m
 defaultOptions.tagClass	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^    tagClass: function(item) {$/;"	m
@@ -673,7 +687,12 @@ extra_var	.\core\ressources\raintpl\rain.tpl.class.php	/^                       
 f	.\core\ressources\lessc\lessc.inc.php	/^			$f = isset($this->libFunctions[$name]) ?$/;"	v
 favicon	.\core\abstracts\class.view.php	/^    public $favicon = WWW_ROOT."images\/favicon.png";$/;"	v
 fields	.\core\classes\class.group.php	/^    private $fields = array($/;"	v
+fields	.\core\classes\class.pages.php	/^        $fields = array($/;"	v
+fields	.\core\classes\class.pages.php	/^        $fields = array_merge($this->defaultFields(), $this->customFields);$/;"	v
+fields	.\core\classes\class.pages.php	/^    public function addFields( $fields=array() ) {$/;"	v
+fields	.\core\classes\class.pages.php	/^    public function fields() {$/;"	f
 fields	.\core\classes\class.user.php	/^    private $fields = array($/;"	v
+fields	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^        $fields = $this->pages->fields();$/;"	v
 file	.\core\classes\class.logger.php	/^            $file = fopen(DOC_ROOT."logs\/".$filename, "a+") or die("Unable to open Log File!");$/;"	v
 fileExists	.\core\ressources\lessc\lessc.inc.php	/^	protected function fileExists($name) {$/;"	f
 filename	.\core\classes\class.logger.php	/^            $filename = "error-".date("Y-m-d").".log";$/;"	v
@@ -683,6 +702,10 @@ files	.\core\classes\class.localization.php	/^    $files = self::scanDirectory($
 findBlocks	.\core\ressources\lessc\lessc.inc.php	/^	protected function findBlocks($searchIn, $path, $orderedArgs, $keywordArgs, $seen=array()) {$/;"	f
 findClosestSelectors	.\core\ressources\lessc\lessc.inc.php	/^	protected function findClosestSelectors() {$/;"	f
 findImport	.\core\ressources\lessc\lessc.inc.php	/^	protected function findImport($url) {$/;"	f
+first	.\core\classes\class.formfields.php	/^            $first = false;$/;"	v
+first	.\core\classes\class.formfields.php	/^        $first = true;$/;"	v
+first	.\core\ressources\helpers\additional_functions.php	/^      $first = false;$/;"	v
+first	.\core\ressources\helpers\additional_functions.php	/^    $first = true;$/;"	v
 first	.\core\ressources\lessc\lessc.inc.php	/^		$first = $this->assertColor($first);$/;"	v
 first_a	.\core\ressources\lessc\lessc.inc.php	/^		$first_a = $this->lib_alpha($first);$/;"	v
 fixColor	.\core\ressources\lessc\lessc.inc.php	/^	protected function fixColor($c) {$/;"	f
@@ -764,6 +787,7 @@ get	.\core\classes\class.pages.php	/^  public function get($parent="0") {$/;"	f
 get	.\core\classes\class.user.php	/^    public function get($field) {$/;"	f
 get	.\core\ressources\lessc\lessc.inc.php	/^	protected function get($name, $default=null) {$/;"	f
 get	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function get($tableName, $numRows = null, $columns = '*')$/;"	f
+getActiveLanguages	.\core\classes\class.localization.php	/^  public static function getActiveLanguages() {$/;"	f
 getActiveModules	.\core\app\class.modulemanager.php	/^  public function getActiveModules() {$/;"	f
 getAll	.\core\classes\class.pages.php	/^  public static function getAll() {$/;"	f
 getAll	.\core\classes\class.user.php	/^    public static function getAll() {$/;"	f
@@ -781,6 +805,7 @@ getGroups	.\core\views\manage\manage.permissions\manage.permissions.php	/^    pr
 getGroupsPermission	.\core\views\manage\manage.permissions\manage.permissions.php	/^    private function getGroupsPermission($groups, $permission) {$/;"	f
 getInsertId	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function getInsertId()$/;"	f
 getInstance	.\core\ressources\mysqlidb\mysqlidb.php	/^    public static function getInstance()$/;"	f
+getLangKey	.\core\classes\class.formfields.php	/^    public static function getLangKey($lang, $key) {$/;"	f
 getLanguageNameCells	.\core\views\manage\manage.locales\manage.locales.strings.php	/^    private function getLanguageNameCells() {$/;"	f
 getLanguageRows	.\core\views\manage\manage.locales\manage.locales.php	/^    private function getLanguageRows() {$/;"	f
 getLanguageTranslationState	.\core\views\manage\manage.locales\manage.locales.strings.php	/^    private function getLanguageTranslationState($string) {$/;"	f
@@ -888,6 +913,7 @@ html	.\core\ressources\raintpl\rain.tpl.class.php	/^                            
 htmlEncode	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^  function htmlEncode(value) {$/;"	f
 httponly	.\core\app\class.auth.php	/^        $httponly = true;$/;"	v
 i	.\core\classes\class.localization.php	/^function i($stringid, $domain=false, $lang=false) {$/;"	f
+i	.\core\ressources\helpers\additional_functions.php	/^      foreach ((array) $order as $i=> $orderArg)$/;"	v
 i	.\core\ressources\lessc\lessc.inc.php	/^						foreach ($values as $i => $arg) {$/;"	v
 i	.\core\ressources\lessc\lessc.inc.php	/^			$i = 0;$/;"	v
 i	.\core\ressources\lessc\lessc.inc.php	/^			$i = 1;$/;"	v
@@ -971,6 +997,7 @@ instances	.\core\abstracts\class.module.php	/^  protected static $instances = ar
 instances	.\core\abstracts\class.view.php	/^    protected static $instances = array();$/;"	v
 interpolation	.\core\ressources\lessc\lessc.inc.php	/^	protected function interpolation(&$out) {$/;"	f
 interval	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function interval ($diff, $func = "NOW()") {$/;"	f
+is	.\core\classes\class.pages.php	/^* This class is made for the page handling in forge.$/;"	c
 is	.\core\ressources\lessc\lessc.inc.php	/^	 * This function is called repeatedly until the entire document is$/;"	f
 is	.\core\ressources\lessc\lessc.inc.php	/^ * The `lessc_parser` class is only concerned with parsing its input.$/;"	c
 is	.\core\ressources\raintpl\rain.tpl.class.php	/^		\/\/ check if the function is in the black list (or not in white list)$/;"	f
@@ -1008,6 +1035,9 @@ joinTable	.\core\ressources\mysqlidb\mysqlidb.php	/^            $joinTable = sel
 joinType	.\core\ressources\mysqlidb\mysqlidb.php	/^        $joinType = strtoupper (trim ($joinType));$/;"	v
 joinType	.\core\ressources\mysqlidb\mysqlidb.php	/^     public function join($joinTable, $joinCondition, $joinType = '')$/;"	v
 json	.\core\classes\class.utils.php	/^    public static function json($array) {$/;"	f
+k	.\core\ressources\helpers\additional_functions.php	/^        $k = $keys[$k];$/;"	v
+k	.\core\ressources\helpers\additional_functions.php	/^      foreach ($arr as $k => $v) {$/;"	v
+k	.\core\ressources\helpers\additional_functions.php	/^      foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }$/;"	v
 key	.\core\app\class.app.php	/^      foreach($args as $key => $value)$/;"	v
 key	.\core\classes\class.logger.php	/^          foreach($text as $key => $value) {$/;"	v
 key	.\core\ressources\lessc\lessc.inc.php	/^				$key = $this->reduce($key);$/;"	v
@@ -1024,6 +1054,7 @@ key	.\core\ressources\raintpl\rain.tpl.class.php	/^				$key = "\\$key$loop_level
 key	.\core\ressources\raintpl\rain.tpl.class.php	/^			foreach( $setting as $key => $value )$/;"	v
 keyCombinationInList	.\core\scripts\externals\bootstrap-tagsinput.min.js	/^  function keyCombinationInList(keyPressEvent, lookupList) {$/;"	f
 keyName	.\core\ressources\lessc\lessc.inc.php	/^	public function propertyValue(&$value, $keyName = null) {$/;"	v
+keys	.\core\ressources\helpers\additional_functions.php	/^    $keys = array();$/;"	v
 keyword	.\core\ressources\lessc\lessc.inc.php	/^	protected function keyword(&$word) {$/;"	f
 keywordArgs	.\core\ressources\lessc\lessc.inc.php	/^			$keywordArgs = array();$/;"	v
 lang	.\core\classes\class.localization.php	/^          $lang = $n;$/;"	v
@@ -1034,6 +1065,7 @@ lang	.\core\classes\class.localization.php	/^  public static function stringTran
 langid	.\core\views\manage\manage.locales\manage.locales.strings.translate.php	/^          $langid = $langid[1];$/;"	v
 langid	.\core\views\manage\manage.locales\manage.locales.strings.translate.php	/^          $langid = explode("-", $name);$/;"	v
 languageTable	.\core\views\manage\manage.locales\manage.locales.php	/^    private function languageTable() {$/;"	f
+languageTabs	.\core\classes\class.formfields.php	/^    public static function languageTabs($args) {$/;"	f
 language_prepared	.\core\views\manage\manage.locales\manage.locales.php	/^      $language_prepared = array();$/;"	v
 languages	.\core\views\manage\manage.locales\manage.locales.php	/^      $languages = $this->app->db->get('languages');$/;"	v
 languages	.\core\views\manage\manage.locales\manage.locales.strings.php	/^      $this->languages = Localization::getLanguages();$/;"	v
@@ -1043,6 +1075,7 @@ lastCount	.\core\ressources\lessc\lessc.inc.php	/^		$lastCount = $this->count;$/
 left	.\core\ressources\lessc\lessc.inc.php	/^			$left = $leftColor;$/;"	v
 left	.\core\ressources\lessc\lessc.inc.php	/^		$left = $this->reduce($left, true);$/;"	v
 left	.\core\ressources\lessc\lessc.inc.php	/^		return $left == $right;$/;"	v
+leftFields	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    private function leftFields() {$/;"	f
 left_delimiter	.\core\ressources\raintpl\rain.tpl.class.php	/^				$compiled_code .= $this->func_replace( $html, $left_delimiter = '\\{', $right_delimiter = '\\}', $php_left_delimiter = '<?php ', $php_right_delimiter = ';?>', $loop_level, $echo = true );$/;"	v
 less	.\core\ressources\lessc\lessc.inc.php	/^			$less = new self;$/;"	v
 less	.\core\ressources\lessc\lessc.inc.php	/^	public static function ccompile($in, $out, $less = null) {$/;"	v
@@ -1409,6 +1442,7 @@ out	.\core\ressources\lessc\lessc.inc.php	/^		$out = array();$/;"	v
 out	.\core\ressources\lessc\lessc.inc.php	/^		$out = ob_get_clean();$/;"	v
 out	.\core\ressources\lessc\lessc.inc.php	/^		\/\/ $out = array('color', round($r*255), round($g*255), round($b*255));$/;"	v
 outFname	.\core\ressources\lessc\lessc.inc.php	/^	public function compileFile($fname, $outFname = null) {$/;"	v
+output	.\core\classes\class.formfields.php	/^            $output = self::languageTabs($args);$/;"	v
 output	.\core\classes\class.logger.php	/^            $output = date("Y-m-d H:i:s")." - ".$level." - ".$key." => ".$value."\\n";$/;"	v
 output	.\core\ressources\raintpl\rain.tpl.class.php	/^			$output = $this->printDebug($e);$/;"	v
 output	.\core\ressources\raintpl\rain.tpl.class.php	/^		$output = sprintf('<h2>Exception: %s<\/h2><h3>%s<\/h3><p>template: %s<\/p>',$/;"	v
@@ -1429,16 +1463,19 @@ paddedOp	.\core\ressources\lessc\lessc.inc.php	/^		if ($whiteBefore) $paddedOp =
 page	.\core\classes\class.page.php	/^    $page = App::instance()->db->getOne('pages');$/;"	v
 page	.\core\views\manage\manage.builder\manage.builder.pages.php	/^        $page = new Page($p['id']);$/;"	v
 page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.delete.php	/^      $page = new Page($id);$/;"	v
-page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^        $this->page = new Page($uri[0]);$/;"	v
+page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^            $this->page = new Page($uri[0]);$/;"	v
 page	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    private $page = null;$/;"	v
 pageTable	.\core\views\manage\manage.builder\manage.builder.pages.php	/^    private function pageTable() {$/;"	f
 pages	.\core\views\manage\manage.builder\manage.builder.pages.php	/^      $pages = new Pages();$/;"	v
+pages	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^        $this->pages = new Pages();$/;"	v
+pages	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    private $pages = null;$/;"	v
 pages	.\core\views\view.api.php	/^    private function pages($query) {$/;"	f
 panelLeft	.\core\views\view.manager.php	/^        $panelLeft = $this->navigation->addPanel();$/;"	v
 panelRight	.\core\views\view.manager.php	/^        $panelRight = $this->navigation->addPanel('right');$/;"	v
 panel_key	.\core\classes\class.navigation.php	/^        foreach($this->panels as $panel_key => $panel) {$/;"	v
 panels	.\core\classes\class.navigation.php	/^    private $panels = array();$/;"	v
 parameters	.\core\ressources\mysqlidb\mysqlidb.php	/^        $parameters = array();$/;"	v
+params	.\core\ressources\helpers\additional_functions.php	/^    $params = array();$/;"	v
 params	.\core\ressources\mysqlidb\mysqlidb.php	/^            $params = array(''); \/\/ Create the empty 0 index$/;"	v
 params	.\core\ressources\raintpl\rain.tpl.class.php	/^                                        $params = null;$/;"	v
 params	.\core\ressources\raintpl\rain.tpl.class.php	/^                                        $params = substr( $function_var, $dot_position+1 );$/;"	v
@@ -1689,6 +1726,7 @@ rhs	.\core\ressources\lessc\lessc.inc.php	/^					$rhs = $this->expHelper($rhs, s
 right	.\core\ressources\lessc\lessc.inc.php	/^			$right = $rightColor;$/;"	v
 right	.\core\ressources\lessc\lessc.inc.php	/^			return $this->toBool($left == self::$TRUE && $right == self::$TRUE);$/;"	v
 right	.\core\ressources\lessc\lessc.inc.php	/^		$right = $this->reduce($right, true);$/;"	v
+rightFields	.\core\views\manage\manage.builder\manage.builder.pages\manage.builder.pages.edit.php	/^    private function rightFields() {$/;"	f
 rollback	.\core\ressources\mysqlidb\mysqlidb.php	/^    public function rollback () {$/;"	f
 root	.\config.php	/^$root = str_replace("\\\\", "\/", $_SERVER['DOCUMENT_ROOT']);$/;"	v
 root	.\core\ressources\lessc\lessc.inc.php	/^						$root = $in['root'];$/;"	v
@@ -1780,6 +1818,7 @@ skip	.\core\ressources\lessc\lessc.inc.php	/^				if ($skip === false) $skip = st
 skip	.\core\ressources\lessc\lessc.inc.php	/^			$skip = 0;$/;"	v
 skip	.\core\ressources\lessc\lessc.inc.php	/^	protected function patternMatchAll($blocks, $orderedArgs, $keywordArgs, $skip=array()) {$/;"	v
 sortProps	.\core\ressources\lessc\lessc.inc.php	/^	protected function sortProps($props, $split = false) {$/;"	f
+sorted	.\core\ressources\helpers\additional_functions.php	/^    $sorted = array();$/;"	v
 sourceLoc	.\core\ressources\lessc\lessc.inc.php	/^		$this->sourceLoc = isset($prop[-1]) ? $prop[-1] : -1;$/;"	v
 sourceLoc	.\core\ressources\lessc\lessc.inc.php	/^	protected $sourceLoc = null;$/;"	v
 sourceName	.\core\ressources\lessc\lessc.inc.php	/^		$this->sourceName = $sourceName; \/\/ name used for error messages$/;"	v
@@ -1850,6 +1889,7 @@ t	.\core\ressources\lessc\lessc.inc.php	/^					$t = $num % $width;$/;"	v
 table	.\core\classes\class.localization.php	/^    $table = "language_strings_translations";$/;"	v
 tableCell	.\core\classes\class.utils.php	/^    public static function tableCell($content, $class=false, $id=false, $structure=false) {$/;"	f
 tableData	.\core\ressources\mysqlidb\mysqlidb.php	/^    protected function _buildQuery($numRows = null, $tableData = null)$/;"	v
+tabs	.\core\classes\class.formfields.php	/^        $tabs = array();$/;"	v
 tag	.\core\ressources\lessc\lessc.inc.php	/^			$tag = array("exp", array("string", "", $parts));$/;"	v
 tag	.\core\ressources\lessc\lessc.inc.php	/^			$tag = trim(implode($parts));$/;"	v
 tag	.\core\ressources\lessc\lessc.inc.php	/^		$tag = implode($this->parentSelector, $parts);$/;"	v
@@ -1896,6 +1936,7 @@ template_code	.\core\ressources\raintpl\rain.tpl.class.php	/^		$template_code = 
 template_code	.\core\ressources\raintpl\rain.tpl.class.php	/^		$this->tpl['source'] = $template_code = file_get_contents( $tpl_filename );$/;"	v
 template_compiled	.\core\ressources\raintpl\rain.tpl.class.php	/^		$template_compiled = "<?php if(!class_exists('raintpl')){exit;}?>" . $this->compileTemplate( $template_code, $tpl_basedir );$/;"	v
 template_compiled	.\core\ressources\raintpl\rain.tpl.class.php	/^		$template_compiled = str_replace( "?>\\n", "?>\\n\\n", $template_compiled );$/;"	v
+text	.\core\classes\class.formfields.php	/^    public static function text($args) {$/;"	f
 text	.\core\classes\class.logger.php	/^            $text = array($text);$/;"	v
 text	.\core\classes\class.utils.php	/^    public static function getProgressBar($id, $current, $text="") {$/;"	v
 text	.\core\ressources\lessc\lessc.inc.php	/^			$text = substr($text, $count + $skip);$/;"	v
@@ -1940,6 +1981,7 @@ type	.\core\ressources\mysqlidb\mysqlidb.php	/^        $type = 'd';$/;"	v
 type	.\core\views\manage\manage.permissions\manage.permissions.php	/^                  "icon" => $type == "grant" ? "unchecked" : "ok",$/;"	v
 type	.\core\views\manage\manage.permissions\manage.permissions.php	/^                  "name" => $type == "grant" ? i('Add Permission') : i('Remove Permission'),$/;"	v
 types	.\core\ressources\mysqlidb\mysqlidb.php	/^        $types = Array ("s" => "second", "m" => "minute", "h" => "hour", "d" => "day", "M" => "month", "Y" => "year");$/;"	v
+uniqueFlag	.\core\ressources\helpers\additional_functions.php	/^        $uniqueFlag = $col.'_'.$i.'_flag';$/;"	v
 unit	.\core\ressources\lessc\lessc.inc.php	/^			$unit = array("number", $m[1], empty($m[2]) ? "" : $m[2]);$/;"	v
 unit	.\core\ressources\lessc\lessc.inc.php	/^		$unit = empty($left[2]) ? $right[2] : $left[2];$/;"	v
 unit	.\core\ressources\lessc\lessc.inc.php	/^	protected function unit(&$unit) {$/;"	f

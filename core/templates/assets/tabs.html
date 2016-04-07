@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+    {loop="tabs"}
+    <li {if="$value.active"}class="active"{/if}><a data-toggle="tab" href="#{$value.key}">{$value.name}</a></li>
+    {/loop}
+</ul>

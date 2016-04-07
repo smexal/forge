@@ -45,7 +45,7 @@ class Group {
       }
       return $id_array;
     }
-    
+
     public function addMembers($members) {
       if(!Auth::allowed("manage.groups.members")) {
         return;
@@ -85,7 +85,7 @@ class Group {
       ));
       return true;
     }
-    
+
     public function grant($permission) {
       if(! self::hasPermission($this->id, $permission)) {
         $this->app->db->insert('permissions_groups', array(
@@ -95,7 +95,7 @@ class Group {
         return true;
       }
     }
-    
+
     public function deny($permission) {
       $this->app->db->where("groupid", $this->id);
       $this->app->db->where("permissionid", $permission);
@@ -160,7 +160,7 @@ class Group {
 
       return true;
     }
-    
+
     public static function hasPermission($group, $permission) {
       $db = App::instance()->db;
       $db->where("groupid", $group);
