@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 03. Apr 2016 um 13:25
+-- Erstellungszeit: 11. Apr 2016 um 08:52
 -- Server-Version: 10.1.9-MariaDB
 -- PHP-Version: 5.6.15
 
@@ -56,7 +56,7 @@ CREATE TABLE `groups_users` (
 
 INSERT INTO `groups_users` (`id`, `groupid`, `userid`) VALUES
 (1, 1, 21),
-(3, 1, 23);
+(4, 1, 23);
 
 -- --------------------------------------------------------
 
@@ -189,7 +189,7 @@ INSERT INTO `language_strings` (`id`, `string`, `domain`, `used`) VALUES
 (93, 'Queried field ', '%1$s'' which does not exist', 1),
 (94, 'Permission denied to edit users.', '', 1),
 (95, 'The given passwort and the repetition do not match.', '', 1),
-(96, 'User with that name already exists', '', 1),
+(96, 'User with that name already exists', '', 0),
 (97, 'User with that email already exists', '', 1),
 (98, 'Username is too short.', '', 1),
 (99, 'User with that name already exists.', '', 1),
@@ -241,7 +241,31 @@ INSERT INTO `language_strings` (`id`, `string`, `domain`, `used`) VALUES
 (145, 'Author', '', 1),
 (146, 'status', '', 1),
 (147, 'draft', '', 1),
-(148, 'published', '', 1);
+(148, 'published', '', 1),
+(149, 'Add new page', '', 1),
+(150, 'Page `%1$s` has been created.', '', 1),
+(151, 'Page Name', '', 1),
+(152, 'Define a parent page', '', 1),
+(153, 'Page has been deleted.', '', 1),
+(154, 'There was an error while deleting the page.', '', 1),
+(155, 'Delete page \\''%s\\''?', '', 1),
+(156, 'Do you really want to delete the page \\''%s\\''?', '', 1),
+(157, 'Yes, delete page', '', 1),
+(158, 'Edit `%s`', '', 1),
+(159, 'back to overview', '', 1),
+(160, 'Save Changes', '', 1),
+(161, 'Add new page', 'core', 1),
+(162, 'edit page', '', 1),
+(163, 'delete page', '', 1),
+(164, 'Pagename is too short.', '', 1),
+(165, 'A Page with that name already exists.', '', 1),
+(166, 'Label', '', 1),
+(167, 'Title', 'core', 1),
+(168, 'Will be used for title attribute (Search Engine and Social Media Title)', '', 1),
+(169, 'Description', 'core', 1),
+(170, 'Will be used for description for Search Engines and Social Media', '', 1),
+(171, 'Change to other language', 'core', 1),
+(172, '(Current)', '', 1);
 
 -- --------------------------------------------------------
 
@@ -320,7 +344,37 @@ INSERT INTO `language_strings_translations` (`id`, `stringid`, `translation`, `l
 (57, 147, 'Entwurf', 1),
 (58, 147, 'draft', 2),
 (59, 148, 'Veröffentlicht', 1),
-(60, 148, 'published', 2);
+(60, 148, 'published', 2),
+(61, 130, 'Aktivieren', 1),
+(62, 130, 'Activate', 2),
+(63, 141, 'Hinzufügen', 1),
+(64, 141, 'Add item', 2),
+(65, 144, 'Seite hinzufügen', 1),
+(66, 144, 'Add site', 2),
+(67, 145, 'Autor', 1),
+(68, 145, 'Author', 2),
+(69, 103, 'Neuen Benutzer hinzufügen', 1),
+(70, 103, 'Create new user', 2),
+(71, 121, 'Titel', 1),
+(72, 121, 'Title', 2),
+(73, 107, 'Übersetzen', 1),
+(74, 107, 'Translate', 2),
+(75, 117, 'Übersetzungen aktualisieren', 1),
+(76, 117, 'Update Translation', 2),
+(77, 18, 'Benutzerverwaltung', 1),
+(78, 18, 'User Management', 2),
+(79, 169, 'Beschreibung', 1),
+(80, 169, 'Description', 2),
+(81, 167, 'Titel', 1),
+(82, 167, 'Title', 2),
+(83, 171, 'Sprache wechseln', 1),
+(84, 171, 'Change to other language', 2),
+(85, 172, '(Aktuell)', 1),
+(86, 172, '(Current)', 2),
+(87, 158, '`%s` ändern', 1),
+(88, 158, 'Edit `%s`', 2),
+(89, 161, 'Neue Seite hinzufügen', 1),
+(90, 161, 'Add new page', 2);
 
 -- --------------------------------------------------------
 
@@ -364,12 +418,22 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`, `url`, `status`, `start`) VALUES
-(36, 0, 0, 'Untitled', '2016-01-16 15:29:07', '2016-01-16 15:29:07', 21, '', 'draft', 0),
-(37, 36, 1, 'Untitled 2', '2016-01-16 15:29:09', '2016-01-16 15:29:09', 21, '', 'draft', 0),
-(38, 36, 2, 'Testpage', '2016-01-16 15:29:17', '2016-01-16 15:29:17', 21, '', 'draft', 0),
-(39, 0, 3, 'Untitled 3', '2016-01-16 18:14:06', '2016-01-16 18:14:06', 21, '', 'draft', 0),
-(40, 37, 0, 'A Page', '2016-04-02 17:31:47', '2016-04-02 17:31:47', 21, '', 'draft', 0),
-(41, 37, 1, 'jeay', '2016-04-02 17:58:47', '2016-04-02 17:58:47', 21, '', 'draft', 0);
+(45, 0, 0, 'Testpage', '2016-04-06 19:49:12', '2016-04-06 19:49:12', 0, '', 'draft', 0),
+(46, 45, 0, 'A blub', '2016-04-06 20:03:24', '2016-04-06 20:03:24', 0, '', 'draft', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `page_meta`
+--
+
+CREATE TABLE `page_meta` (
+  `id` int(7) NOT NULL,
+  `keyy` varchar(200) NOT NULL,
+  `lang` int(11) NOT NULL,
+  `value` text NOT NULL,
+  `page` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -417,7 +481,11 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 (55, 'manage.modules.add'),
 (56, 'manage.builder.pages'),
 (57, 'manage.builder.navigation'),
-(58, 'manage.collections.add');
+(58, 'manage.collections.add'),
+(59, 'manage.pages.delete'),
+(60, 'manage.builder.pages.delete'),
+(61, 'manage.builder.pages.add'),
+(62, 'manage.builder.pages.edit');
 
 -- --------------------------------------------------------
 
@@ -466,7 +534,11 @@ INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
 (33, 1, 55),
 (34, 1, 57),
 (35, 1, 56),
-(36, 1, 58);
+(36, 1, 58),
+(37, 1, 60),
+(38, 1, 61),
+(39, 1, 62),
+(40, 1, 59);
 
 -- --------------------------------------------------------
 
@@ -541,6 +613,12 @@ ALTER TABLE `pages`
   ADD KEY `creator` (`creator`);
 
 --
+-- Indizes für die Tabelle `page_meta`
+--
+ALTER TABLE `page_meta`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `permissions`
 --
 ALTER TABLE `permissions`
@@ -574,7 +652,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT für Tabelle `groups_users`
 --
 ALTER TABLE `groups_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `languages`
 --
@@ -584,12 +662,12 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT für Tabelle `language_strings`
 --
 ALTER TABLE `language_strings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 --
 -- AUTO_INCREMENT für Tabelle `language_strings_translations`
 --
 ALTER TABLE `language_strings_translations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 --
 -- AUTO_INCREMENT für Tabelle `modules`
 --
@@ -599,17 +677,22 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT für Tabelle `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT für Tabelle `page_meta`
+--
+ALTER TABLE `page_meta`
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT für Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --

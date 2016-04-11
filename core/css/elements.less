@@ -87,3 +87,24 @@ a.ajax {
 		}
 	}
 }
+
+.linklist {
+    ul {
+        padding-left: 0;
+        li {
+            list-style-type: none;
+            line-height: 25px;
+            border-bottom: 1px solid #ccc;
+            &:last-child {
+                border-bottom: none;
+            }
+            a {
+                color: @dark_grey;
+                &:hover {
+                    color: lighten(@dark_grey, 20%);
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

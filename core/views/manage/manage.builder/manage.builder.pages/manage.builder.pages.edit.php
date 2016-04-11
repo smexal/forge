@@ -15,38 +15,55 @@ class ManagePageEdit extends AbstractView {
 
     private $pages = null;
     private $page = null;
+    private $lang = null;
 
     public function content($uri=array()) {
+        $this->lang = Localization::currentLang();
         $this->pages = new Pages();
         if(is_numeric($uri[0])) {
             $this->page = new Page($uri[0]);
+            if(count($uri) > 1 && $uri[1] == 'save') {
+                return 'save';
+            }
             return $this->defaultContent();
         }
     }
 
     private function defaultContent() {
         return $this->app->render(CORE_TEMPLATE_DIR."views/", "builder", array(
-            'title' => sprintf(i('Edit `%s`'), $this->page->name),
+            'title' => sprintf(i('Edit `%s`'), $this->page->name) . ' ['.strtoupper($this->lang).']',
             'backurl' => Utils::getUrl(array('manage', 'pages')),
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),
-            'panel_right' => $this->rightFields()
+            'panel_right' => $this->rightFields(),
+            'saveurl' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'save')),
+            'savetext' => i('Save Changes'),
+            'lang' => $this->lang
         ));
     }
 
     // displays the left form fields for the edit mask
     private function leftFields() {
         $fields = $this->pages->fields();
+        $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'left') {
-                return Fields::build($field);
+                $return.= Fields::build($field);
             }
         }
+        return $return;
     }
 
     // displays the right form fields for the edit mask
     private function rightFields() {
-        return 'right';
+        $fields = $this->pages->fields();
+        $return = '';
+        foreach($fields as $field) {
+            if($field['position'] == 'right') {
+                $return.= Fields::build($field);
+            }
+        }
+        return $return;
     }
 }
 

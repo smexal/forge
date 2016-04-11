@@ -9,7 +9,7 @@ Auth::session();
 $app = App::instance();
 
 // required styles
-$loader->addStyle("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css", true);
+$loader->addStyle("core/css/externals/bootstrap.core.min.css", false, false);
 
 // admin styles
 $loader->addStyle("core/css/bootstrap.less", false, "manage");

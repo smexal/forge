@@ -6,44 +6,37 @@ class Fields {
             case 'text':
                 return self::text($args);
                 break;
+            case 'linklist':
+                return self::linklist($args);
         }
     }
 
-    /** a tabs example from bootstrap
+    public static function linklist($args) {
+        $return = App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'linklist', array(
+            'title' => $args['label'],
+            'links' => $args['links']
+        ));
+        return self::boxed($args, $return);
+    }
 
-    <div class="tab-content">
-      <div id="home" class="tab-pane fade in active">
-        <h3>HOME</h3>
-        <p>Some content.</p>
-      </div>
-    </div>
-
-    **/
+    public static function boxed($args, $content) {
+        if($args['boxed']) {
+            return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "boxed", array(
+                'content' => $content
+            ));
+        }
+    }
 
     public static function text($args) {
-        if($args['multilang'] && count(Localization::getActiveLanguages() > 1)) {
-            $output = self::languageTabs($args);
-        }
-        return $output;
-    }
-
-    public static function getLangKey($lang, $key) {
-        return $lang.'-'.$key;
-    }
-
-    public static function languageTabs($args) {
-        $tabs = array();
-        $first = true;
-        foreach(Localization::getActiveLanguages() as $lang) {
-            array_push($tabs, array(
-                'name' => strtoupper($lang['code']),
-                'active' => $first,
-                'key' => self::getLangKey($lang['code'], $args['key'])
-            ));
-            $first = false;
-        }
-        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "tabs", array(
-            'tabs' => $tabs
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
+            'name' => $args['key'],
+            'id' => $args['key'],
+            'label' => $args['label'],
+            'type' => 'text',
+            'hor' => false,
+            'noautocomplete' => false,
+            'value' => '',
+            'hint' => $args['hint']
         ));
     }
 

@@ -7,7 +7,7 @@ class Localization {
     return $db->get('languages');
   }
 
-  // TODO: When time, allow to disable a language.. then this will come useful..
+  // TODO: When time, allow to disable a language.. then this will become useful..
   public static function getActiveLanguages() {
       return self::getLanguages();
   }
@@ -237,7 +237,7 @@ class Localization {
           $found = true;
         }
       }
-      // TODO: Somewhat this setting to used = 0 is not working. need to investiage *sherlock*
+      // TODO: Somewhat this setting to used = 0 is not working. need to investigate *sherlock*
       $db->where("id", $databaseString['id']);
       if(! $found) {
         if($databaseString['used'] == 1) {
@@ -261,6 +261,22 @@ class Localization {
       echo Utils::screenLog(i('Nothing has changed, me friend..'));
     }
     echo Utils::screenLog(i('Translation String update complete.'));
+  }
+
+  public static function currentLang() {
+      if(! array_key_exists('lang', $_GET)) {
+          return Localization::getCurrentLanguage();
+      } else {
+          $codes = array();
+          foreach(Localization::getActiveLanguages() as $lang) {
+              $codes[] = $lang['code'];
+          }
+          if(in_array($_GET['lang'], $codes)) {
+              return $_GET['lang'];
+          } else {
+              return Localization::getCurrentLanguage();
+          }
+      }
   }
 
   public static function getAllStrings($sort=false) {

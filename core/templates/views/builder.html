@@ -1,13 +1,20 @@
 <div class="maxed ajax-reload-container">
     <div class="row page-header">
-        <div class="col-lg-8"><a class="back" href="{$backurl}">{$backname}</a><h1>{$title}</h1></div><div class="col-lg-4"></div>
+        <div class="col-lg-9">
+            <a class="back" href="{$backurl}">{$backname}</a>
+            <h1>{$title}</h1>
+        </div>
+        <div class="col-lg-3">
+            <a href="{$saveurl}" class="ajax btn btn-primary btn-sm">{$savetext}</a>
+        </div>
     </div>
     <form method="post" action="">
+        <input type="hidden" name="language" value="{$lang}">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 {$panel_left}
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 {$panel_right}
             </div>
         </div>

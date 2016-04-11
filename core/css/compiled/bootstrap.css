@@ -31,7 +31,8 @@ a:hover {
   color: #1bd27e;
 }
 .form-control,
-.bootstrap-tagsinput {
+.bootstrap-tagsinput,
+.boxed {
   border-radius: 0px;
   background-color: #f2f2f2;
   border: 1px solid #d9d9d9;
@@ -90,8 +91,15 @@ a:hover {
 .well > h2 {
   margin-top: 10px;
 }
+.boxed {
+  padding: 10px 20px;
+  margin-bottom: 2rem;
+}
 .progress-bar {
   background-color: #1bd27e;
+}
+.form-group small {
+  color: #bdbdbd;
 }
 .navbar-default {
   background-color: #262626;

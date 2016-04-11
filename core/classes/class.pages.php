@@ -113,6 +113,9 @@ class Pages {
         if(! array_key_exists('position', $field)) {
             $field['position'] = 'left';
         }
+        if(! array_key_exists('hint', $field)) {
+            $field['hint'] = false;
+        }
         array_push($this->$customFields, $fields);
     }
 
@@ -128,14 +131,47 @@ class Pages {
         $fields = array(
             array(
                 'key' => 'title',
-                'multilang' => true,                // default value is true
                 'label' => i('Title', 'core'),      // default value is "Label"
+                'multilang' => true,
                 'type' => 'text',                   // default value is text
-                'order' => 1,                       // default value is 1000
-                'position' => 'left'                // default is left
+                'order' => 2,                       // default value is 1000
+                'position' => 'right',               // default is left
+                'hint' => i('Will be used for title attribute (Search Engine and Social Media Title)')
+            ),
+            array(
+                'key' => 'description',
+                'label' => i('Description', 'core'),
+                'multilang' => true,
+                'type' => 'text',
+                'order' => 3,
+                'position' => 'right',
+                'hint' => i('Will be used for description for Search Engines and Social Media')
+            ),
+            array(
+                'key' => 'language-switch',
+                'label' => i('Change to other language', 'core'),
+                'type' => 'linklist',
+                'links' => $this->getLanguageLinks(),
+                'boxed' => true,
+                'order' => 1,
+                'position' => 'right',
+                'hint' => false
             )
         );
         return $fields;
+    }
+
+    private function getLanguageLinks() {
+        $languages = Localization::getActiveLanguages();
+        $links = [];
+        foreach($languages as $lang) {
+            $links[] = array(
+                'label' => i($lang['name'], 'core').' '
+                    .($lang['code'] == Localization::currentLang() ? i('(Current)') : ''),
+                'url' => Utils::getCurrentUrl().'?lang='.$lang['code']
+            );
+        }
+        return $links;
     }
 
     public function fields() {

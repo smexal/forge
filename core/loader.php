@@ -25,8 +25,7 @@ class Loader {
           "primary_color" => "#1bd27e",
           "accent_color" => "#4194e1",
           "dark_grey" => "#262626",
-          "light_grey" => "#f0f0f0",
-          "dark_grey" => "#262626"
+          "light_grey" => "#f0f0f0"
         ));
       }
       $this->lessVariablesSet = true;
@@ -148,8 +147,8 @@ class Loader {
     }
 
     private function loadCoreScripts() {
-      $this->addScript("//code.jquery.com/jquery-1.11.2.min.js", true);
-      $this->addScript("//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js", true);
+      $this->addScript("core/scripts/externals/jquery.js");
+      $this->addScript("core/scripts/externals/bootstrap.js");
       $this->addScript("core/scripts/externals/typeahead.js");
       $this->addScript("core/scripts/externals/bootstrap-tagsinput.min.js");
       $this->addScript("core/scripts/helpers.js");

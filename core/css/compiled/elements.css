@@ -77,3 +77,21 @@ a.ajax {
   width: 60px;
   vertical-align: middle;
 }
+.linklist ul {
+  padding-left: 0;
+}
+.linklist ul li {
+  list-style-type: none;
+  line-height: 25px;
+  border-bottom: 1px solid #ccc;
+}
+.linklist ul li:last-child {
+  border-bottom: none;
+}
+.linklist ul li a {
+  color: #262626;
+}
+.linklist ul li a:hover {
+  color: #595959;
+  text-decoration: none;
+}
