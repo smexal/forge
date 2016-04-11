@@ -25,7 +25,7 @@ var ajaxlinks = {
                 updateProgressBar(updater);
             }
             container.html(data);
-            
+
             // done
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 container.addClass("done");
@@ -50,9 +50,14 @@ var ajaxlinks = {
                   var the_overlay = overlay.prepare();
                   overlay.open($(this), the_overlay);
               } else {
+                  var formdata = {};
+                  if($(this).hasClass('form')) {
+                      var formdata = $('#' + $(this).attr('data-form')).serialize();
+                  }
                   $.ajax({
                       method: 'POST',
-                      url: $(this).attr("href")
+                      url: $(this).attr("href"),
+                      data : formdata
                   }).done(function(data) {
                       try {
                           json = $.parseJSON(data);

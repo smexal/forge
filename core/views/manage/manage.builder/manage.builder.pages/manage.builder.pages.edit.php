@@ -23,7 +23,14 @@ class ManagePageEdit extends AbstractView {
         if(is_numeric($uri[0])) {
             $this->page = new Page($uri[0]);
             if(count($uri) > 1 && $uri[1] == 'save') {
-                return 'save';
+                // save changes
+                Pages::save($_POST);
+
+                // create new page object after update
+                $this->page = new Page($this->page->id);
+
+                // update full view
+                $this->app->refresh("builder-content", $this->defaultContent());
             }
             return $this->defaultContent();
         }
@@ -37,7 +44,8 @@ class ManagePageEdit extends AbstractView {
             'panel_left' => $this->leftFields(),
             'panel_right' => $this->rightFields(),
             'saveurl' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'save')),
-            'savetext' => i('Save Changes'),
+            'savetext' => i('Save Changes', 'core'),
+            'pageid' => $this->page->id,
             'lang' => $this->lang
         ));
     }
@@ -48,7 +56,7 @@ class ManagePageEdit extends AbstractView {
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'left') {
-                $return.= Fields::build($field);
+                $return.= Fields::build($field, $this->page->getMeta($field['key']), $this->lang);
             }
         }
         return $return;
@@ -60,7 +68,7 @@ class ManagePageEdit extends AbstractView {
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'right') {
-                $return.= Fields::build($field);
+                $return.= Fields::build($field, $this->page->getMeta($field['key'], $this->lang));
             }
         }
         return $return;

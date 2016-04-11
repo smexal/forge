@@ -57,6 +57,35 @@ class Pages {
       return false;
   }
 
+  public static function save($data) {
+      $pages = new Pages();
+      if(array_key_exists('pageid', $data)) {
+          $page = new Page($data['pageid']);
+          if(array_key_exists('lang', $data)) {
+              App::instance()->addMessage(i('Language for saving values for page not set.'));
+              return;
+          }
+
+          foreach($pages->fields() as $field) {
+              if(! array_key_exists($field['key'], $data)) {
+                  continue;
+              }
+              if($field['multilang'] == false) {
+                  $lang = false;
+              } else {
+                  $lang = $data['language'];
+              }
+              self::savefield($page, $field['key'], $data[$field['key']], $lang);
+          }
+      } else {
+          App::instance()->addMessage(i('Unable to save page, Page does not exist'));
+      }
+  }
+
+  public static function savefield($page, $key, $value, $lang) {
+      $page->updateMeta($key, $value, $lang);
+  }
+
   private static function checkName($name) {
     $app = App::instance();
     if( strlen($name) <= 2 ) {
@@ -71,7 +100,7 @@ class Pages {
   }
 
   /*
-   * This method deletes a pages
+   * This method deletes a page
    * really. DELETES.
    */
   public function delete($id) {
