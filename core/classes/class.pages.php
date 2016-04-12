@@ -11,11 +11,12 @@
 class Pages {
   private $app;
   private $db;
-  private $customFields = array();
+  private $customFields;
 
   public function __construct() {
     $this->app = App::instance();
     $this->db = $this->app->db;
+    $this->customFields = array();
   }
 
   public function get($parent="0") {
@@ -145,7 +146,7 @@ class Pages {
         if(! array_key_exists('hint', $field)) {
             $field['hint'] = false;
         }
-        array_push($this->$customFields, $fields);
+        array_push($this->customFields, $field);
     }
 
     public function addFields( $fields=array() ) {
@@ -175,32 +176,9 @@ class Pages {
                 'order' => 3,
                 'position' => 'right',
                 'hint' => i('Will be used for description for Search Engines and Social Media')
-            ),
-            array(
-                'key' => 'language-switch',
-                'label' => i('Change to other language', 'core'),
-                'type' => 'linklist',
-                'links' => $this->getLanguageLinks(),
-                'boxed' => true,
-                'order' => 1,
-                'position' => 'right',
-                'hint' => false
             )
         );
         return $fields;
-    }
-
-    private function getLanguageLinks() {
-        $languages = Localization::getActiveLanguages();
-        $links = [];
-        foreach($languages as $lang) {
-            $links[] = array(
-                'label' => i($lang['name'], 'core').' '
-                    .($lang['code'] == Localization::currentLang() ? i('(Current)') : ''),
-                'url' => Utils::getCurrentUrl().'?lang='.$lang['code']
-            );
-        }
-        return $links;
     }
 
     public function fields() {

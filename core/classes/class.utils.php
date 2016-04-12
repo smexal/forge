@@ -28,8 +28,15 @@ class Utils {
       return $user->get('username');
     }
 
-    public static function getUrl($params = array()) {
-        return WWW_ROOT.implode("/", $params);
+    public static function getUrl($params = array(), $addGET=false) {
+        $query = '';
+        if($addGET) {
+            $query = "?".http_build_query($_GET);
+            // remove ? if no get parameters are set.
+            if(strlen($query) == 1)
+                $query = '';
+        }
+        return WWW_ROOT.implode("/", $params).$query;
     }
 
     public static function checkdatabase($host, $user, $pw, $dbname) {

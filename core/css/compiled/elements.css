@@ -14,6 +14,22 @@ a.ajax {
 .bgc-white {
   background-color: white;
 }
+.builder {
+  width: 100%;
+}
+.builder a.add {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  font-family: FontAwesome;
+}
+.builder .container {
+  background-color: #f2f2f2;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  min-height: 40px;
+}
 .grid {
   display: flex;
   flex-wrap: wrap;

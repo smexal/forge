@@ -43,15 +43,26 @@ class ManagePageEdit extends AbstractView {
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),
             'panel_right' => $this->rightFields(),
-            'saveurl' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'save')),
+            'saveurl' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'save'), true),
             'savetext' => i('Save Changes', 'core'),
             'pageid' => $this->page->id,
-            'lang' => $this->lang
+            'lang' => $this->lang,
+            'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true)
         ));
     }
 
     // displays the left form fields for the edit mask
     private function leftFields() {
+        $this->pages->addField(array(
+            'key' => 'language-switch',
+            'label' => i('Change to other language', 'core'),
+            'type' => 'linklist',
+            'links' => $this->getLanguageLinks(),
+            'boxed' => true,
+            'order' => 1,
+            'position' => 'right',
+            'hint' => false
+        ));
         $fields = $this->pages->fields();
         $return = '';
         foreach($fields as $field) {
@@ -60,6 +71,18 @@ class ManagePageEdit extends AbstractView {
             }
         }
         return $return;
+    }
+
+    private function getLanguageLinks() {
+        $languages = Localization::getActiveLanguages();
+        $links = [];
+        foreach($languages as $lang) {
+            $links[] = array(
+                'label' => i($lang['name'], 'core').' '.($lang['code'] == Localization::currentLang() ? i('(Current)') : ''),
+                'url' => Utils::getUrl(array("manage", "pages", "edit", $this->page->id)).'?lang='.$lang['code']
+            );
+        }
+        return $links;
     }
 
     // displays the right form fields for the edit mask
