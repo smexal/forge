@@ -3,7 +3,7 @@
 abstract class Module implements IModule {
   protected static $instances = array();
   abstract protected function setup();
-  
+
   // initial variables for module
   public $name = null;
   public $version = "0.1";
