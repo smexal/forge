@@ -44,7 +44,7 @@ var ajaxlinks = {
           $(this).unbind("click").on("click", function(e) {
               e.preventDefault();
               setLoading($(this), "revert");
-              if($(this).hasClass("confirm")) {
+              if($(this).hasClass("slidein") || $(this).hasClass("confirm")) {
                   // load sidebar with confirm dialog
                   $(this).data("open", $(this).attr('href'));
                   var the_overlay = overlay.prepare();

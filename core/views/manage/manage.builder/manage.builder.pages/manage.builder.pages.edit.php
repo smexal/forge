@@ -32,6 +32,10 @@ class ManagePageEdit extends AbstractView {
                 // update full view
                 $this->app->refresh("builder-content", $this->defaultContent());
             }
+            if(count($uri) > 1 && $uri[1] == 'add-element') {
+                // slidein required
+                return 'yes';
+            }
             return $this->defaultContent();
         }
     }
