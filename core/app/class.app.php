@@ -21,6 +21,13 @@ class App {
         return self::$instance;
     }
 
+    public function setUri($components = array()) {
+        if(!is_array($components)) {
+            return;
+        }
+        $this->uri_components = $components;
+    }
+
     private function managers() {
       if(is_null($this->eh)){
         $this->eh = EventHandler::instance();

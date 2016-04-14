@@ -34,7 +34,7 @@ class ManagePageEdit extends AbstractView {
             }
             if(count($uri) > 1 && $uri[1] == 'add-element') {
                 // slidein required
-                return 'yes';
+                return $this->getSubview(array("add-element", $this->page->id), $this);
             }
             return $this->defaultContent();
         }

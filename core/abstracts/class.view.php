@@ -43,13 +43,14 @@ abstract class AbstractView implements IView {
     }
 
     public function getSubview($uri_components, $parent) {
-      $vm = new ViewManager();
+      $vm = App::instance()->vm;
       if(!is_array($uri_components)) {
         $subview = $uri_components;
       } else {
         if(count($uri_components) == 0) {
           $subview = '';
         } else {
+          $this->app->setUri($uri_components);
           $subview = $uri_components[0];
         }
       }
