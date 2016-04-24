@@ -47,6 +47,7 @@ class Loader {
         $this->loadCollections();
         $this->loadModules();
         $this->loadViews();
+        $this->loadComponents();
         $this->loadApp();
     }
 
@@ -95,7 +96,7 @@ class Loader {
         if(file_exists($less)) {
             $pathinfo = pathinfo($less_path);
             $base_uri = str_replace($pathinfo['basename'], "", $less);
-            $css_file = str_replace(".less", ".css", $pathinfo['dirname']."/compiled/".$pathinfo['basename']);
+            $css_file = str_replace(".less", ".css", DOC_ROOT."core/css/compiled/".$pathinfo['basename']);
             $run = false;
             if(file_exists($css_file) && filemtime($less_path) > filemtime($css_file))
                 $run = true;
@@ -110,8 +111,12 @@ class Loader {
                   Logger::error("Problems while compiling less: Cannot write css file.");
                 }
             }
-            return WWW_ROOT.$base_uri."compiled/".$pathinfo['filename'].".css";
+            return WWW_ROOT."core/css/compiled/".$pathinfo['filename'].".css";
         }
+    }
+
+    public function loadComponents() {
+        $this->loadDirectory(CORE_ROOT."components/");
     }
 
     public function loadApp() {

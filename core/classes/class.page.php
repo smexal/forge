@@ -85,6 +85,44 @@ class Page {
       }
   }
 
+  public function addElement($type, $language, $parent=0, $position="end") {
+      $data = array(
+          'pageid' => $this->id,
+          'elementid' => $type,
+          'prefs' => '',
+          'content' => '',
+          'parent' => $parent,
+          'lang' => $language,
+          'position' => $position == 'end' ? $this->getNextElementPosition($parent, $language) : $position
+      );
+      $this->db->insert('page_elements', $data);
+  }
+
+  public function getElements($parent, $lang) {
+      $this->db->where('parent', $parent);
+      $this->db->where('lang', $lang);
+      $this->db->where('pageid', $this->id);
+      $elements = array();
+      foreach($this->db->get('page_elements') as $element) {
+          $element = App::instance()->com->instance($element['elementid'], array(
+              'id' => $element['id'],
+              'content' => $element['content'],
+              'prefs' => $element['prefs']
+          ));
+          if(!is_null($element)) {
+              array_push($elements, $element);
+          }
+      }
+      return $elements;
+  }
+
+  private function getNextElementPosition($parent, $language) {
+      $this->db->where('parent', $parent);
+      $this->db->where('pageid', $this->id);
+      $this->db->where('lang', $language);
+      $this->db->get('page_elements');
+      return $this->db->count;
+  }
 
 }
 

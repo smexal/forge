@@ -6,6 +6,7 @@ class App {
     public $vm = null;
     public $cm = null;
     public $mm = null;
+    public $com = null;
     public $user = null;
     public $stream = false;
     public $sticky = false;
@@ -44,6 +45,10 @@ class App {
       }
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();
+      }
+
+      if(is_null($this->com)) {
+          $this->com = new ComponentManager();
       }
     }
 

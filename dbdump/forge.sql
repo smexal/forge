@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 11. Apr 2016 um 22:30
+-- Erstellungszeit: 24. Apr 2016 um 13:48
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -424,6 +424,35 @@ INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, 
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `page_elements`
+--
+
+CREATE TABLE IF NOT EXISTS `page_elements` (
+`id` int(7) NOT NULL,
+  `pageid` int(7) NOT NULL,
+  `elementid` varchar(100) NOT NULL,
+  `prefs` text NOT NULL,
+  `content` text NOT NULL,
+  `parent` int(11) NOT NULL,
+  `lang` varchar(20) NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `page_elements`
+--
+
+INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `content`, `parent`, `lang`, `position`) VALUES
+(1, 45, 'row', '', '', 0, 'de', 0),
+(3, 45, 'row', '', '', 0, 'de', 1),
+(6, 45, 'row', '', '', 0, 'de', 4),
+(8, 45, 'row', '', '', 0, 'de', 6),
+(9, 45, 'row', '', '', 0, 'de', 7),
+(10, 45, 'row', '', '', 0, 'en', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `page_meta`
 --
 
@@ -441,7 +470,7 @@ CREATE TABLE IF NOT EXISTS `page_meta` (
 
 INSERT INTO `page_meta` (`id`, `keyy`, `lang`, `value`, `page`) VALUES
 (26, 'description', 'de', 'This is a description', 45),
-(33, 'title', 'en', 'xy', 45),
+(33, 'title', 'en', 'test', 45),
 (34, 'description', 'en', 'this is a title', 45),
 (35, 'title', 'de', 'abx', 45);
 
@@ -618,6 +647,12 @@ ALTER TABLE `pages`
  ADD PRIMARY KEY (`id`), ADD KEY `creator` (`creator`);
 
 --
+-- Indizes für die Tabelle `page_elements`
+--
+ALTER TABLE `page_elements`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `page_meta`
 --
 ALTER TABLE `page_meta`
@@ -680,6 +715,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 ALTER TABLE `pages`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT für Tabelle `page_elements`
+--
+ALTER TABLE `page_elements`
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --

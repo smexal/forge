@@ -1,0 +1,24 @@
+.components {
+  display: flex;
+  padding: 2%;
+}
+.components .comp {
+  max-width: 30%;
+  padding: 2%;
+  border-radius: 2px;
+  background-color: #f2f2f2;
+  border: 1px solid #d9d9d9;
+}
+.components .comp:hover {
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+  text-decoration: none;
+}
+.components .comp p {
+  color: #333;
+}
+.builder .container .elements .element {
+  margin: 1%;
+  padding: 1%;
+  background-color: #FFF;
+  border: 1px solid #e0e0e0;
+}

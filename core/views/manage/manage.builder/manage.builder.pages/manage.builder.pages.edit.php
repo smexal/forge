@@ -36,6 +36,18 @@ class ManagePageEdit extends AbstractView {
                 // slidein required
                 return $this->getSubview(array("add-element", $this->page->id), $this);
             }
+
+            if(count($uri) > 1 && $uri[1] == 'added-element') {
+                // add page element before redirect
+                $elementToAdd = $uri[2];
+                $lang = $this->lang;
+                if(array_key_exists('lang', $_GET)) {
+                    $lang = $_GET['lang'];
+                }
+                $this->page->addElement($elementToAdd, $lang);
+
+                return $this->app->redirect(Utils::getUrl(array("manage", "pages", "edit", $this->page->id), true));
+            }
             return $this->defaultContent();
         }
     }
@@ -51,8 +63,21 @@ class ManagePageEdit extends AbstractView {
             'savetext' => i('Save Changes', 'core'),
             'pageid' => $this->page->id,
             'lang' => $this->lang,
-            'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true)
+            'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true),
+            'elements' => $this->getElements(0, $this->lang)
         ));
+    }
+
+    private function getElements($parent, $lang) {
+        $elements = array();
+        foreach( $this->page->getElements(0, $lang) as $element ) {
+            array_push($elements, array(
+                'name' => $element->getPref('name'),
+                'type' => $element->getPref('id'),
+                'id' => $element->id
+            ));
+        }
+        return $elements;
     }
 
     // displays the left form fields for the edit mask

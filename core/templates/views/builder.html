@@ -16,6 +16,14 @@
                 {$panel_left}
                 <div class="builder">
                     <div class="container">
+                        <!-- display existing elements -->
+                        <div class="elements">
+                        {loop="$elements"}
+                            <div class="element {$value.type}" data-id="{$value.id}">
+                                <h4>{$value.name}</h4>
+                            </div>
+                        {/loop}
+                        </div>
                         <!-- add new item button -->
                         <a href="{$new_url}" class="add ajax slidein">
                             <span class="glyphicon glyphicon-plus"></span>
