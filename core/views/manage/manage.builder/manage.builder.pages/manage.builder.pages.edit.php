@@ -41,10 +41,14 @@ class ManagePageEdit extends AbstractView {
                 // add page element before redirect
                 $elementToAdd = $uri[2];
                 $lang = $this->lang;
+                $parent = 0;
+                if(array_key_exists('target', $_GET)) {
+                    $parent = $_GET['target'];
+                }
                 if(array_key_exists('lang', $_GET)) {
                     $lang = $_GET['lang'];
                 }
-                $this->page->addElement($elementToAdd, $lang);
+                $this->page->addElement($elementToAdd, $lang, $parent);
 
                 return $this->app->redirect(Utils::getUrl(array("manage", "pages", "edit", $this->page->id), true));
             }
@@ -64,7 +68,7 @@ class ManagePageEdit extends AbstractView {
             'pageid' => $this->page->id,
             'lang' => $this->lang,
             'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true),
-            'elements' => $this->getElements(0, $this->lang)
+            'elements' => $this->getElements(0, $this->lang),
         ));
     }
 
@@ -74,10 +78,24 @@ class ManagePageEdit extends AbstractView {
             array_push($elements, array(
                 'name' => $element->getPref('name'),
                 'type' => $element->getPref('id'),
-                'id' => $element->id
+                'id' => $element->id,
+                'container' => $element->getPref('container'),
+                'addcontent' => $element->getPref('container') ? $this->innerContentUrl($element->id) : '',
+                'edit' => array(
+                    'link' => Utils::getUrl(array('manage', 'pages', 'edit-element', $element->id)),
+                    'name' => i('Edit')
+                ),
+                'remove' => array(
+                    'link' => Utils::getUrl(array('manage', 'pages', 'remove-element', $element->id)),
+                    'name' => i('Remove')
+                )
             ));
         }
         return $elements;
+    }
+
+    private function innerContentUrl($target) {
+        return Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true, array('target' => $target));
     }
 
     // displays the left form fields for the edit mask

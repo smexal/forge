@@ -28,10 +28,15 @@ class Utils {
       return $user->get('username');
     }
 
-    public static function getUrl($params = array(), $addGET=false) {
+    public static function getUrl($params = array(), $addGET=false, $additionalGET = array()) {
         $query = '';
         if($addGET) {
-            $query = "?".http_build_query($_GET);
+            if(is_array($additionalGET)) {
+                $get = array_merge($_GET, $additionalGET);
+            } else {
+                $get = $_GET;
+            }
+            $query = "?".http_build_query($get);
             // remove ? if no get parameters are set.
             if(strlen($query) == 1)
                 $query = '';

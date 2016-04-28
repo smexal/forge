@@ -30,6 +30,14 @@ class PageBuilderManagement extends AbstractView {
             if(Auth::allowed($this->permission[2])) {
               return $this->getSubview($uri, $this);
             }
+          case 'edit-element':
+              if(Auth::allowed($this->permission[2])) {
+                return $this->getSubview($uri, $this);
+              }
+          case 'remove-element':
+              if(Auth::allowed($this->permission[2])) {
+                return $this->getSubview($uri, $this);
+              }
           default:
             break;
         }

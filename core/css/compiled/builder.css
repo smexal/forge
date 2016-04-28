@@ -22,3 +22,29 @@
   background-color: #FFF;
   border: 1px solid #e0e0e0;
 }
+.builder .container .elements .element:hover .self .actions > * {
+  opacity: 1;
+}
+.builder .container .elements .element .self h4 {
+  float: left;
+  margin-right: 10px;
+}
+.builder .container .elements .element .self .actions > * {
+  transition: 300ms;
+  opacity: 0;
+  float: left;
+  margin-top: 12px;
+  text-transform: uppercase;
+  line-height: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-right: 1px solid #f0f0f0;
+}
+.builder .container .elements .element .self .actions > *:last-child {
+  border-right: none;
+}
+.builder .container .elements .element .content.inner {
+  min-height: 0;
+}
