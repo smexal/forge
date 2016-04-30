@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 24. Apr 2016 um 13:48
+-- Erstellungszeit: 30. Apr 2016 um 14:26
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -436,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `parent` int(11) NOT NULL,
   `lang` varchar(20) NOT NULL,
   `position` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
@@ -448,7 +448,8 @@ INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `content`, `p
 (6, 45, 'row', '', '', 0, 'de', 4),
 (8, 45, 'row', '', '', 0, 'de', 6),
 (9, 45, 'row', '', '', 0, 'de', 7),
-(10, 45, 'row', '', '', 0, 'en', 0);
+(10, 45, 'row', '', '', 0, 'en', 0),
+(11, 45, 'row', '', '', 1, 'de', 0);
 
 -- --------------------------------------------------------
 
@@ -719,7 +720,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --
