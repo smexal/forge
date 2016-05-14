@@ -90,7 +90,6 @@ class Page {
           'pageid' => $this->id,
           'elementid' => $type,
           'prefs' => '',
-          'content' => '',
           'parent' => $parent,
           'lang' => $language,
           'position' => $position == 'end' ? $this->getNextElementPosition($parent, $language, $position_x) : $position,

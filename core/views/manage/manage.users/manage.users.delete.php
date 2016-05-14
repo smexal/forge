@@ -4,9 +4,6 @@ class ManageDeleteUser extends AbstractView {
     public $parent = 'users';
     public $permission = 'manage.users.delete';
     public $name = 'delete';
-    public $events = array(
-        'onDeleteUser'
-    );
 
     public function content($uri=array()) {
         if(is_array($uri)) {
@@ -47,13 +44,6 @@ class ManageDeleteUser extends AbstractView {
               "url" => Utils::getUrl(array("manage", "users", "delete", "cancel"))
           )
       ));
-    }
-
-    public function onDeleteUser($data) {
-        return 'delete';
-    }
-
-    public function form() {
     }
 }
 

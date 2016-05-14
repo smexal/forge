@@ -4,4 +4,9 @@
         <a href="{$edit.link}" class="ajax slidein">{$edit.name}</a>
         <a href="{$remove.link}" class="ajax slidein">{$remove.name}</a>
     </div>
+    {if="$custom"}
+        <div class="custom-content">
+            {$custom}
+        </div>
+    {/if}
 </div>

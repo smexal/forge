@@ -63,6 +63,19 @@ class ComponentManager {
         return $implementsIModule;
     }
 
+    public function deleteComponent($id) {
+        $db = App::instance()->db;
+        $db->where('id', $id);
+        $db->delete('page_elements');
+
+        $db->where('parent', $id);
+        $children = $db->get('page_elements');
+        foreach($children as $child) {
+            $this->deleteComponent($child['id']);
+        }
+        return true;
+    }
+
 }
 
 ?>

@@ -97,11 +97,21 @@ abstract class Component implements IComponent {
         $this->prefs['page_element_prefs'] = array(
             'pageid' => $db_el['pageid'],
             'prefs' => $db_el['prefs'],
-            'content' => $db_el['content'],
             'parent' => $db_el['parent'],
             'lang' => $db_el['lang'],
             'position' => $db_el['position']
         );
+    }
+
+    public function getField($key) {
+        if($this->savedPrefsReady()) {
+            $prefs = $this->getSavedPrefs();
+            if(array_key_exists($key, $prefs)) {
+                return $prefs[$key];
+            }
+            return false;
+        }
+        return false;
     }
 
     public function getChildrenBuilderContent($position_x) {
@@ -126,8 +136,13 @@ abstract class Component implements IComponent {
             'remove' => array(
                 'link' => Utils::getUrl(array('manage', 'pages', 'remove-element', $this->getId())),
                 'name' => i('Remove')
-            )
+            ),
+            'custom' => $this->customBuilderContent()
         ));
+    }
+
+    public function customBuilderContent() {
+        return false;
     }
 
     public function parent() {

@@ -22,6 +22,22 @@ class ComponentText extends Component {
         );
     }
 
+    public function customBuilderContent() {
+        Logger::debug($this->getField('content'));
+        return App::instance()->render(CORE_TEMPLATE_DIR."components/builder/", "text", array(
+            'text' => $this->shorten($this->getField('content'))
+        ));
+    }
+
+    private function shorten($text='') {
+        $text = strip_tags($text);
+        if(strlen($text > 100)) {
+            return substr($text, 0, 100)."...";
+        } else {
+            return $text;
+        }
+    }
+
 }
 
 ?>
