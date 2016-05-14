@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Mai 2016 um 15:28
+-- Erstellungszeit: 14. Mai 2016 um 17:05
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -55,8 +55,7 @@ CREATE TABLE IF NOT EXISTS `groups_users` (
 --
 
 INSERT INTO `groups_users` (`id`, `groupid`, `userid`) VALUES
-(1, 1, 21),
-(4, 1, 23);
+(1, 1, 21);
 
 -- --------------------------------------------------------
 
@@ -404,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `url` text NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'draft',
   `start` int(7) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `pages`
@@ -424,32 +423,27 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `pageid` int(7) NOT NULL,
   `elementid` varchar(100) NOT NULL,
   `prefs` text NOT NULL,
-  `content` text NOT NULL,
   `parent` int(11) NOT NULL,
   `lang` varchar(20) NOT NULL,
   `position` int(11) NOT NULL,
   `position_x` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
 --
 
-INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `content`, `parent`, `lang`, `position`, `position_x`) VALUES
-(1, 45, 'row', '{"row-format-custom":"","row-format":"4,4,4"}', '', 0, 'de', 0, 0),
-(3, 45, 'row', '{"row-format":"12","row-format-custom":"4,4,4"}', '', 0, 'de', 1, 0),
-(6, 45, 'row', '', '', 0, 'de', 4, 0),
-(8, 45, 'row', '{"row-format":"6,6","row-format-custom":""}', '', 0, 'de', 6, 0),
-(9, 45, 'row', '', '', 0, 'de', 7, 0),
-(10, 45, 'row', '', '', 0, 'en', 0, 0),
-(12, 45, 'text', '{"content":"<p>asdf<\\/p>"}', '', 1, 'de', 0, 1),
-(13, 45, 'text', '', '', 1, 'de', 1, 1),
-(14, 45, 'text', '', '', 1, 'de', 2, 1),
-(15, 45, 'text', '{"content":"<p>testasdf<\\/p>\\r\\n<p>sdfg<\\/p>"}', '', 1, 'de', 0, 0),
-(16, 45, 'row', '', '', 0, 'de', 5, 0),
-(17, 45, 'text', '', '', 3, 'de', 0, 1),
-(18, 45, 'text', '', '', 3, 'de', 0, 2),
-(19, 45, 'text', '', '', 1, 'de', 0, 2);
+INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `parent`, `lang`, `position`, `position_x`) VALUES
+(1, 45, 'row', '{"row-format-custom":"","row-format":"4,4,4"}', 0, 'de', 0, 0),
+(3, 45, 'row', '{"row-format":"12","row-format-custom":"4,4,4"}', 0, 'de', 1, 0),
+(6, 45, 'row', '', 0, 'de', 4, 0),
+(10, 45, 'row', '', 0, 'en', 0, 0),
+(12, 45, 'text', '{"content":"<p>asdf<\\/p>"}', 1, 'de', 0, 1),
+(13, 45, 'text', '{"content":"<p>test<\\/p>"}', 1, 'de', 1, 1),
+(14, 45, 'text', '', 1, 'de', 2, 1),
+(17, 45, 'text', '', 3, 'de', 0, 1),
+(18, 45, 'text', '', 3, 'de', 0, 2),
+(19, 45, 'text', '', 1, 'de', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -598,8 +592,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
-(21, 'Voyze', 'silas.maechler@gmail.com', '$2y$10$fZuEnlJkwpsLk1RndaIoM.9fTi4XfJIEqNaIhrpFUis3af8S1KQje'),
-(23, 'Procc', 'simon.pfister88@gmail.com', '$2y$10$Ec/qV/8Uzch.nKECRWpjG.eFx2hE6BOTCBX1bhpezcwMRvnjbjOnK');
+(21, 'Voyze', 'silas.maechler@gmail.com', '$2y$10$fZuEnlJkwpsLk1RndaIoM.9fTi4XfJIEqNaIhrpFUis3af8S1KQje');
 
 --
 -- Indizes der exportierten Tabellen
@@ -715,12 +708,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 -- AUTO_INCREMENT für Tabelle `pages`
 --
 ALTER TABLE `pages`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --
