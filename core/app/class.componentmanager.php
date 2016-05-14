@@ -2,8 +2,10 @@
 
 class ComponentManager {
     private $components = array();
+    private $app = null;
 
     public function __construct() {
+        $this->app = App::instance();
         $this->components = $this->getComponents();
     }
 
@@ -17,15 +19,31 @@ class ComponentManager {
         return $components;
     }
 
-    public function instance($type, $data=array()) {
+    public function getChildrenOf($id, $position_x = 0) {
+        $children = array();
+        $db = App::instance()->db;
+        $db->where('parent', $id);
+        $db->where('position_x', $position_x);
+        $components = $db->get('page_elements');
+        foreach($components as $comp) {
+            if($comp['parent'] == $id) {
+                array_push($children, $this->instance($comp['id']));
+            }
+        }
+        return $children;
+    }
+
+    public function instance($id, $type=null) {
+        if(is_null($type)) {
+            $this->app->db->where('id', $id);
+            $elm = $this->app->db->getOne('page_elements');
+            $type = $elm['elementid'];
+        }
         foreach($this->components as $component) {
             if($component->getPref('id') == $type) {
                 $instance_obj = get_class($component);
                 $instance = new $instance_obj();
-                if(! array_key_exists('id', $data)) {
-                    return;
-                }
-                $instance->id = $data['id'];
+                $instance->id = $id;
                 return $instance;
             }
         }

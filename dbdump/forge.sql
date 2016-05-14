@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 30. Apr 2016 um 14:26
+-- Erstellungszeit: 14. Mai 2016 um 15:28
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -387,13 +387,6 @@ CREATE TABLE IF NOT EXISTS `modules` (
   `module` varchar(150) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
---
--- Daten für Tabelle `modules`
---
-
-INSERT INTO `modules` (`id`, `module`) VALUES
-(15, 'ForgeNews');
-
 -- --------------------------------------------------------
 
 --
@@ -418,8 +411,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
 --
 
 INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`, `url`, `status`, `start`) VALUES
-(45, 0, 0, 'Testpage', '2016-04-06 19:49:12', '2016-04-06 19:49:12', 0, '', 'draft', 0),
-(46, 45, 0, 'A blub', '2016-04-06 20:03:24', '2016-04-06 20:03:24', 0, '', 'draft', 0);
+(45, 0, 0, 'Testpage', '2016-04-06 19:49:12', '2016-04-06 19:49:12', 0, '', 'draft', 0);
 
 -- --------------------------------------------------------
 
@@ -435,21 +427,29 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `content` text NOT NULL,
   `parent` int(11) NOT NULL,
   `lang` varchar(20) NOT NULL,
-  `position` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `position` int(11) NOT NULL,
+  `position_x` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
 --
 
-INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `content`, `parent`, `lang`, `position`) VALUES
-(1, 45, 'row', '', '', 0, 'de', 0),
-(3, 45, 'row', '', '', 0, 'de', 1),
-(6, 45, 'row', '', '', 0, 'de', 4),
-(8, 45, 'row', '', '', 0, 'de', 6),
-(9, 45, 'row', '', '', 0, 'de', 7),
-(10, 45, 'row', '', '', 0, 'en', 0),
-(11, 45, 'row', '', '', 1, 'de', 0);
+INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `content`, `parent`, `lang`, `position`, `position_x`) VALUES
+(1, 45, 'row', '{"row-format-custom":"","row-format":"4,4,4"}', '', 0, 'de', 0, 0),
+(3, 45, 'row', '{"row-format":"12","row-format-custom":"4,4,4"}', '', 0, 'de', 1, 0),
+(6, 45, 'row', '', '', 0, 'de', 4, 0),
+(8, 45, 'row', '{"row-format":"6,6","row-format-custom":""}', '', 0, 'de', 6, 0),
+(9, 45, 'row', '', '', 0, 'de', 7, 0),
+(10, 45, 'row', '', '', 0, 'en', 0, 0),
+(12, 45, 'text', '{"content":"<p>asdf<\\/p>"}', '', 1, 'de', 0, 1),
+(13, 45, 'text', '', '', 1, 'de', 1, 1),
+(14, 45, 'text', '', '', 1, 'de', 2, 1),
+(15, 45, 'text', '{"content":"<p>testasdf<\\/p>\\r\\n<p>sdfg<\\/p>"}', '', 1, 'de', 0, 0),
+(16, 45, 'row', '', '', 0, 'de', 5, 0),
+(17, 45, 'text', '', '', 3, 'de', 0, 1),
+(18, 45, 'text', '', '', 3, 'de', 0, 2),
+(19, 45, 'text', '', '', 1, 'de', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -720,7 +720,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --

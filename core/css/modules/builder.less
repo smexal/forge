@@ -26,11 +26,12 @@
             background-color: #FFF;
             border: 1px solid #e0e0e0;
 
-            &:hover .self .actions > * {
+            &:hover .self .actions > *,
+            .content.inner .comp-default:hover .actions > * {
                 opacity: 1;
             }
-            .self {
-                h4 {
+            .self, .content.inner {
+                h4, h5 {
                     float: left;
                     margin-right: 10px;
                 }
@@ -55,6 +56,18 @@
 
             .content.inner {
                 min-height: 0;
+                clear: both;
+                .comp-default {
+                    clear: both;
+                }
+                .row {
+                    clear: both;
+
+                    .add .glyphicon {
+                        font-size: 15px;
+                        height: 15px;
+                    }
+                }
             }
         }
     }

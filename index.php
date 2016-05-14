@@ -19,6 +19,7 @@ $loader->addStyle("core/css/layout.less", false, "manage");
 $loader->addStyle("core/css/elements.less", false, "manage");
 
 $loader->addStyle("core/css/modules/builder.less", false, "manage");
+$loader->addStyle("core/css/modules/form.less", false, "manage");
 
 $loader->addStyle("core/css/loader.less", false, "manage");
 $loader->addStyle("core/css/fonts.less", false, "manage");

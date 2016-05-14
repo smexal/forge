@@ -42,6 +42,7 @@ function redirect(target, special) {
         hideLoading(container, function() {
             if(special=="in_overlay") {
                 overlay.setContent($(data).find(".ajax-reload-container"), $(".overlay-container"));
+                $(document).trigger("ajaxReload");
             } else {
                 overlay.hide();
                 container.html($(data).find(".ajax-reload-container").html());

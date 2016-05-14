@@ -42,13 +42,17 @@ class ManagePageEdit extends AbstractView {
                 $elementToAdd = $uri[2];
                 $lang = $this->lang;
                 $parent = 0;
+                $position_x = 0;
                 if(array_key_exists('target', $_GET)) {
                     $parent = $_GET['target'];
                 }
                 if(array_key_exists('lang', $_GET)) {
                     $lang = $_GET['lang'];
                 }
-                $this->page->addElement($elementToAdd, $lang, $parent);
+                if(array_key_exists('inner', $_GET)) {
+                    $position_x = $_GET['inner'];
+                }
+                $this->page->addElement($elementToAdd, $lang, $parent, "end", $position_x);
 
                 return $this->app->redirect(Utils::getUrl(array("manage", "pages", "edit", $this->page->id), true));
             }
@@ -88,7 +92,8 @@ class ManagePageEdit extends AbstractView {
                 'remove' => array(
                     'link' => Utils::getUrl(array('manage', 'pages', 'remove-element', $element->id)),
                     'name' => i('Remove')
-                )
+                ),
+                'content' => $element->getBuilderContent()
             ));
         }
         return $elements;

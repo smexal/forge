@@ -28,6 +28,9 @@ class Fields {
     }
 
     public static function text($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
             'name' => $args['key'],
             'id' => $args['key'],
@@ -37,6 +40,49 @@ class Fields {
             'noautocomplete' => false,
             'value' => $value,
             'hint' => $args['hint']
+        ));
+    }
+
+    public static function select($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "select", array(
+            'name' => $args['key'],
+            'id' => $args['key'],
+            'label' => $args['label'],
+            'values' => $args['values'],
+            'selected' => $value,
+            'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
+        ));
+    }
+
+    public static function wysiwyg($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "tinymce", array(
+            'id' => $args['key'],
+            'name' => $args['key'],
+            'label' => $args['label'],
+            'value' => $value,
+            'hint' => $args['hint'],
+            'disabled' => false
+        ));
+    }
+
+    public static function button($name) {
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "submit", array(
+            'text' => $name,
+            'level' => 'primary',
+            'hor' => false
+        ));
+    }
+
+    public static function hidden($args) {
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "hidden", array(
+            'name' => $args['name'],
+            'value' => $args['value']
         ));
     }
 

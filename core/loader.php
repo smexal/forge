@@ -156,6 +156,8 @@ class Loader {
       $this->addScript("core/scripts/externals/bootstrap.js");
       $this->addScript("core/scripts/externals/typeahead.js");
       $this->addScript("core/scripts/externals/bootstrap-tagsinput.min.js");
+      $this->addScript("core/scripts/externals/tinymce/tinymce.min.js");
+      $this->addScript("core/scripts/tinymce.js");
       $this->addScript("core/scripts/helpers.js");
       $this->addScript("core/scripts/ajaxlinks.js");
       $this->addScript("core/scripts/forms.js");

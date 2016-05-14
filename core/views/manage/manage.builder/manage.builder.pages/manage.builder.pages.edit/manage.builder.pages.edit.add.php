@@ -9,7 +9,10 @@ class ManagePagesEditAdd extends AbstractView {
 
     public function content($parts = array()) {
         $this->page = new Page($parts[0]);
-        $level = 'root'; // DEFINE CORRECTLY
+        $level = 'root';
+        if(is_array($_GET) && array_key_exists('inner', $_GET)) {
+            $level = 'inner';
+        }
 
         return App::instance()->render(CORE_TEMPLATE_DIR."views/parts/", "builder.addelement", array(
             "title" => i("Add Element", "core"),

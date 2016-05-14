@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label" for="{$id}">{$label}</label>
+    <select class="form-control" name="{$name}" id="{$id}">
+        {loop="$values"}
+            <option value="{$key}" {if="$key==$selected"}selected{/if}>{$value}</option>
+        {/loop}
+    </select>
+    {if="$hint"}<small>{$hint}</small>{/if}
+</div>

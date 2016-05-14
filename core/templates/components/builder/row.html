@@ -1,0 +1,10 @@
+<div class="row">
+    {loop="$rows"}
+        <div class="col-lg-{$value.width}">
+            {$value.content}
+            <a href="{$value.add}" class="add ajax slidein">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+    {/loop}
+</div>
