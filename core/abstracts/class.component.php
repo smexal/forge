@@ -108,6 +108,9 @@ abstract class Component implements IComponent {
         $com = App::instance()->com;
         $content = '';
         foreach($com->getChildrenOf($this->getId(), $position_x) as $component) {
+            if(is_null($component)) {
+                continue;
+            }
             $content.= $component->getBuilderContent();
         }
         return $content;
