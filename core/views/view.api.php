@@ -11,17 +11,24 @@ class ApiView extends AbstractView {
       $part = array_shift($query);
       switch($part) {
         case 'users':
-          return $this->users($query);
+            return $this->users($query);
         case 'pages':
-          return $this->pages($query);
+            return $this->pages($query);
+        case 'media':
+            return $this->media($query);
         default:
           return json_encode(array("Unknown Object Query" => $part));
       }
     }
 
+    private function media($query) {
+        $mediamanager = new MediaManager();
+        $mediamanager->create($_FILES['file']);
+    }
+
     private function pages($query) {
       if(count($query) == 0) {
-        // no information about a specific user is requred. return all.
+        // no information about a specific page is requred. return all.
         return json_encode(Pages::getAll());
       } else {
         if($query[0] == 'search') {

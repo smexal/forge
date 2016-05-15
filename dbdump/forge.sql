@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Mai 2016 um 17:05
+-- Erstellungszeit: 16. Mai 2016 um 00:24
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `groups_users` (
 `id` int(11) NOT NULL,
   `groupid` int(11) NOT NULL,
   `userid` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `groups_users`
@@ -378,13 +378,57 @@ INSERT INTO `language_strings_translations` (`id`, `stringid`, `translation`, `l
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `media`
+--
+
+CREATE TABLE IF NOT EXISTS `media` (
+`id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mime` varchar(150) NOT NULL,
+  `autor` int(11) NOT NULL,
+  `path` varchar(200) NOT NULL,
+  `title` varchar(400) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `media`
+--
+
+INSERT INTO `media` (`id`, `name`, `date`, `mime`, `autor`, `path`, `title`) VALUES
+(3, '1d0660871c3563548cb38bfa3a70434f.jpg', '2016-05-15 23:28:43', 'image/jpeg', 21, '2016/05/', 'me3.jpg'),
+(4, '54e999f1d05082111d86505bf785d421.jpg', '2016-05-15 23:28:48', 'image/jpeg', 21, '2016/05/', 'ingress_google_resistance_portal_niantic_hd-wallpaper-1278285.jpg'),
+(5, '04e5951cceb9a98eb10740948f251d42.jpg', '2016-05-15 23:45:25', 'image/jpeg', 21, '2016/05/', '6932873-angel-knight.jpg'),
+(6, '40e67ffd6bdc4f25aec15b66f490d98e.png', '2016-05-15 23:45:26', 'image/png', 21, '2016/05/', 'break-screen-butterlan.png'),
+(7, 'df8f8f2dbe9001dc50ed231133658252.png', '2016-05-15 23:45:26', 'image/png', 21, '2016/05/', 'gameoverlay.png'),
+(8, '41aa3e8ea49d4f4abdd87ac12a802f07.jpg', '2016-05-15 23:45:26', 'image/jpeg', 21, '2016/05/', 'Golden Gate Bridge, Marin Headlands, San Francisco, California.jpg'),
+(9, '0971f715cc48d1595d0d6dce9fdcea25.png', '2016-05-15 23:45:38', 'image/png', 21, '2016/05/', 'butterlan-tv-overlay.png'),
+(10, '2c5a0f4beb5fa0d324061d989f06111b.png', '2016-05-15 23:45:38', 'image/png', 21, '2016/05/', 'break-screen-butterlan.png'),
+(11, '5dee06aa19cda6144966e40b090adb84.png', '2016-05-15 23:45:38', 'image/png', 21, '2016/05/', 'gameoverlay.png'),
+(12, '518be1855d848e865ebfe33ead3c07b0.jpg', '2016-05-15 23:45:38', 'image/jpeg', 21, '2016/05/', 'Golden Gate Bridge, Marin Headlands, San Francisco, California.jpg'),
+(13, '4abd4bd4610b9499d96de7b006a70ac4.jpg', '2016-05-15 23:45:38', 'image/jpeg', 21, '2016/05/', 'ingress_google_resistance_portal_niantic_hd-wallpaper-1278285.jpg'),
+(14, '2575b3fb7d93880e6212bce25d6430eb.png', '2016-05-15 23:45:39', 'image/png', 21, '2016/05/', 'logo.png'),
+(15, '608b6d8c0dbbb7fb2e10bbed7b7c03bd.jpg', '2016-05-15 23:45:39', 'image/jpeg', 21, '2016/05/', 'me.jpg'),
+(16, '404d096b323dd591ddfddaa575815c63.jpg', '2016-05-15 23:45:39', 'image/jpeg', 21, '2016/05/', 'me2.jpg'),
+(17, '68c6437d4c3a6eae493ad0548f143fe7.jpg', '2016-05-15 23:45:39', 'image/jpeg', 21, '2016/05/', 'me3.jpg'),
+(18, '93f08c8eab8094182b55d8630b886215.png', '2016-05-15 23:45:39', 'image/png', 21, '2016/05/', 'palette.png'),
+(19, '9bc3cce8606eda8f1f1e9c0ee6e6e37d.jpg', '2016-05-15 23:46:21', 'image/jpeg', 21, '2016/05/', '6932873-angel-knight.jpg'),
+(20, 'ba315d5dceccb0eca296a43f08014256.png', '2016-05-15 23:46:22', 'image/png', 21, '2016/05/', 'break-screen-butterlan.png'),
+(21, 'b8261c79b8e63ed0c9251cfbed7711e4.png', '2016-05-15 23:46:22', 'image/png', 21, '2016/05/', 'butterlan-tv-overlay.png'),
+(22, 'e03b5803887c096083fb9bf73b46ccf3.png', '2016-05-15 23:46:22', 'image/png', 21, '2016/05/', 'gameoverlay.png'),
+(23, 'fa8813340f610e25468df44bce728df4.jpg', '2016-05-15 23:46:22', 'image/jpeg', 21, '2016/05/', 'Golden Gate Bridge, Marin Headlands, San Francisco, California.jpg'),
+(24, '833b7f6f92f73a3b8640cff1e0071c78.mp3', '2016-05-15 23:48:18', 'audio/mpeg', 21, '2016/05/', '00 - Jingle und Ansage.mp3');
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `modules`
 --
 
 CREATE TABLE IF NOT EXISTS `modules` (
 `id` int(11) NOT NULL,
   `module` varchar(150) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -403,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `url` text NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'draft',
   `start` int(7) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `pages`
@@ -427,7 +471,7 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `lang` varchar(20) NOT NULL,
   `position` int(11) NOT NULL,
   `position_x` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
@@ -478,7 +522,7 @@ INSERT INTO `page_meta` (`id`, `keyy`, `lang`, `value`, `page`) VALUES
 CREATE TABLE IF NOT EXISTS `permissions` (
 `id` int(7) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions`
@@ -519,7 +563,8 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 (59, 'manage.pages.delete'),
 (60, 'manage.builder.pages.delete'),
 (61, 'manage.builder.pages.add'),
-(62, 'manage.builder.pages.edit');
+(62, 'manage.builder.pages.edit'),
+(63, 'manage.media');
 
 -- --------------------------------------------------------
 
@@ -531,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `permissions_groups` (
 `id` int(7) NOT NULL,
   `groupid` int(7) NOT NULL,
   `permissionid` int(7) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions_groups`
@@ -572,7 +617,8 @@ INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
 (37, 1, 60),
 (38, 1, 61),
 (39, 1, 62),
-(40, 1, 59);
+(40, 1, 59),
+(41, 1, 63);
 
 -- --------------------------------------------------------
 
@@ -585,7 +631,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `users`
@@ -627,6 +673,12 @@ ALTER TABLE `language_strings`
 --
 ALTER TABLE `language_strings_translations`
  ADD PRIMARY KEY (`id`), ADD KEY `stringid` (`stringid`), ADD KEY `languageid` (`languageid`);
+
+--
+-- Indizes für die Tabelle `media`
+--
+ALTER TABLE `media`
+ ADD PRIMARY KEY (`id`), ADD KEY `autor` (`autor`);
 
 --
 -- Indizes für die Tabelle `modules`
@@ -683,7 +735,7 @@ MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT für Tabelle `groups_users`
 --
 ALTER TABLE `groups_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT für Tabelle `languages`
 --
@@ -700,20 +752,25 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=173;
 ALTER TABLE `language_strings_translations`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=91;
 --
+-- AUTO_INCREMENT für Tabelle `media`
+--
+ALTER TABLE `media`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+--
 -- AUTO_INCREMENT für Tabelle `modules`
 --
 ALTER TABLE `modules`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `pages`
 --
 ALTER TABLE `pages`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --
@@ -723,17 +780,17 @@ MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 -- AUTO_INCREMENT für Tabelle `permissions`
 --
 ALTER TABLE `permissions`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
 --
 -- AUTO_INCREMENT für Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- Constraints der exportierten Tabellen
 --
