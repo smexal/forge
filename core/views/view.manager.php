@@ -13,7 +13,8 @@ class Manager extends AbstractView {
         5 => 'manage.locales',
         6 => 'manage.configuration',
         7 => 'manage.builder.pages',
-        8 => 'manage.builder.navigation'
+        8 => 'manage.builder.navigation',
+        9 => 'manage.media'
     );
 
     public function content($uri=array()) {
@@ -53,6 +54,10 @@ class Manager extends AbstractView {
 
         if(Auth::allowed($this->permissions[4])) {
           $this->navigation->add('modules', i('Modules'), Utils::getUrl(array('manage', 'modules')), $panelLeft);
+        }
+
+        if(Auth::allowed($this->permissions[9])) {
+          $this->navigation->add('media', i('Media'), Utils::getUrl(array('manage', 'media')), $panelLeft);
         }
 
         $panelRight = $this->navigation->addPanel('right');

@@ -31,8 +31,8 @@ class ComponentText extends Component {
 
     private function shorten($text='') {
         $text = strip_tags($text);
-        if(strlen($text > 100)) {
-            return substr($text, 0, 100)."...";
+        if(strlen($text) >= 150) {
+            return substr($text, 0, 150)."...";
         } else {
             return $text;
         }

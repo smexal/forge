@@ -58,6 +58,12 @@
 .builder .container .elements .element .content.inner .comp-default {
   clear: both;
 }
+.builder .container .elements .element .content.inner .comp-default .custom-content {
+  clear: both;
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
+}
 .builder .container .elements .element .content.inner .row {
   clear: both;
 }
