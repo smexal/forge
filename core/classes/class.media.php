@@ -12,22 +12,29 @@ class Media {
     public function __construct($id=null, $data=array()) {
         if(!is_null($id)) {
             $this->id = $id;
+            if(count($data) > 0) {
+                $this->init($data);
+            } else {
+                App::instance()->db->where('id', $this->id);
+                $this->init(App::instance()->db->getOne('media'));
+            }
         }
-        if(count($data) > 0) {
-            if(array_key_exists('name', $data)) {
-                $this->name = $data['name'];
-            }
-            if(array_key_exists('mime', $data)) {
-                $this->mime = $data['mime'];
-            }
-            if(array_key_exists('title', $data)) {
-                $this->title = $data['title'];
-            }
-            if(array_key_exists('path', $data)) {
-                $this->rel_path = $data['path'];
-                $this->abs_path = UPLOAD_DIR.$data['path'];
-                $this->url = UPLOAD_WWW.$data['path'];
-            }
+    }
+
+    public function init($data) {
+        if(array_key_exists('name', $data)) {
+            $this->name = $data['name'];
+        }
+        if(array_key_exists('mime', $data)) {
+            $this->mime = $data['mime'];
+        }
+        if(array_key_exists('title', $data)) {
+            $this->title = $data['title'];
+        }
+        if(array_key_exists('path', $data)) {
+            $this->rel_path = $data['path'];
+            $this->abs_path = UPLOAD_DIR.$data['path'];
+            $this->url = UPLOAD_WWW.$data['path'];
         }
     }
 

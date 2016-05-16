@@ -14,7 +14,9 @@ Dropzone.options.forgedropzone = {
 
 var forge_dropzone = {
     init : function() {
-        $("#forgedropzone").dropzone();
+        try {
+            $("#forgedropzone").dropzone();
+        } catch(e) { /* not important error, that it is already initiated. */ }
     }
 }
 //$(document).ready(forge_dropzone.init);

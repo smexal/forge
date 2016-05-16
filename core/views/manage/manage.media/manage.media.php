@@ -8,15 +8,15 @@ class MediaManagent extends AbstractView {
     );
 
     public function content($uri=array()) {
-      if(count($uri) > 0) {
-          return $this->getSubview($uri, $this);
-      } else {
-          return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
-              'title' => i('Media'),
-              'global_actions' => '',
-              'content' => $this->ownContent()
-          ));
-      }
+        if(count($uri) > 0) {
+            return $this->getSubview($uri, $this);
+        } else {
+            return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
+                'title' => i('Media'),
+                'global_actions' => '',
+                'content' => $this->ownContent()
+            ));
+        }
     }
 
     private function ownContent() {
