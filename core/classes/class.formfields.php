@@ -43,6 +43,30 @@ class Fields {
         ));
     }
 
+    public static function image($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        $mediamanager = new MediaManager();
+        $images = $mediamanager->get('images');
+        $media_array = array();
+        foreach($images as $media) {
+            array_push($media_array, array(
+                'image' => $media->getUrl(),
+                'title' => $media->title,
+                'active' => $value == $media->id ? true : false,
+                'id' => $media->id
+            ));
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'imageselection', array(
+            'name' => $args['key'],
+            'selection_url' => Utils::getUrl(array('api', 'media', 'list-images')),
+            'selection_title' => i('Choose image'),
+            'value' => $value,
+            'media' => $media_array
+        ));
+    }
+
     public static function select($args, $value='') {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];

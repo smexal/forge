@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 16. Mai 2016 um 00:24
+-- Erstellungszeit: 17. Mai 2016 um 22:01
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -389,35 +389,16 @@ CREATE TABLE IF NOT EXISTS `media` (
   `autor` int(11) NOT NULL,
   `path` varchar(200) NOT NULL,
   `title` varchar(400) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `media`
 --
 
 INSERT INTO `media` (`id`, `name`, `date`, `mime`, `autor`, `path`, `title`) VALUES
-(3, '1d0660871c3563548cb38bfa3a70434f.jpg', '2016-05-15 23:28:43', 'image/jpeg', 21, '2016/05/', 'me3.jpg'),
-(4, '54e999f1d05082111d86505bf785d421.jpg', '2016-05-15 23:28:48', 'image/jpeg', 21, '2016/05/', 'ingress_google_resistance_portal_niantic_hd-wallpaper-1278285.jpg'),
-(5, '04e5951cceb9a98eb10740948f251d42.jpg', '2016-05-15 23:45:25', 'image/jpeg', 21, '2016/05/', '6932873-angel-knight.jpg'),
-(6, '40e67ffd6bdc4f25aec15b66f490d98e.png', '2016-05-15 23:45:26', 'image/png', 21, '2016/05/', 'break-screen-butterlan.png'),
-(7, 'df8f8f2dbe9001dc50ed231133658252.png', '2016-05-15 23:45:26', 'image/png', 21, '2016/05/', 'gameoverlay.png'),
-(8, '41aa3e8ea49d4f4abdd87ac12a802f07.jpg', '2016-05-15 23:45:26', 'image/jpeg', 21, '2016/05/', 'Golden Gate Bridge, Marin Headlands, San Francisco, California.jpg'),
-(9, '0971f715cc48d1595d0d6dce9fdcea25.png', '2016-05-15 23:45:38', 'image/png', 21, '2016/05/', 'butterlan-tv-overlay.png'),
-(10, '2c5a0f4beb5fa0d324061d989f06111b.png', '2016-05-15 23:45:38', 'image/png', 21, '2016/05/', 'break-screen-butterlan.png'),
-(11, '5dee06aa19cda6144966e40b090adb84.png', '2016-05-15 23:45:38', 'image/png', 21, '2016/05/', 'gameoverlay.png'),
-(12, '518be1855d848e865ebfe33ead3c07b0.jpg', '2016-05-15 23:45:38', 'image/jpeg', 21, '2016/05/', 'Golden Gate Bridge, Marin Headlands, San Francisco, California.jpg'),
 (13, '4abd4bd4610b9499d96de7b006a70ac4.jpg', '2016-05-15 23:45:38', 'image/jpeg', 21, '2016/05/', 'ingress_google_resistance_portal_niantic_hd-wallpaper-1278285.jpg'),
-(14, '2575b3fb7d93880e6212bce25d6430eb.png', '2016-05-15 23:45:39', 'image/png', 21, '2016/05/', 'logo.png'),
-(15, '608b6d8c0dbbb7fb2e10bbed7b7c03bd.jpg', '2016-05-15 23:45:39', 'image/jpeg', 21, '2016/05/', 'me.jpg'),
-(16, '404d096b323dd591ddfddaa575815c63.jpg', '2016-05-15 23:45:39', 'image/jpeg', 21, '2016/05/', 'me2.jpg'),
-(17, '68c6437d4c3a6eae493ad0548f143fe7.jpg', '2016-05-15 23:45:39', 'image/jpeg', 21, '2016/05/', 'me3.jpg'),
-(18, '93f08c8eab8094182b55d8630b886215.png', '2016-05-15 23:45:39', 'image/png', 21, '2016/05/', 'palette.png'),
-(19, '9bc3cce8606eda8f1f1e9c0ee6e6e37d.jpg', '2016-05-15 23:46:21', 'image/jpeg', 21, '2016/05/', '6932873-angel-knight.jpg'),
-(20, 'ba315d5dceccb0eca296a43f08014256.png', '2016-05-15 23:46:22', 'image/png', 21, '2016/05/', 'break-screen-butterlan.png'),
-(21, 'b8261c79b8e63ed0c9251cfbed7711e4.png', '2016-05-15 23:46:22', 'image/png', 21, '2016/05/', 'butterlan-tv-overlay.png'),
-(22, 'e03b5803887c096083fb9bf73b46ccf3.png', '2016-05-15 23:46:22', 'image/png', 21, '2016/05/', 'gameoverlay.png'),
 (23, 'fa8813340f610e25468df44bce728df4.jpg', '2016-05-15 23:46:22', 'image/jpeg', 21, '2016/05/', 'Golden Gate Bridge, Marin Headlands, San Francisco, California.jpg'),
-(24, '833b7f6f92f73a3b8640cff1e0071c78.mp3', '2016-05-15 23:48:18', 'audio/mpeg', 21, '2016/05/', '00 - Jingle und Ansage.mp3');
+(25, '0defe610c8aa4671391331516760941f.jpg', '2016-05-17 21:03:16', 'image/jpeg', 21, '2016/05/', 'Outer-Space-Wallpaper.jpg');
 
 -- --------------------------------------------------------
 
@@ -471,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `lang` varchar(20) NOT NULL,
   `position` int(11) NOT NULL,
   `position_x` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
@@ -479,15 +460,12 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
 
 INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `parent`, `lang`, `position`, `position_x`) VALUES
 (1, 45, 'row', '{"row-format-custom":"","row-format":"4,4,4"}', 0, 'de', 0, 0),
-(3, 45, 'row', '{"row-format":"12","row-format-custom":"4,4,4"}', 0, 'de', 1, 0),
 (6, 45, 'row', '', 0, 'de', 4, 0),
 (10, 45, 'row', '', 0, 'en', 0, 0),
 (12, 45, 'text', '{"content":"<p>asdf<\\/p>"}', 1, 'de', 0, 1),
 (13, 45, 'text', '{"content":"<p>test<\\/p>"}', 1, 'de', 1, 1),
-(14, 45, 'text', '', 1, 'de', 2, 1),
-(17, 45, 'text', '', 3, 'de', 0, 1),
-(18, 45, 'text', '', 3, 'de', 0, 2),
-(19, 45, 'text', '', 1, 'de', 0, 2);
+(20, 45, 'image', '{"image":"13"}', 1, 'de', 0, 0),
+(21, 45, 'image', '{"image":"23"}', 1, 'de', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -755,7 +733,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=91;
 -- AUTO_INCREMENT für Tabelle `media`
 --
 ALTER TABLE `media`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT für Tabelle `modules`
 --
@@ -770,7 +748,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --

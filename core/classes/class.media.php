@@ -8,6 +8,7 @@ class Media {
     public $mime = null;
     public $id = null;
     public $url = null;
+    public $alt = null;
 
     public function __construct($id=null, $data=array()) {
         if(!is_null($id)) {
@@ -64,6 +65,32 @@ class Media {
         } else {
             Logger::error('There was an error, uploading the file: `'.UPLOAD_DIR.$this->rel_path.$this->name.'` with title `'.$this->title.'`');
         }
+    }
+
+    public function isImage() {
+        if(strstr($this->mime, "image/")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function delete() {
+        if(! $this->id) {
+            return;
+        }
+        if(unlink($this->abs_path.$this->name)) {
+            App::instance()->db->where('id', $this->id);
+            App::instance()->db->delete('media');
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function getSize() {
+        return human_filesize(filesize($this->abs_path.$this->name), 2);
     }
 
     public function getMimeType() {

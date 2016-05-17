@@ -8,7 +8,7 @@
 .media-library > a {
   display: block;
   width: 180px;
-  height: 120px;
+  height: auto;
   margin-right: 20px;
   margin-bottom: 20px;
   overflow: hidden;

@@ -26,8 +26,9 @@ a {
   color: darken(@primary_color, 10%);
   transition: 300ms;
 
-  &:hover {
+  &:hover, &:active, &:visited, &:focus {
     color: @primary_color;
+    text-decoration: none;
   }
 }
 

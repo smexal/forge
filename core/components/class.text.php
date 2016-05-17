@@ -23,7 +23,6 @@ class ComponentText extends Component {
     }
 
     public function customBuilderContent() {
-        Logger::debug($this->getField('content'));
         return App::instance()->render(CORE_TEMPLATE_DIR."components/builder/", "text", array(
             'text' => $this->shorten($this->getField('content'))
         ));

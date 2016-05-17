@@ -23,7 +23,9 @@ class ApiView extends AbstractView {
 
     private function media($query) {
         $mediamanager = new MediaManager();
-        $mediamanager->create($_FILES['file']);
+        if($query[0] == 'upload') {
+            $mediamanager->create($_FILES['file']);
+        }
     }
 
     private function pages($query) {

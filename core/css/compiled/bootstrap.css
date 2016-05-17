@@ -27,8 +27,12 @@ a {
   color: #15a563;
   transition: 300ms;
 }
-a:hover {
+a:hover,
+a:active,
+a:visited,
+a:focus {
   color: #1bd27e;
+  text-decoration: none;
 }
 .btn {
   border-radius: 2px;

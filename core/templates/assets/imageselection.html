@@ -1,0 +1,13 @@
+<input type="hidden" value="{$value}" id="{$name}" name="{$name}">
+<div class="imageselection">
+    <div class="media-library">
+        {loop="$media"}
+            <a href="javascript://"
+                class="set-value{if="$value.active"} active{/if}"
+                data-target="{$name}"
+                data-value="{$value.id}">
+                <img src="{$value.image}" title="{$value.title}" />
+            </a>
+        {/loop}
+    </div>
+</div>

@@ -2,6 +2,7 @@ var forms = {
     init : function() {
         forms.ajax();
         forms.tags();
+        forms.helperlinks();
     },
 
     tags : function() {
@@ -53,6 +54,14 @@ var forms = {
               source: substringMatcher(values)
           }
       });
+    },
+
+    helperlinks : function() {
+        $("a.set-value").unbind("click").on('click', function() {
+            $("input#" + $(this).data('target')).val($(this).data('value'));
+            $(this).parent().find(".active").removeClass('active');
+            $(this).addClass('active');
+        });
     },
 
     ajax : function() {
