@@ -121,6 +121,10 @@ class Page {
       return $this->db->count;
   }
 
+  public function render() {
+      return $this->getMeta('title');
+  }
+
 }
 
 ?>

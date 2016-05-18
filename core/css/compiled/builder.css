@@ -19,6 +19,9 @@
 .components .comp p {
   color: #333;
 }
+.builder .container {
+  width: auto;
+}
 .builder .container .elements .element {
   margin: 1%;
   padding: 1%;

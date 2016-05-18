@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 17. Mai 2016 um 22:01
+-- Erstellungszeit: 18. Mai 2016 um 22:49
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -428,14 +428,16 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `url` text NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'draft',
   `start` int(7) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `pages`
 --
 
 INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`, `url`, `status`, `start`) VALUES
-(45, 0, 0, 'Testpage', '2016-04-06 19:49:12', '2016-04-06 19:49:12', 0, '', 'draft', 0);
+(45, 0, 0, 'Testpage', '2016-04-06 19:49:12', '2016-04-06 19:49:12', 0, '', 'draft', 0),
+(46, 0, 0, 'Another Page', '2016-05-18 22:07:43', '2016-05-18 22:07:43', 0, '', 'draft', 0),
+(47, 46, 0, 'Some Pageee', '2016-05-18 22:07:54', '2016-05-18 22:07:54', 0, '', 'draft', 0);
 
 -- --------------------------------------------------------
 
@@ -452,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `lang` varchar(20) NOT NULL,
   `position` int(11) NOT NULL,
   `position_x` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
@@ -489,7 +491,7 @@ INSERT INTO `page_meta` (`id`, `keyy`, `lang`, `value`, `page`) VALUES
 (26, 'description', 'de', 'This is a description', 45),
 (33, 'title', 'en', 'test', 45),
 (34, 'description', 'en', 'this is a title', 45),
-(35, 'title', 'de', 'abx', 45);
+(35, 'title', 'de', 'This is my page.', 45);
 
 -- --------------------------------------------------------
 
@@ -601,6 +603,25 @@ INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `settings`
+--
+
+CREATE TABLE IF NOT EXISTS `settings` (
+`id` int(11) NOT NULL,
+  `keey` varchar(500) NOT NULL,
+  `value` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `settings`
+--
+
+INSERT INTO `settings` (`id`, `keey`, `value`) VALUES
+(1, 'home_page', '45');
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `users`
 --
 
@@ -695,6 +716,12 @@ ALTER TABLE `permissions_groups`
  ADD PRIMARY KEY (`id`), ADD KEY `groupid` (`groupid`), ADD KEY `permissionid` (`permissionid`);
 
 --
+-- Indizes für die Tabelle `settings`
+--
+ALTER TABLE `settings`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
@@ -743,12 +770,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT für Tabelle `pages`
 --
 ALTER TABLE `pages`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --
@@ -764,6 +791,11 @@ MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
 --
 ALTER TABLE `permissions_groups`
 MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+--
+-- AUTO_INCREMENT für Tabelle `settings`
+--
+ALTER TABLE `settings`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --

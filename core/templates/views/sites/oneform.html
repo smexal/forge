@@ -1,0 +1,18 @@
+<div class="maxed ajax-reload-container">
+    <form method="post" action="{$action}" class="ajax" data-target="">
+        <input type="hidden" name="event" value="{$event}">
+        <div class="row heading-row page-header">
+            <div class="col-lg-8"><h1>{$title}</h1></div>
+            <div class="col-lg-4 align-right">{$global_actions}
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+              {$left}
+          </div>
+          <div class="col-lg-6">
+            {$right}
+          </div>
+        </div>
+    </form>
+</div>

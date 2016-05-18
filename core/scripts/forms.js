@@ -66,7 +66,7 @@ var forms = {
 
     ajax : function() {
         $("form.ajax").each(function() {
-            $(this).on("submit", function(e) {
+            $(this).unbind('submit').on("submit", function(e) {
                 e.preventDefault();
                 var target = $(this).closest($(this).data('target'));
                 setLoading(target);

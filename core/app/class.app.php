@@ -67,20 +67,25 @@ class App {
         $collection = $collection::instance();
       }
 
+      $defaultView = false;
       foreach($this->vm->views as $view) {
         $view = $view::instance();
         $this->eh->add($view->events);
         // tried to load subview as main view.
         if($view->parent !== false)
           continue;
+        if($view->default) {
+            $defaultView = $view;
+        }
         if($load_main && $view->default || $base_view == $view->name()) {
           $requiredView = $view;
           break;
         }
       }
       if(!$requiredView) {
-        Logger::error("View '".Utils::getUrl($this->uri_components)."' not found.");
-        $this->redirect('404');
+        //Logger::error("View '".Utils::getUrl($this->uri_components)."' not found.");
+        //$this->redirect('404');
+        $requiredView = $defaultView;
       }
       if(isset($_POST['event'])) {
         $this->eh->trigger($_POST['event'], $_POST);

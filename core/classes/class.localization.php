@@ -3,8 +3,7 @@
 class Localization {
 
   public static function getLanguages() {
-    $db = App::instance()->db;
-    return $db->get('languages');
+    return App::instance()->db->get('languages');
   }
 
   // TODO: When time, allow to disable a language.. then this will become useful..

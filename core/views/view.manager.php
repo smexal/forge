@@ -77,7 +77,7 @@ class Manager extends AbstractView {
         $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelRight);
         $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', 'profile')), $panelRight, false, 'usermenu');
         if(Auth::allowed($this->permissions[1])) {
-          $this->navigation->add('settings', i('Settings'), Utils::getUrl(array('manage', 'settings')), $panelRight, false, 'usermenu');
+          $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelRight, false, 'usermenu');
           $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelRight, false, 'usermenu');
         }
 
