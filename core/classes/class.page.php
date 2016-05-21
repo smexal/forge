@@ -121,8 +121,18 @@ class Page {
       return $this->db->count;
   }
 
+  public function isPublished() {
+      if($this->getMeta('status') == 'published') {
+          return true;
+      }
+      return;
+  }
+
   public function render() {
-      return $this->getMeta('title');
+      if($this->isPublished()) {
+          return $this->getMeta('title');
+      }
+      return;
   }
 
 }

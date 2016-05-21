@@ -176,6 +176,19 @@ class Pages {
                 'order' => 3,
                 'position' => 'right',
                 'hint' => i('Will be used for description for Search Engines and Social Media')
+            ),
+            array(
+                'key' => 'status',
+                'label' => i('Page status'),
+                'multilang' => true,
+                'type' => 'select',
+                'values' => array(
+                    'draft' => i('Draft'),
+                    'published' => i('Published')
+                ),
+                'order' => 1,
+                'position' => 'right',
+                'hint' => ''
             )
         );
         return $fields;

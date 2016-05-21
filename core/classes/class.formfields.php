@@ -6,6 +6,9 @@ class Fields {
             case 'text':
                 return self::text($args, $value);
                 break;
+            case 'select':
+                return self::select($args, $value);
+                break;
             case 'linklist':
                 return self::linklist($args);
         }
