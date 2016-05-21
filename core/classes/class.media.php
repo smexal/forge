@@ -79,9 +79,9 @@ class Media {
         if(! $this->id) {
             return;
         }
+        App::instance()->db->where('id', $this->id);
+        App::instance()->db->delete('media');
         if(unlink($this->abs_path.$this->name)) {
-            App::instance()->db->where('id', $this->id);
-            App::instance()->db->delete('media');
             return true;
         } else {
             return false;
