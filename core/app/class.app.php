@@ -6,6 +6,7 @@ class App {
     public $vm = null;
     public $cm = null;
     public $mm = null;
+    public $tm = null;
     public $com = null;
     public $user = null;
     public $stream = false;
@@ -45,6 +46,9 @@ class App {
       }
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();
+      }
+      if(is_null($this->tm)) {
+          $this->tm = new ThemeManager();
       }
 
       if(is_null($this->com)) {
@@ -110,8 +114,9 @@ class App {
             "sticky" => $this->sticky
         ));
       }
-      if(ob_get_level() > 0)
-        ob_end_flush();
+      if(ob_get_level() > 0) {
+          ob_end_flush();
+      }
     }
 
     public function header($view) {

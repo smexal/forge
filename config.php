@@ -29,7 +29,7 @@ define('AVAILABLE_LANGUAGES', 'de,en');
 define('DB_HOST', "localhost");
 define('DB_USER', "root");
 define('DB_PASSWORD', "");
-define('DB_NAME', "forge");
+define('DB_NAME', "butterlan");
 
 define('SECURE', false);
 

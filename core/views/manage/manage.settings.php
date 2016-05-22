@@ -43,7 +43,7 @@ class SettingsManagement extends AbstractView {
     }
 
     private function getThemeSelection() {
-        $tm = new ThemeManager();
+        $tm = App::instance()->tm;
         $selection = array();
         foreach($tm->getThemes() as $theme) {
             $selection[$theme] = $theme;

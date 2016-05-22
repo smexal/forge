@@ -1,26 +1,64 @@
 <?php
 
 class ThemeManager {
+    public $active = '';
+    public $theme_obj = '';
+    public $theme_directory = '';
+
     public function __construct() {
+        // set current active theme.
+        $this->theme_directory = DOC_ROOT."themes/";
+        $this->active = Settings::get('active_theme');
+        $this->loadTheme();
+        $this->instance();
     }
 
-    public function getThemes() {
-        $theme_directory = DOC_ROOT."themes/";
-        $dir = scandir($theme_directory);
-        $valid_themes = array();
-        var_dump($theme_directory);
-        var_dump($dir);
-        foreach($dir as $theme) {
-            if($this->isValid($theme_directory, $theme)) {
-                array_push($valid_themes, $theme);
+    private function instance() {
+        $classes = get_declared_classes();
+        $implementsIModule = array();
+        foreach($classes as $klass) {
+            $reflect = new ReflectionClass($klass);
+            if($reflect->implementsInterface('ITheme')) {
+                $rc = new ReflectionClass($klass);
+                if(! $rc->isAbstract()) {
+                    $this->theme_obj = $klass::instance();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private function loadTheme() {
+        if($this->active && $this->active != '') {
+            $theme_root = $this->theme_directory.$this->active."/theme.php";
+            if(file_exists($theme_root)) {
+                require_once($theme_root);
+            } else {
+                Logger::error('Could not load theme `'.$this->active.'`, theme.php not found in `'.$theme_root.'`');
             }
         }
     }
 
+    public function getThemes() {
+        $dir = scandir($this->theme_directory);
+        $valid_themes = array();
+        foreach($dir as $theme) {
+            if($this->isValid($this->theme_directory, $theme)) {
+                $valid_themes[$theme] = $theme;
+            }
+        }
+        return $valid_themes;
+    }
+
     private function isValid($path, $name) {
+        if($name == '.' || $name == '..') {
+            return false;
+        }
         if(file_exists($path.$name."/theme.php")) {
             return true;
         }
+        return false;
     }
 }
 
