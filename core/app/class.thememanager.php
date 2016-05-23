@@ -2,7 +2,7 @@
 
 class ThemeManager {
     public $active = '';
-    public $theme_obj = '';
+    public $theme = '';
     public $theme_directory = '';
 
     public function __construct() {
@@ -13,6 +13,10 @@ class ThemeManager {
         $this->instance();
     }
 
+    public function getTemplateDirectory($name = 'layout') {
+        return $this->theme_directory.$this->active."/templates/";
+    }
+
     private function instance() {
         $classes = get_declared_classes();
         $implementsIModule = array();
@@ -21,7 +25,7 @@ class ThemeManager {
             if($reflect->implementsInterface('ITheme')) {
                 $rc = new ReflectionClass($klass);
                 if(! $rc->isAbstract()) {
-                    $this->theme_obj = $klass::instance();
+                    $this->theme = $klass::instance();
                     return true;
                 }
             }

@@ -34,6 +34,30 @@ class ComponentRow extends Component {
         );
     }
 
+    public function content() {
+        $prefs = $this->getSavedPrefs();
+        $no = 0;
+        if(array_key_exists('row-format-custom', $prefs) && strlen($prefs['row-format-custom']) > 1) {
+            $columns = $prefs['row-format-custom'];
+        } else if(array_key_exists('row-format', $prefs)) {
+            $columns = $prefs['row-format'];
+        } else {
+            $columns = 12;
+        }
+        $columns = explode(",", $columns);
+        $rows = array();
+        foreach($columns as $column) {
+            array_push($rows, array(
+                'width' => $column,
+                'content' => $this->getChildrenContent($no)
+            ));
+            $no++;
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "row", array(
+            'rows' => $rows
+        ));
+    }
+
     public function getBuilderContent() {
         $prefs = $this->getSavedPrefs();
         $no = 0;

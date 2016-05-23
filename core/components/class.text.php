@@ -22,6 +22,12 @@ class ComponentText extends Component {
         );
     }
 
+    public function content() {
+        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "text", array(
+            'content' => $this->getField('content')
+        ));
+    }
+
     public function customBuilderContent() {
         return App::instance()->render(CORE_TEMPLATE_DIR."components/builder/", "text", array(
             'text' => $this->shorten($this->getField('content'))

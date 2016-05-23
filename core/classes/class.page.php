@@ -129,10 +129,27 @@ class Page {
   }
 
   public function render() {
+      $app = App::instance();
+
+      // run theme methods..
+      $app->tm->theme->styles();
+
       if($this->isPublished()) {
-          return $this->getMeta('title');
+          return $app->render($app->tm->getTemplateDirectory(), "layout", array(
+              'head' => $app->tm->theme->header(),
+              'body' => $this->content()
+          ));
       }
       return;
+  }
+
+  public function content() {
+      $elements = $this->getElements(0, Localization::getCurrentLanguage());
+      $content = '';
+      foreach($elements as $element) {
+          $content.=$element->content();
+      }
+      return $content;
   }
 
 }

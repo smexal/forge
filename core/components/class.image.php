@@ -22,6 +22,13 @@ class ComponentImage extends Component {
         );
     }
 
+    public function content() {
+        $media = new Media($this->getField('image'));
+        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "image", array(
+            'src' => $media->getUrl()
+        ));
+    }
+
     public function customBuilderContent() {
         $media = false;
         if($this->getField('image')) {

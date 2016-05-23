@@ -126,6 +126,22 @@ abstract class Component implements IComponent {
         return $content;
     }
 
+    public function getChildrenContent($position_x) {
+        $com = App::instance()->com;
+        $content = '';
+        foreach($com->getChildrenOf($this->getId(), $position_x) as $component) {
+            if(is_null($component)) {
+                continue;
+            }
+            $content.= $component->content();
+        }
+        return $content;
+    }
+
+    public function content() {
+        return sprintf(i('No content defined for: `%s`. ', 'core'), get_called_class());
+    }
+
     public function getBuilderContent() {
         return App::instance()->render(CORE_TEMPLATE_DIR."components/builder/", "default", array(
             'name' => $this->getPref('name'),

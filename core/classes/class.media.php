@@ -17,7 +17,10 @@ class Media {
                 $this->init($data);
             } else {
                 App::instance()->db->where('id', $this->id);
-                $this->init(App::instance()->db->getOne('media'));
+                $data = App::instance()->db->getOne('media');
+                if(!is_null($data)) {
+                    $this->init($data);
+                }
             }
         }
     }
