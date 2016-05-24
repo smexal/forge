@@ -189,6 +189,15 @@ class Pages {
                 'order' => 1,
                 'position' => 'right',
                 'hint' => ''
+            ),
+            array(
+                'key' => 'slug',
+                'label' => i('URL Part'),
+                'multilang' => true,
+                'type' => 'text',
+                'order' => 10,
+                'position' => 'right',
+                'hint' => i('This field will be used to find the page with an url. If not set, the name of the page will be used.')
             )
         );
         return $fields;

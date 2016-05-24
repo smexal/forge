@@ -16,13 +16,44 @@ class Main extends AbstractView {
             $page = new Page(Settings::get('home_page'));
             return $page->render();
         } else {
-            return 'other';
+            $page = $this->getPage(0);
+            if($page) {
+                return $page;
+            }
+            return 'not found';
+            // return 404 content...
         }
     }
 
     private function getStart() {
         if(count($this->parts) == 0) {
             return true;
+        }
+        return false;
+    }
+
+    private function getPage($index, $parent=null) {
+        $key = $this->parts[$index];
+        if(! is_null($parent)) {
+            $this->app->db->where('parent', $parent);
+        } else {
+            $this->app->db->where('parent', 0);
+        }
+        $pages = $this->app->db->get('pages');
+        foreach( $pages as $page) {
+            $page = new Page($page['id']);
+            if($page->getUrl() == $this->parts[$index]) {
+                if(count($this->parts) > $index+1) {
+                    return $this->getPage($index+1, $page->id);
+                } else {
+                    if($page->id == Settings::get('home_page')) {
+                        // this is the home page.. redirect to home...
+                        $current = Localization::getCurrentLanguage();
+                        $this->app->redirect(array($current));
+                    }
+                    return $page->render();
+                }
+            }
         }
         return false;
     }

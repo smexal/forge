@@ -33,6 +33,16 @@ class Page {
       return false;
   }
 
+  public function getUrl() {
+      $slug = $this->getMeta('slug');
+      if($slug) {
+          return $slug;
+      } else {
+          // normalize "name"
+          return Utils::slugify($this->name);
+      }
+  }
+
   /**
    * This is the shit
    *
