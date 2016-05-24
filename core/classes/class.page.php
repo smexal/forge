@@ -150,7 +150,7 @@ class Page {
               'body' => $this->content()
           ));
       }
-      return;
+      return i('Access Denied');
   }
 
   public function content() {

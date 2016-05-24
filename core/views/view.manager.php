@@ -62,12 +62,13 @@ class Manager extends AbstractView {
 
         $panelRight = $this->navigation->addPanel('right');
 
+        $this->navigation->add('language', Localization::getCurrentLanguage(), '', $panelRight);
+
         if(Auth::allowed($this->permissions[5])) {
           $this->navigation->add('locales_container', i('Localization'), false, $panelRight, 'globe');
           $this->navigation->add('locales', i('Language Configuration'), Utils::getUrl(array('manage', 'locales')), $panelRight, false, 'locales_container');
           $this->navigation->add('string-translation', i('String Translations'), Utils::getUrl(array('manage', 'string-translation')), $panelRight, false, 'locales_container');
         }
-
         if(Auth::allowed($this->permissions[1])) {
             $this->navigation->add('users_container', i('Users'), false, $panelRight, 'user');
             $this->navigation->add('users', i('Users'), Utils::getUrl(array('manage', 'users')), $panelRight, false, 'users_container');

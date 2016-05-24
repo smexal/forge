@@ -7,20 +7,28 @@ class SettingsManagement extends AbstractView {
     public $events = array(
         'onUpdateSettings'
     );
-    private $keys = array(
-        'HOME_PAGE' => 'home_page',
-        'THEME' => 'active_theme'
-    );
+    private $keys = null;
+
+    private function keys() {
+        $this->keys = array(
+            'HOME_PAGE' => 'home_page',
+            'THEME' => 'active_theme',
+            'TITLE' => 'title_'.Localization::getCurrentLanguage()
+        );
+    }
 
     public function onUpdateSettings() {
+        $this->keys();
         Settings::set($this->keys['HOME_PAGE'], $_POST[$this->keys['HOME_PAGE']]);
         Settings::set($this->keys['THEME'], $_POST[$this->keys['THEME']]);
+        Settings::set($this->keys['TITLE'], $_POST[$this->keys['TITLE']]);
 
         App::instance()->addMessage(sprintf(i('Changes saved')), "success");
         App::instance()->redirect(Utils::getUrl(array('manage', 'settings')));
     }
 
     public function content() {
+        $this->keys();
         return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "oneform", array(
             'action' => Utils::getUrl(array('manage', 'settings')),
             'event' => $this->events[0],
@@ -39,7 +47,9 @@ class SettingsManagement extends AbstractView {
     }
 
     public function rightFields() {
-        return '';
+        $return = '';
+        $return .= $this->getTitleInput();
+        return $return;
     }
 
     private function getThemeSelection() {
@@ -66,6 +76,14 @@ class SettingsManagement extends AbstractView {
             'label' => 'Choose the home page',
             'values' => $values
         ), Settings::get($this->keys['HOME_PAGE']));
+    }
+
+    private function getTitleInput() {
+        return Fields::text(array(
+            'key' => $this->keys['TITLE'],
+            'label' => 'Title your website ['.Localization::getCurrentLanguage().']',
+            'hint' => ''
+        ), Settings::get($this->keys['TITLE']));
     }
 }
 
