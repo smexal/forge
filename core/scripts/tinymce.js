@@ -2,7 +2,10 @@ var forge_tinymce = {
 
     init : function() {
         tinymce.remove();
-        tinymce.init({ selector:'textarea.tinymce' });
+        tinymce.init({
+            selector:'textarea.tinymce',
+            plugins: "autoresize"
+        });
     }
 };
 

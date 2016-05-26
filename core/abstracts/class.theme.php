@@ -77,15 +77,27 @@ abstract class Theme implements ITheme {
         return false;
     }
 
+    public function getTitle() {
+        $global = Settings::get('title_'.Localization::getCurrentLanguage());
+        $page = App::instance()->page->getMeta('title');
+        if(!$page) {
+            return $global;
+        }
+        return $page.' - '.$global;
+    }
+
+    public function customHeader() {
+        return false;
+    }
+
     public function header() {
-        $head = '<meta charset="UTF-8">';
         return App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
-            'title' => 'title',
+            'title' => $this->getTitle(),
             'scripts' => array(),
             'styles' => $this->styles,
-            'favicon' => ''
+            'favicon' => false,
+            'custom' => $this->customHeader()
         ));
-        return $head;
     }
 
 }

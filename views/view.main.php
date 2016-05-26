@@ -14,6 +14,7 @@ class Main extends AbstractView {
         }
         if($this->getStart()) {
             $page = new Page(Settings::get('home_page'));
+            App::instance()->page = $page;
             return $page->render();
         } else {
             $page = $this->getPage(0);
@@ -51,6 +52,7 @@ class Main extends AbstractView {
                         $current = Localization::getCurrentLanguage();
                         $this->app->redirect(array($current));
                     }
+                    App::instance()->page = $page;
                     return $page->render();
                 }
             }

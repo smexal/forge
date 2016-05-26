@@ -1,7 +1,19 @@
+{if="$displaytype=='normal'"}
+    <div class="wrapped">
+{/if}
 <div class="row">
+    {if="$displaytype=='semi'"}
+        <div class="wrapped">
+    {/if}
     {loop="$rows"}
         <div class="col-lg-{$value.width}">
             {$value.content}
         </div>
     {/loop}
+    {if="$displaytype=='semi'"}
+        </div>
+    {/if}
 </div>
+{if="$displaytype=='normal'"}
+    </div>
+{/if}

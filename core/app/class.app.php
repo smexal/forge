@@ -12,6 +12,7 @@ class App {
     public $stream = false;
     public $sticky = false;
     private $uri_components = false;
+    public $page = false;
 
     static private $instance = null;
 
@@ -125,7 +126,8 @@ class App {
           'title' => $this->getTitle($view),
           'scripts' => $loader->getScripts(),
           'styles' => $loader->getStyles(),
-          'favicon' => $this->getFavicon($view)
+          'favicon' => $this->getFavicon($view),
+          'custom' => false
       ));
     }
 

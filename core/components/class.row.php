@@ -22,6 +22,17 @@ class ComponentRow extends Component {
                 "hint" => i("Type a custom format like '4,4,4' always resulting in 12 columns"),
                 "key" => "row-format-custom",
                 "type" => "text"
+            ),
+            array(
+                "key" => "row-display-type",
+                "label" => i('Display Type'),
+                "hint" => "Stretch the row to full content or wrap it.",
+                "type" => "select",
+                "values" => array(
+                    "normal" => i('Wrapped row and content'),
+                    "semi" => i('Fullwidth row, wrapped content'),
+                    "full" => i('Fullwidth row and content')
+                )
             )
         );
         return array(
@@ -36,6 +47,9 @@ class ComponentRow extends Component {
 
     public function content() {
         $prefs = $this->getSavedPrefs();
+        if(!array_key_exists('row-display-type', $prefs)) {
+            $prefs['row-display-type'] = 'normal';
+        }
         $no = 0;
         if(array_key_exists('row-format-custom', $prefs) && strlen($prefs['row-format-custom']) > 1) {
             $columns = $prefs['row-format-custom'];
@@ -54,7 +68,8 @@ class ComponentRow extends Component {
             $no++;
         }
         return App::instance()->render(CORE_TEMPLATE_DIR."components/", "row", array(
-            'rows' => $rows
+            'rows' => $rows,
+            'displaytype' => $prefs['row-display-type']
         ));
     }
 
