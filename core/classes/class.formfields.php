@@ -9,6 +9,9 @@ class Fields {
             case 'select':
                 return self::select($args, $value);
                 break;
+            case 'textarea':
+                return self::textarea($args, $value);
+                break;
             case 'linklist':
                 return self::linklist($args);
         }
@@ -28,6 +31,20 @@ class Fields {
                 'content' => $content
             ));
         }
+    }
+
+    public static function textarea($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "textarea", array(
+            'id' => $args['key'],
+            'name' => $args['key'],
+            'label' => $args['label'],
+            'value' => $value,
+            'hint' => $args['hint'],
+            'disabled' => false
+        ));
     }
 
     public static function text($args, $value='') {

@@ -3,6 +3,7 @@
 abstract class Theme implements ITheme {
     protected static $instances = array();
     private $styles = array();
+    private $load_scripts = array();
     private $lessc = null;
     public $lessVariables = array();
 
@@ -12,6 +13,12 @@ abstract class Theme implements ITheme {
 
     public function tinyFormats() {
         return '';
+    }
+
+    public function addScript($script, $absolute=false) {
+        if(!$absolute)
+            $script = $this->url().$script;
+        array_push($this->load_scripts, $script);
     }
 
     static public function instance() {
@@ -31,6 +38,10 @@ abstract class Theme implements ITheme {
             $this->lessc = new lessc;
             $this->lessc->setVariables($this->lessVariables);
         }
+    }
+
+    public function scripts() {
+        return;
     }
 
     public function directory() {
@@ -101,9 +112,10 @@ abstract class Theme implements ITheme {
     }
 
     public function header() {
+        $this->scripts();
         return App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle(),
-            'scripts' => array(),
+            'scripts' => $this->load_scripts,
             'styles' => $this->styles,
             'favicon' => false,
             'custom' => $this->customHeader()
