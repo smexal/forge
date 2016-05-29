@@ -1,7 +1,7 @@
 {if="$displaytype=='normal'"}
     <div class="wrapped">
 {/if}
-<div class="row {$css}" {if="$backgroundimage"}style="background-image:url('{$backgroundimage}')"{/if}>
+<div class="row {$css}{if="$bgstyle"} {$bgstyle}{/if}{if="$bgpos"} {$bgpos}{/if}" {if="$backgroundimage"}style="background-image:url('{$backgroundimage}')"{/if}>
     {if="$displaytype=='semi'"}
         <div class="wrapped">
     {/if}

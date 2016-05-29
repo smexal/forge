@@ -45,6 +45,26 @@ class ComponentRow extends Component {
                 "hint" => '',
                 "key" => "row-background-image",
                 "type" => "image"
+            ),
+            array(
+                'key' => 'background-position',
+                'label' => i('Background position'),
+                'hint' => '',
+                'type' => 'select',
+                'values' => array(
+                    "cover" => i('Cover'),
+                    "center" => i('Center and no repeat')
+                )
+            ),
+            array(
+                'key' => 'background-style',
+                'label' => i('Background style'),
+                'hint' => '',
+                'type' => 'select',
+                'values' => array(
+                    "normal" => i('Normal'),
+                    "fixed" => i('Fixed')
+                )
             )
         );
         return array(
@@ -93,7 +113,9 @@ class ComponentRow extends Component {
             'rows' => $rows,
             'displaytype' => $prefs['row-display-type'],
             'backgroundimage' => $bg,
-            'css' => $prefs['row-extra-css']
+            'css' => $prefs['row-extra-css'],
+            'bgstyle' => $this->getField('background-style'),
+            'bgpos' => $this->getField('background-position')
         ));
     }
 
