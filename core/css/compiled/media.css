@@ -12,6 +12,10 @@
   margin-right: 20px;
   margin-bottom: 20px;
   overflow: hidden;
+  border: 3px solid #FFF;
+}
+.media-library > a.active {
+  border-color: #1bd27e;
 }
 .media-library > a img {
   width: 180px;

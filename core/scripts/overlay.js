@@ -1,9 +1,48 @@
 var overlay = {
     init : function() {
         $(".open-overlay").each(function() {
-            $(this).unbind("click").unbind("click").on("click", function() {
+            $(this).unbind("click").on("click", function() {
                 var the_overlay = overlay.prepare();
                 overlay.open($(this), the_overlay);
+            });
+        });
+
+        $(".close-overlay").each(function() {
+            $(this).unbind("click").on("click", function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var value = $("#" + $(this).attr('data-open')).val();
+                var target = $("input#" + $(this).attr('data-target')).val(value);
+                overlay.hide();
+            });
+        })
+
+        overlay.fullscreen();
+    },
+
+    fullscreen : function() {
+        $("a.fullscreen-overlay").each(function() {
+            $(this).unbind('click').on("click", function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                var ov = false;
+                if($(".full-overlay-container").length > 0) {
+                    ov = $(".full-overlay-container");
+                } else {
+                    ov = $("<div class='full-overlay-container show'><div class='cover'></div><div class='overlay-full'>"+
+                            "<div class='content'></div>"+
+                        "</div></div>").appendTo("body");
+                }
+
+
+                $.ajax({
+                  url: $(this).attr('href')
+                }).done(function(data) {
+                    ov.find(".content").html(data);
+                    $(document).trigger("ajaxReload");
+                });
+
             });
         });
     },
@@ -45,6 +84,7 @@ var overlay = {
                 overlay.setContent($(data), the_overlay);
             }
         });
+        // bind "escape" key to close the overlay
         $(document).keyup(function(e) {
             if(e.keyCode == 27) {
                 overlay.hide();
@@ -62,9 +102,20 @@ var overlay = {
             }, 30);
         });
     },
-    
+
     /* searches for overlay and hides all. */
     hide : function() {
+        var full = false;
+        $(".full-overlay-container").each(function() {
+            full = true;
+            var container = $(this);
+            container.removeClass("show");
+            setTimeout(function() {
+                container.remove();
+            }, 300);
+        });
+        if(full)
+            return;
         $(".overlay-container").each(function() {
             var container = $(this);
             container.removeClass("show");

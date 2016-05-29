@@ -24,6 +24,12 @@ class ComponentRow extends Component {
                 "type" => "text"
             ),
             array(
+                "label" => i("Extra CSS Classes"),
+                "hint" => i("Type extra css classes, that you want on this row."),
+                "key" => "row-extra-css",
+                "type" => "text"
+            ),
+            array(
                 "key" => "row-display-type",
                 "label" => i('Display Type'),
                 "hint" => "Stretch the row to full content or wrap it.",
@@ -33,6 +39,12 @@ class ComponentRow extends Component {
                     "semi" => i('Fullwidth row, wrapped content'),
                     "full" => i('Fullwidth row and content')
                 )
+            ),
+            array(
+                "label" => i('Background image'),
+                "hint" => '',
+                "key" => "row-background-image",
+                "type" => "image"
             )
         );
         return array(
@@ -49,6 +61,9 @@ class ComponentRow extends Component {
         $prefs = $this->getSavedPrefs();
         if(!array_key_exists('row-display-type', $prefs)) {
             $prefs['row-display-type'] = 'normal';
+        }
+        if(!array_key_exists('row-extra-css', $prefs)) {
+            $prefs['row-extra-css'] = '';
         }
         $no = 0;
         if(array_key_exists('row-format-custom', $prefs) && strlen($prefs['row-format-custom']) > 1) {
@@ -67,9 +82,18 @@ class ComponentRow extends Component {
             ));
             $no++;
         }
+        $bg = $prefs['row-background-image'];
+        if(is_numeric($bg)) {
+            $bg = new Media($bg);
+            $bg = $bg->getUrl();
+        } else {
+            $bg = false;
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR."components/", "row", array(
             'rows' => $rows,
-            'displaytype' => $prefs['row-display-type']
+            'displaytype' => $prefs['row-display-type'],
+            'backgroundimage' => $bg,
+            'css' => $prefs['row-extra-css']
         ));
     }
 

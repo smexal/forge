@@ -162,8 +162,10 @@ class Utils {
       return $text;
     }
 
-    public static function overlayButton($url, $label) {
-      return '<a href="javascript://" data-open="'.$url.'" class="btn btn-primary open-overlay btn-sm">'.$label.'</a>';
+    public static function overlayButton($url, $label, $target='') {
+        $t = $target !== '' ? 'data-target="'.$target.'"' : '';
+        $overlay = $t == '' ? 'open-overlay' : 'close-overlay';
+      return '<a href="javascript://" data-open="'.$url.'" '.$t.' class="btn btn-primary '.$overlay.' btn-sm">'.$label.'</a>';
     }
 
     public static function tableCell($content, $class=false, $id=false, $structure=false) {

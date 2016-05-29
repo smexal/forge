@@ -50,23 +50,15 @@ class Fields {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         }
-        $mediamanager = new MediaManager();
-        $images = $mediamanager->get('images');
-        $media_array = array();
-        foreach($images as $media) {
-            array_push($media_array, array(
-                'image' => $media->getUrl(),
-                'title' => $media->title,
-                'active' => $value == $media->id ? true : false,
-                'id' => $media->id
-            ));
-        }
+        $media = new Media($value);
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'imageselection', array(
+            'label' => $args['label'],
             'name' => $args['key'],
-            'selection_url' => Utils::getUrl(array('api', 'media', 'list-images')),
-            'selection_title' => i('Choose image'),
-            'value' => $value,
-            'media' => $media_array
+            'change_text' => i('Choose image'),
+            'change_url' => Utils::getUrl(array('manage', 'media'), true, array('selection' => 1, 'target' => $args['key'])),
+            'selected_image' => $media->getUrl(),
+            'no_image' => i('No image selected'),
+            'value' => $value
         ));
     }
 
@@ -88,13 +80,22 @@ class Fields {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         }
+        $theme = App::instance()->tm->theme;
+        $css = '';
+        $formats = '';
+        if(!is_null($theme)) {
+            $css = $theme->tinyUrl();
+            $formats = Utils::json($theme->tinyFormats());
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "tinymce", array(
             'id' => $args['key'],
             'name' => $args['key'],
             'label' => $args['label'],
             'value' => $value,
             'hint' => $args['hint'],
-            'disabled' => false
+            'disabled' => false,
+            'formats' => $formats,
+            'css' => $css
         ));
     }
 

@@ -78,9 +78,16 @@
   height: 15px;
 }
 .imageselection {
-  height: 400px;
   margin-bottom: 20px;
   overflow-y: scroll;
+  display: flex;
+  padding: 20px;
+}
+.imageselection .selected {
+  margin-right: 20px;
+}
+.imageselection p {
+  margin-bottom: 0;
 }
 .imageselection .media-library {
   margin-top: 0;

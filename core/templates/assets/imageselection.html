@@ -1,13 +1,12 @@
-<input type="hidden" value="{$value}" id="{$name}" name="{$name}">
-<div class="imageselection">
-    <div class="media-library">
-        {loop="$media"}
-            <a href="javascript://"
-                class="set-value{if="$value.active"} active{/if}"
-                data-target="{$name}"
-                data-value="{$value.id}">
-                <img src="{$value.image}" title="{$value.title}" />
-            </a>
-        {/loop}
+<label class="control-label">{$label}</label>
+<div class="form-group imageselection">
+    <input type="hidden" value="{$value}" id="{$name}" name="{$name}">
+    <div class="selected">
+        {if="$selected_image"}
+            <img src="{$selected_image}" width="80" />
+        {else}
+            <p>{$no_image}</p>
+        {/if}
     </div>
+    <a href="{$change_url}" class="fullscreen-overlay">{$change_text}</a>
 </div>

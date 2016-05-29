@@ -9,14 +9,26 @@
 <div class="row">
 <div class="col-lg-12">
 
+{if="$selection"}
+    <input type="hidden" id="selectedImage" value="" />
+{/if}
+
 <div class="media-library">
     {loop="$media"}
-        <a href="javascript://" data-open="{$value.detail}" class="open-overlay">
+        {if="$selection"}
+            <a href="javascript://" data-target="selectedImage" data-value="{$value.id}" class="set-value">
+        {else}
+            <a href="javascript://" data-open="{$value.detail}" class="open-overlay">
+        {/if}
             {if="$value.image"}
                 <img src="{$value.image}" title="{$value.title}" />
             {else}
                 <div class="{$value.mime}">{$value.title}</div>
             {/if}
-        </a>
+        {if="$selection"}
+            </a>
+        {else}
+            </a>
+        {/if}
     {/loop}
 </div>

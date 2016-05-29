@@ -4,6 +4,15 @@ abstract class Theme implements ITheme {
     protected static $instances = array();
     private $styles = array();
     private $lessc = null;
+    public $lessVariables = array();
+
+    public function tinyUrl() {
+        return '';
+    }
+
+    public function tinyFormats() {
+        return '';
+    }
 
     static public function instance() {
         $class = get_called_class();
@@ -20,6 +29,7 @@ abstract class Theme implements ITheme {
     public function init() {
         if(is_null($this->lessc)) {
             $this->lessc = new lessc;
+            $this->lessc->setVariables($this->lessVariables);
         }
     }
 
