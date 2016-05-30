@@ -6,6 +6,7 @@ class ComponentManager {
 
     public function __construct() {
         $this->app = App::instance();
+        $this->loadThemeComponents();
         $this->components = $this->getComponents();
     }
 
@@ -17,6 +18,13 @@ class ComponentManager {
             }
         }
         return $components;
+    }
+
+    private function loadThemeComponents() {
+        $tm = App::instance()->tm;
+        if($tm->theme) {
+            Loader::instance()->loadDirectory($tm->theme->directory()."components/");
+        }
     }
 
     public function getChildrenOf($id, $position_x = 0) {
