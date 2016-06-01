@@ -3,10 +3,22 @@
 class ModuleManager {
   private $app = null;
   public $modules = array();
+  public $activeModuleObjects = array();
 
   public function __construct() {
     $this->app = App::instance();
     $this->modules = $this->getModules();
+  }
+
+  public function start() {
+      // start all active plugins
+      $active = $this->getActiveModules();
+      foreach($this->modules as $module) {
+          if(in_array($module->id, $active)) {
+              array_push($this->activeModuleObjects, $module);
+              $module->start();
+          }
+      }
   }
 
   public function getModules() {
@@ -52,7 +64,7 @@ class ModuleManager {
     }
     return $return;
   }
-  
+
   public function isActive($moduleName) {
     $this->app->db->where('name', $moduleName);
     $modules = $this->app->db->get('modules');

@@ -124,7 +124,7 @@ class Loader {
     }
 
     public function loadModules() {
-      $this->loadDirectory(DOC_ROOT."modules/");
+      $this->loadDirectory(DOC_ROOT."modules/", false, "module.php");
     }
 
     public function loadAbstracts() {
@@ -167,19 +167,21 @@ class Loader {
       $this->addScript("core/scripts/overlay.js");
     }
 
-    public function loadDirectory($directory, $inquery=false) {
+    public function loadDirectory($directory, $inquery=false, $filefilter=false) {
         $dir = new DirectoryIterator($directory);
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot() &&  strstr($fileinfo->getFilename(), ".php")) {
-                require_once($directory.$fileinfo->getFilename());
+                if(! $filefilter || $filefilter == $fileinfo->getFilename()) {
+                    require_once($directory.$fileinfo->getFilename());
+                }
             } elseif(!$fileinfo->isDot() && $fileinfo->isDir()) {
               // check if the subdirectory is part of the queried url. (no manage views without manage queried)
               if($inquery) {
                 if(in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
-                  $this->loadDirectory($directory.$fileinfo->getFilename()."/");
+                  $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter);
                 }
               } else {
-                $this->loadDirectory($directory.$fileinfo->getFilename()."/");
+                $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter);
               }
             }
         }

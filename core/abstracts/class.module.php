@@ -6,14 +6,34 @@ abstract class Module implements IModule {
 
   // initial variables for module
   public $name = null;
+  public $id = null;
   public $version = "0.1";
   public $description = "";
   public $image = CORE_WWW_ROOT."images/default-icon-module.svg";
-  public $id = null;
+
+  public function directory() {
+      if(is_null($this->id)) {
+          Logger::debug('No id for module: '.get_called_class().' Set it to the foldername for the plugin');
+          return;
+      }
+      return DOC_ROOT.'modules/'.$this->id.'/';
+  }
+
+  public function url() {
+      if(is_null($this->id)) {
+          Logger::debug('No id for module: '.get_called_class().' Set it to the foldername for the plugin');
+          return;
+      }
+      return WWW_ROOT.'modules/'.$this->id.'/';
+  }
+
+  public function start() {
+      return;
+  }
 
   public function check() {
     if(is_null($this->name)) {
-      return sprintf(i('Name for Module not set. Set $name in setup Method in Module `%s`'), get_called_class());
+        return sprintf(i('Name for Module not set. Set $name in setup Method in Module `%s`'), get_called_class());
     }
     return true;
   }

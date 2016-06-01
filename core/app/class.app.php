@@ -44,6 +44,7 @@ class App {
       }
       if(is_null($this->mm)) {
         $this->mm = new ModuleManager();
+        $this->mm->start();
       }
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();

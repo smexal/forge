@@ -145,9 +145,12 @@ class Page {
       $app->tm->theme->styles();
 
       if($this->isPublished()) {
-          return $app->render($app->tm->getTemplateDirectory(), "layout", array(
-              'head' => $app->tm->theme->header(),
-              'body' => $this->content()
+          return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
+                array(
+                    'head' => $app->tm->theme->header(),
+                    'body' => $this->content()
+                ),
+                $app->tm->theme->globals()
           ));
       }
       return i('Access Denied');
