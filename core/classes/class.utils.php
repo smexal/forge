@@ -12,6 +12,16 @@ class Utils {
         return explode("/", $uri);
     }
 
+    public static function getServerRoot() {
+      $root = str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']);
+      $dir = str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));
+      $ext = str_replace($root, '', $dir);
+      if(substr($ext, strlen($ext)-1) != '/') {
+        $ext.="/";
+      }
+      return $ext;
+    }
+
     public static function password($raw) {
         return password_hash($raw, PASSWORD_BCRYPT);
     }

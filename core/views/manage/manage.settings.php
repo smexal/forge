@@ -8,6 +8,7 @@ class SettingsManagement extends AbstractView {
         'onUpdateSettings'
     );
     private $keys = null;
+    private $settings = false;
 
     private function keys() {
         $this->keys = array(
@@ -18,16 +19,24 @@ class SettingsManagement extends AbstractView {
     }
 
     public function onUpdateSettings() {
+        $this->settings = Settings::instance();
         $this->keys();
         Settings::set($this->keys['HOME_PAGE'], $_POST[$this->keys['HOME_PAGE']]);
         Settings::set($this->keys['THEME'], $_POST[$this->keys['THEME']]);
         Settings::set($this->keys['TITLE'], $_POST[$this->keys['TITLE']]);
+
+        foreach($this->settings->fields as $position) {
+            foreach($position as $key => $ignored) {
+                Settings::set($key, $_POST[$key]);
+            }
+        }
 
         App::instance()->addMessage(sprintf(i('Changes saved')), "success");
         App::instance()->redirect(Utils::getUrl(array('manage', 'settings')));
     }
 
     public function content() {
+        $this->settings = Settings::instance();
         $this->keys();
         return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "oneform", array(
             'action' => Utils::getUrl(array('manage', 'settings')),
@@ -43,12 +52,22 @@ class SettingsManagement extends AbstractView {
         $return = '';
         $return .= $this->getHomePageFields();
         $return .= $this->getThemeSelection();
+        if(array_key_exists('left', $this->settings->fields)) {
+            foreach($this->settings->fields['left'] as $customField) {
+                $return.=$customField;
+            }
+        }
         return $return;
     }
 
     public function rightFields() {
         $return = '';
         $return .= $this->getTitleInput();
+        if(array_key_exists('right', $this->settings->fields)) {
+            foreach($this->settings->fields['right'] as $customField) {
+                $return.=$customField;
+            }
+        }
         return $return;
     }
 

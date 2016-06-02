@@ -89,8 +89,6 @@ class App {
         }
       }
       if(!$requiredView) {
-        //Logger::error("View '".Utils::getUrl($this->uri_components)."' not found.");
-        //$this->redirect('404');
         $requiredView = $defaultView;
       }
       if(isset($_POST['event'])) {

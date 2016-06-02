@@ -116,10 +116,10 @@ class Fields {
         ));
     }
 
-    public static function button($name) {
+    public static function button($name, $level='primary') {
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "submit", array(
             'text' => $name,
-            'level' => 'primary',
+            'level' => $level,
             'hor' => false
         ));
     }
