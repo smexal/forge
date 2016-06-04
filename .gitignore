@@ -47,3 +47,4 @@ Temporary Items
 *.rtpl.php
 config.php
 themes/*
+modules/*

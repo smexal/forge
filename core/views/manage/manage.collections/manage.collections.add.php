@@ -4,8 +4,27 @@ class CollectionManagementAdd extends AbstractView {
     public $parent = 'collections';
     public $name = 'add';
     public $permission = 'manage.collections.add';
+    public $events = array(
+      'onAddCollectionItem'
+    );
+    public $title = '';
 
     private $collection = false;
+
+    public function onAddCollectionItem() {
+      $cm = App::instance()->cm;
+      $this->message = $cm->add(array(
+        'type' => $_POST['collection'],
+        'name' => $_POST['new_title']
+      ));
+      if($this->message) {
+        $this->title = $_POST['new_title'];
+      } else {
+        // new collection has been created
+        App::instance()->addMessage(sprintf(i('Collection %s has been created.'), $_POST['new_title']), "success");
+        App::instance()->redirect(Utils::getUrl(array('manage', 'collections', $_POST['collection'])));
+      }
+    }
 
     public function content($uri=array()) {
       // find out which collection we are editing
@@ -27,20 +46,20 @@ class CollectionManagementAdd extends AbstractView {
         return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
             'title' => $this->collection->getPref('add-label'),
             'message' => "",
-            'form' => $this->form($uri)
+            'form' => $this->form()
         ));
       } else {
         $this->app->redirect("denied");
       }
     }
 
-    public function form($uri) {
-        $form = new Form(Utils::getUrl($uri));
+    public function form() {
+        $form = new Form(Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'add')));
         $form->ajax(".content");
         $form->disableAuto();
         $form->hidden("collection", $this->collection->getPref('name'));
-        $form->hidden("event", "onAddCollectionItem");
-        $form->input("new_title", "new_title", i('Title'), 'input', "");
+        $form->hidden("event", $this->events[0]);
+        $form->input("new_title", "new_title", i('Title'), 'input', $this->title);
         $form->submit(i('Save as new Draft'));
         return $form->render();
     }

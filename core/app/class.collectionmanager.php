@@ -7,6 +7,17 @@ class CollectionManager {
     $this->collections = $this->getCollections();
   }
 
+  public function add($args) {
+    $db = App::instance()->db;
+    $db->insert('collections', array(
+      'sequence' => 0,
+      'name' => $args['name'],
+      'type' => $args['type'],
+      'settings' => '',
+      'author' => App::instance()->user->get('id')
+    ));
+  }
+
   public function getCollections() {
       $classes = get_declared_classes();
       $implementsIModule = array();
@@ -23,6 +34,12 @@ class CollectionManager {
         $collections[] = $collection::instance();
       }
       return $collections;
+  }
+
+  public function deleteCollectionItem($id) {
+    $db = App::instance()->db;
+    $db->where('id', $id);
+    $db->delete('collections');
   }
 }
 

@@ -24,14 +24,14 @@ label {
   font-weight: 400;
 }
 a {
-  color: #15a563;
+  color: #f29000;
   transition: 300ms;
 }
 a:hover,
 a:active,
 a:visited,
 a:focus {
-  color: #1bd27e;
+  color: #FFA726;
   text-decoration: none;
 }
 .btn {
@@ -45,8 +45,8 @@ a:focus {
 }
 .btn-primary {
   color: #FFF;
-  background-color: #1bd27e;
-  border: 1px solid #18bb70;
+  background-color: #FFA726;
+  border: 1px solid #ff9d0d;
 }
 .btn-default {
   box-shadow: none;
@@ -67,8 +67,8 @@ a:focus {
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-  background-color: #16ae68;
-  border: 1px solid #19c476;
+  background-color: #fc9600;
+  border: 1px solid #ffa117;
 }
 .well {
   padding: 30px 40px;
@@ -86,7 +86,7 @@ a:focus {
   margin-bottom: 2rem;
 }
 .progress-bar {
-  background-color: #1bd27e;
+  background-color: #FFA726;
 }
 .navbar-default {
   background-color: #262626;
@@ -104,14 +104,14 @@ a:focus {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li.active a:hover {
-  color: #1bd27e;
+  color: #FFA726;
   background-color: #262626;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > li.active a:hover,
 .navbar-default .navbar-nav > li.active a:focus {
-  color: #1bd27e;
+  color: #FFA726;
 }
 .navbar-default .navbar-nav > li > a.logo,
 .navbar-default .navbar-nav > li.active a.logo {
@@ -119,11 +119,11 @@ a:focus {
   width: 70px;
   margin-right: 30px;
   padding: 0;
-  background-color: #1bd27e;
+  background-color: #FFA726;
 }
 .navbar-default .navbar-nav > li > a.logo:hover,
 .navbar-default .navbar-nav > li.active a.logo:hover {
-  background-color: #1cdb83;
+  background-color: #ffab30;
 }
 .navbar-default .navbar-nav > li > a.logo img,
 .navbar-default .navbar-nav > li.active a.logo img {
@@ -135,7 +135,7 @@ a:focus {
 .navbar-default .navbar-nav > li.open a:hover,
 .navbar-default .navbar-nav > li.open a:focus {
   background-color: #262626;
-  color: #1bd27e;
+  color: #FFA726;
 }
 .navbar-default .navbar-nav > li.open .dropdown-menu li:last-child a {
   border-bottom-right-radius: 3px;
@@ -148,7 +148,7 @@ a:focus {
   border-bottom: 1px solid #333333;
 }
 .navbar-default .navbar-nav > li.open .dropdown-menu li a:hover {
-  color: #1bd27e;
+  color: #FFA726;
 }
 .dropdown-menu>li>a {
   padding: 6px 60px 6px 20px;
@@ -185,8 +185,8 @@ a:focus {
 }
 .alert-success {
   color: #FFF;
-  background-color: #18bb70;
-  border-color: #15a563;
+  background-color: #ff9d0d;
+  border-color: #f29000;
 }
 .alert {
   border-radius: 2px;
@@ -219,7 +219,7 @@ code.fullwidth {
   border-top: none;
   padding: 20px;
   background-color: white;
-  color: #1bd27e;
+  color: #FFA726;
 }
 .table > tbody tr td {
   vertical-align: middle;

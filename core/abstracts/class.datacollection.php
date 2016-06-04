@@ -23,10 +23,17 @@ abstract class DataCollection implements IDataCollection {
       'name' => strtolower(get_class($this)),
       'title' => i('Data'),
       'all-title' => i('All Collection Items'),
-      'add-label' => i('Add item')
+      'add-label' => i('Add item'),
+      'single-item' => i('item')
     );
     $this->setup();
     $this->name = $this->getPref('name');
+  }
+
+  public function items() {
+    $db = App::instance()->db;
+    $db->where('type', $this->name);
+    return $db->get('collections');
   }
 
   static public function instance() {

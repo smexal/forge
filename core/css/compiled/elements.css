@@ -29,7 +29,7 @@ a.ajax {
   margin: 20px auto;
 }
 .builder a.add:hover {
-  color: #1bd27e;
+  color: #FFA726;
   text-shadow: 0px 0px 2px rgba(0,0,0,0.3);
 }
 .builder a.add .glyphicon {
