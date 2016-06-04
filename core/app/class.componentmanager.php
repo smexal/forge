@@ -20,6 +20,10 @@ class ComponentManager {
         return $components;
     }
 
+    public function getComponentById($id) {
+        return $this->instance($id);
+    }
+
     private function loadThemeComponents() {
         $tm = App::instance()->tm;
         if($tm->theme) {

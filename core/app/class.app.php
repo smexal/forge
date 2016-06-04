@@ -44,18 +44,20 @@ class App {
       }
       if(is_null($this->mm)) {
         $this->mm = new ModuleManager();
-        $this->mm->start();
-      }
-      if(is_null($this->cm)) {
-        $this->cm = new CollectionManager();
       }
       if(is_null($this->tm)) {
           $this->tm = new ThemeManager();
       }
 
+      // start all active modules
+      $this->mm->start();
+
       if(is_null($this->com)) {
           $this->com = new ComponentManager();
       }
+      if(is_null($this->cm)) {
+        $this->cm = new CollectionManager();
+      }      
     }
 
     public function run() {

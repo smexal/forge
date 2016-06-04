@@ -3,7 +3,6 @@ var forge_tinymce = {
     init : function() {
         var url = $("textarea.tinymce").attr('data-style');
         var styles = false;
-        console.log($("textarea.tinymce").attr('data-formats'));
         if( typeof($("textarea.tinymce").attr('data-formats')) != 'undefined') {
             styles = jQuery.parseJSON($("textarea.tinymce").attr('data-formats'))
         }

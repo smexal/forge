@@ -17,7 +17,12 @@ class ApiView extends AbstractView {
         case 'media':
             return $this->media($query);
         default:
-          return json_encode(array("Unknown Object Query" => $part));
+          $return = API::instance()->run($part, $query);
+          if($return) {
+            return $return;
+          } else {
+            return json_encode(array("Unknown Object Query" => $part));
+          }
       }
     }
 

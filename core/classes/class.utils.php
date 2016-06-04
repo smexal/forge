@@ -8,8 +8,16 @@ class Utils {
         } else {
           $uri = $_SERVER['REQUEST_URI'];
         }
-        $uri = str_replace(WWW_ROOT, "",$uri);
-        return explode("/", $uri);
+        if(WWW_ROOT != '/') {
+          $uri = str_replace(WWW_ROOT, "",$uri);
+        }
+        $uri = explode("/", $uri);
+        foreach($uri as $k => $v) {
+          if($v == '') {
+            unset($uri[$k]);
+          }
+        }
+        return array_values($uri);
     }
 
     public static function getServerRoot() {

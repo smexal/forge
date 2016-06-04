@@ -68,29 +68,63 @@ var forms = {
         $("form.ajax").each(function() {
             $(this).unbind('submit').on("submit", function(e) {
                 e.preventDefault();
+                e.stopImmediatePropagation();
+                var button = $(this).find("button");
+                // don't go any further if the button is still loading...
+                if(button.hasClass('loading')) {
+                  return;
+                }
+                button.addClass('loading');
+                e.preventDefault();
                 var target = $(this).closest($(this).data('target'));
                 setLoading(target);
                 var form_data = $(this).serialize();
                 $.ajax({
                     method: 'POST',
                     data: form_data,
-                    url: $(this).attr("action")
-                }).done(function(data) {
-                    hideLoading(target, function() {
-                        try {
-                            json = $.parseJSON(data);
-                            if(json.action == 'redirect') {
-                                redirect(json.target);
-                            }
-                        } catch (e) {
-                            target.addClass("fadeIn");
-                            target.html(data);
-                            $(document).trigger("ajaxReload");
-                            setTimeout(function() {
-                                target.addClass("now");
-                            }, 30);
+                    url: $(this).attr("action"),
+                    error: function (jqXHR, exception) {
+                        var msg = '';
+                        if (jqXHR.status === 0) {
+                            msg = 'Not connect.\n Verify Network.';
+                        } else if (jqXHR.status == 404) {
+                            msg = 'Requested page not found. [404]';
+                        } else if (jqXHR.status == 500) {
+                            msg = 'Internal Server Error [500].';
+                        } else if (exception === 'parsererror') {
+                            msg = 'Requested JSON parse failed.';
+                        } else if (exception === 'timeout') {
+                            msg = 'Time out error.';
+                        } else if (exception === 'abort') {
+                            msg = 'Ajax request aborted.';
+                        } else {
+                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
                         }
-                    });
+                        console.error(msg);
+                    },
+                }).done(function(data) {
+                  // if the form has a callback defined, run it with the response
+                  var callback = button.closest('form').attr('callback');
+                  if(typeof(callback) !== 'undefined') {
+                    eval(callback+'('+JSON.stringify(data)+')');
+                  }
+                  hideLoading(target, function() {
+                      try {
+                          json = $.parseJSON(data);
+                          if(json.action == 'redirect') {
+                              redirect(json.target);
+                          }
+                      } catch (e) {
+                          target.addClass("fadeIn");
+                          target.html(data);
+                          $(document).trigger("ajaxReload");
+                          setTimeout(function() {
+                              target.addClass("now");
+                          }, 30);
+                      }
+                  });
+                }).complete(function() {
+                    button.removeClass('loading');
                 });
             });
         });

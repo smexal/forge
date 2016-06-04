@@ -203,7 +203,7 @@ class User {
             'password' => Utils::password($password),
             'email' => $email
         );
-        $app->db->insert('users', $data);
+        App::instance()->db->insert('users', $data);
         return false;
     }
 

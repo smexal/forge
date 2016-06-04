@@ -16,6 +16,9 @@ abstract class Theme implements ITheme {
     }
 
     public function addScript($script, $absolute=false) {
+        if(in_array($script, $this->load_scripts)) {
+            return;
+        }
         if(!$absolute)
             $script = $this->url().$script;
         array_push($this->load_scripts, $script);
@@ -55,6 +58,9 @@ abstract class Theme implements ITheme {
     }
 
     public function addStyle($style, $absolute=false, $viewCondition=false) {
+        if(in_array($style, $this->styles)) {
+            return;
+        }
         if(!$absolute && strstr($style, ".less")) {
             $style = $this->compileLess($style);
         }

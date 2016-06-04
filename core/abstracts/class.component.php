@@ -2,7 +2,7 @@
 
 abstract class Component implements IComponent {
     public $id = null;
-    public $prefs = array();
+    public $prefs = null;
     protected $defaults = array(
         'description' => '',
         'image' => '',
@@ -10,11 +10,12 @@ abstract class Component implements IComponent {
         'container' => false
     );
 
-    public function __construct() {
-        $this->prefs = $this->prefs();
-    }
+    public function __construct() {}
 
     public function getPref($key) {
+        if(is_null($this->prefs)) {
+            $this->prefs = $this->prefs();
+        }
         if(array_key_exists($key, $this->prefs)) {
             return $this->prefs[$key];
         } else {
@@ -23,6 +24,9 @@ abstract class Component implements IComponent {
     }
 
     public function settings() {
+        if(is_null($this->prefs)) {
+            $this->prefs = $this->prefs();
+        }        
         $savedPrefs = $this->getSavedPrefs();
         foreach($this->settings as $key => $value) {
             if(array_key_exists($value['key'], $savedPrefs)) {
@@ -54,6 +58,10 @@ abstract class Component implements IComponent {
     }
 
     public function getId() {
+        if(is_null($this->prefs)) {
+            $this->prefs = $this->prefs();
+        }
+        $this->savedPrefsReady();
         if(!$this->id) {
             return;
         }
@@ -61,6 +69,9 @@ abstract class Component implements IComponent {
     }
 
     public function getSavedPrefs($forceUpdate=false) {
+        if(is_null($this->prefs)) {
+            $this->prefs = $this->prefs();
+        }        
         if($forceUpdate) {
             $this->setPageElementPrefs();
         }
@@ -81,6 +92,9 @@ abstract class Component implements IComponent {
     }
 
     private function savedPrefsReady() {
+        if(is_null($this->prefs)) {
+            $this->prefs = $this->prefs();
+        }        
         if(!$this->id) {
             return false;
         }
