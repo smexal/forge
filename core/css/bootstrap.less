@@ -124,7 +124,7 @@ a {
             padding: 0;
             background-color: @primary_color;
             &:hover {
-              background-color: lighten(@primary_color, 2%);
+              background-color: darken(@primary_color, 10%);
             }
             img {
               width: 30px;
@@ -249,4 +249,10 @@ code {
 .page-header {
   border-bottom: 0;
   padding-top: 20px;
+
+  .align-right {
+    .btn {
+      margin-left: 10px;
+    }
+  }
 }

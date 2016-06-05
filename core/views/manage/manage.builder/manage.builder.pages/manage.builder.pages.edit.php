@@ -69,7 +69,7 @@ class ManagePageEdit extends AbstractView {
             'panel_right' => $this->rightFields(),
             'saveurl' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'save'), true),
             'savetext' => i('Save Changes', 'core'),
-            'pageid' => $this->page->id,
+            'itemid' => $this->page->id,
             'lang' => $this->lang,
             'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true),
             'elements' => $this->getElements(0, $this->lang),

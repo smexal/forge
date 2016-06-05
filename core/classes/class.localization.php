@@ -16,6 +16,10 @@ class Localization {
     for($index = 0; $index < count($avail); $index++) {
       $avail[$index] = $avail[$index]['code'];
     }
+    if(array_key_exists('lang', $_GET) && in_array($_GET['lang'], $avail)) {
+      $_SESSION['lang'] = $_GET['lang'];
+      return $_SESSION['lang'];
+    }
     if(array_key_exists('lang', $_SESSION) && in_array($_SESSION['lang'], $avail)) {
       return $_SESSION['lang'];
     }

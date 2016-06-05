@@ -1,10 +1,10 @@
 <?
 
 class CollectionManager {
-  public $collections = array();
+  public $collections = null;
 
   public function __construct() {
-    $this->collections = $this->getCollections();
+    $this->getCollections();
   }
 
   public function add($args) {
@@ -18,22 +18,34 @@ class CollectionManager {
     ));
   }
 
+  public function getCollection($name) {
+    foreach($this->getCollections() as $col) {
+      if($col->name == $name) {
+        return $col;
+      }
+    }
+  }
+
   public function getCollections() {
-      $classes = get_declared_classes();
-      $implementsIModule = array();
-      foreach($classes as $klass) {
-          $reflect = new ReflectionClass($klass);
-          if($reflect->implementsInterface('IDataCollection')) {
-              $rc = new ReflectionClass($klass);
-              if(! $rc->isAbstract())
-                  $implementsIModule[] = $klass;
-          }
+    if(is_array($this->collections)) {
+      return $this->collections;
+    }
+    $classes = get_declared_classes();
+    $implementsIModule = array();
+    foreach($classes as $klass) {
+      $reflect = new ReflectionClass($klass);
+      if($reflect->implementsInterface('IDataCollection')) {
+        $rc = new ReflectionClass($klass);
+        if(! $rc->isAbstract())
+          $implementsIModule[] = $klass;
       }
-      $collections = array();
-      foreach($implementsIModule as $collection) {
-        $collections[] = $collection::instance();
-      }
-      return $collections;
+    }
+    $collections = array();
+    foreach($implementsIModule as $collection) {
+      $collections[] = $collection::instance();
+    }
+    $this->collections = $collections;
+    return $this->collections;
   }
 
   public function deleteCollectionItem($id) {

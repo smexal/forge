@@ -6,6 +6,8 @@ class CollectionManagement extends AbstractView {
     public $permission = 'manage.collections';
     public $permissions = array(
       'add' => "manage.collections.add",
+      'configure' => "manage.collections.configure",
+      'categories' => "manage.collections.categories",
       'delete' => "manage.collections.delete"
     );
 
@@ -29,16 +31,28 @@ class CollectionManagement extends AbstractView {
         // render the overview
         } else {
           if(Auth::allowed($this->permissions['add'])) {
-            $add_button = $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+            $global_actions = $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
               'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'add')),
               'label' => $this->collection->getPref('add-label')
             ));
           } else {
-            $add_button = '';
+            $global_actions = '';
+          }
+          if(Auth::allowed($this->permissions['configure'])) {
+            $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+              'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'configure')),
+              'label' => i('Configure', 'core')
+            ));
+          }
+          if(Auth::allowed($this->permissions['categories'])) {
+            $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+              'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'categories')),
+              'label' => i('Categories', 'core')
+            ));
           }
           return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
               'title' => $this->collection->getPref('all-title'),
-              'global_actions' => $add_button,
+              'global_actions' => $global_actions,
               'content' => $this->collectionList()
           ));
         }
@@ -56,6 +70,10 @@ class CollectionManagement extends AbstractView {
           return $this->getSubview('delete', $this);
         case 'edit': 
           return $this->getSubview('edit', $this);
+        case 'categories':
+          return $this->getSubview('categories', $this);
+        case 'configure': 
+          return $this->getSubview('configure', $this);
         default:
           return '';
       }
@@ -80,7 +98,12 @@ class CollectionManagement extends AbstractView {
       foreach($this->collection->items() as $item) {
         $user = new User($item['author']);
         array_push($rows, array(
-          Utils::tableCell($item['name']),
+          Utils::tableCell(
+            $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
+                "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item['id'])),
+                "name" => $item['name']
+            ))
+          ),
           Utils::tableCell($user->get('username')),
           Utils::tableCell(Utils::dateFormat($item['created'])),
           Utils::tableCell(i($item['status'])),

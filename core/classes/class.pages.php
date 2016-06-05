@@ -60,8 +60,8 @@ class Pages {
 
   public static function save($data) {
       $pages = new Pages();
-      if(array_key_exists('pageid', $data)) {
-          $page = new Page($data['pageid']);
+      if(array_key_exists('itemid', $data)) {
+          $page = new Page($data['itemid']);
           if(array_key_exists('lang', $data)) {
               App::instance()->addMessage(i('Language for saving values for page not set.'));
               return;

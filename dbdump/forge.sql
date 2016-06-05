@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Mai 2016 um 22:49
+-- Erstellungszeit: 05. Jun 2016 um 20:41
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -17,8 +17,55 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Datenbank: `forge`
+-- Datenbank: `butterlan`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `collections`
+--
+
+CREATE TABLE IF NOT EXISTS `collections` (
+`id` int(11) NOT NULL,
+  `sequence` int(11) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `type` varchar(500) NOT NULL,
+  `settings` text NOT NULL,
+  `author` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(80) NOT NULL DEFAULT 'draft'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `collections`
+--
+
+INSERT INTO `collections` (`id`, `sequence`, `name`, `type`, `settings`, `author`, `created`, `status`) VALUES
+(6, 0, 'Neue Website', 'forge-news', '', 21, '2016-06-04 23:17:47', 'draft');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `collection_meta`
+--
+
+CREATE TABLE IF NOT EXISTS `collection_meta` (
+`id` int(11) NOT NULL,
+  `keyy` varchar(200) NOT NULL,
+  `value` text NOT NULL,
+  `lang` varchar(10) NOT NULL,
+  `item` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `collection_meta`
+--
+
+INSERT INTO `collection_meta` (`id`, `keyy`, `value`, `lang`, `item`) VALUES
+(1, 'status', 'draft', 'de', 6),
+(2, 'title', 'title', 'de', 6),
+(3, 'status', 'draft', 'en', 6);
 
 -- --------------------------------------------------------
 
@@ -384,21 +431,21 @@ INSERT INTO `language_strings_translations` (`id`, `stringid`, `translation`, `l
 CREATE TABLE IF NOT EXISTS `media` (
 `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mime` varchar(150) NOT NULL,
   `autor` int(11) NOT NULL,
   `path` varchar(200) NOT NULL,
   `title` varchar(400) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `media`
 --
 
 INSERT INTO `media` (`id`, `name`, `date`, `mime`, `autor`, `path`, `title`) VALUES
-(13, '4abd4bd4610b9499d96de7b006a70ac4.jpg', '2016-05-15 23:45:38', 'image/jpeg', 21, '2016/05/', 'ingress_google_resistance_portal_niantic_hd-wallpaper-1278285.jpg'),
-(23, 'fa8813340f610e25468df44bce728df4.jpg', '2016-05-15 23:46:22', 'image/jpeg', 21, '2016/05/', 'Golden Gate Bridge, Marin Headlands, San Francisco, California.jpg'),
-(25, '0defe610c8aa4671391331516760941f.jpg', '2016-05-17 21:03:16', 'image/jpeg', 21, '2016/05/', 'Outer-Space-Wallpaper.jpg');
+(20, '527ad12fe457bded60005ee7980aa0d3.png', '2016-05-29 12:24:35', 'image/png', 21, '2016/05/', 'witch-doctor.png'),
+(22, 'b7c5c4580a2ed33e90542e118382f339.jpg', '2016-05-29 20:26:58', 'image/jpeg', 21, '2016/05/', 'intro-header.jpg'),
+(24, '63af2ff88d667966d1b7ff5c6d548b6c.jpg', '2016-06-04 11:43:28', 'image/jpeg', 21, '2016/06/', 'news-bg.jpg');
 
 -- --------------------------------------------------------
 
@@ -409,7 +456,15 @@ INSERT INTO `media` (`id`, `name`, `date`, `mime`, `autor`, `path`, `title`) VAL
 CREATE TABLE IF NOT EXISTS `modules` (
 `id` int(11) NOT NULL,
   `module` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `modules`
+--
+
+INSERT INTO `modules` (`id`, `module`) VALUES
+(1, 'forge-mailchimp'),
+(2, 'forge-news');
 
 -- --------------------------------------------------------
 
@@ -422,22 +477,20 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `parent` int(11) DEFAULT NULL,
   `sequence` int(11) NOT NULL,
   `name` varchar(350) NOT NULL,
-  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT NULL,
+  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `creator` int(11) NOT NULL,
   `url` text NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'draft',
   `start` int(7) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `pages`
 --
 
 INSERT INTO `pages` (`id`, `parent`, `sequence`, `name`, `modified`, `created`, `creator`, `url`, `status`, `start`) VALUES
-(45, 0, 0, 'Testpage', '2016-04-06 19:49:12', '2016-04-06 19:49:12', 0, '', 'draft', 0),
-(46, 0, 0, 'Another Page', '2016-05-18 22:07:43', '2016-05-18 22:07:43', 0, '', 'draft', 0),
-(47, 46, 0, 'Some Pageee', '2016-05-18 22:07:54', '2016-05-18 22:07:54', 0, '', 'draft', 0);
+(48, 0, 0, 'Landing Page', '2016-05-24 19:48:18', '2016-05-24 19:48:18', 0, '', 'draft', 0);
 
 -- --------------------------------------------------------
 
@@ -454,20 +507,41 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `lang` varchar(20) NOT NULL,
   `position` int(11) NOT NULL,
   `position_x` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
 --
 
 INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `parent`, `lang`, `position`, `position_x`) VALUES
-(1, 45, 'row', '{"row-format-custom":"","row-format":"4,4,4"}', 0, 'de', 0, 0),
-(6, 45, 'row', '', 0, 'de', 4, 0),
+(1, 45, 'row', '{"row-format-custom":"","row-format":"4,8"}', 0, 'de', 0, 0),
 (10, 45, 'row', '', 0, 'en', 0, 0),
-(12, 45, 'text', '{"content":"<p>asdf<\\/p>"}', 1, 'de', 0, 1),
-(13, 45, 'text', '{"content":"<p>test<\\/p>"}', 1, 'de', 1, 1),
-(20, 45, 'image', '{"image":"13"}', 1, 'de', 0, 0),
-(21, 45, 'image', '{"image":"23"}', 1, 'de', 1, 0);
+(12, 45, 'text', '{"content":"<h1>This is a heading<\\/h1>\\r\\n<p>Lorem ipsum dolor sit amet, consetetur<em> sadipscing elitr, sed diam no<\\/em>numy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <strong>Lorem<\\/strong> ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\\/p>\\r\\n<p>&nbsp;<\\/p>\\r\\n<p>&nbsp;<\\/p>"}', 1, 'de', 0, 1),
+(22, 45, 'image', '{"image":"2"}', 1, 'de', 0, 0),
+(24, 45, 'row', '{"row-format":"8,4","row-format-custom":""}', 0, 'de', 1, 0),
+(25, 45, 'text', '{"content":"<h2>This is another headline<\\/h2>\\r\\n<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\\/p>"}', 24, 'de', 0, 0),
+(26, 45, 'image', '{"image":"2"}', 24, 'de', 0, 1),
+(27, 45, 'row', '{"row-format":"4,4,4","row-format-custom":""}', 0, 'de', 2, 0),
+(28, 45, 'image', '{"image":"3"}', 27, 'de', 0, 0),
+(29, 45, 'text', '{"content":"<h2>Hallo Cathi<\\/h2>\\r\\n<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\\/p>"}', 27, 'de', 0, 1),
+(30, 45, 'image', '{"image":"2"}', 27, 'de', 0, 2),
+(31, 46, 'row', '{"row-format":"6,6","row-format-custom":""}', 0, 'de', 0, 0),
+(32, 46, 'image', '{"image":"3"}', 31, 'de', 0, 0),
+(33, 46, 'text', '{"content":"<h1>Another Page<\\/h1>"}', 31, 'de', 0, 1),
+(34, 47, 'row', '', 0, 'de', 0, 0),
+(35, 47, 'text', '{"content":"<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\\/p>"}', 34, 'de', 0, 0),
+(36, 48, 'row', '{"row-format":"12","row-format-custom":"","row-display-type":"full","row-background-image":"22","row-extra-css":"intro","background-position":"cover","background-style":"fixed"}', 0, 'de', 0, 0),
+(37, 48, 'text', '{"content":"<h1 class=\\"\\" style=\\"text-align: center;\\">Butterlan 12<\\/h1>\\r\\n<p style=\\"text-align: center;\\">a knight&rsquo;s tale<br \\/><small style=\\"text-align: center;\\">( ritter si schwul )<\\/small><\\/p>"}', 36, 'de', 0, 0),
+(38, 48, 'row', '{"row-format":"4,4,4","row-format-custom":"6,2,4","row-extra-css":"bg-right bg-bottom bg-no-repeat","row-display-type":"semi","row-background-image":"20","background-position":"center","background-style":"normal"}', 0, 'de', 1, 0),
+(39, 48, 'text', '{"content":"<h1>in neuem glanz<\\/h1>\\r\\n<p class=\\"lead\\">Das Butterlan Team ist tief in sich gegangen und hat beschlossen alles gr&ouml;sser, besser und sch&ouml;ner zu machen.<\\/p>\\r\\n<p>Nach einer etwas l&auml;ngeren&nbsp;Pause meldet sich das Butterlan Team mit grossen Neuigkeiten zur&uuml;ck. Wir werden am 01.01.18 die gr&ouml;sste Butterlan aller Zeiten organisieren. Dies nur, weil wir euch alle so m&ouml;gen.<\\/p>\\r\\n<p>Wir haben eine neue Location, bauen eine neue Website, wollen mehr f&uuml;r euch da sein und so weiter. Diese Website ist eine kleiner Vorgeschmack auf das, was in n&auml;chster Zeit noch so kommt.<\\/p>"}', 38, 'de', 0, 0),
+(40, 48, 'html', '{"html":"<canvas id=\\"rain\\"><\\/canvas>"}', 36, 'de', 1, 0),
+(44, 48, 'bl_facts', '{"upper_text":"Freitag","main_text":"01.01.18","lower_text":"bis 31.12.18"}', 38, 'de', 0, 2),
+(45, 48, 'bl_facts', '{"upper_text":"Neuer Standort","main_text":"Mekka","lower_text":"Moschee im Zentrum"}', 38, 'de', 1, 2),
+(46, 48, 'bl_facts', '{"upper_text":"so ca.","main_text":"9''574","lower_text":"Teilnehmer"}', 38, 'de', 2, 2),
+(47, 48, 'bl_discord', '{"additional_text":"Sprich mit uns auf","discord_server_url":"https:\\/\\/discord.gg\\/0fepBBSmvQ4TaTCN"}', 38, 'de', 1, 0),
+(48, 48, 'forge_mailchimp_form', '{"forge_mailchimp_lead_text":"Sagt mir was geht per E-Mail","forge_mailchimp_input_label":"Meine E-Mail f\\u00fcr den Newsletter.","forge_mailchimp_button_text":"Anmelden","forge_mailchimp_mailchimp_list":"62e8a8f09b"}', 38, 'de', 2, 0),
+(49, 48, 'row', '{"row-format":"12","row-format-custom":"","row-extra-css":"zig-zag","row-display-type":"semi","row-background-image":"24","background-position":"cover","background-style":"normal"}', 0, 'de', 2, 0),
+(50, 48, 'html', '{"html":"Dummy Content"}', 49, 'de', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -481,17 +555,20 @@ CREATE TABLE IF NOT EXISTS `page_meta` (
   `lang` varchar(11) NOT NULL,
   `value` text NOT NULL,
   `page` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `page_meta`
 --
 
 INSERT INTO `page_meta` (`id`, `keyy`, `lang`, `value`, `page`) VALUES
-(26, 'description', 'de', 'This is a description', 45),
 (33, 'title', 'en', 'test', 45),
 (34, 'description', 'en', 'this is a title', 45),
-(35, 'title', 'de', 'This is my page.', 45);
+(36, 'status', 'de', 'published', 45),
+(38, 'status', 'de', 'published', 46),
+(39, 'status', 'de', 'published', 47),
+(42, 'status', 'de', 'published', 48),
+(43, 'title', 'de', 'Startseite', 48);
 
 -- --------------------------------------------------------
 
@@ -502,7 +579,7 @@ INSERT INTO `page_meta` (`id`, `keyy`, `lang`, `value`, `page`) VALUES
 CREATE TABLE IF NOT EXISTS `permissions` (
 `id` int(7) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions`
@@ -544,7 +621,12 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 (60, 'manage.builder.pages.delete'),
 (61, 'manage.builder.pages.add'),
 (62, 'manage.builder.pages.edit'),
-(63, 'manage.media');
+(63, 'manage.media'),
+(64, 'manage.colletions.delete'),
+(65, 'manage.collections.delete'),
+(66, 'manage.collections.edit'),
+(67, 'manage.collections.configure'),
+(68, 'manage.collections.categories');
 
 -- --------------------------------------------------------
 
@@ -556,7 +638,7 @@ CREATE TABLE IF NOT EXISTS `permissions_groups` (
 `id` int(7) NOT NULL,
   `groupid` int(7) NOT NULL,
   `permissionid` int(7) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions_groups`
@@ -598,7 +680,12 @@ INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
 (38, 1, 61),
 (39, 1, 62),
 (40, 1, 59),
-(41, 1, 63);
+(41, 1, 63),
+(42, 1, 64),
+(43, 1, 65),
+(44, 1, 66),
+(45, 1, 68),
+(46, 1, 67);
 
 -- --------------------------------------------------------
 
@@ -610,14 +697,17 @@ CREATE TABLE IF NOT EXISTS `settings` (
 `id` int(11) NOT NULL,
   `keey` varchar(500) NOT NULL,
   `value` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `settings`
 --
 
 INSERT INTO `settings` (`id`, `keey`, `value`) VALUES
-(1, 'home_page', '45');
+(1, 'home_page', '48'),
+(2, 'active_theme', 'butterlan'),
+(4, 'title_de', 'Butterlan'),
+(6, 'forge_mailchimp_api_key', 'ac3587fe8de6065ef19e7f32410e3015-us13');
 
 -- --------------------------------------------------------
 
@@ -630,18 +720,31 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
-(21, 'Voyze', 'silas.maechler@gmail.com', '$2y$10$fZuEnlJkwpsLk1RndaIoM.9fTi4XfJIEqNaIhrpFUis3af8S1KQje');
+(21, 'Voyze', 'silas.maechler@gmail.com', '$2y$10$fZuEnlJkwpsLk1RndaIoM.9fTi4XfJIEqNaIhrpFUis3af8S1KQje'),
+(22, 'iROQ', 'simon.pfister88@gmail.com', '$2y$10$getuMTGzEKhqYgHrxcF4lOc9F/a7uitau3hLGMmPBKIjFwvcSr4Jm');
 
 --
 -- Indizes der exportierten Tabellen
 --
+
+--
+-- Indizes für die Tabelle `collections`
+--
+ALTER TABLE `collections`
+ ADD PRIMARY KEY (`id`), ADD KEY `author` (`author`);
+
+--
+-- Indizes für die Tabelle `collection_meta`
+--
+ALTER TABLE `collection_meta`
+ ADD PRIMARY KEY (`id`), ADD KEY `item` (`item`);
 
 --
 -- Indizes für die Tabelle `groups`
@@ -732,6 +835,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT für Tabelle `collections`
+--
+ALTER TABLE `collections`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT für Tabelle `collection_meta`
+--
+ALTER TABLE `collection_meta`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT für Tabelle `groups`
 --
 ALTER TABLE `groups`
@@ -760,47 +873,47 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=91;
 -- AUTO_INCREMENT für Tabelle `media`
 --
 ALTER TABLE `media`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT für Tabelle `modules`
 --
 ALTER TABLE `modules`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT für Tabelle `pages`
 --
 ALTER TABLE `pages`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --
 ALTER TABLE `page_meta`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT für Tabelle `permissions`
 --
 ALTER TABLE `permissions`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=64;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT für Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT für Tabelle `settings`
 --
 ALTER TABLE `settings`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- Constraints der exportierten Tabellen
 --
