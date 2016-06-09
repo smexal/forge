@@ -41,6 +41,10 @@ class Form {
         )));
     }
 
+    public function subtitle($title) {
+        array_push($this->content, "<h4>".$title."</h4>");
+    }
+
     public function input($name, $id, $label, $type="input", $value=false, $hint=false) {
       array_push($this->content, $this->app->render(CORE_TEMPLATE_DIR."assets/", "input", array(
         'name' => $name,

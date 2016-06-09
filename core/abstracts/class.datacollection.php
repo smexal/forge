@@ -125,6 +125,65 @@ abstract class DataCollection implements IDataCollection {
         }
     }
 
+    public function getCategories($parent = 0) {
+      $db = App::instance()->db;
+      $db->where('collection', $this->name);
+      $db->where('parent', $parent);
+      $cats = $db->get('collection_categories');
+      return $cats;
+    }
+
+    public function getCategoryMeta($id, $lang=false) {
+      if(!$lang) {
+        $lang = Localization::getCurrentLanguage();
+      }
+      $db = App::instance()->db;
+      $db->where('id', $id);
+      $cat = $db->getOne('collection_categories');
+      $json = json_decode($cat['meta']);
+      return $json->$lang;
+    }
+
+    public function addCategory($data) {
+      if(!array_key_exists("name", $data)) {
+        $data['name'] = "(no name)";
+      }
+      if(!array_key_exists("parent", $data)) {
+        $data['parent'] = 0;
+      }
+      $db = App::instance()->db;
+      $category = $db->insert("collection_categories", array(
+        "collection" => $this->name,
+        "meta" => '',
+        "parent" => $data['parent'],
+        "sequence" => 0
+      ));
+      $this->saveCategoryMeta($category, array('name' => $data['name']));
+    }
+
+    public function saveCategoryMeta($id, $data, $lang=false) {
+      if(! $lang) {
+        $lang = Localization::getCurrentLanguage();
+      }
+      $db = App::instance()->db;
+      $db->where("id", $id);
+      $cat = $db->getOne("collection_categories");
+      if(strlen($cat['meta']) > 0) {
+        $meta = json_decode($cat['meta']);
+      } else {
+        $meta = array();
+      }
+      if(is_array($meta) && array_key_exists($lang, $meta)) {
+        $toSave = array_merge($meta[$lang], $data);
+      } else {
+        $toSave = array($lang => $data);
+      }
+      $db->where("id", $id);
+      $db->update("collection_categories", array(
+        "meta" => json_encode($toSave)
+      ));
+    }
+
     public function addField($field=array()) {
         if(! array_key_exists('key', $field)) {
             Logger::debug('<key> for field not set: '.implode(", ", $field));

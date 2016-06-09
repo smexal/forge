@@ -143,7 +143,7 @@ class Loader {
       $this->loadDirectory(DOC_ROOT."views/", true);
 
       // load core views
-      $this->loadDirectory(CORE_ROOT."views/", true);
+      $this->loadDirectory(CORE_ROOT."views/", true, false, Utils::getUriComponents());
     }
 
     private function loadCoreScripts() {
@@ -162,21 +162,31 @@ class Loader {
       $this->addScript("core/scripts/overlay.js");
     }
 
-    public function loadDirectory($directory, $inquery=false, $filefilter=false) {
+    public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {
         $dir = new DirectoryIterator($directory);
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot() &&  strstr($fileinfo->getFilename(), ".php")) {
                 if(! $filefilter || $filefilter == $fileinfo->getFilename()) {
+                  if(!$namepattern) {
                     require_once($directory.$fileinfo->getFilename());
+                  } else {
+                    foreach ($namepattern as $pattern) {
+                      $fileparts = explode(".", $fileinfo->getFilename());
+                      if(in_array($pattern, $fileparts)) {
+                        require_once($directory.$fileinfo->getFilename());
+                        break;
+                      }
+                    }
+                  }
                 }
             } elseif(!$fileinfo->isDot() && $fileinfo->isDir()) {
               // check if the subdirectory is part of the queried url. (no manage views without manage queried)
               if($inquery) {
                 if(in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
-                  $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter);
+                  $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
                 }
               } else {
-                $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter);
+                $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
               }
             }
         }
