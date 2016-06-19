@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Jun 2016 um 20:41
+-- Erstellungszeit: 19. Jun 2016 um 20:58
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -47,6 +47,30 @@ INSERT INTO `collections` (`id`, `sequence`, `name`, `type`, `settings`, `author
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `collection_categories`
+--
+
+CREATE TABLE IF NOT EXISTS `collection_categories` (
+`id` int(11) NOT NULL,
+  `collection` varchar(150) NOT NULL,
+  `meta` text NOT NULL,
+  `parent` int(11) NOT NULL,
+  `sequence` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `collection_categories`
+--
+
+INSERT INTO `collection_categories` (`id`, `collection`, `meta`, `parent`, `sequence`) VALUES
+(4, 'forge-news', '{"de":{"name":"test"}}', 0, 0),
+(5, 'forge-news', '{"de":{"name":"ab"}}', 0, 0),
+(6, 'forge-news', '{"de":{"name":"asfd"}}', 4, 0),
+(7, 'forge-news', '{"de":{"name":"ugahaha"}}', 4, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `collection_meta`
 --
 
@@ -56,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `collection_meta` (
   `value` text NOT NULL,
   `lang` varchar(10) NOT NULL,
   `item` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `collection_meta`
@@ -741,6 +765,12 @@ ALTER TABLE `collections`
  ADD PRIMARY KEY (`id`), ADD KEY `author` (`author`);
 
 --
+-- Indizes für die Tabelle `collection_categories`
+--
+ALTER TABLE `collection_categories`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `collection_meta`
 --
 ALTER TABLE `collection_meta`
@@ -840,10 +870,15 @@ ALTER TABLE `users`
 ALTER TABLE `collections`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT für Tabelle `collection_categories`
+--
+ALTER TABLE `collection_categories`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
 -- AUTO_INCREMENT für Tabelle `collection_meta`
 --
 ALTER TABLE `collection_meta`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT für Tabelle `groups`
 --

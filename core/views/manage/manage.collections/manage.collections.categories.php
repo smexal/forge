@@ -13,10 +13,9 @@ class CollectionManagementCategories extends AbstractView {
     public function onAddNewCollectionCategory() {
         $manager = App::instance()->cm;
         $this->collection = $manager->getCollection($this->getCollection());
-        // TODO ALLOW TO CHOOSE PARENT
         $this->collection->addCategory(array(
             "name" => $_POST['category_name'],
-            "parent" => 0
+            "parent" => $_POST['parent_category']
         ));
     }
 
@@ -46,17 +45,23 @@ class CollectionManagementCategories extends AbstractView {
         ));
     }
 
-    private function categoryItems() {
-        $categories = $this->collection->getCategories();
+    private function categoryItems($parent=0) {
+        $categories = $this->collection->getCategories($parent);
         $items = '';
+        if($parent > 0) {
+            $items.= '<ul>';
+        }
         foreach($categories as $category) {
             $meta = $this->collection->getCategoryMeta($category['id']);
             $items.= App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'list-item', array(
                 'link' => false,
-                'children' => false,
+                'children' => $this->categoryItems($category['id']),
                 'value' => $meta->name
             ));
         }
+        if($parent > 0) {
+            $items.= '</ul>';
+        }        
         return $items;
     }
 
@@ -67,6 +72,23 @@ class CollectionManagementCategories extends AbstractView {
         $form->subtitle(i("Add new category"));
         $form->hidden("event", $this->events[0]);
         $form->input("category_name", "category_name", i('Category Name'), 'input', $this->formdata['category_name']);
+
+        $categories = $this->collection->getCategories();
+        $cats = array(
+            array(
+                "value" => 0,
+                "text" => i('No Parent')
+            )
+        );
+        foreach($categories as $category) {
+            $meta = $this->collection->getCategoryMeta($category['id']);
+            array_push($cats, array(
+                "value" => $category['id'],
+                "text" => $meta->name
+            ));
+        }
+
+        $form->tags("parent_category", "parent_category", i('Parent Category'), $cats, false, false);
         $form->submit(i('Create'));
         return $form->render();
     }

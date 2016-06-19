@@ -47,6 +47,7 @@ var forms = {
       },
 
     tagsInputByValues : function(element, values) {
+      console.log(values);
       element.tagsinput({
           allowDuplicates: false,
           freeInput: false,

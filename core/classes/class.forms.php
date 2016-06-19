@@ -70,9 +70,6 @@ class Form {
     }
 
     public function tags($name, $id, $label, $values=false, $getter=false, $multiple=true) {
-      if($values && !is_null($values)) {
-        $values = Utils::json($values);
-      }
       if($getter) {
         if(!is_array($getter) || ! array_key_exists("value", $getter) || ! array_key_exists("name", $getter) || ! array_key_exists("url", $getter)) {
            throw new Exception("Invalid getter given. value, name and url required in assoc array.");

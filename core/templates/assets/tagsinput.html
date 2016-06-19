@@ -1,7 +1,7 @@
 <div class="form-group {if="$hor"}row{/if}">
     <label class='control-label {if="$hor"}col-lg-3{/if}' for="{$id}">{$label}</label>
+    {if="$getter"}
     <input
-        {if="$values"}data-values="{$values}"{/if}
         class="form-control tags"
         value=""
         id="{$id}"
@@ -9,4 +9,11 @@
         type="text"
         {if="!$multiple"}data-single="true"{/if}
         {if="$getter"}data-getter="{$getter.url}" data-getter-name="{$getter.name}" data-getter-value="{$getter.value}"{/if}>
+    {else}
+    <select name="{$name}" class="form-control tags">
+        {loop="$values"}
+            <option value="{$value.value}">{$value.text}</option>
+        {/loop}
+    </select>
+    {/if}
 </div>
