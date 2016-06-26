@@ -52,6 +52,7 @@ var ajaxlinks = {
               } else {
                   var formdata = {};
                   if($(this).hasClass('form')) {
+                      tinyMCE.triggerSave();
                       var formdata = $('#' + $(this).attr('data-form')).serialize();
                   }
                   $.ajax({

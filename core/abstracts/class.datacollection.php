@@ -7,6 +7,7 @@ abstract class DataCollection implements IDataCollection {
   public $preferences = array();
   public $name = false;
   private $customFields = array();
+  private $customConfiguration = array();
 
   abstract protected function setup();
 
@@ -20,7 +21,6 @@ abstract class DataCollection implements IDataCollection {
 
   private function init() {
     $this->app = App::instance();
-    $this->setup();
     if(!is_null($this->permission)) {
       Auth::registerPermissions($this->permission);
     }
@@ -45,6 +45,45 @@ abstract class DataCollection implements IDataCollection {
     return new CollectionItem($id);
   }
 
+  public function saveSetting($key, $value, $lang = false) {
+    if($lang === false) {
+      $lang = Localization::getCurrentLanguage();
+    }
+    $db = App::instance()->db;
+
+    $db->where('type', $this->name);
+    $db->where('keyy', $key);
+    $db->where('lang', $lang);
+    $val = $db->getOne('collection_settings');
+    if($val) {
+      $db->where('type', $this->name);
+      $db->where('keyy', $key);
+      $db->where('lang', $lang);
+      $db->update('collection_settings', array(
+        'value' => $value
+      ));
+    } else {
+      $db->insert('collection_settings', array(
+        'keyy' => $key,
+        'value' => $value,
+        'lang' => $lang,
+        'type' => $this->name
+      ));
+    }
+  }
+
+  public function getSetting($key, $lang=false) {
+    if(!$lang) {
+      $lang = Localization::getCurrentLanguage();
+    }
+    $db = App::instance()->db;
+    $db->where('type', $this->name);
+    $db->where('keyy', $key);
+    $db->where('lang', $lang);
+    $setting = $db->getOne('collection_settings');
+    return $setting['value'];
+  }
+
   public function save($data) {
       if(array_key_exists('itemid', $data)) {
           $item = new CollectionItem($data['itemid']);
@@ -62,12 +101,29 @@ abstract class DataCollection implements IDataCollection {
               } else {
                   $lang = $data['language'];
               }
+              if(is_array($data[$field['key']])) {
+                $data[$field['key']] = json_encode($data[$field['key']]);
+              }
               self::savefield($item, $field['key'], $data[$field['key']], $lang);
           }
       } else {
           App::instance()->addMessage(i('Unable to save item, Item does not exist'));
       }
-  }  
+  }
+
+    private function defaultConfiguration() {
+      $fields = array(
+            array(
+                'key' => 'slug',
+                'label' => i('Slug', 'core'),      // default value is "Label"
+                'multilang' => true,
+                'type' => 'text',                   // default value is text
+                'order' => 1,                       // default value is 1000
+                'hint' => i('Will be used as part of the url for the detail view.', 'core')
+            )
+      );
+      return $fields;
+    }
 
     private function defaultFields() {
         $fields = array(
@@ -111,10 +167,54 @@ abstract class DataCollection implements IDataCollection {
                 'position' => 'right',
                 'hint' => sprintf(
                     i('This field will be used to find the %1$s with an url. If not set, the name of the %1$s will be used.'),
+                    $this->preferences['single-item']
+                )
+            ),
+            array(
+                'key' => 'categories',
+                'label' => i('Categories'),
+                'multilang' => false,
+                'type' => 'multiselect',
+                'order' => 10,
+                'position' => 'right',
+                'values' => $this->getCategoriesForSelection(),
+                'hint' => sprintf(
+                    i('Select categories for this %1$s.'),
                     $this->preferences['single-item'])
             )
         );
         return $fields;
+    }
+
+    public function addConfigurations( $fields=array() ) {
+        foreach($fields as $field) {
+            if(is_array($field)) {
+                $this->addConfiguration($field);
+            }
+        }
+    }
+
+    public function addConfiguration($field=array()) {
+        if(! array_key_exists('key', $field)) {
+            Logger::debug('<key> for field not set: '.implode(", ", $field));
+            return;
+        }
+        if(! array_key_exists('multilang', $field)) {
+            $field['multilang'] = true;
+        }
+        if(! array_key_exists('label', $field)) {
+            $field['label'] = i('Label');
+        }
+        if(! array_key_exists('type', $field)) {
+            $field['label'] = 'text';
+        }
+        if(! array_key_exists('order', $field)) {
+            $field['order'] = 1000;
+        }
+        if(! array_key_exists('hint', $field)) {
+            $field['hint'] = false;
+        }
+        array_push($this->customConfiguration, $field);
     }
 
     public function addFields( $fields=array() ) {
@@ -123,6 +223,22 @@ abstract class DataCollection implements IDataCollection {
                 $this->addField($field);
             }
         }
+    }
+
+    private function getCategoriesForSelection($parent = 0, $level = 0) {
+      $returnable = array();
+      $cats = $this->getCategories($parent);
+      foreach($cats as $cat) {
+        $meta = $this->getCategoryMeta($cat['id']);
+        $indent = str_repeat("&nbsp;&nbsp;", $level);
+        $returnable[] = array(
+          'value' => $cat['id'],
+          'active' => false,
+          'text' => $indent.$meta->name
+        );
+        $returnable = array_merge($returnable, $this->getCategoriesForSelection($cat['id'], $level+1));
+      }
+      return $returnable;
     }
 
     public function getCategories($parent = 0) {
@@ -141,7 +257,16 @@ abstract class DataCollection implements IDataCollection {
       $db->where('id', $id);
       $cat = $db->getOne('collection_categories');
       $json = json_decode($cat['meta']);
-      return $json->$lang;
+      if(@$json->$lang) {
+        return $json->$lang;
+      } else {
+        // not found in this language. get in other.
+        foreach(Localization::getActiveLanguages() as $lang) {
+          if(@$json->$lang['code']) {
+            return $json->$lang['code'];
+          }
+        }
+      }
     }
 
     public function addCategory($data) {
@@ -210,6 +335,11 @@ abstract class DataCollection implements IDataCollection {
         array_push($this->customFields, $field);
     }
 
+    public function configuration() {
+      $fields = array_merge($this->defaultConfiguration(), $this->customConfiguration);
+      return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+    }
+
     public function fields() {
       $fields = array_merge($this->defaultFields(), $this->customFields);
       return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
@@ -219,8 +349,8 @@ abstract class DataCollection implements IDataCollection {
     $class = get_called_class();
     if(!array_key_exists($class, static::$instances)) {
       static::$instances[$class] = new $class();
+      static::$instances[$class]->init();
     }
-    static::$instances[$class]->init();
     return static::$instances[$class];
   }
   private function __construct() {}

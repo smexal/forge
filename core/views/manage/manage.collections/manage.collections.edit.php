@@ -72,10 +72,31 @@ class ManageCollectionsEdit extends AbstractView {
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'left') {
-                $return.= Fields::build($field, $this->item->getMeta($field['key']), $this->lang);
+                $return.= Fields::build($field, $this->item->getMeta($field['key']), $this->isMultiLang($field));
             }
         }
         return $return;
+    }
+
+    // displays the right form fields for the edit mask
+    private function rightFields() {
+        $fields = $this->collection->fields();
+        $return = '';
+        foreach($fields as $field) {
+            if($field['position'] == 'right') {
+                $return.= Fields::build($field, $this->item->getMeta($field['key'], $this->isMultiLang($field)));
+            }
+        }
+        return $return;
+    }
+
+    private function isMultiLang($field) {
+        if($field['multilang'] == false) {
+            $lang = 0;
+        } else {
+            $lang = $this->lang;
+        }
+        return $lang;
     }
 
     private function getLanguageLinks() {
@@ -90,17 +111,6 @@ class ManageCollectionsEdit extends AbstractView {
         return $links;
     }
 
-    // displays the right form fields for the edit mask
-    private function rightFields() {
-        $fields = $this->collection->fields();
-        $return = '';
-        foreach($fields as $field) {
-            if($field['position'] == 'right') {
-                $return.= Fields::build($field, $this->item->getMeta($field['key'], $this->lang));
-            }
-        }
-        return $return;
-    }
 }
 
 ?>

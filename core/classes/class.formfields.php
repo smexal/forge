@@ -9,8 +9,14 @@ class Fields {
             case 'select':
                 return self::select($args, $value);
                 break;
+            case 'multiselect':
+                return self::multiselect($args, $value);
+                break;
             case 'textarea':
                 return self::textarea($args, $value);
+                break;
+            case 'wysiwyg':
+                return self::wysiwyg($args, $value);
                 break;
             case 'linklist':
                 return self::linklist($args);
@@ -89,6 +95,24 @@ class Fields {
             'label' => $args['label'],
             'values' => $args['values'],
             'selected' => $value,
+            'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
+        ));
+    }
+
+    public static function multiselect($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        foreach($args['values'] as $key => $available) {
+            if(in_array($available['value'], $value)) {
+                $args['values'][$key]['active'] = true;
+            }
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "multiselect", array(
+            'name' => $args['key'],
+            'id' => $args['key'],
+            'label' => $args['label'],
+            'values' => $args['values'],
             'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
         ));
     }

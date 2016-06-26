@@ -23,11 +23,14 @@ class CollectionItem {
     }
 
     public function getMeta($key, $lang = false) {
-        if(!$lang) {
+        if(!$lang && $lang !== 0) {
             $lang = Localization::getCurrentLanguage();
         }
         foreach($this->meta as $meta) {
             if($meta['keyy'] == $key && $meta['lang'] == $lang) {
+                if(Utils::isJSON($meta['value'])) {
+                    return json_decode($meta['value']);
+                }
                 return $meta['value'];
             }
         }
@@ -35,7 +38,13 @@ class CollectionItem {
     }
 
     public function updateMeta($key, $value, $language) {
+        if(!$language) {
+            $language = 0;
+        }
         $current_value = $this->getMeta($key, $language);
+        if(is_array($current_value)) {
+            $current_value = json_encode($current_value);
+        }
         if(strlen($value) == 0) {
             // remove meta value, if there is no value
             $this->deleteMeta($key, $language);

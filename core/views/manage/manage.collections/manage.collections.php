@@ -28,7 +28,7 @@ class CollectionManagement extends AbstractView {
         // render subview
         if(count($uri) > 1) {
           return $this->subviews($uri);
-        // render the overview
+          // render the overview
         } else {
           if(Auth::allowed($this->permissions['add'])) {
             $global_actions = $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(

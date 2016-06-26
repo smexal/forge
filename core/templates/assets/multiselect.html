@@ -1,8 +1,8 @@
 <div class="form-group">
     <label class="control-label" for="{$id}">{$label}</label>
-    <select class="form-control" name="{$name}" id="{$id}">
+    <select class="form-control" name="{$name}[]" id="{$id}" multiple>
         {loop="$values"}
-            <option value="{$key}" {if="$key==$selected"}selected{/if}>{$value}</option>
+            <option value="{$value.value}" {if="$value.active"}selected{/if}>{$value.text}</option>
         {/loop}
     </select>
     {if="$hint"}<small>{$hint}</small>{/if}

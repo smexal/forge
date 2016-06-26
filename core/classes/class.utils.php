@@ -41,6 +41,11 @@ class Utils {
         return self::getUrl(self::getUriComponents());
     }
 
+    public static function isJSON($string) {
+      @json_decode($string);
+      return (json_last_error() == JSON_ERROR_NONE);
+    }
+
     public static function getUsername($id) {
       $user = new User($id);
       return $user->get('username');

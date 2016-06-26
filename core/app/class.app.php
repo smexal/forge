@@ -57,7 +57,7 @@ class App {
       }
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();
-      }      
+      }
     }
 
     public function run() {
