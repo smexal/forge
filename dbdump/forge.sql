@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Jun 2016 um 20:58
+-- Erstellungszeit: 26. Jun 2016 um 19:34
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `collection_meta` (
   `value` text NOT NULL,
   `lang` varchar(10) NOT NULL,
   `item` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `collection_meta`
@@ -88,8 +88,33 @@ CREATE TABLE IF NOT EXISTS `collection_meta` (
 
 INSERT INTO `collection_meta` (`id`, `keyy`, `value`, `lang`, `item`) VALUES
 (1, 'status', 'draft', 'de', 6),
-(2, 'title', 'title', 'de', 6),
-(3, 'status', 'draft', 'en', 6);
+(2, 'title', 'Testa', 'de', 6),
+(3, 'status', 'draft', 'en', 6),
+(12, 'categories', '["4","7","5"]', '0', 6),
+(13, 'title', 'titel', 'en', 6),
+(14, 'description', 'beschreibung', 'en', 6),
+(16, 'text', '<h2>asdfasdf</h2>', 'en', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `collection_settings`
+--
+
+CREATE TABLE IF NOT EXISTS `collection_settings` (
+`id` int(11) NOT NULL,
+  `keyy` varchar(150) NOT NULL,
+  `value` text NOT NULL,
+  `lang` varchar(20) NOT NULL,
+  `type` varchar(250) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `collection_settings`
+--
+
+INSERT INTO `collection_settings` (`id`, `keyy`, `value`, `lang`, `type`) VALUES
+(1, 'slug', 'ay223', 'de', 'forge-news');
 
 -- --------------------------------------------------------
 
@@ -777,6 +802,12 @@ ALTER TABLE `collection_meta`
  ADD PRIMARY KEY (`id`), ADD KEY `item` (`item`);
 
 --
+-- Indizes für die Tabelle `collection_settings`
+--
+ALTER TABLE `collection_settings`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `groups`
 --
 ALTER TABLE `groups`
@@ -878,7 +909,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT für Tabelle `collection_meta`
 --
 ALTER TABLE `collection_meta`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT für Tabelle `collection_settings`
+--
+ALTER TABLE `collection_settings`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT für Tabelle `groups`
 --
