@@ -103,9 +103,11 @@ class Fields {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         }
-        foreach($args['values'] as $key => $available) {
-            if(in_array($available['value'], $value)) {
-                $args['values'][$key]['active'] = true;
+        if(array_key_exists('values', $args) && $value) {
+            foreach($args['values'] as $key => $available) {
+                if(in_array($available['value'], $value)) {
+                    $args['values'][$key]['active'] = true;
+                }
             }
         }
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "multiselect", array(

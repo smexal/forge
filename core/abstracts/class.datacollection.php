@@ -35,10 +35,25 @@ abstract class DataCollection implements IDataCollection {
     $this->name = $this->getPref('name');
   }
 
-  public function items() {
+  public function items($settings = array()) {
     $db = App::instance()->db;
+    if(array_key_exists('order', $settings)) {
+      $direction = 'asc';
+      if(array_key_exists('order_direction', $settings)) {
+        $direction = $settings['order_direction'];
+      }
+      $db->orderBy($settings['order'], $direction);
+    }
+    $limit = false;
+    if(array_key_exists('limit', $settings)) {
+      $limit = $settings['limit'];
+    }
     $db->where('type', $this->name);
-    return $db->get('collections');
+    if(! $limit) {
+      return $db->get('collections');
+    } else {
+      return $db->get('collections', $limit);
+    }
   }
 
   public function getItem($id) {
