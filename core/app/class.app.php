@@ -52,6 +52,9 @@ class App {
       // start all active modules
       $this->mm->start();
 
+      // init theme
+      $this->tm->theme->start();
+
       if(is_null($this->com)) {
           $this->com = new ComponentManager();
       }
