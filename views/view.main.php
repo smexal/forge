@@ -17,9 +17,24 @@ class Main extends AbstractView {
             App::instance()->page = $page;
             return $page->render();
         } else {
-            $page = $this->getPage(0);
-            if($page) {
-                return $page;
+            // check if is collection
+            $collections = App::instance()->cm->getCollections();
+            $displayCollectionsItem = false;
+            foreach($collections as $collection) {
+                if($collection->slug() == $this->parts[0]) {
+                    $displayCollectionsItem = $collection;
+                    break;
+                }
+            }
+            // no collections item is required, check for pages
+            if(! $displayCollectionsItem) {
+                $page = $this->getPage(0);
+                if($page) {
+                    return $page;
+                }
+            } else {
+                $item = $displayCollectionsItem->getBySlug($this->parts[1]);
+                return $item->render();
             }
             return 'not found';
             // return 404 content...
@@ -41,7 +56,7 @@ class Main extends AbstractView {
             $this->app->db->where('parent', 0);
         }
         $pages = $this->app->db->get('pages');
-        foreach( $pages as $page) {
+        foreach( $pages as $page ) {
             $page = new Page($page['id']);
             if($page->getUrl() == $this->parts[$index]) {
                 if(count($this->parts) > $index+1) {

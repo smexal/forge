@@ -18,6 +18,20 @@ class CollectionItem {
         $this->base_data = $this->db->getOne('collections');
     }
 
+    public function url() {
+        $parent = App::instance()->cm->getCollection($this->base_data['type']);
+        return Utils::getUrl(array($parent->slug(), $this->slug()));
+    }
+
+    public function slug() {
+        $slug = $this->getMeta('slug');
+        if($slug) {
+            return $slug;
+        } else {
+            return $this->base_data['id'];
+        }
+    }
+
     public function getName() {
         return $this->base_data['name'];
     }
@@ -85,6 +99,35 @@ class CollectionItem {
             'value' => $value
         ));
     }
+
+    public function isPublished() {
+        if($this->getMeta('status') == 'published') {
+            return true;
+        }
+        return;
+    }
+
+    public function content() {
+        return 'overwite content method';
+    }
+
+    public function render() {
+        $app = App::instance();
+
+        // run theme methods..
+        $app->tm->theme->styles();
+
+        if($this->isPublished()) {
+            return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
+                array(
+                    'head' => $app->tm->theme->header(),
+                    'body' => $this->content()
+                ),
+                $app->tm->theme->globals()
+          ));
+      }
+      return i('Access Denied');
+  }
 }
 
 ?>

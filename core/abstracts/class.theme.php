@@ -106,7 +106,10 @@ abstract class Theme implements ITheme {
 
     public function getTitle() {
         $global = Settings::get('title_'.Localization::getCurrentLanguage());
-        $page = App::instance()->page->getMeta('title');
+        $page = false;
+        if(App::instance()->page) {
+            $page = App::instance()->page->getMeta('title');
+        }
         if(!$page) {
             return $global;
         }

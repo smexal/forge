@@ -56,6 +56,25 @@ abstract class DataCollection implements IDataCollection {
     }
   }
 
+  public function slug() {
+    $slug = $this->getSetting('slug');
+    if(! is_null($slug)) {
+      return $slug;
+    } else {
+      return $this->name;
+    }
+  }
+
+  public function getBySlug($slug) {
+    foreach($this->items() as $item) {
+      $i = new CollectionItem($item['id']);
+      if($i->slug() == $slug) {
+        return $i;
+      }
+    }
+    return null;
+  }
+
   public function getItem($id) {
     return new CollectionItem($id);
   }
