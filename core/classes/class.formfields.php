@@ -18,8 +18,12 @@ class Fields {
             case 'wysiwyg':
                 return self::wysiwyg($args, $value);
                 break;
+            case 'checkbox':
+                return self::checkbox($args, $value);
+                break;
             case 'linklist':
                 return self::linklist($args);
+                break;
         }
     }
 
@@ -62,6 +66,22 @@ class Fields {
             'id' => $args['key'],
             'label' => $args['label'],
             'type' => 'text',
+            'hor' => false,
+            'noautocomplete' => false,
+            'value' => $value,
+            'hint' => $args['hint']
+        ));
+    }
+
+    public static function checkbox($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
+            'name' => $args['key'],
+            'id' => $args['key'],
+            'label' => $args['label'],
+            'type' => 'checkbox',
             'hor' => false,
             'noautocomplete' => false,
             'value' => $value,

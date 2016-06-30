@@ -19,6 +19,14 @@ abstract class DataCollection implements IDataCollection {
       $item->updateMeta($key, $value, $lang);
   }
 
+  public static function removefield($item, $key, $lang) {
+    $item->updateMeta($key, '', $lang);
+  }
+
+  public function render($item) {
+    return 'overwrite render method with $item';
+  }
+
   private function init() {
     $this->app = App::instance();
     if(!is_null($this->permission)) {
@@ -128,6 +136,8 @@ abstract class DataCollection implements IDataCollection {
 
           foreach($this->fields() as $field) {
               if(! array_key_exists($field['key'], $data)) {
+                  // remove field
+                  self::removefield($item, $field['key'], $lang);
                   continue;
               }
               if($field['multilang'] == false) {

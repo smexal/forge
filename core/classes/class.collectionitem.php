@@ -107,10 +107,6 @@ class CollectionItem {
         return;
     }
 
-    public function content() {
-        return 'overwite content method';
-    }
-
     public function render() {
         $app = App::instance();
 
@@ -121,7 +117,7 @@ class CollectionItem {
             return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
                     'head' => $app->tm->theme->header(),
-                    'body' => $this->content()
+                    'body' => $app->cm->getCollection($this->base_data['type'])->render($this)
                 ),
                 $app->tm->theme->globals()
           ));

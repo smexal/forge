@@ -4,6 +4,9 @@
     <div class="col-lg-9">
 {/if}
     <input class="form-control" id="{$id}" name="{$name}" type="{$type}" 
+        {if="$type=='checkbox'"}
+            {if="$value=='on'"}checked="checked"{/if}
+        {/if}
         {if="$noautocomplete"} readonly onfocus="this.removeAttribute('readonly');"{/if}
         {if="$value"}value="{$value}"{/if}>
     {if="$hint"}<small>{$hint}</small>{/if}

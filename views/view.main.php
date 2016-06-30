@@ -34,7 +34,11 @@ class Main extends AbstractView {
                 }
             } else {
                 $item = $displayCollectionsItem->getBySlug($this->parts[1]);
-                return $item->render();
+                if(!is_null($item)) {
+                    return $item->render();
+                } else {
+                    return 'not found';
+                }
             }
             return 'not found';
             // return 404 content...

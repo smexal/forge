@@ -10,6 +10,7 @@ if(substr($ext, strlen($ext)-1) != '/') {
 
 // GETTING PLACES
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].$ext);
+define('MOD_ROOT', DOC_ROOT."modules/");
 define('WWW_ROOT', $ext);
 define('UPLOAD_WWW', WWW_ROOT."uploads/");
 define('UPLOAD_DIR', DOC_ROOT."uploads/");

@@ -23,3 +23,10 @@
   font-size: 90%;
   font-weight: normal;
 }
+input[type="checkbox"] {
+  float: left;
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  margin-top: 0;
+}
