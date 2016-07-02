@@ -16,6 +16,8 @@ class ApiView extends AbstractView {
             return $this->pages($query);
         case 'media':
             return $this->media($query);
+        case 'navigation-items':
+            return $this->navigationItems();
         default:
           $return = API::instance()->run($part, $query);
           if($return) {
@@ -54,7 +56,6 @@ class ApiView extends AbstractView {
         }
       }
     }
-
 }
 
 

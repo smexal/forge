@@ -34,6 +34,20 @@ class Form {
         $this->ajaxTarget = $target;
     }
 
+    public function select($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        array_push($this->content, $this->app->render(CORE_TEMPLATE_DIR."assets/", "select", array(
+            'name' => $args['key'],
+            'id' => $args['key'],
+            'label' => $args['label'],
+            'values' => $args['values'],
+            'selected' => $value,
+            'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
+        )));
+    }
+
     public function hidden($name, $value) {
         array_push($this->content, $this->app->render(CORE_TEMPLATE_DIR."assets/", "hidden", array(
             'name' => $name,
@@ -71,7 +85,10 @@ class Form {
 
     public function tags($name, $id, $label, $values=false, $getter=false, $multiple=true) {
       if($getter) {
-        if(!is_array($getter) || ! array_key_exists("value", $getter) || ! array_key_exists("name", $getter) || ! array_key_exists("url", $getter)) {
+        if(!is_array($getter) 
+            || ! array_key_exists("value", $getter) 
+            || ! array_key_exists("name", $getter) 
+            || ! array_key_exists("url", $getter)) {
            throw new Exception("Invalid getter given. value, name and url required in assoc array.");
         }
       }

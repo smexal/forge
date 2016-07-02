@@ -28,6 +28,7 @@ var forms = {
         });
         engine.initialize();
 
+        console.log(element.data('getter-name'), element.data('getter-value'));
         element.tagsinput({
             allowDuplicates: false,
             freeInput: false,
@@ -47,7 +48,6 @@ var forms = {
       },
 
     tagsInputByValues : function(element, values) {
-      console.log(values);
       element.tagsinput({
           allowDuplicates: false,
           freeInput: false,

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 26. Jun 2016 um 19:34
+-- Erstellungszeit: 02. Jul 2016 um 12:59
 -- Server Version: 5.6.21
 -- PHP-Version: 5.6.3
 
@@ -35,14 +35,17 @@ CREATE TABLE IF NOT EXISTS `collections` (
   `author` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(80) NOT NULL DEFAULT 'draft'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `collections`
 --
 
 INSERT INTO `collections` (`id`, `sequence`, `name`, `type`, `settings`, `author`, `created`, `status`) VALUES
-(6, 0, 'Neue Website', 'forge-news', '', 21, '2016-06-04 23:17:47', 'draft');
+(7, 0, 'ABSCHLUSSPLATZIERUNG BL11', 'forge-news', '', 21, '2016-06-28 21:08:30', 'draft'),
+(8, 0, 'Dummy', 'forge-news', '', 21, '2016-06-28 21:12:31', 'draft'),
+(9, 0, 'Lorem ipsum', 'forge-news', '', 21, '2016-06-28 21:13:20', 'draft'),
+(10, 0, 'Something new', 'forge-news', '', 21, '2016-06-28 21:13:43', 'draft');
 
 -- --------------------------------------------------------
 
@@ -80,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `collection_meta` (
   `value` text NOT NULL,
   `lang` varchar(10) NOT NULL,
   `item` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `collection_meta`
@@ -88,12 +91,27 @@ CREATE TABLE IF NOT EXISTS `collection_meta` (
 
 INSERT INTO `collection_meta` (`id`, `keyy`, `value`, `lang`, `item`) VALUES
 (1, 'status', 'draft', 'de', 6),
-(2, 'title', 'Testa', 'de', 6),
+(2, 'title', 'Nintendo als neuen Sponsor', 'de', 6),
 (3, 'status', 'draft', 'en', 6),
 (12, 'categories', '["4","7","5"]', '0', 6),
 (13, 'title', 'titel', 'en', 6),
 (14, 'description', 'beschreibung', 'en', 6),
-(16, 'text', '<h2>asdfasdf</h2>', 'en', 6);
+(16, 'text', '<h2>asdfasdf</h2>', 'en', 6),
+(17, 'description', 'Wir begrüssen Nintendo als neuen Sponsor! Gewinne einen NEW 3DS!', 'de', 6),
+(18, 'status', 'published', 'de', 7),
+(19, 'title', 'Abschlussplatzierungen', 'de', 7),
+(20, 'description', 'Schau dir die Abschlussplatzierungen der Butterlan 11 an.', 'de', 7),
+(21, 'status', 'draft', 'de', 8),
+(22, 'title', 'Dummy News', 'de', 8),
+(23, 'description', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.', 'de', 8),
+(24, 'status', 'draft', 'de', 9),
+(25, 'title', 'Lorem ipsum', 'de', 9),
+(26, 'description', 'At vero eos et accusam et justo duo dolores et ea rebum.', 'de', 9),
+(27, 'status', 'published', 'de', 10),
+(28, 'title', 'Something new', 'de', 10),
+(29, 'description', 'Stet clita kasd gubergren, no sea takimata<br />sanctus est Lorem ipsum dolor sit amet.', 'de', 10),
+(36, 'slug', 'abschluss', 'de', 7),
+(37, 'comments', 'on', 'de', 7);
 
 -- --------------------------------------------------------
 
@@ -114,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `collection_settings` (
 --
 
 INSERT INTO `collection_settings` (`id`, `keyy`, `value`, `lang`, `type`) VALUES
-(1, 'slug', 'ay223', 'de', 'forge-news');
+(1, 'slug', 'neuigkeiten', 'de', 'forge-news');
 
 -- --------------------------------------------------------
 
@@ -485,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `media` (
   `autor` int(11) NOT NULL,
   `path` varchar(200) NOT NULL,
   `title` varchar(400) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `media`
@@ -494,7 +512,8 @@ CREATE TABLE IF NOT EXISTS `media` (
 INSERT INTO `media` (`id`, `name`, `date`, `mime`, `autor`, `path`, `title`) VALUES
 (20, '527ad12fe457bded60005ee7980aa0d3.png', '2016-05-29 12:24:35', 'image/png', 21, '2016/05/', 'witch-doctor.png'),
 (22, 'b7c5c4580a2ed33e90542e118382f339.jpg', '2016-05-29 20:26:58', 'image/jpeg', 21, '2016/05/', 'intro-header.jpg'),
-(24, '63af2ff88d667966d1b7ff5c6d548b6c.jpg', '2016-06-04 11:43:28', 'image/jpeg', 21, '2016/06/', 'news-bg.jpg');
+(24, '63af2ff88d667966d1b7ff5c6d548b6c.jpg', '2016-06-04 11:43:28', 'image/jpeg', 21, '2016/06/', 'news-bg.jpg'),
+(28, '84b8997e9e853cee20578765f15b2bc4.jpg', '2016-06-29 17:32:37', 'image/jpeg', 21, '2016/06/', 'intro-header-002c.jpg');
 
 -- --------------------------------------------------------
 
@@ -514,6 +533,41 @@ CREATE TABLE IF NOT EXISTS `modules` (
 INSERT INTO `modules` (`id`, `module`) VALUES
 (1, 'forge-mailchimp'),
 (2, 'forge-news');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `navigations`
+--
+
+CREATE TABLE IF NOT EXISTS `navigations` (
+`id` int(11) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `position` varchar(200) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `navigations`
+--
+
+INSERT INTO `navigations` (`id`, `name`, `position`) VALUES
+(3, 'asdf', 'footer-nav'),
+(4, 'xxxx', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `navigation_items`
+--
+
+CREATE TABLE IF NOT EXISTS `navigation_items` (
+`id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `item_type` varchar(300) NOT NULL,
+  `order` int(11) NOT NULL,
+  `parent` int(11) NOT NULL,
+  `lang` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -556,7 +610,7 @@ CREATE TABLE IF NOT EXISTS `page_elements` (
   `lang` varchar(20) NOT NULL,
   `position` int(11) NOT NULL,
   `position_x` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `page_elements`
@@ -579,18 +633,18 @@ INSERT INTO `page_elements` (`id`, `pageid`, `elementid`, `prefs`, `parent`, `la
 (33, 46, 'text', '{"content":"<h1>Another Page<\\/h1>"}', 31, 'de', 0, 1),
 (34, 47, 'row', '', 0, 'de', 0, 0),
 (35, 47, 'text', '{"content":"<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<\\/p>"}', 34, 'de', 0, 0),
-(36, 48, 'row', '{"row-format":"12","row-format-custom":"","row-display-type":"full","row-background-image":"22","row-extra-css":"intro","background-position":"cover","background-style":"fixed"}', 0, 'de', 0, 0),
+(36, 48, 'row', '{"row-format":"12","row-format-custom":"","row-display-type":"full","row-background-image":"28","row-extra-css":"intro","background-position":"cover","background-style":"fixed"}', 0, 'de', 0, 0),
 (37, 48, 'text', '{"content":"<h1 class=\\"\\" style=\\"text-align: center;\\">Butterlan 12<\\/h1>\\r\\n<p style=\\"text-align: center;\\">a knight&rsquo;s tale<br \\/><small style=\\"text-align: center;\\">( ritter si schwul )<\\/small><\\/p>"}', 36, 'de', 0, 0),
 (38, 48, 'row', '{"row-format":"4,4,4","row-format-custom":"6,2,4","row-extra-css":"bg-right bg-bottom bg-no-repeat","row-display-type":"semi","row-background-image":"20","background-position":"center","background-style":"normal"}', 0, 'de', 1, 0),
 (39, 48, 'text', '{"content":"<h1>in neuem glanz<\\/h1>\\r\\n<p class=\\"lead\\">Das Butterlan Team ist tief in sich gegangen und hat beschlossen alles gr&ouml;sser, besser und sch&ouml;ner zu machen.<\\/p>\\r\\n<p>Nach einer etwas l&auml;ngeren&nbsp;Pause meldet sich das Butterlan Team mit grossen Neuigkeiten zur&uuml;ck. Wir werden am 01.01.18 die gr&ouml;sste Butterlan aller Zeiten organisieren. Dies nur, weil wir euch alle so m&ouml;gen.<\\/p>\\r\\n<p>Wir haben eine neue Location, bauen eine neue Website, wollen mehr f&uuml;r euch da sein und so weiter. Diese Website ist eine kleiner Vorgeschmack auf das, was in n&auml;chster Zeit noch so kommt.<\\/p>"}', 38, 'de', 0, 0),
-(40, 48, 'html', '{"html":"<canvas id=\\"rain\\"><\\/canvas>"}', 36, 'de', 1, 0),
+(40, 48, 'html', '{"html":"<canvas id=\\"rain\\"><\\/canvas>\\r\\n<div id=\\"lightning\\"><\\/div>"}', 36, 'de', 1, 0),
 (44, 48, 'bl_facts', '{"upper_text":"Freitag","main_text":"01.01.18","lower_text":"bis 31.12.18"}', 38, 'de', 0, 2),
 (45, 48, 'bl_facts', '{"upper_text":"Neuer Standort","main_text":"Mekka","lower_text":"Moschee im Zentrum"}', 38, 'de', 1, 2),
 (46, 48, 'bl_facts', '{"upper_text":"so ca.","main_text":"9''574","lower_text":"Teilnehmer"}', 38, 'de', 2, 2),
 (47, 48, 'bl_discord', '{"additional_text":"Sprich mit uns auf","discord_server_url":"https:\\/\\/discord.gg\\/0fepBBSmvQ4TaTCN"}', 38, 'de', 1, 0),
 (48, 48, 'forge_mailchimp_form', '{"forge_mailchimp_lead_text":"Sagt mir was geht per E-Mail","forge_mailchimp_input_label":"Meine E-Mail f\\u00fcr den Newsletter.","forge_mailchimp_button_text":"Anmelden","forge_mailchimp_mailchimp_list":"62e8a8f09b"}', 38, 'de', 2, 0),
 (49, 48, 'row', '{"row-format":"12","row-format-custom":"","row-extra-css":"zig-zag","row-display-type":"semi","row-background-image":"24","background-position":"cover","background-style":"normal"}', 0, 'de', 2, 0),
-(50, 48, 'html', '{"html":"Dummy Content"}', 49, 'de', 0, 0);
+(51, 48, 'forge-news', '{"title":"Neuigkeiten"}', 49, 'de', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -628,7 +682,7 @@ INSERT INTO `page_meta` (`id`, `keyy`, `lang`, `value`, `page`) VALUES
 CREATE TABLE IF NOT EXISTS `permissions` (
 `id` int(7) NOT NULL,
   `name` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions`
@@ -675,7 +729,8 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 (65, 'manage.collections.delete'),
 (66, 'manage.collections.edit'),
 (67, 'manage.collections.configure'),
-(68, 'manage.collections.categories');
+(68, 'manage.collections.categories'),
+(69, 'manage.navigations.add');
 
 -- --------------------------------------------------------
 
@@ -687,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `permissions_groups` (
 `id` int(7) NOT NULL,
   `groupid` int(7) NOT NULL,
   `permissionid` int(7) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `permissions_groups`
@@ -734,7 +789,8 @@ INSERT INTO `permissions_groups` (`id`, `groupid`, `permissionid`) VALUES
 (43, 1, 65),
 (44, 1, 66),
 (45, 1, 68),
-(46, 1, 67);
+(46, 1, 67),
+(47, 1, 69);
 
 -- --------------------------------------------------------
 
@@ -746,7 +802,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 `id` int(11) NOT NULL,
   `keey` varchar(500) NOT NULL,
   `value` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `settings`
@@ -756,7 +812,12 @@ INSERT INTO `settings` (`id`, `keey`, `value`) VALUES
 (1, 'home_page', '48'),
 (2, 'active_theme', 'butterlan'),
 (4, 'title_de', 'Butterlan'),
-(6, 'forge_mailchimp_api_key', 'ac3587fe8de6065ef19e7f32410e3015-us13');
+(6, 'forge_mailchimp_api_key', 'ac3587fe8de6065ef19e7f32410e3015-us13'),
+(7, 'butterlan-copyright-text', 'Copyright by BUTTERLAN Organisation | Alle Rechte vorbehalten.'),
+(8, 'butterlan-address', 'Mehrzweckhalle Eyacker<br />4571 Lüeterkofen-Ichterswil'),
+(9, 'butterlan-footer-email', 'info@butterlan.ch'),
+(10, 'butterlan-facebook', 'https://www.facebook.com/ButterLan/'),
+(11, 'butterlan-youtube', 'https://www.youtube.com/user/ButterlanACE');
 
 -- --------------------------------------------------------
 
@@ -850,6 +911,18 @@ ALTER TABLE `modules`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `navigations`
+--
+ALTER TABLE `navigations`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `navigation_items`
+--
+ALTER TABLE `navigation_items`
+ ADD PRIMARY KEY (`id`), ADD KEY `item_id` (`item_id`);
+
+--
 -- Indizes für die Tabelle `pages`
 --
 ALTER TABLE `pages`
@@ -899,7 +972,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `collections`
 --
 ALTER TABLE `collections`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT für Tabelle `collection_categories`
 --
@@ -909,7 +982,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT für Tabelle `collection_meta`
 --
 ALTER TABLE `collection_meta`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT für Tabelle `collection_settings`
 --
@@ -944,12 +1017,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=91;
 -- AUTO_INCREMENT für Tabelle `media`
 --
 ALTER TABLE `media`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT für Tabelle `modules`
 --
 ALTER TABLE `modules`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT für Tabelle `navigations`
+--
+ALTER TABLE `navigations`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT für Tabelle `navigation_items`
+--
+ALTER TABLE `navigation_items`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `pages`
 --
@@ -959,7 +1042,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 -- AUTO_INCREMENT für Tabelle `page_elements`
 --
 ALTER TABLE `page_elements`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT für Tabelle `page_meta`
 --
@@ -969,17 +1052,17 @@ MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 -- AUTO_INCREMENT für Tabelle `permissions`
 --
 ALTER TABLE `permissions`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT für Tabelle `permissions_groups`
 --
 ALTER TABLE `permissions_groups`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+MODIFY `id` int(7) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT für Tabelle `settings`
 --
 ALTER TABLE `settings`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --

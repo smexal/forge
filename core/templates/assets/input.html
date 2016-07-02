@@ -3,7 +3,10 @@
 {if="$hor"}
     <div class="col-lg-9">
 {/if}
-    <input class="form-control" id="{$id}" name="{$name}" type="{$type}" 
+    <input class="form-control" id="{$id}" name="{$name}" type="{$type}"
+        {if="$type=='radio'"}
+            {if="$value=='on'"}checked="checked"{/if}
+        {/if}
         {if="$type=='checkbox'"}
             {if="$value=='on'"}checked="checked"{/if}
         {/if}

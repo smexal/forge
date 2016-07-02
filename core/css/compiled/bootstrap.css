@@ -217,9 +217,8 @@ code.fullwidth {
   text-transform: uppercase;
   line-height: 1em;
   border-top: none;
-  padding: 20px;
-  background-color: white;
-  color: #66BB6A;
+  padding: 10px;
+  color: #333;
 }
 .table > tbody tr td {
   vertical-align: middle;
