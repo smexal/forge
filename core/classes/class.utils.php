@@ -67,18 +67,6 @@ class Utils {
         return WWW_ROOT.implode("/", $params).$query;
     }
 
-    public static function checkdatabase($host, $user, $pw, $dbname) {
-      $link = mysql_connect($host, $user, $pw);
-      if (!$link) {
-        die('<h1>Not connected : ' . mysql_error().'</h1>');
-      }
-      $db_selected = mysql_select_db($dbname, $link);
-      if (!$db_selected) {
-        die ('<h1>Cannot use '.$dbname.' : ' . mysql_error().'</h1>');
-      }
-      mysql_close($link);
-    }
-
     public static function getProgressBar($id, $current, $text="") {
       return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "progressbar", array(
           "id" => $id,

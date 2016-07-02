@@ -82,7 +82,7 @@ class Auth {
         }
     }
 
-    function session() {
+    public static function session() {
         // session has already been started
         if (session_status() !== PHP_SESSION_NONE)
             return;

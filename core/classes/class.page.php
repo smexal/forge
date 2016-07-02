@@ -142,15 +142,27 @@ class Page {
       $app = App::instance();
 
       // run theme methods..
-      $app->tm->theme->styles();
+      if($app->tm->theme !== '') {
+        $app->tm->theme->styles();
+      }
+
+      $head = '';
+      if($app->tm->theme !== '') {
+        $head = $app->tm->theme->header();
+      }
+
+      $globals = array();
+      if($app->tm->theme !== '') {
+        $globals = $app->tm->theme->globals();
+      }
 
       if($this->isPublished()) {
           return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
-                    'head' => $app->tm->theme->header(),
+                    'head' => $head,
                     'body' => $this->content()
                 ),
-                $app->tm->theme->globals()
+                $globals
           ));
       }
       return i('Access Denied');
