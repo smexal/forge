@@ -14,6 +14,101 @@ class ContentNavigation {
         return false;
     }
 
+    public static function update($id, $name, $position) {
+        $db = App::instance()->db;
+        $db->where('id', $id);
+        $db->update('navigations', array(
+            'name' => $name,
+            'position' => $position
+        ));
+        return false;
+    }
+
+    public static function delete($id) {
+        $db = App::instance()->db;
+        $db->where('id', $id);
+        $db->delete('navigations');
+        $db->where('navigation_id', $id);
+        $db->delete('navigation_items', $id);
+        return false;
+    }
+
+    public static function getById($id) {
+        $db = App::instance()->db;
+        $db->where('id', $id);
+        return $db->getOne('navigations');
+    }
+
+    public static function addItem($navigation, $data) {
+        if(!array_key_exists('lang', $data)) {
+            $data['lang'] = Localization::getCurrentLanguage();
+        }
+        $db = App::instance()->db;
+        $data = array(
+            "name" => $data['name'],
+            "item_id" => $data['item'],
+            "item_type" => $data['item_type'],
+            "navigation_id" => $navigation,
+            "order" => 0,
+            "parent" => $data['parent'],
+            "lang" => $data['lang']
+        );
+        $db->insert("navigation_items", $data);
+    }
+
+    public static function updateItem($item_id, $data) {
+        if(!array_key_exists('lang', $data)) {
+            $data['lang'] = Localization::getCurrentLanguage();
+        }
+        $db = App::instance()->db;
+        $db->where('id', $item_id);
+        $data = array(
+            "name" => $data['name'],
+            "item_id" => $data['item'],
+            "item_type" => $data['item_type'],
+            "order" => 0,
+            "parent" => $data['parent'],
+            "lang" => $data['lang']
+        );
+        $db->update("navigation_items", $data);
+    }
+
+    public static function deleteItem($id) {
+        App::instance()->db->where('id', $id);
+        App::instance()->db->delete('navigation_items');
+
+        App::instance()->db->where('parent', $id);
+        App::instance()->db->update('navigation_items', array(
+            "parent" => 0
+        ));
+        return true;
+    }
+
+    public static function getItem($id) {
+        App::instance()->db->where('id', $id);
+        return App::instance()->db->getOne('navigation_items');
+    }
+
+    public static function getNavigationItems($navigation, $lang=false, $parent=0, $flat=false) {
+        $items = array();
+        if(!$lang) {
+            $lang = Localization::getCurrentLanguage();
+        }
+        $db = App::instance()->db;
+        $db->where('navigation_id', $navigation);
+        $db->where('lang', $lang);
+        if(!$flat) {
+            $db->where('parent', $parent);
+        }
+        foreach($db->get('navigation_items') as $item) {
+            if(!$flat) {
+                $item['items'] = self::getNavigationItems($navigation, $lang, $item['id']);
+            }
+            array_push($items, $item);
+        }
+        return $items;
+    }
+
     public static function registerPosition($id, $name) {
         $inst = self::instance();
         $inst->positions[$id] = $name;

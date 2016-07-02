@@ -1,50 +1,50 @@
 <?php
 
-class ManageAddNavigationItem extends AbstractView {
+class ManageEditNavigationItem extends AbstractView {
     public $parent = 'navigation';
     public $permission = 'manage.navigations.add';
-    public $name = 'add-item';
+    public $name = 'itemedit';
     public $message = '';
     private $navigation = null;
     public $events = array(
-        'onAddNavigationItem'
+        'onEditNavigationItem'
     );
 
     public function content($uri=array()) {
-        $this->navigation = $uri[0];
+        $this->item = ContentNavigation::getItem($uri[0]);
         return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
-            'title' => i('Add item to navigation'),
+            'title' => i('Edit item'),
             'message' => $this->message,
             'form' => $this->form()
         ));
     }
 
-    public function onAddNavigationItem($data) {
+    public function onEditNavigationItem($data) {
         $item = explode("##", $data['item']);
-        $this->message = ContentNavigation::addItem($data['navigation'], array(
+        $this->message = ContentNavigation::updateItem($data['item_id'], array(
             "name" => $data["new_name"],
             "parent" => $data['parent'],
             "item" => $item[1],
             "item_type" => $item[0]
         ));
-        App::instance()->addMessage(sprintf(i('Navigation Item %1$s has been added.'), $data['new_name']), "success");
+        App::instance()->addMessage(sprintf(i('Changes saved.'), $data['new_name']), "success");
         App::instance()->redirect(Utils::getUrl(array('manage', 'navigation')));
     }
 
     public function form() {
-        $form = new Form(Utils::getUrl(array('manage', 'navigation', 'add-item')));
+        $form = new Form(Utils::getUrl(array('manage', 'navigation', 'itemedit')));
         $form->ajax(".content");
         $form->disableAuto();
         $form->hidden("event", $this->events[0]);
-        $form->hidden("navigation", $this->navigation);
-        $form->input("new_name", "new_name", i('Item name'), 'input', '');
+        $form->hidden("item_id", $this->item['id']);
+        $form->input("new_name", "new_name", i('Item name'), 'input', $this->item['name']);
 
         $items = $this->getItems();
         $form->select(array(
             "key" => 'item',
             "label" => i('Select item'),
             "values" => $this->getItems()
-        ), '');
+        ), $this->item['item_type'].'##'.$this->item['item_id']);
 
         $items = $this->getNavigationItems($this->navigation);
         $items["0"] = i('No Parent');
@@ -54,13 +54,13 @@ class ManageAddNavigationItem extends AbstractView {
             "key" => 'parent',
             "label" => i('Select a parent item'),
             "values" => $items
-        ), '');
-        $form->submit(i('Add item'));
+        ), $this->item['parent']);
+        $form->submit(i('Save changes'));
         return $form->render();
     }
 
     private function getNavigationItems($navigation) {
-        $items = array();
+        $items = [];
         foreach(ContentNavigation::getNavigationItems($navigation, false, 0, true) as $item) {
             $items[$item['id']] = $item['name'];
         }

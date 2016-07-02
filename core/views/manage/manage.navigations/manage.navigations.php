@@ -35,13 +35,25 @@ class NavigationManagement extends AbstractView {
     private function navigationList() {
       $return = '';
       foreach(ContentNavigation::getNavigations() as $nav) {
-        $return.= '<h3>'.i('Navigation').': '.$nav['name'].'</h3>';
+        $position = '';
+        if($nav['position'] !== '') {
+          $position = ' ('.$nav['position'].')';
+        }
+        $return.= '<h3>'.i('Navigation').': '.$nav['name'].$position.'</h3>';
+        $edit_url = Utils::getUrl(array('manage', 'navigation', 'edit', $nav['id']));
+        $delete_url = Utils::getUrl(array('manage', 'navigation', 'delete', $nav['id']));
+        $return.= '<a href="javascript://" data-open="'.$edit_url.'" class="open-overlay">';
+        $return.= i('Edit navigation');
+        $return.= '</a> | ';
+        $return.= '<a href="javascript://" data-open="'.$delete_url.'" class="open-overlay">';
+        $return.= i('Delete navigation');
+        $return.= '</a>';
         $return.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", array(
             'id' => "navigationsTable",
             'th' => array(
                 Utils::tableCell(i('Name')),
-                Utils::tableCell(i('Items')),
-                Utils::tableCell(i('Position'))
+                Utils::tableCell(i('Item Type')),
+                Utils::tableCell(i('Actions'))
             ),
             'td' => $this->getNavigationItems($nav['id'])
         ));
@@ -55,7 +67,40 @@ class NavigationManagement extends AbstractView {
     }
 
     private function getNavigationItems($navigation, $parent=0, $level=0) {
-      return 'td';
+        $indent = str_repeat("&nbsp;", $level);
+        $level+=10;
+        $items = ContentNavigation::getNavigationItems($navigation, false, $parent);
+        $item_rows = array();
+        foreach($items as $item) {
+            array_push($item_rows, array(
+                Utils::tableCell($indent.$item['name']),
+                Utils::tableCell($item['item_type']),
+                Utils::tableCell($this->actions($item['id']))
+            ));
+            $item_rows = array_merge($item_rows, $this->getNavigationItems($navigation, $item['id'], $level));
+        }
+        return $item_rows;
+    }
+
+    private function actions($id) {
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "table.actions", array(
+            'actions' => array(
+                array(
+                    "url" => Utils::getUrl(array("manage", "navigation", "itemdelete", $id)),
+                    "icon" => "remove",
+                    "name" => i('delete item'),
+                    "ajax" => true,
+                    "confirm" => true
+                ),
+                array(
+                    "url" => Utils::getUrl(array("manage", "navigation", "itemedit", $id)),
+                    "icon" => "pencil",
+                    "name" => i('edit item'),
+                    "ajax" => true,
+                    "confirm" => true
+                )
+            )
+        ));
     }
 
     private function getPageRows($parent=0, $level=0) {
