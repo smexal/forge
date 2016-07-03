@@ -223,7 +223,7 @@ code.fullwidth {
 .table > tbody tr td {
   vertical-align: middle;
   border-top: 1px solid #efefef;
-  padding: 15px 20px;
+  padding: 10px;
 }
 .page-header {
   border-bottom: 0;

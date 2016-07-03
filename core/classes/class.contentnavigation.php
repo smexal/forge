@@ -39,6 +39,12 @@ class ContentNavigation {
         return $db->getOne('navigations');
     }
 
+    public static function getByPosition($position) {
+        $db = App::instance()->db;
+        $db->where('position', $position);
+        return $db->getOne('navigations');
+    }
+
     public static function addItem($navigation, $data) {
         if(!array_key_exists('lang', $data)) {
             $data['lang'] = Localization::getCurrentLanguage();
@@ -89,8 +95,28 @@ class ContentNavigation {
         return App::instance()->db->getOne('navigation_items');
     }
 
-    public static function getNavigationItems($navigation, $lang=false, $parent=0, $flat=false) {
-        $items = array();
+    public static function getNavigation($position) {
+        return self::getNavigationItemsByPosition($position);
+    }
+    public static function getNavigationItemsByPosition($position) {
+        $nav = self::getByPosition($position);
+        return self::getNavigationItems($nav['id']);
+    }
+
+    public static function getNavigationList($position) {
+        $nav = self::getByPosition($position);
+        $return = '<nav class="'.$position.'">';
+        $return.= self::getNavigationItems($nav['id'], false, 0, false, true);
+        $return.= '</nav>';
+        return $return;
+    }
+
+    public static function getNavigationItems($navigation, $lang=false, $parent=0, $flat=false, $list = false) {
+        if(!$list) {
+            $items = array();
+        } else {
+            $list = '<ul>';
+        }
         if(!$lang) {
             $lang = Localization::getCurrentLanguage();
         }
@@ -101,12 +127,33 @@ class ContentNavigation {
             $db->where('parent', $parent);
         }
         foreach($db->get('navigation_items') as $item) {
-            if(!$flat) {
+            if(!$flat && ! $list) {
                 $item['items'] = self::getNavigationItems($navigation, $lang, $item['id']);
             }
-            array_push($items, $item);
+            if(!$list) {
+                array_push($items, $item);
+            } else {
+                $list.='<li>';
+                if($item['item_type'] == 'page') {
+                    $page = new Page($item['item_id']);
+                    $link = $page->getUrl();
+                } else {
+                    $collectionItem = new CollectionItem($item['item_id']);
+                    $link = $collectionItem->url();
+                }
+                $list.='<a href="'.$link.'">';
+                $list.=$item['name'];
+                $list.='</a>';
+                $list.= self::getNavigationItems($navigation, $lang, $item['id'], false, true);
+                $list.='</li>';
+            }
         }
-        return $items;
+        if(!$list) {
+            return $items;
+        } else {
+            $list.='</ul>';
+            return $list;
+        }
     }
 
     public static function registerPosition($id, $name) {

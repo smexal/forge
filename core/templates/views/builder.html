@@ -14,10 +14,10 @@
         <div class="row">
             <div class="col-lg-9">
                 {$panel_left}
-                {if="$elements"}
                 <div class="builder">
                     <div class="container">
                         <!-- display existing elements -->
+                        {if="$elements"}
                         <div class="elements">
                         {loop="$elements"}
                             <div class="element {$value.type}" data-id="{$value.id}">
@@ -36,13 +36,13 @@
                             </div>
                         {/loop}
                         </div>
+                        {/if}
                         <!-- add new item button -->
                         <a href="{$new_url}" class="add ajax slidein">
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </div>
                 </div>
-                {/if}
             </div>
             <div class="col-lg-3">
                 {$panel_right}

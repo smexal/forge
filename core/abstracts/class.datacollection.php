@@ -58,10 +58,25 @@ abstract class DataCollection implements IDataCollection {
     }
     $db->where('type', $this->name);
     if(! $limit) {
-      return $db->get('collections');
+      $items = $db->get('collections');
     } else {
-      return $db->get('collections', $limit);
+      $items = $db->get('collections', $limit);
     }
+    $item_objects = array();
+    foreach($items as $item) {
+      $obj = new CollectionItem($item['id']);
+      if(array_key_exists('status', $settings)) {
+        if($settings['status'] == 'published' || $settings['status'] == 'draft') {
+          if( $obj->getMeta('status') != $settings['status'] ) {
+            continue;
+          }
+        }
+      }
+
+      array_push($item_objects, $obj);
+    }
+
+    return $item_objects;
   }
 
   public function slug() {
@@ -75,7 +90,7 @@ abstract class DataCollection implements IDataCollection {
 
   public function getBySlug($slug) {
     foreach($this->items() as $item) {
-      $i = new CollectionItem($item['id']);
+      $i = new CollectionItem($item->id);
       if($i->slug() == $slug) {
         return $i;
       }

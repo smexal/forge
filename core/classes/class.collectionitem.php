@@ -36,6 +36,14 @@ class CollectionItem {
         return $this->base_data['name'];
     }
 
+    public function getAuthor() {
+        return $this->base_data['author'];
+    }
+
+    public function getCreationDate() {
+        return $this->base_data['created'];
+    }
+
     public function getMeta($key, $lang = false) {
         if(!$lang && $lang !== 0) {
             $lang = Localization::getCurrentLanguage();

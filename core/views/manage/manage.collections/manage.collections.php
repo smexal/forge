@@ -96,17 +96,17 @@ class CollectionManagement extends AbstractView {
     private function getPageRows($parent=0, $level=0) {
       $rows = array();
       foreach($this->collection->items() as $item) {
-        $user = new User($item['author']);
+        $user = new User($item->getAuthor());
         array_push($rows, array(
           Utils::tableCell(
             $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
-                "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item['id'])),
-                "name" => $item['name']
+                "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
+                "name" => $item->getName()
             ))
           ),
           Utils::tableCell($user->get('username')),
-          Utils::tableCell(Utils::dateFormat($item['created'])),
-          Utils::tableCell(i($item['status'])),
+          Utils::tableCell(Utils::dateFormat($item->getCreationDate())),
+          Utils::tableCell(i($item->getMeta('status'))),
           Utils::tableCell($this->actions($item))
         ));
       }
@@ -116,7 +116,7 @@ class CollectionManagement extends AbstractView {
     private function actions($item) {
       $actions = array(
         array(
-            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item['id'])),
+            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
             "icon" => "pencil",
             "name" => sprintf(i('edit %s'), $this->collection->getPref('single-item')),
             "ajax" => false,
@@ -125,7 +125,7 @@ class CollectionManagement extends AbstractView {
       );
       if(Auth::allowed($this->permissions["delete"])) {
         array_push($actions, array(
-            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'delete', $item['id'])),
+            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'delete', $item->id)),
             "icon" => "remove",
             "name" => sprintf(i('delete %s'), $this->collection->getPref('single-item')),
             "ajax" => true,
