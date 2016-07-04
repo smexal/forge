@@ -1,0 +1,1 @@
+# resofy-theme
