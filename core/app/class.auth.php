@@ -87,7 +87,7 @@ class Auth {
         if (session_status() !== PHP_SESSION_NONE)
             return;
 
-        $session_name = 'smexal_session';   // Set a custom session name
+        $session_name = 'forge';   // Set a custom session name
         $secure = SECURE;
         // This stops JavaScript being able to access the session id.
         $httponly = true;

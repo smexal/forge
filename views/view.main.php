@@ -92,6 +92,8 @@ class Main extends AbstractView {
         $langs = Localization::getLanguages();
         foreach($langs as $lang) {
             if($original_uri[0] == $lang['code']) {
+                // make sure to set the language, to the set append.
+                Localization::setLang($lang['code']);
                 return true;
             }
         }

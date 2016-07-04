@@ -11,6 +11,14 @@ class Localization {
       return self::getLanguages();
   }
 
+  public static function setLang($lang_code) {
+    $avail = self::getLanguages();
+    if(in_array($lang_code, $avail)) {
+      $_SESSION['lang'] = $_GET['lang'];
+      return $_SESSION['lang'];
+    }
+  }
+
   public static function getCurrentLanguage() {
     $avail = self::getLanguages();
     for($index = 0; $index < count($avail); $index++) {
