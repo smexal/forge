@@ -13,6 +13,7 @@ class SettingsManagement extends AbstractView {
     private function keys() {
         $this->keys = array(
             'HOME_PAGE' => 'home_page',
+            'PRIMARY_COLOR' => 'primary_color',
             'THEME' => 'active_theme',
             'TITLE' => 'title_'.Localization::getCurrentLanguage()
         );
@@ -24,6 +25,7 @@ class SettingsManagement extends AbstractView {
         Settings::set($this->keys['HOME_PAGE'], $_POST[$this->keys['HOME_PAGE']]);
         Settings::set($this->keys['THEME'], $_POST[$this->keys['THEME']]);
         Settings::set($this->keys['TITLE'], $_POST[$this->keys['TITLE']]);
+        Settings::set($this->keys['PRIMARY_COLOR'], $_POST[$this->keys['PRIMARY_COLOR']]);
 
         foreach($this->settings->fields as $position) {
             foreach($position as $key => $ignored) {
@@ -63,6 +65,7 @@ class SettingsManagement extends AbstractView {
     public function rightFields() {
         $return = '';
         $return .= $this->getTitleInput();
+        $return .= $this->getPrimaryColorInput();
         if(array_key_exists('right', $this->settings->fields)) {
             foreach($this->settings->fields['right'] as $customField) {
                 $return.=$customField;
@@ -100,9 +103,17 @@ class SettingsManagement extends AbstractView {
     private function getTitleInput() {
         return Fields::text(array(
             'key' => $this->keys['TITLE'],
-            'label' => 'Title your website ['.Localization::getCurrentLanguage().']',
+            'label' => i('Title your website ').' ['.Localization::getCurrentLanguage().']',
             'hint' => ''
         ), Settings::get($this->keys['TITLE']));
+    }
+
+    private function getPrimaryColorInput() {
+        return Fields::text(array(
+            'key' => $this->keys['PRIMARY_COLOR'],
+            'label' => i('Primary color'),
+            'hint' => ''
+        ), Settings::get($this->keys['PRIMARY_COLOR']));
     }
 }
 

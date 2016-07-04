@@ -27,7 +27,9 @@ class Logger {
             }
             $output = date("Y-m-d H:i:s")." - ".$level." - ".$key." => ".$value."\n";
             if($level == 'DEBUG') {
-              echo '<script>console.log("'.$level. " - ".$key." => ".$value.'")</script>';
+                if(!Utils::isAjax()) {
+                    echo '<script>console.log("'.$level. " - ".$key." => ".$value.'")</script>';
+                }
             }
             $filename = "error-".date("Y-m-d").".log";
 

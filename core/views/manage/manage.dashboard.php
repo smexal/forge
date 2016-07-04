@@ -7,7 +7,15 @@ class ManagementDashboard extends AbstractView {
     public $permission = 'manage';
 
     public function content() {
-        return '<div class="padded maxed page-header"><h1>Dashboard</h1></div>';
+        return App::instance()->render(CORE_ROOT."templates/views/sites/", "generic", array(
+            'title' => i('Dashboard'),
+            'global_actions' => '',
+            'content' => $this->getDashboard()
+        ));
+    }
+
+    public function getDashboard() {
+        return 'dash';
     }
 }
 

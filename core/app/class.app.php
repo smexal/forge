@@ -81,6 +81,8 @@ class App {
         $collection = $collection::instance();
       }
 
+      Loader::instance()->manageStyles();
+
       $defaultView = false;
       foreach($this->vm->views as $view) {
         $view = $view::instance();

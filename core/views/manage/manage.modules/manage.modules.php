@@ -33,6 +33,7 @@ class ModuleManagent extends AbstractView {
 
     private function modules() {
       $return = '';
+      $errors = false;
       foreach($this->app->mm->modules as $module) {
         $errors = array();
         $check = $module->check();
@@ -56,8 +57,10 @@ class ModuleManagent extends AbstractView {
           $errors[] = $check;
         }
       }
-      foreach($errors as $e) {
-        $return.=$e;
+      if($errors) {
+        foreach($errors as $e) {
+          $return.=$e;
+        }
       }
       return $this->app->render(CORE_TEMPLATE_DIR."assets/", "grid", array(
         "id" => $this->updateContainer,
