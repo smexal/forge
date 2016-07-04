@@ -23,7 +23,7 @@ class CollectionManagement extends AbstractView {
       }
 
       // check if user has permission
-      if(Auth::allowed($collection->permission)) {
+      if($collection && Auth::allowed($collection->permission)) {
 
         // render subview
         if(count($uri) > 1) {

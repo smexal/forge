@@ -19,10 +19,35 @@ class Loader {
         return self::$instance;
     }
 
+    public function manageStyles() {
+      // required styles
+      $this->addStyle("core/css/externals/bootstrap.core.min.css", false, false);
+
+      // admin styles
+      $this->addStyle("core/css/bootstrap.less", false, "manage");
+      $this->addStyle("core/css/tagsinput.less", false, "manage");
+      $this->addStyle("core/css/overlay.less", false, "manage");
+      $this->addStyle("core/css/layout.less", false, "manage");
+      $this->addStyle("core/css/elements.less", false, "manage");
+
+      $this->addStyle("core/css/modules/builder.less", false, "manage");
+      $this->addStyle("core/css/modules/form.less", false, "manage");
+      $this->addStyle("core/css/modules/dropzone.less", false, "manage");
+      $this->addStyle("core/css/modules/media.less", false, "manage");
+
+      $this->addStyle("core/css/loader.less", false, "manage");
+      $this->addStyle("core/css/fonts.less", false, "manage");
+    }
+
     public function setLessVariables() {
       if(!$this->lessVariablesSet) {
+        $prim = '#4194e1';
+        $set = Settings::get('primary_color');
+        if($set) {
+          $prim = $set;
+        }
         $this->lessc->setVariables(array(
-          "primary_color" => "#66BB6A",
+          "primary_color" => $prim,
           "accent_color" => "#4194e1",
           "dark_grey" => "#262626",
           "light_grey" => "#f0f0f0"
@@ -163,6 +188,7 @@ class Loader {
     }
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {
+      if(file_exists($directory)) {
         $dir = new DirectoryIterator($directory);
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot() &&  strstr($fileinfo->getFilename(), ".php")) {
@@ -190,6 +216,7 @@ class Loader {
               }
             }
         }
+      }
     }
     private function __clone(){}
 }
