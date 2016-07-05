@@ -24,6 +24,9 @@ class Fields {
             case 'linklist':
                 return self::linklist($args);
                 break;
+            case 'image':
+                return self::image($args, $value);
+                break;
         }
     }
 

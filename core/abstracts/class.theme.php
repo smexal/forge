@@ -121,14 +121,21 @@ abstract class Theme implements ITheme {
     }
 
     public function header() {
+        $eventContent = App::instance()->eh->fire("onLoadHeader");
+        if(is_null($eventContent)) {
+            $eventContent = false;
+        }
+
         $this->scripts();
-        return App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
+        $return = App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle(),
             'scripts' => $this->load_scripts,
             'styles' => $this->styles,
             'favicon' => false,
+            'eventContent' => $eventContent,
             'custom' => $this->customHeader()
         ));
+        return $return;
     }
 
 }

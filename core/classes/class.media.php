@@ -42,7 +42,10 @@ class Media {
         }
     }
 
-    public function getUrl() {
+    public function getUrl($abs = false) {
+        if($abs) {
+            return Utils::getAbsoluteUrlRoot().$this->url.$this->name;
+        }
         return $this->url.$this->name;
     }
 

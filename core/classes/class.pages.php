@@ -198,6 +198,15 @@ class Pages {
                 'order' => 10,
                 'position' => 'right',
                 'hint' => i('This field will be used to find the page with an url. If not set, the name of the page will be used.')
+            ),
+            array(
+                'key' => 'mainimage',
+                'label' => i('Main Image'),
+                'multilang' => true,
+                'type' => 'image',
+                'order' => 10,
+                'position' => 'right',
+                'hint' => i('Define a image, which will also be used for social media.')
             )
         );
         return $fields;

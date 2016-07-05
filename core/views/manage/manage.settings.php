@@ -65,7 +65,7 @@ class SettingsManagement extends AbstractView {
     public function rightFields() {
         $return = '';
         $return .= $this->getTitleInput();
-        $return .= $this->getPrimaryColorInput();
+        $return .= $this->getBackendThemeColor();
         if(array_key_exists('right', $this->settings->fields)) {
             foreach($this->settings->fields['right'] as $customField) {
                 $return.=$customField;
@@ -108,10 +108,10 @@ class SettingsManagement extends AbstractView {
         ), Settings::get($this->keys['TITLE']));
     }
 
-    private function getPrimaryColorInput() {
+    private function getBackendThemeColor() {
         return Fields::text(array(
             'key' => $this->keys['PRIMARY_COLOR'],
-            'label' => i('Primary color'),
+            'label' => i('Backend Color'),
             'hint' => ''
         ), Settings::get($this->keys['PRIMARY_COLOR']));
     }

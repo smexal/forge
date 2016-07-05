@@ -2,7 +2,7 @@
 
 class Page {
   public $id, $parent, $sequence, $name, $modified, $created, $creator, $url, $status;
-  private $db;
+  private $db, $eh;
 
   public function __construct($id) {
     $this->db = App::instance()->db;
@@ -19,6 +19,8 @@ class Page {
 
     $this->db->where('page', $this->id);
     $this->meta = $this->db->get('page_meta');
+
+    $this->eh = App::instance()->eh;
   }
 
   public function getMeta($key, $lang = false) {
@@ -138,8 +140,25 @@ class Page {
       return;
   }
 
+  public function addMetaTags() {
+    $return = '<meta name="description" content="'.$this->getMeta('description').'">';
+    $return.= '<meta http-equiv="content-language" content="'.Localization::getCurrentLanguage().'">';
+    $return.= '<meta name="generator" content="Forge CMS by smexal.ch">';
+
+    // real OG Tags
+    $return.= '<meta property="og:title" content="'.App::instance()->tm->theme->getTitle().'" />';
+    $return.= '<meta property="og:description" content="'.$this->getMeta('description').'" />';
+    $mediaId = $this->getMeta('mainimage');
+    if(is_numeric($mediaId)) {
+      $media = new Media($mediaId);
+      $return.= '<meta property="og:image" content="'.$media->getUrl(true).'" />';
+    }
+    return $return;
+  }
+
   public function render() {
       $app = App::instance();
+      $this->eh->register('onLoadHeader', array($this, 'addMetaTags'));
 
       // run theme methods..
       if($app->tm->theme !== '') {
