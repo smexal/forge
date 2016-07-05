@@ -11,10 +11,27 @@ class Localization {
       return self::getLanguages();
   }
 
+  public static function getLanguageSelection() {
+    $return = '<nav class="lang-sel"><ul>';
+    foreach(Localization::getActiveLanguages() as $lang) {
+      if($lang['code'] != Localization::getCurrentLanguage()) {
+        $return.='<li><a href="'.Utils::getUrl(array($lang['code'])).'">'.$lang['name'].'</a></li>';
+      }
+    }
+    $return.= '</ul></nav>';
+    return $return;
+  }
+
   public static function setLang($lang_code) {
     $avail = self::getLanguages();
-    if(in_array($lang_code, $avail)) {
-      $_SESSION['lang'] = $_GET['lang'];
+    foreach($avail as $l) {
+      if($l['code'] == $lang_code) {
+        $lang_found = true;
+        break;
+      }
+    }
+    if($lang_found) {
+      $_SESSION['lang'] = $lang_code;
       return $_SESSION['lang'];
     }
   }
