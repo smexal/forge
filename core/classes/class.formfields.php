@@ -64,13 +64,24 @@ class Fields {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         }
+        if(! array_key_exists('hint', $args)) {
+            $args['hint'] = '';
+        }
+        if(!array_key_exists('type',$args)) {
+            $args['type'] = 'text';
+        }
+        if(! array_key_exists('autocomplete', $args)) {
+            $args['autocomplete'] = false;
+        } else {
+            $args['autocomplete'] = ! $args['autocomplete'];
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
             'name' => $args['key'],
             'id' => $args['key'],
             'label' => $args['label'],
-            'type' => 'text',
+            'type' => $args['type'],
             'hor' => false,
-            'noautocomplete' => false,
+            'noautocomplete' => $args['autocomplete'],
             'value' => $value,
             'hint' => $args['hint']
         ));

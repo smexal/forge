@@ -277,6 +277,14 @@ class App {
       return $this->stream;
     }
 
+    public function getThemeDirectory() {
+      if($this->tm->theme) {
+        return $this->tm->theme->directory();
+      } else {
+        return '';
+      }
+    }
+
     private function __construct(){}
     private function __clone(){}
 }

@@ -105,9 +105,12 @@ class ContentNavigation {
 
     public static function getNavigationList($position) {
         $nav = self::getByPosition($position);
-        $return = '<nav class="'.$position.'">';
-        $return.= self::getNavigationItems($nav['id'], false, 0, false, true);
-        $return.= '</nav>';
+        $return = '';
+        if(! is_null($nav)) {
+            $return = '<nav class="'.$position.'">';
+            $return.= self::getNavigationItems($nav['id'], false, 0, false, true);
+            $return.= '</nav>';
+        }
         return $return;
     }
 

@@ -19,16 +19,20 @@ class Auth {
         unset($_SESSION['auth']);
     }
 
-    public static function allowed($permission) {
+    public static function allowed($permission, $inpage = false) {
       if(is_null($permission) || $permission == false) {
         // no permission required for this view.
         return true;
       }
       // not even logged in... send to login
-      if(! Auth::any() || is_null(App::instance()->user)) {
+      if((! Auth::any() || is_null(App::instance()->user)) && $inpage === false) {
           App::instance()->redirect(Utils::getUrl(array('login')), Utils::getCurrentUrl());
       }
-      return App::instance()->user->allowed($permission);
+      if($inpage) {
+        return false;
+      } else {
+        return App::instance()->user->allowed($permission);
+      }
     }
 
     public static function login($name, $password) {
