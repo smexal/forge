@@ -30,9 +30,11 @@ class Login extends AbstractView {
 
     public function onLoginSuccess() {
         App::instance()->redirectBack();
+        App::instance()->eh->fire("loginSuccess");
     }
 
     public function onLoginFailed() {
+        App::instance()->eh->fire("loginFailed");
         $this->message = i('Username and/or password is wrong.');
     }
 

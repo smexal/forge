@@ -25,14 +25,14 @@ class Auth {
         return true;
       }
       // not even logged in... send to login
-      if((! Auth::any() || is_null(App::instance()->user)) && $inpage === false) {
+      if((! Auth::any() || is_null(App::instance()->user))) {
+        if($inpage === false) {
           App::instance()->redirect(Utils::getUrl(array('login')), Utils::getCurrentUrl());
+        } else {
+          return false;
+        }
       }
-      if($inpage) {
-        return false;
-      } else {
-        return App::instance()->user->allowed($permission);
-      }
+      return App::instance()->user->allowed($permission);
     }
 
     public static function login($name, $password) {
