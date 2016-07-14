@@ -77,6 +77,11 @@ class ManageAddNavigationItem extends AbstractView {
       foreach($db->get('collections') as $collection) {
         $items[$collection['type'].'##'.$collection['id']] = $collection['name'].' ('.i($collection['type']).')';
       }
+
+      foreach(App::instance()->vm->getNavigationViews() as $view) {
+        $items['view##'.$view->name] = i($view->name).' ('.i('Specific view').')';
+      }
+
       return $items;
     }
 }

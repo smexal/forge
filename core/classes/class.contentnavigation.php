@@ -140,7 +140,10 @@ class ContentNavigation {
                 if($item['item_type'] == 'page') {
                     $page = new Page($item['item_id']);
                     $link = $page->getUrl();
-                } else {
+                } else if($item['item_type']) {
+                    $view = $item['item_id']::instance();
+                    $link = $view->buildURL();
+                } else  {
                     $collectionItem = new CollectionItem($item['item_id']);
                     $link = $collectionItem->url();
                 }

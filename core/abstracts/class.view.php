@@ -10,8 +10,27 @@ abstract class AbstractView implements IView {
     public $events = array();
     public $activeSubview = false;
     public $favicon = WWW_ROOT."images/favicon.png";
+    public $allowNavigation = false;
 
     public $app = null;
+
+    public function buildURL() {
+      $items = array($this);
+      $items = array_merge($items, $this->getParentItems($this));
+      $parts = array();
+      foreach($items as $item) {
+        array_push($parts, $item->name);
+      }
+      return Utils::getUrl($parts);
+    }
+
+    private function getParentItems($c) {
+      $items = array();
+      if($c->parent) {
+        $items = array_merge($items, $this->getParentItems($c::instance()));
+      }
+      return $items;
+    }
 
     public function initEssential() {
         if(is_null($this->app))

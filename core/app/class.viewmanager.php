@@ -13,12 +13,23 @@ class ViewManager {
         foreach($classes as $klass) {
             $reflect = new ReflectionClass($klass);
             if($reflect->implementsInterface('IView')) {
-                $rc = new ReflectionClass($klass);
-                if(! $rc->isAbstract())
+                if(! $reflect->isAbstract()) {
                     $implementsIModule[] = $klass;
+                }
             }
         }
         return $implementsIModule;
+    }
+
+    public function getNavigationViews() {
+        $navViews = array();
+        foreach($this->views as $view) {
+            $v = $view::instance();
+            if($v->allowNavigation) {
+                array_push($navViews, $v);
+            }
+        }
+        return $navViews;
     }
 }
 
