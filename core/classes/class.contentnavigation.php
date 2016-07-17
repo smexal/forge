@@ -136,7 +136,7 @@ class ContentNavigation {
             if(!$list) {
                 array_push($items, $item);
             } else {
-                $list.='<li>';
+                $list.='<li class="item-'.$item['item_id'].'">';
                 if($item['item_type'] == 'page') {
                     $page = new Page($item['item_id']);
                     $link = $page->getUrl();

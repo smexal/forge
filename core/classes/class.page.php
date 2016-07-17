@@ -175,9 +175,17 @@ class Page {
         $globals = $app->tm->theme->globals();
       }
 
+      $bodyclasses=array();
+      $bodyclass = '';
+      if($this->getMeta('movebelownavigation')) {
+        array_push($bodyclasses, "no-padding");
+      }
+      $bodyclass = implode(" ", $bodyclasses);
+
       if($this->isPublished()) {
           return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
+                    'bodyclass' => $bodyclass,
                     'head' => $head,
                     'body' => $this->content()
                 ),

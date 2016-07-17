@@ -207,6 +207,15 @@ class Pages {
                 'order' => 10,
                 'position' => 'right',
                 'hint' => i('Define a image, which will also be used for social media.')
+            ),
+            array(
+                'key' => 'movebelownavigation',
+                'label' => i('Move below navigation'),
+                'multilang' => true,
+                'type' => 'checkbox',
+                'order' => 90,
+                'position' => 'right',
+                'hint' => i('If this checkbox is set, the theme knows, that you want to move this content up and below the navigation.')
             )
         );
         return $fields;

@@ -11,8 +11,17 @@ class API {
         return self::$instance;
     }
 
-    public function run($query, $args=array()) {
+    public function run($query, $subquery=array(), $post=array()) {
         if(array_key_exists($query, $this->calls)) {
+            if(count($subquery) > 1) {
+                $args = array(array(
+                        'query' => $subquery,
+                        'data' => $post
+                    )
+                );
+            } else {
+                $args = $subquery;
+            }
             return call_user_func_array($this->calls[$query], $args);
         } else {
             return false;

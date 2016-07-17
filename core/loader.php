@@ -98,10 +98,12 @@ class Loader {
 
     public function addStyle($style, $absolute=false, $viewCondition = false) {
         $this->setLessVariables();
-        if(!$absolute && ! strstr($style, ".less"))
-            $style = WWW_ROOT.$style;
-        if(!$absolute && strstr($style, ".less"))
-            $style = $this->compileLess($style);
+        if(!$absolute && ! strstr($style, ".less")) {
+          $style = WWW_ROOT.$style;
+        }
+        if(!$absolute && strstr($style, ".less")) {
+          $style = $this->compileLess($style);
+        }
         if($viewCondition) {
           if(in_array($viewCondition, Utils::getUriComponents())) {
             array_push($this->styles, $style);

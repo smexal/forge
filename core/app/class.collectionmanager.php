@@ -13,7 +13,6 @@ class CollectionManager {
       'sequence' => 0,
       'name' => $args['name'],
       'type' => $args['type'],
-      'settings' => '',
       'author' => App::instance()->user->get('id')
     ));
   }

@@ -43,6 +43,10 @@ abstract class DataCollection implements IDataCollection {
     $this->name = $this->getPref('name');
   }
 
+  public function customEditContent($id) {
+    return false;
+  }
+
   public function items($settings = array()) {
     $db = App::instance()->db;
     if(array_key_exists('order', $settings)) {

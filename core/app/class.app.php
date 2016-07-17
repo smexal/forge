@@ -32,12 +32,15 @@ class App {
     }
 
     private function managers() {
-      if(is_null($this->eh)){
-        $this->eh = EventHandler::instance();
-      }
       if(is_null($this->db)) {
         $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
+      Auth::setSessionUser();
+
+      if(is_null($this->eh)){
+        $this->eh = EventHandler::instance();
+      }
+
       if(is_null($this->vm)) {
         $this->vm = new ViewManager();
       }
@@ -69,7 +72,6 @@ class App {
     public function run() {
       $this->managers();
 
-      Auth::setSessionUser();
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
       $base_view = $this->uri_components[0];
@@ -117,16 +119,48 @@ class App {
             "messages" => $this->displayMessages()
         ));
       } else {
-        echo $this->render(CORE_TEMPLATE_DIR, "layout", array(
-            "head" => $this->header($view),
-            "content" => $this->content($view),
-            "messages" => $this->displayMessages(),
-            "sticky" => $this->sticky
-        ));
+        $parts = Utils::getUriComponents();
+        // if has manage parts
+        if(in_array("manage", $parts)) {
+          echo $this->render(CORE_TEMPLATE_DIR, "layout", array(
+              "head" => $this->header($view),
+              "content" => $this->content($view),
+              "messages" => $this->displayMessages(),
+              "sticky" => $this->sticky
+          ));
+        // else render with theme layout
+        } else {
+          echo $this->renderViewInTheme($view);
+        }
       }
       if(ob_get_level() > 0) {
           ob_end_flush();
       }
+    }
+
+    private function renderViewInTheme($view) {
+      // run theme methods..
+      if($this->tm->theme !== '') {
+        $this->tm->theme->styles();
+      }
+
+      $head = '';
+      if($this->tm->theme !== '') {
+        $head = $this->tm->theme->header();
+      }
+
+      $globals = array();
+      if($this->tm->theme !== '') {
+        $globals = $this->tm->theme->globals();
+      }
+
+      return $this->render($this->tm->getTemplateDirectory(), "layout", array_merge(
+            array(
+                'head' => $head,
+                'body' => $this->content($view)
+            ),
+            $globals
+      ));
     }
 
     public function header($view) {

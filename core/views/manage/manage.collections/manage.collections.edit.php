@@ -52,7 +52,8 @@ class ManageCollectionsEdit extends AbstractView {
             'itemid' => $this->uri[1],
             'lang' => $this->lang,
             'new_url' => false,
-            'elements' => false
+            'elements' => false,
+            'custom' => $this->collection->customEditContent($this->item->id)
         ));
     }
 

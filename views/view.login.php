@@ -21,6 +21,7 @@ class Login extends AbstractView {
 
     public function form() {
         $form = new Form();
+        $form->disableAuto();
         $form->hidden("event", "onLoginSubmit");
         $form->input("name", "name", i('Username'));
         $form->input("password", "password", i('Password'), 'password');

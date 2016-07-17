@@ -59,7 +59,7 @@ class Form {
         array_push($this->content, "<h4>".$title."</h4>");
     }
 
-    public function input($name, $id, $label, $type="input", $value=false, $hint=false) {
+    public function input($name, $id, $label, $type="text", $value=false, $hint=false) {
       array_push($this->content, $this->app->render(CORE_TEMPLATE_DIR."assets/", "input", array(
         'name' => $name,
         'id' => $id,

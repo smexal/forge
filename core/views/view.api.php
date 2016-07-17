@@ -19,7 +19,7 @@ class ApiView extends AbstractView {
         case 'navigation-items':
             return $this->navigationItems();
         default:
-          $return = API::instance()->run($part, $query);
+          $return = API::instance()->run($part, $query, $_POST);
           if($return) {
             return $return;
           } else {

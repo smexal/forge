@@ -73,6 +73,7 @@ class ManagePageEdit extends AbstractView {
             'lang' => $this->lang,
             'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true),
             'elements' => $this->getElements(0, $this->lang),
+            'custom' => ''
         ));
     }
 
