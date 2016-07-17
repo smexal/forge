@@ -15,7 +15,8 @@ class SettingsManagement extends AbstractView {
             'HOME_PAGE' => 'home_page',
             'PRIMARY_COLOR' => 'primary_color',
             'THEME' => 'active_theme',
-            'TITLE' => 'title_'.Localization::getCurrentLanguage()
+            'TITLE' => 'title_'.Localization::getCurrentLanguage(),
+            "ALLOW_REGISTRATION" => 'allow_registration'
         );
     }
 
@@ -26,6 +27,7 @@ class SettingsManagement extends AbstractView {
         Settings::set($this->keys['THEME'], $_POST[$this->keys['THEME']]);
         Settings::set($this->keys['TITLE'], $_POST[$this->keys['TITLE']]);
         Settings::set($this->keys['PRIMARY_COLOR'], $_POST[$this->keys['PRIMARY_COLOR']]);
+        Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
 
         foreach($this->settings->fields as $position) {
             foreach($position as $key => $ignored) {
@@ -54,6 +56,7 @@ class SettingsManagement extends AbstractView {
         $return = '';
         $return .= $this->getHomePageFields();
         $return .= $this->getThemeSelection();
+        $return .= $this->getAllowRegistration();
         if(array_key_exists('left', $this->settings->fields)) {
             foreach($this->settings->fields['left'] as $customField) {
                 $return.=$customField;
@@ -72,6 +75,14 @@ class SettingsManagement extends AbstractView {
             }
         }
         return $return;
+    }
+
+    private function getAllowRegistration() {
+        return Fields::checkbox(array(
+            'key' => $this->keys['ALLOW_REGISTRATION'],
+            'label' => i('Allow Registration'),
+            'hint' => i('If this setting is enabled, the registration view will get available.'),
+        ), Settings::get($this->keys['ALLOW_REGISTRATION']));
     }
 
     private function getThemeSelection() {
