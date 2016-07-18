@@ -7,12 +7,21 @@ class RegistrationView extends AbstractView {
         "onRegistrationSubmit"
     );
 
+    private $errors = array();
+    private $data = array();
+
     public function content() {
         if(Settings::get('allow_registration')) {
             return $this->getRegistrationForm();
         } else {
             App::instance()->redirect(array('denied'));
         }
+    }
+
+    public function onRegistrationSubmit() {
+        // check if username is already taken
+        $this->errors = User::checkUser($_POST);
+        $this->data = $_POST;
     }
 
     public function getRegistrationForm() {
@@ -27,18 +36,21 @@ class RegistrationView extends AbstractView {
         $return.= Fields::text(array(
             'key' => 'name',
             'label' => i('Username').' *',
-            'autocomplete' => false
-        ));
+            'autocomplete' => false,
+            'error' => $this->errors['name']
+        ), $this->data['name']);
         $return.= Fields::text(array(
             'key' => 'email',
             'label' => i('E-Mail').' *',
-            'autocomplete' => false
-        ));
+            'autocomplete' => false,
+            'error' => $this->errors['email']
+        ), $this->data['email']);
         $return.= Fields::text(array(
             'key' => 'password',
             'label' => i('Password').' *',
             'type' => 'password',
-            'autocomplete' => false
+            'autocomplete' => false,
+            'error' => $this->errors['password']
         ));
         $return.= Fields::text(array(
             'key' => 'password_repeat',
@@ -56,6 +68,7 @@ class RegistrationView extends AbstractView {
                 'ajax_target' => '',
                 'content' => array($return)
         ));
+
         return '<div class="wrapped">'.$return.'</div>';
 
     }

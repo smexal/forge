@@ -75,6 +75,9 @@ class Fields {
         } else {
             $args['autocomplete'] = ! $args['autocomplete'];
         }
+        if(! array_key_exists('error', $args)) {
+            $args['error'] = false;
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
             'name' => $args['key'],
             'id' => $args['key'],
@@ -83,7 +86,8 @@ class Fields {
             'hor' => false,
             'noautocomplete' => $args['autocomplete'],
             'value' => $value,
-            'hint' => $args['hint']
+            'hint' => $args['hint'],
+            'error' => $args['error']
         ));
     }
 

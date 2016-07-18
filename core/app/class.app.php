@@ -157,6 +157,7 @@ class App {
       return $this->render($this->tm->getTemplateDirectory(), "layout", array_merge(
             array(
                 'head' => $head,
+                'bodyclass' => '',
                 'body' => $this->content($view)
             ),
             $globals

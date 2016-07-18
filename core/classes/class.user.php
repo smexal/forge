@@ -207,6 +207,35 @@ class User {
         return false;
     }
 
+    public static function checkUser($data) {
+        $errors = array();
+        $userMessage = self::checkName($data['name']);
+        $errors['name'] = false;
+        if($userMessage !== true) {
+            // ok for username
+            $errors['name'] = $userMessage;
+        }
+
+        $emailMessage = self::checkMail($data['email']);
+        $errors['email'] = false;
+        if($emailMessage !== true) {
+          $errors['email'] = $emailMessage;
+        }
+        
+        $errors['password'] = false;
+        if(!$data['password_repeat']) {
+          $repeat = true;
+        } else {
+          $repeat = $data['password_repeat'];
+        }
+        $passwordMessage = self::checkPassword($data['password'], $repeat);
+        if($passwordMessage !== true) {
+          $errors['password'] = $passwordMessage;
+        }
+
+        return $errors;
+    }
+
     private static function checkName($name) {
       $app = App::instance();
       if( strlen($name) <= 2 ) {
@@ -233,9 +262,14 @@ class User {
       return true;
     }
 
-    private static function checkPassword($password) {
+    private static function checkPassword($password, $repeat = false) {
       if(strlen($password) <= 3) {
         return i('Given password is too short.');
+      }
+      if($repeat) {
+        if($password !== $repeat) {
+          return i('Given passwords do not match.');
+        }
       }
       return true;
     }
