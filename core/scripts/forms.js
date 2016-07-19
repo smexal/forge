@@ -3,6 +3,7 @@ var forms = {
         forms.ajax();
         forms.tags();
         forms.helperlinks();
+        forms.readOnlyInput();
     },
 
     tags : function() {
@@ -14,6 +15,17 @@ var forms = {
         } else if (typeof getter === "string") {
             forms.tagsInputByGetter($(this));
         }
+      });
+    },
+
+    readOnlyInput : function() {
+      $("label.readOnlyInput").each(function() {
+        $(this).on('click', function() {
+          var target = $('input#' + $(this).attr('for'));
+          console.log(target);
+          target.removeAttr('readonly');
+          target.focus();
+        });
       });
     },
 

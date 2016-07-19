@@ -16,7 +16,8 @@ class SettingsManagement extends AbstractView {
             'PRIMARY_COLOR' => 'primary_color',
             'THEME' => 'active_theme',
             'TITLE' => 'title_'.Localization::getCurrentLanguage(),
-            "ALLOW_REGISTRATION" => 'allow_registration'
+            'ALLOW_REGISTRATION' => 'allow_registration',
+            'DEFAULT_USER_GROUP' => 'default_usergroup'
         );
     }
 
@@ -28,6 +29,7 @@ class SettingsManagement extends AbstractView {
         Settings::set($this->keys['TITLE'], $_POST[$this->keys['TITLE']]);
         Settings::set($this->keys['PRIMARY_COLOR'], $_POST[$this->keys['PRIMARY_COLOR']]);
         Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
+        Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
 
         foreach($this->settings->fields as $position) {
             foreach($position as $key => $ignored) {
@@ -56,7 +58,11 @@ class SettingsManagement extends AbstractView {
         $return = '';
         $return .= $this->getHomePageFields();
         $return .= $this->getThemeSelection();
+        $return .= '<hr />';
         $return .= $this->getAllowRegistration();
+        $return .= $this->getDefaultUserGroup();
+        $return .= '<hr />';
+
         if(array_key_exists('left', $this->settings->fields)) {
             foreach($this->settings->fields['left'] as $customField) {
                 $return.=$customField;
@@ -68,7 +74,9 @@ class SettingsManagement extends AbstractView {
     public function rightFields() {
         $return = '';
         $return .= $this->getTitleInput();
+        $return .= '<hr />';
         $return .= $this->getBackendThemeColor();
+        $return .= '<hr />';
         if(array_key_exists('right', $this->settings->fields)) {
             foreach($this->settings->fields['right'] as $customField) {
                 $return.=$customField;
@@ -84,6 +92,21 @@ class SettingsManagement extends AbstractView {
             'hint' => i('If this setting is enabled, the registration view will get available.'),
         ), Settings::get($this->keys['ALLOW_REGISTRATION']));
     }
+
+    private function getDefaultUserGroup() {
+        $selection = array(0 => i('None'));
+
+        $groups = Group::getAll();
+        foreach($groups as $group) {
+            $selection[$group['id']] = $group['name'];
+        }
+        return Fields::select(array(
+            'key' => $this->keys['DEFAULT_USER_GROUP'],
+            'label' => 'Select the default user group for new registrations.',
+            'values' => $selection
+        ), Settings::get($this->keys['DEFAULT_USER_GROUP']));
+    }
+
 
     private function getThemeSelection() {
         $tm = App::instance()->tm;

@@ -68,7 +68,8 @@ class Form {
         'hor' => $this->horizontal,
         'noautocomplete' => $this->noAutocomplete,
         'value' => $value,
-        'hint' => $hint
+        'hint' => $hint,
+        'error' => ''
       )));
     }
 

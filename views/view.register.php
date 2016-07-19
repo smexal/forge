@@ -22,6 +22,33 @@ class RegistrationView extends AbstractView {
         // check if username is already taken
         $this->errors = User::checkUser($_POST);
         $this->data = $_POST;
+        foreach ($this->errors as $e) {
+            if($e !== false) {
+                return;
+            }
+        }
+
+        // create user
+        User::create($this->data['name'], $this->data['password'], $this->data['email'], true);
+
+        // login
+        // make sure it is not redirecting
+        Auth::login($this->data['name'], $this->data['password'], false);
+
+        // add user to default group if it a default set.
+        $defaultGroup = Settings::get('default_usergroup');
+        if($defaultGroup !== 0) {
+            App::instance()->db->insert("groups_users", array(
+                "groupid" => $defaultGroup,
+                "userid" => App::instance()->user->get('id')
+            ));
+        }
+
+        // send notification email with activation string
+        User::sendActivationLink(App::instance()->user->get('id'));
+
+        App::instance()->redirect(array(''));
+        // redirect to home
     }
 
     public function getRegistrationForm() {
@@ -37,20 +64,20 @@ class RegistrationView extends AbstractView {
             'key' => 'name',
             'label' => i('Username').' *',
             'autocomplete' => false,
-            'error' => $this->errors['name']
-        ), $this->data['name']);
+            'error' => @$this->errors['name']
+        ), @$this->data['name']);
         $return.= Fields::text(array(
             'key' => 'email',
             'label' => i('E-Mail').' *',
             'autocomplete' => false,
-            'error' => $this->errors['email']
-        ), $this->data['email']);
+            'error' => @$this->errors['email']
+        ), @$this->data['email']);
         $return.= Fields::text(array(
             'key' => 'password',
             'label' => i('Password').' *',
             'type' => 'password',
             'autocomplete' => false,
-            'error' => $this->errors['password']
+            'error' => @$this->errors['password']
         ));
         $return.= Fields::text(array(
             'key' => 'password_repeat',
@@ -68,7 +95,6 @@ class RegistrationView extends AbstractView {
                 'ajax_target' => '',
                 'content' => array($return)
         ));
-
         return '<div class="wrapped">'.$return.'</div>';
 
     }

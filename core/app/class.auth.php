@@ -35,7 +35,7 @@ class Auth {
       return App::instance()->user->allowed($permission);
     }
 
-    public static function login($name, $password) {
+    public static function login($name, $password, $trigger = false) {
         $db = App::instance()->db;
         $eh = App::instance()->eh;
         $db->where('username', $name);
@@ -46,13 +46,19 @@ class Auth {
                 if(Utils::passwordCheck($password, $user['password'])) {
                     App::instance()->user = new User($user['id']);
                     $_SESSION['auth'] = $user['id'];
-                    $eh->trigger('onLoginSuccess');
+                    if($trigger) {
+                      $eh->trigger('onLoginSuccess');
+                    }
                 } else {
+                  if($trigger) {
                     $eh->trigger('onLoginFailed');
+                  }
                 }
             }
         } else {
+          if($trigger) {
             $eh->trigger('onLoginFailed');
+          }
         }
     }
 

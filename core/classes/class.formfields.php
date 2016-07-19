@@ -103,7 +103,8 @@ class Fields {
             'hor' => false,
             'noautocomplete' => false,
             'value' => $value,
-            'hint' => $args['hint']
+            'hint' => $args['hint'],
+            'error' => ''
         ));
     }
 

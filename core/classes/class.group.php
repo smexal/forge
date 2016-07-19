@@ -131,6 +131,10 @@ class Group {
       }
     }
 
+    public static function getAll() {
+      return App::instance()->db->get('groups');
+    }
+
     /**
      * deletes a group, its members and permissions
      * @param  Integer $id Group ID

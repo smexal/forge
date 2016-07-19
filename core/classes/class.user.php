@@ -23,6 +23,28 @@ class User {
         }
     }
 
+    public static function sendActivationLink($userID) {
+      $user = new self($userID);
+
+      $recipient = $user->get('email');
+      $subject = sprintf(i('Activation Link for %s'), $user->get('username')). ' - '.
+        Settings::get('title_'.Localization::getCurrentLanguage());
+
+      $message = sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n";
+      $message.= sprintf(i('Click the following link to complete your account activation:')) . "\r\n";
+      $message.= '#LINK#HERE##' . "\r\n" . "\r\n" . "\r\n";
+      $message.= sprintf(i('mail_end_text'));
+
+      // für HTML-E-Mails muss der 'Content-type'-Header gesetzt werden
+      $header  = 'MIME-Version: 1.0' . "\r\n";
+      $header .= 'Content-type: text/plain; charset=utf-8' . "\r\n";
+
+      // zusätzliche Header
+      //$header .= 'From: Geburtstags-Erinnerungen <geburtstag@example.com>' . "\r\n";
+
+      mail($recipient, $subject, $message, $header);
+    }
+
     public function get($field) {
         if(array_key_exists($field, $this->data)) {
             return $this->data[$field];
@@ -181,9 +203,13 @@ class User {
       return App::instance()->db->get('users', null, array("id", "username", "email"));
     }
 
-    public static function create($name, $password, $email) {
-        if(! Auth::allowed("manage.users.add")) {
-            return;
+    public static function create($name, $password, $email, $registration = false) {
+        $pass = false;
+        if(Settings::get('allow_registration') === 'on' && $registration) { 
+          $pass = true;
+        }
+        if(! Auth::allowed("manage.users.add", true) && $pass !== true) {
+            return false;
         }
         $mailStatus = self::checkMail($email);
         if($mailStatus !== true) {
