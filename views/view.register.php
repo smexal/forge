@@ -47,6 +47,7 @@ class RegistrationView extends AbstractView {
         // send notification email with activation string
         User::sendActivationLink(App::instance()->user->get('id'));
 
+        App::instance()->addMessage(sprintf(i('Registration successful. Welcome %s'), $this->data['name']), "success");
         App::instance()->redirect(array(''));
         // redirect to home
     }

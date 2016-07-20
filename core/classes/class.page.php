@@ -187,7 +187,8 @@ class Page {
                 array(
                     'bodyclass' => $bodyclass,
                     'head' => $head,
-                    'body' => $this->content()
+                    'body' => $this->content(),
+                    'messages' => App::instance()->displayMessages()
                 ),
                 $globals
           ));

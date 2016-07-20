@@ -6,7 +6,8 @@ class User {
     private $fields = array(
         'id',
         'username',
-        'email'
+        'email',
+        'password'
     );
 
     public function __construct($id) {
@@ -32,7 +33,7 @@ class User {
 
       $message = sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n";
       $message.= sprintf(i('Click the following link to complete your account activation:')) . "\r\n";
-      $message.= '#LINK#HERE##' . "\r\n" . "\r\n" . "\r\n";
+      $message.= $user->getActivationLink() . "\r\n" . "\r\n" . "\r\n";
       $message.= sprintf(i('mail_end_text'));
 
       // für HTML-E-Mails muss der 'Content-type'-Header gesetzt werden
@@ -188,6 +189,19 @@ class User {
       return true;
     }
 
+    public static function activateByHash($hash) {
+      App::instance()->db->where('active', 0);
+      $users = App::instance()->db->get('users', null, array("id", "email", "password"));
+      foreach($users as $user) {
+        if(md5($user['email'].$user['password']) == $hash) {
+          App::instance()->db->where('id', $user['id']);
+          App::instance()->db->update('users', array('active' => 1));
+          return true;
+        }
+      }
+      return false;
+    }
+
     public static function getAll() {
       if(! Auth::allowed("manage.users")) {
         return array();
@@ -201,6 +215,11 @@ class User {
       }
       App::instance()->db->where("username", $term."%", "LIKE");
       return App::instance()->db->get('users', null, array("id", "username", "email"));
+    }
+
+    public function getActivationLink() {
+      $string = md5($this->get('email').$this->get('password'));
+      return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('user-activation', $string));
     }
 
     public static function create($name, $password, $email, $registration = false) {

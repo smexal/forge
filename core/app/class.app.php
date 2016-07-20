@@ -158,7 +158,8 @@ class App {
             array(
                 'head' => $head,
                 'bodyclass' => '',
-                'body' => $this->content($view)
+                'body' => $this->content($view),
+                'messages' => $this->displayMessages()
             ),
             $globals
       ));

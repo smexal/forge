@@ -124,8 +124,10 @@ class CollectionItem {
         if($this->isPublished()) {
             return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
+                    'bodyclass' => '',
                     'head' => $app->tm->theme->header(),
-                    'body' => $app->cm->getCollection($this->base_data['type'])->render($this)
+                    'body' => $app->cm->getCollection($this->base_data['type'])->render($this),
+                    'messages' => App::instance()->displayMessages()
                 ),
                 $app->tm->theme->globals()
           ));
