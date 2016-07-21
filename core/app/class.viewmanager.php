@@ -4,7 +4,17 @@ class ViewManager {
     public $views = null;
 
     public function __construct() {
-        $this->views = $this->getViews();
+        $this->getViews();
+    }
+
+    public function getViewByName($name) {
+        foreach($this->views as $view) {
+            $v = $view::instance();
+            if($v->name == $name) {
+                return $v;
+            }
+        }
+        return;
     }
 
     public function getViews() {
@@ -18,7 +28,7 @@ class ViewManager {
                 }
             }
         }
-        return $implementsIModule;
+        $this->views = $implementsIModule;
     }
 
     public function getNavigationViews() {

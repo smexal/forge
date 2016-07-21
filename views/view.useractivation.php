@@ -1,7 +1,7 @@
 <?php
 
 class UserActivationView extends AbstractView {
-    public $name = 'user-activation';
+    public $name = 'user-verification';
 
     public function content($parts = array()) {
         if(count($parts) > 0) {

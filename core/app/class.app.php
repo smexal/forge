@@ -44,6 +44,7 @@ class App {
       if(is_null($this->vm)) {
         $this->vm = new ViewManager();
       }
+
       if(is_null($this->mm)) {
         $this->mm = new ModuleManager();
       }
@@ -107,6 +108,7 @@ class App {
         $this->eh->trigger($_POST['event'], $_POST);
       }
       $this->displayView($requiredView);
+      $_SESSION['back'] = Utils::getUriComponents();
     }
 
     public function displayView($view) {

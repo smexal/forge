@@ -4,6 +4,7 @@ var forms = {
         forms.tags();
         forms.helperlinks();
         forms.readOnlyInput();
+        forms.additionalNavigationForm();
     },
 
     tags : function() {
@@ -18,11 +19,41 @@ var forms = {
       });
     },
 
+    additionalNavigationForm : function() {
+      $('form[action*="navigation/itemedit"').each(function() {
+        $(this).find("select#item").each(function() {
+          forms.getAdditionalNavigationItemForm($(this));
+
+          $(this).on("change", function() {
+            forms.getAdditionalNavigationItemForm($(this));
+          });
+        });
+      })
+    },
+
+    getAdditionalNavigationItemForm : function(select) {
+      var url = select.closest("form").find("input[name='additional-form-url']").val();
+      var value = select.val();
+      select.closest("form").find(".additional-view-form").remove();
+      if(value.indexOf("view##") == 0) {
+        var view = value.split('##');
+        view = view[1];
+        $.ajax({
+          method: 'GET',
+          url: url + '/' + view
+        }).done(function(data) {
+          if(data.form != '') {
+            var additional = $('<div class="additional-view-form">' + data.form + '</div>');
+            select.closest(".form-group").after(additional);
+          }
+        });
+      }
+    },
+
     readOnlyInput : function() {
       $("label.readOnlyInput").each(function() {
         $(this).on('click', function() {
           var target = $('input#' + $(this).attr('for'));
-          console.log(target);
           target.removeAttr('readonly');
           target.focus();
         });

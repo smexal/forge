@@ -17,6 +17,7 @@ class ModuleManager {
           if(in_array($module->id, $active)) {
               array_push($this->activeModuleObjects, $module);
               $module->start();
+              App::instance()->vm->getViews();
           }
       }
   }

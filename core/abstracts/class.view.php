@@ -12,6 +12,10 @@ abstract class AbstractView implements IView {
     public $favicon = WWW_ROOT."images/favicon.png";
     public $allowNavigation = false;
 
+    public function additionalNavigationForm() {
+      return array("form" => "");
+    }
+
     public $app = null;
 
     public function buildURL() {

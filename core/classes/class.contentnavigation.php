@@ -140,9 +140,19 @@ class ContentNavigation {
                 if($item['item_type'] == 'page') {
                     $page = new Page($item['item_id']);
                     $link = $page->getUrl();
-                } else if($item['item_type']) {
-                    $view = $item['item_id']::instance();
-                    $link = $view->buildURL();
+                } else if($item['item_type'] == 'view') {
+                    $vm = App::instance()->vm;
+                    $parts = explode("/", $item['item_id']);
+                    $view = $vm->getViewByName($parts[0]);
+                    if($view) {
+                        $link = $view->buildURL();
+                        if(array_key_exists(1, $parts)) {
+                            $link.='/'.$parts[1];
+                        }
+                    } else {
+                        Logger::debug('Could not find view'. $item['item_id']);
+                        $link = '#';
+                    }
                 } else  {
                     $collectionItem = new CollectionItem($item['item_id']);
                     $link = $collectionItem->url();

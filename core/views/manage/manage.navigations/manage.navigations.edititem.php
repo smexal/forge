@@ -21,10 +21,14 @@ class ManageEditNavigationItem extends AbstractView {
 
     public function onEditNavigationItem($data) {
         $item = explode("##", $data['item']);
+        $item_id = $item[1];
+        if(array_key_exists('add-to-url', $data)) {
+            $item_id.='/'.$data['add-to-url'];
+        }
         $this->message = ContentNavigation::updateItem($data['item_id'], array(
             "name" => $data["new_name"],
             "parent" => $data['parent'],
-            "item" => $item[1],
+            "item" => $item_id,
             "item_type" => $item[0]
         ));
         App::instance()->addMessage(sprintf(i('Changes saved.'), $data['new_name']), "success");
@@ -35,6 +39,7 @@ class ManageEditNavigationItem extends AbstractView {
         $form = new Form(Utils::getUrl(array('manage', 'navigation', 'itemedit')));
         $form->ajax(".content");
         $form->disableAuto();
+        $form->hidden("additional-form-url", Utils::getUrl(array('api', 'edit-navigation-item-additional-form')));
         $form->hidden("event", $this->events[0]);
         $form->hidden("item_id", $this->item['id']);
         $form->input("new_name", "new_name", i('Item name'), 'input', $this->item['name']);
@@ -77,6 +82,11 @@ class ManageEditNavigationItem extends AbstractView {
       foreach($db->get('collections') as $collection) {
         $items[$collection['type'].'##'.$collection['id']] = $collection['name'].' ('.i($collection['type']).')';
       }
+
+      foreach(App::instance()->vm->getNavigationViews() as $view) {
+        $items['view##'.$view->name] = i($view->name).' ('.i('Specific view').')';
+      }
+
       return $items;
     }
 }

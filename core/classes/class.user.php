@@ -7,7 +7,8 @@ class User {
         'id',
         'username',
         'email',
-        'password'
+        'password',
+        'active'
     );
 
     public function __construct($id) {
@@ -219,7 +220,7 @@ class User {
 
     public function getActivationLink() {
       $string = md5($this->get('email').$this->get('password'));
-      return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('user-activation', $string));
+      return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('user-verification', $string));
     }
 
     public static function create($name, $password, $email, $registration = false) {

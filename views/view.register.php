@@ -10,12 +10,24 @@ class RegistrationView extends AbstractView {
     private $errors = array();
     private $data = array();
 
-    public function content() {
+    public function content($parts = array()) {
         if(Settings::get('allow_registration')) {
-            return $this->getRegistrationForm();
+            if(count($parts) == 0) {
+                return $this->getRegistrationForm();
+            } else {
+                if($parts[0] == 'resend-verification') {
+                    $this->resendVerification();
+                }
+            }
         } else {
             App::instance()->redirect(array('denied'));
         }
+    }
+
+    public function resendVerification() {
+        // send notification email with activation string
+        User::sendActivationLink(App::instance()->user->get('id'));
+        App::instance()->redirectBack();
     }
 
     public function onRegistrationSubmit() {

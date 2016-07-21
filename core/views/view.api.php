@@ -18,6 +18,8 @@ class ApiView extends AbstractView {
             return $this->media($query);
         case 'navigation-items':
             return $this->navigationItems();
+        case 'edit-navigation-item-additional-form':
+            return $this->additionalNavigationItemForm($query);
         default:
           $return = API::instance()->run($part, $query, $_POST);
           if($return) {
@@ -26,6 +28,11 @@ class ApiView extends AbstractView {
             return json_encode(array("Unknown Object Query" => $part));
           }
       }
+    }
+
+    private function additionalNavigationItemForm($query) {
+      $v = App::instance()->vm->getViewByName($query[0]);
+      return json_encode($v->additionalNavigationForm());
     }
 
     private function media($query) {

@@ -21,10 +21,14 @@ class ManageAddNavigationItem extends AbstractView {
 
     public function onAddNavigationItem($data) {
         $item = explode("##", $data['item']);
+        $item_id = $item[1];
+        if(array_key_exists('add-to-url', $data)) {
+            $item_id.'/'.$data['add-to-url'];
+        }
         $this->message = ContentNavigation::addItem($data['navigation'], array(
             "name" => $data["new_name"],
             "parent" => $data['parent'],
-            "item" => $item[1],
+            "item" => $item_id,
             "item_type" => $item[0]
         ));
         App::instance()->addMessage(sprintf(i('Navigation Item %1$s has been added.'), $data['new_name']), "success");
@@ -35,6 +39,7 @@ class ManageAddNavigationItem extends AbstractView {
         $form = new Form(Utils::getUrl(array('manage', 'navigation', 'add-item')));
         $form->ajax(".content");
         $form->disableAuto();
+        $form->hidden("additional-form-url", Utils::getUrl(array('api', 'edit-navigation-item-additional-form')));
         $form->hidden("event", $this->events[0]);
         $form->hidden("navigation", $this->navigation);
         $form->input("new_name", "new_name", i('Item name'), 'input', '');
