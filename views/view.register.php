@@ -26,6 +26,8 @@ class RegistrationView extends AbstractView {
 
     public function resendVerification() {
         // send notification email with activation string
+        App::instance()->addMessage(
+            sprintf(i('We sent you another activation Link on %s'), App::instance()->user->get('email')), "success");
         User::sendActivationLink(App::instance()->user->get('id'));
         App::instance()->redirectBack();
     }

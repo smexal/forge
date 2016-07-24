@@ -203,7 +203,11 @@ class Utils {
 
     public static function error($error) {
       return '<div class="bs-callout bs-callout-danger"><p>'.$error.'</p></div>';
+    }
 
+    public function formatAmount($amount) {
+      $currency = 'CHF';
+      return sprintf(i("%s %s", 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
     }
 }
 
