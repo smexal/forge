@@ -36,13 +36,19 @@ class Page {
   }
 
   public function getUrl() {
-      $slug = $this->getMeta('slug');
-      if($slug) {
-          return $slug;
-      } else {
-          // normalize "name"
-          return Utils::slugify($this->name);
-      }
+      $part = $this->getUrlPart();
+      return Utils::getUrl(array($part));
+  }
+
+  public function getUrlPart() {
+    $slug = $this->getMeta('slug');
+    if($slug) {
+        $part = $slug;
+    } else {
+        // normalize "name"
+        $part = Utils::slugify($this->name);
+    }
+    return $part;
   }
 
   /**

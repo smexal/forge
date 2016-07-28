@@ -23,6 +23,11 @@ class CollectionItem {
         return Utils::getUrl(array($parent->slug(), $this->slug()));
     }
 
+    public function absUrl() {
+        $uri = $this->url();
+        return Utils::getAbsoluteUrlRoot().$uri;
+    }
+
     public function slug() {
         $slug = $this->getMeta('slug');
         if($slug) {

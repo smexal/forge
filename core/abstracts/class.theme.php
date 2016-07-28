@@ -15,13 +15,22 @@ abstract class Theme implements ITheme {
         return '';
     }
 
-    public function addScript($script, $absolute=false) {
+    public function addScript($script, $absolute=false, $index = false) {
         if(in_array($script, $this->load_scripts)) {
             return;
         }
         if(!$absolute)
             $script = $this->url().$script;
-        array_push($this->load_scripts, $script);
+
+        if($index || $index === 0) {
+            if(array_key_exists($index, $this->load_scripts)) {
+                $save = $this->load_scripts[$index];
+            }
+            $this->load_scripts[$index] = $script;
+            array_push($this->load_scripts, $save);
+        } else {
+            array_push($this->load_scripts, $script);
+        }
     }
 
     static public function instance() {

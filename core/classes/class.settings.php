@@ -3,11 +3,25 @@ class Settings {
     private static $instance = null;
     private $allowedPositions = array('left', 'right');
     public $fields = array();
+    public $tabs = array();
 
     public static function get($k) {
         App::instance()->db->where('keey', $k);
         $data = App::instance()->db->getOne('settings', 'value');
         return $data['value'];
+    }
+
+    public static function addTab($id, $title) {
+        $inst = self::instance();
+        array_push($inst->tabs, array(
+            'id' => $id,
+            'title' => $title,
+            'active' => false
+        ));
+    }
+
+    public function tabs() {
+        return $this->tabs;
     }
 
     public static function set($key, $value) {
@@ -28,9 +42,9 @@ class Settings {
         }
     }
 
-    public function registerField($field, $key, $position='left') {
+    public function registerField($field, $key, $position='left', $tab='general') {
         if(in_array($position, $this->allowedPositions)) {
-            $this->fields[$position][$key] = $field;
+            $this->fields[$tab][$position][$key] = $field;
         }
     }
 

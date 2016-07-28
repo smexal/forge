@@ -9,6 +9,17 @@ class SettingsManagement extends AbstractView {
     );
     private $keys = null;
     private $settings = false;
+    private $tabs = array();
+
+    public function init() {
+        $this->tabs = array(
+            array(
+                'title' => i('General'),
+                'id' => 'general',
+                'active' => true
+            )
+        );
+    }
 
     private function keys() {
         $this->keys = array(
@@ -31,9 +42,16 @@ class SettingsManagement extends AbstractView {
         Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
         Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
 
-        foreach($this->settings->fields as $position) {
-            foreach($position as $key => $ignored) {
-                Settings::set($key, $_POST[$key]);
+        foreach($this->settings->fields as $tab) {
+            if(array_key_exists("right", $tab)) {
+                foreach($tab['right'] as $key => $ignored) {
+                    Settings::set($key, $_POST[$key]);
+                }
+            }
+            if(array_key_exists("left", $tab)) {
+                foreach($tab['left'] as $key => $ignored) {
+                    Settings::set($key, $_POST[$key]);
+                }
             }
         }
 
@@ -41,44 +59,70 @@ class SettingsManagement extends AbstractView {
         App::instance()->redirect(Utils::getUrl(array('manage', 'settings')));
     }
 
+    public function updateTabs() {
+        $this->tabs = array_merge($this->tabs, $this->settings->tabs());
+    }
+
     public function content() {
         $this->settings = Settings::instance();
+        $this->updateTabs();
+
         $this->keys();
         return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "oneform", array(
             'action' => Utils::getUrl(array('manage', 'settings')),
             'event' => $this->events[0],
             'title' => i('Global Settings'),
-            'left' => $this->leftFields(),
-            'right' => $this->rightFields(),
+            'tabs' => $this->tabs,
+            'tab_content' => $this->getTabContent(),
             'global_actions' => Fields::button(i('Save changes'))
         ));
     }
 
-    public function leftFields() {
-        $return = '';
-        $return .= $this->getHomePageFields();
-        $return .= $this->getThemeSelection();
-        $return .= '<hr />';
-        $return .= $this->getAllowRegistration();
-        $return .= $this->getDefaultUserGroup();
-        $return .= '<hr />';
+    public function getTabContent() {
+        $tabs = array();
+        foreach($this->tabs as $tab) {
+            array_push($tabs, array(
+                'active' => $tab['id'] == 'general' ? true : false,
+                'id' => $tab['id'],
+                'left' => $this->leftFields($tab['id']),
+                'right' => $this->rightFields($tab['id'])
+            ));
+        }
+        return $tabs;
+    }
 
-        if(array_key_exists('left', $this->settings->fields)) {
-            foreach($this->settings->fields['left'] as $customField) {
+    public function leftFields($tab_id) {
+        $return = '';
+        if($tab_id == 'general') {
+            $return .= $this->getHomePageFields();
+            $return .= $this->getThemeSelection();
+            $return .= '<hr />';
+            $return .= $this->getAllowRegistration();
+            $return .= $this->getDefaultUserGroup();
+            $return .= '<hr />';
+        }
+
+        if(array_key_exists($tab_id, $this->settings->fields) 
+            && array_key_exists('left', $this->settings->fields[$tab_id])) {
+            foreach($this->settings->fields[$tab_id]['left'] as $customField) {
                 $return.=$customField;
             }
         }
         return $return;
     }
 
-    public function rightFields() {
+    public function rightFields($tab_id) {
         $return = '';
-        $return .= $this->getTitleInput();
-        $return .= '<hr />';
-        $return .= $this->getBackendThemeColor();
-        $return .= '<hr />';
-        if(array_key_exists('right', $this->settings->fields)) {
-            foreach($this->settings->fields['right'] as $customField) {
+        if($tab_id == 'general') {
+            $return .= $this->getTitleInput();
+            $return .= '<hr />';
+            $return .= $this->getBackendThemeColor();
+            $return .= '<hr />';
+        }
+        if(array_key_exists($tab_id, $this->settings->fields) 
+            && array_key_exists('right', $this->settings->fields[$tab_id])) {
+
+            foreach($this->settings->fields[$tab_id]['right'] as $customField) {
                 $return.=$customField;
             }
         }

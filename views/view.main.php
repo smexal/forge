@@ -62,7 +62,7 @@ class Main extends AbstractView {
         $pages = $this->app->db->get('pages');
         foreach( $pages as $page ) {
             $page = new Page($page['id']);
-            if($page->getUrl() == $this->parts[$index]) {
+            if($page->getUrlPart() == $this->parts[$index]) {
                 if(count($this->parts) > $index+1) {
                     return $this->getPage($index+1, $page->id);
                 } else {

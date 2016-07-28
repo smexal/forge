@@ -7,7 +7,7 @@ abstract class Module implements IModule {
   // initial variables for module
   public $name = null;
   public $id = null;
-  public $version = "0.1";
+  public $version = "0.0.1";
   public $description = "";
   public $image = CORE_WWW_ROOT.'images/default-icon-module.svg';
 
