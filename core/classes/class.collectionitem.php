@@ -18,6 +18,10 @@ class CollectionItem {
         $this->base_data = $this->db->getOne('collections');
     }
 
+    public function getCollection() {
+        return App::instance()->cm->getCollection($this->base_data['type']);
+    }
+
     public function url() {
         $parent = App::instance()->cm->getCollection($this->base_data['type']);
         return Utils::getUrl(array($parent->slug(), $this->slug()));
