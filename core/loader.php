@@ -22,6 +22,7 @@ class Loader {
     public function manageStyles() {
       // required styles
       $this->addStyle("core/css/externals/bootstrap.core.min.css", false, false);
+      $this->addStyle("core/css/externals/tooltipster.bundle.min.css", false, false);
 
       // admin styles
       $this->addStyle("core/css/bootstrap.less", false, "manage");
@@ -178,6 +179,7 @@ class Loader {
       $this->addScript("core/scripts/externals/bootstrap.js");
       $this->addScript("core/scripts/externals/typeahead.js");
       $this->addScript("core/scripts/externals/bootstrap-tagsinput.min.js");
+      $this->addScript("core/scripts/externals/tooltipster.bundle.min.js");
       $this->addScript("core/scripts/externals/tinymce/tinymce.min.js");
       $this->addScript("core/scripts/externals/dropzone.js");
       $this->addScript("core/scripts/dropzone.js");
