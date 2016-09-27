@@ -15,12 +15,23 @@ class Page {
     $this->modified = $page['modified'];
     $this->created = $page['created'];
     $this->url = $page['url'];
-    $this->status = $page['status'];
 
     $this->db->where('page', $this->id);
     $this->meta = $this->db->get('page_meta');
 
     $this->eh = App::instance()->eh;
+  }
+
+  public function status($lang=false) {
+    if(!$lang) {
+      $lang = Localization::getCurrentLanguage();
+    }
+    $status = $this->getMeta('status', $lang);
+    if($status) {
+      return $status;
+    } else {
+      return 'draft';
+    }
   }
 
   public function getMeta($key, $lang = false) {

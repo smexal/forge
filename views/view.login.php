@@ -19,10 +19,13 @@ class Login extends AbstractView {
         ));
     }
 
-    public function form() {
+    public function form($trigger_event = true) {
         $form = new Form();
         $form->disableAuto();
         $form->hidden("event", "onLoginSubmit");
+        if(! $trigger_event) {
+            $form->hidden("disable-trigger", "true");
+        }
         $form->input("name", "name", i('Username'));
         $form->input("password", "password", i('Password'), 'password');
         $form->submit(i('Log in'));
@@ -40,6 +43,10 @@ class Login extends AbstractView {
     }
 
     public function onLoginSubmit($data) {
-        Auth::login($data['name'], $data['password']);
+        if(array_key_exists('disable-trigger', $data) && $data['disable-trigger'] == 'true') {
+            Auth::login($data['name'], $data['password']);
+            return;
+        }
+        Auth::login($data['name'], $data['password'], true);
     }
 }

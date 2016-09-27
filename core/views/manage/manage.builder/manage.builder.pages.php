@@ -102,7 +102,7 @@ class PageBuilderManagement extends AbstractView {
           Utils::tableCell($indent.$link),
           Utils::tableCell($author->get('username')),
           Utils::tableCell(Utils::dateFormat($page->modified)),
-          Utils::tableCell(i($page->status)),
+          Utils::tableCell(i($page->status())),
           Utils::tableCell($this->actions($page->id))
         ));
         $rows = array_merge($rows, $this->getPageRows($page->id, $level+1));
