@@ -198,7 +198,8 @@ class Loader {
             if (!$fileinfo->isDot() &&  strstr($fileinfo->getFilename(), ".php")) {
                 if(! $filefilter || $filefilter == $fileinfo->getFilename()) {
                   if(!$namepattern) {
-                    require_once($directory.$fileinfo->getFilename());
+                    $f = $directory.$fileinfo->getFilename();
+                    require_once($f);
                   } else {
                     foreach ($namepattern as $pattern) {
                       $fileparts = explode(".", $fileinfo->getFilename());

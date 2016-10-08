@@ -115,12 +115,23 @@ class User {
         return false;
     }
 
-    public static function exists($userid) {
-      $db = App::instance()->db;
-      $db->where("id", $userid);
-      $member = $db->getOne("users");
-      if($member > 0) {
-        return true;
+    public static function exists($user) {
+      if(is_numeric($user)) {
+        $db = App::instance()->db;
+        $db->where("id", $user);
+        $member = $db->getOne("users");
+        if($member > 0) {
+          return true;
+        }
+      } else {
+        if(Utils::isEmail($user)) {
+          $db = App::instance()->db;
+          $db->where("email", $user);
+          $member = $db->getOne("users");
+          if($member > 0) {
+            return $member['id'];
+          }
+        }
       }
       return false;
     }

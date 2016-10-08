@@ -128,11 +128,16 @@ class Fields {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         }
+        if(array_key_exists("callable", $args) && $args['callable']) {
+            $values = call_user_func_array($args['values'], array());
+        } else {
+            $values = $args['values'];
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "select", array(
             'name' => $args['key'],
             'id' => $args['key'],
             'label' => $args['label'],
-            'values' => $args['values'],
+            'values' => $values,
             'selected' => $value,
             'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
         ));

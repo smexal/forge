@@ -1,6 +1,22 @@
 var helpers = {
     init : function() {
-      $('.tipster').tooltipster();
+      $('.tipster').tooltipster({
+        debug : false
+      });
+
+      $('.tipster-ajax').tooltipster({
+        debug: false,
+        content: '...',
+        functionBefore: function(instance, helper) {
+            var $origin = $(helper.origin);
+            if ($origin.data('loaded') !== true) {
+                $.get($origin.attr("tip-url"), function(data) {
+                    instance.content(data.content);
+                    $origin.data('loaded', true);
+                });
+            }
+        }
+      });
     }
 };
 

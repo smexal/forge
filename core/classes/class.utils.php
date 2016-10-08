@@ -183,6 +183,10 @@ class Utils {
       return $text;
     }
 
+    public static function isEmail($email) {
+      return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
     public static function overlayButton($url, $label, $target='') {
         $t = $target !== '' ? 'data-target="'.$target.'"' : '';
         $overlay = $t == '' ? 'open-overlay' : 'close-overlay';
@@ -209,7 +213,7 @@ class Utils {
       return '<div class="bs-callout bs-callout-danger"><p>'.$error.'</p></div>';
     }
 
-    public function formatAmount($amount) {
+    public static function formatAmount($amount) {
       $currency = 'CHF';
       return sprintf(i("%s %s", 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
     }

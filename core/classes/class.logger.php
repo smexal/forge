@@ -4,6 +4,16 @@ class Logger {
     public static $levels = array("DEBUG", "INFO", "WARN", "ERROR");
     public static $log_level = "DEBUG";
 
+    public static function timer() {
+        return microtime(true);
+    }
+
+    public static function stop($start) {
+        $time_post = microtime(true);
+        $exec_time = round(($time_post - $start) * 1000);
+        self::debug("Execution Time: ".$exec_time." ms");
+    }
+
     public static function log($text, $level=null) {
         if(is_null($level)) {
             $level = "INFO";

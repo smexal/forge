@@ -159,6 +159,9 @@ var forms = {
                               redirect(json.target);
                           }
                       } catch (e) {
+                          if(data.action == 'reload-specific') {
+                            forms.reloadSpecificContainer(data.target);
+                          }
                           target.addClass("fadeIn");
                           target.html(data);
                           $(document).trigger("ajaxReload");
@@ -172,6 +175,22 @@ var forms = {
                 });
             });
         });
+    },
+
+    reloadSpecificContainer : function(container) {
+      $(container).addClass('loading');
+      $.ajax({
+        method: 'POST',
+        url: $(container).attr("ajax-url")
+      }).done(function(data) {
+        var data = $(data.content);
+        data.addClass("loading");
+        $(container).replaceWith(data);
+      }).complete(function() {
+        $(container).removeClass('loading');
+        $(document).trigger("ajaxReload");
+      });
+      // TODO RELOAD TARGET CONTAINER WITH AJAX
     }
 };
 

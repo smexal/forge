@@ -108,7 +108,6 @@ class App {
         $this->eh->trigger($_POST['event'], $_POST);
       }
       $this->displayView($requiredView);
-      $_SESSION['back'] = Utils::getUriComponents();
     }
 
     public function displayView($view) {
@@ -138,6 +137,7 @@ class App {
       if(ob_get_level() > 0) {
           ob_end_flush();
       }
+
     }
 
     private function renderViewInTheme($view) {
@@ -219,9 +219,6 @@ class App {
       if($go_back) {
         $_SESSION['back'] = $go_back;
       }
-      if(!$go_back && isset($_SESSION['back'])) {
-        unset($_SESSION['back']);
-      }
 
       if(Utils::isAjax()) {
         exit(json_encode(array(
@@ -229,9 +226,6 @@ class App {
           "target" => $target
         )));
       } else {
-        if(substr(strlen($target) -1, 1) == "/") {
-
-        }
         exit(header("Location: ".rtrim($target, "/")));
       }
     }
@@ -254,10 +248,15 @@ class App {
     }
 
     public function redirectBack() {
+      if(array_key_exists('redirect', $_REQUEST)) {
+        $this->redirect($_REQUEST['redirect']);
+      }
       if(isset($_SESSION['back'])) {
-        $this->redirect($_SESSION['back']);
+        $back = $_SESSION['back'];
+        unset($_SESSION['back']);
+        $this->redirect($back);
       } else {
-        $this->redirect('');
+        $this->redirect(Utils::getHomeUrl());
       }
     }
 

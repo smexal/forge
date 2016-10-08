@@ -17,6 +17,7 @@ class Auth {
     public static function destroy() {
         App::instance()->user = null;
         unset($_SESSION['auth']);
+        session_destroy();
     }
 
     public static function allowed($permission, $inpage = false) {

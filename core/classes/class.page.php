@@ -198,7 +198,6 @@ class Page {
         array_push($bodyclasses, "no-padding");
       }
       $bodyclass = implode(" ", $bodyclasses);
-
       if($this->isPublished()) {
           return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
