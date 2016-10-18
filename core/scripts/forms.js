@@ -162,6 +162,27 @@ var forms = {
                           if(data.action == 'reload-specific') {
                             forms.reloadSpecificContainer(data.target);
                           }
+                          if(data.errors) {
+                            var form = button.closest("form");
+                            console.log(data.errors);
+                            for(var index = 0; index < data.errors.length; index++) {
+                              var field = form.find("#" + data.errors[index].field);
+                              if(! field.hasClass("error")) {
+                                field.addClass("error");
+                              }
+                              field.parent().find(".message").remove();
+                              field.parent()
+                                .append("<p class='message error'>"+data.errors[index].message+"</p>");
+                            }
+                          } else {
+                            var form = button.closest("form");
+                            form.find(".message").each(function()  {
+                              $(this).remove();
+                            })
+                            form.find(".form-control").each(function() {
+                              $(this).removeClass("error");
+                            });
+                          }
                           target.addClass("fadeIn");
                           target.html(data);
                           $(document).trigger("ajaxReload");

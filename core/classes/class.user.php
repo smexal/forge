@@ -120,7 +120,7 @@ class User {
         $db = App::instance()->db;
         $db->where("id", $user);
         $member = $db->getOne("users");
-        if($member > 0) {
+        if(count($member) > 0) {
           return true;
         }
       } else {
@@ -128,7 +128,7 @@ class User {
           $db = App::instance()->db;
           $db->where("email", $user);
           $member = $db->getOne("users");
-          if($member > 0) {
+          if(count($member) > 0) {
             return $member['id'];
           }
         }
