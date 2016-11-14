@@ -19,15 +19,15 @@ abstract class Theme implements ITheme {
         if(in_array($script, $this->load_scripts)) {
             return;
         }
-        if(!$absolute)
-            $script = $this->url().$script;
 
-        if($index || $index === 0) {
-            if(array_key_exists($index, $this->load_scripts)) {
-                $save = $this->load_scripts[$index];
+        if(!$absolute) {
+            $script = $this->url().$script;
+        }
+
+        if ($index || $index === 0) {
+            if (array_key_exists($index, $this->load_scripts)) {
+                array_splice($this->load_scripts, $index, 0, $script);
             }
-            $this->load_scripts[$index] = $script;
-            array_push($this->load_scripts, $save);
         } else {
             array_push($this->load_scripts, $script);
         }
