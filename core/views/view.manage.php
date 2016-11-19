@@ -63,6 +63,21 @@ class Manager extends AbstractView {
         $panelRight = $this->navigation->addPanel('right');
 
         $this->navigation->add('language', Localization::getCurrentLanguage(), '', $panelRight);
+        // add other languages as submenu
+        $languages = Localization::getLanguages();
+        foreach($languages as $lang) {
+          if($lang['code'] != Localization::getCurrentLanguage()) {
+            $this->navigation->add(
+              'lang-'.$lang['code'],
+              $lang['name'],
+              Utils::getCurrentUrl().'?lang='.$lang['code'],
+              $panelRight,
+              false,
+              'language');
+          }
+        }
+
+
 
         if(Auth::allowed($this->permissions[5])) {
           $this->navigation->add('locales_container', i('Localization'), false, $panelRight, 'globe');

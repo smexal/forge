@@ -101,8 +101,11 @@ class Utils {
       ));
     }
 
-    public static function dateFormat($date) {
+    public static function dateFormat($date, $long = false) {
       $time = strtotime($date);
+      if($long) {
+        return date('d.m.Y H:i',$time);
+      }
       return date('d.m.Y',$time);
     }
 

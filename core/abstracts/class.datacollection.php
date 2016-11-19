@@ -27,6 +27,15 @@ abstract class DataCollection implements IDataCollection {
     return 'overwrite render method with $item';
   }
 
+  public function getSubnavigation() {
+    return false;
+  }
+
+  public function getSubview($view, $item) {
+    $method = "subview".ucfirst($view);
+    return $this->$method($item);
+  }
+
   private function init() {
     $this->app = App::instance();
     if(!is_null($this->permission)) {
@@ -294,11 +303,11 @@ abstract class DataCollection implements IDataCollection {
       foreach($cats as $cat) {
         $meta = $this->getCategoryMeta($cat['id']);
         $indent = str_repeat("&nbsp;&nbsp;", $level);
-        $returnable[] = array(
+        $returnable[] = [
           'value' => $cat['id'],
           'active' => false,
           'text' => $indent.$meta->name
-        );
+        ];
         $returnable = array_merge($returnable, $this->getCategoriesForSelection($cat['id'], $level+1));
       }
       return $returnable;
