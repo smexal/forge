@@ -12,7 +12,7 @@
     </div>
     {if="$subnavigation"}
     <div class="row subnavigation">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <a href="{$subnavigation_root}"{if="!$subview_name"} class="active"{/if}>{$general_name}</a>
             {loop="$subnavigation"}
                 <a href="{$subnavigation_root}/{$value.url}"
@@ -21,10 +21,17 @@
                 </a>
             {/loop}
         </div>
+        <div class="col-lg-6 subactions">
+            {$subview_actions}
+        </div>
     </div>
     {/if}
     {if="$subview"}
-        {$subview}
+    <div class="row">
+        <div class="col-lg-12">
+            {$subview}
+        </div>
+    </div>
     {else}
         <form method="post" action="" id="page-form">
             <input type="hidden" name="itemid" value="{$itemid}">

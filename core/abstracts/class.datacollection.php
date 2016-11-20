@@ -31,9 +31,29 @@ abstract class DataCollection implements IDataCollection {
     return false;
   }
 
+  private function getSubviewName($name) {
+    $ex = explode("-", $name);
+    for($x = 0; $x < count($ex); $x++) {
+      $ex[$x] = ucfirst($ex[$x]);
+    }
+    return implode("", $ex);
+  }
+
   public function getSubview($view, $item) {
-    $method = "subview".ucfirst($view);
-    return $this->$method($item);
+    $method = "subview".$this->getSubviewName($view);
+    if(method_exists($this, $method)) {
+      return $this->$method($item);
+    }
+    return 'no subview method found: \"'.$method.'\"';
+  }
+
+  public function getSubviewActions($view, $item) {
+    $method = "subview".$this->getSubviewName($view).'Actions';
+    if(method_exists($this, $method)) {
+      return $this->$method($item);
+    } else {
+      return 'nf';
+    }
   }
 
   private function init() {

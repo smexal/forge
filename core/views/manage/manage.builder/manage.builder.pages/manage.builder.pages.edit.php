@@ -76,6 +76,7 @@ class ManagePageEdit extends AbstractView {
             'custom' => '',
             'general_name' => false,
             'subview_name' => false,
+            'subview_actions' => false,
             'subview' => false,
             'subnavigation_root' => false,
             'subnavigation' => false

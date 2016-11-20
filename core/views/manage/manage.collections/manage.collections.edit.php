@@ -43,6 +43,7 @@ class ManageCollectionsEdit extends AbstractView {
     private function defaultContent($subview = false) {
         if($subview) {
             $subviewContent = $this->collection->getSubview($subview, $this->item->id);
+            $subviewActions = $this->collection->getSubviewActions($subview, $this->item->id);
         }
 
         return $this->app->render(CORE_TEMPLATE_DIR."views/", "builder", array(
@@ -63,6 +64,7 @@ class ManageCollectionsEdit extends AbstractView {
             'custom' => $this->collection->customEditContent($this->item->id),
             'general_name' => i('General', 'core'),
             'subview_name' => $subview,
+            'subview_actions' => $subview ? $subviewActions : $subview,
             'subview' => $subview ? $subviewContent : $subview,
             'subnavigation_root' => Utils::getUrl(
                 array('manage', 'collections', $this->collection->name, 'edit', $this->item->id)
