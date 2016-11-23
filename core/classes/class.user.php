@@ -28,23 +28,18 @@ class User {
     public static function sendActivationLink($userID) {
       $user = new self($userID);
 
-      $recipient = $user->get('email');
-      $subject = sprintf(i('Activation Link for %s'), $user->get('username')). ' - '.
-        Settings::get('title_'.Localization::getCurrentLanguage());
+      $mail = new Mail();
+      $mail->recipient($user->get('email'));
 
-      $message = sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n";
-      $message.= sprintf(i('Click the following link to complete your account activation:')) . "\r\n";
-      $message.= $user->getActivationLink() . "\r\n" . "\r\n" . "\r\n";
-      $message.= sprintf(i('mail_end_text'));
+      $mail->subject(sprintf(i('Activation Link for %s'), $user->get('username')). ' - '.
+        Settings::get('title_'.Localization::getCurrentLanguage()));
 
-      // für HTML-E-Mails muss der 'Content-type'-Header gesetzt werden
-      $header  = 'MIME-Version: 1.0' . "\r\n";
-      $header .= 'Content-type: text/plain; charset=utf-8' . "\r\n";
+      $mail->addMessage(sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n");
+      $mail->addMessage(sprintf(i('Click the following link to complete your account activation:')) . "\r\n");
+      $mail->addMessage($user->getActivationLink() . "\r\n" . "\r\n" . "\r\n");
+      $mail->addMessage(sprintf(i('mail_end_text', 'core')));
 
-      // zusätzliche Header
-      //$header .= 'From: Geburtstags-Erinnerungen <geburtstag@example.com>' . "\r\n";
-
-      mail($recipient, $subject, $message, $header);
+      $mail->send();
     }
 
     public function get($field) {
