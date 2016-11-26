@@ -42,15 +42,24 @@ class SettingsManagement extends AbstractView {
         Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
         Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
 
-        foreach($this->settings->fields as $tab) {
+        foreach($this->settings->fields as $name => $tab) {
+            // skip if it's a modules settings fields...
+            if(in_array($name, App::instance()->mm->getActiveModules())) {
+                continue;
+            }
+
             if(array_key_exists("right", $tab)) {
                 foreach($tab['right'] as $key => $ignored) {
-                    Settings::set($key, $_POST[$key]);
+                    if(array_key_exists($key, $_POST)) {
+                        Settings::set($key, $_POST[$key]);
+                    }
                 }
             }
             if(array_key_exists("left", $tab)) {
                 foreach($tab['left'] as $key => $ignored) {
-                    Settings::set($key, $_POST[$key]);
+                    if(array_key_exists($key, $_POST)) {
+                        Settings::set($key, $_POST[$key]);
+                    }
                 }
             }
         }
@@ -74,13 +83,27 @@ class SettingsManagement extends AbstractView {
             'title' => i('Global Settings'),
             'tabs' => $this->tabs,
             'tab_content' => $this->getTabContent(),
-            'global_actions' => Fields::button(i('Save changes'))
+            'global_actions' => Fields::button(i('Save changes')),
+            'subnavigation' => false,
+            'subview' => false
         ));
     }
 
     public function getTabContent() {
         $tabs = array();
         foreach($this->tabs as $tab) {
+            // skip module content
+            $skip = false;
+            foreach(App::instance()->mm->getActiveModules() as $mod) {
+                if($tab['id'] == $mod) {
+                    $skip = true;
+                    break;
+                }
+            }
+            if($skip) {
+                continue;
+            }
+
             array_push($tabs, array(
                 'active' => $tab['id'] == 'general' ? true : false,
                 'id' => $tab['id'],

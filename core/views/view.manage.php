@@ -60,9 +60,27 @@ class Manager extends AbstractView {
           $this->navigation->add('media', i('Media'), Utils::getUrl(array('manage', 'media')), $panelLeft);
         }
 
+        if(Auth::allowed($this->permissions[4])) {
+          $this->navigation->add('module_prefs_container', i('Module Preferences'), false, $panelLeft, 'cog');
+
+          // display menu points for active modules
+          $mm = App::instance()->mm;
+          foreach($mm->getActiveModules() as $mod) {
+            $modObject = $mm->getModuleObject($mod);
+            $this->navigation->add(
+              "pref_".$mod,
+              $modObject->name,
+              Utils::getUrl(array('manage', 'module-settings', $mod)),
+              $panelLeft,
+              false,
+              'module_prefs_container'
+            );
+          }
+        }
+
         $panelRight = $this->navigation->addPanel('right');
 
-        $this->navigation->add('language', Localization::getCurrentLanguage(), '', $panelRight);
+        $this->navigation->add('language', strtoupper(Localization::getCurrentLanguage()), '', $panelRight);
         // add other languages as submenu
         $languages = Localization::getLanguages();
         foreach($languages as $lang) {

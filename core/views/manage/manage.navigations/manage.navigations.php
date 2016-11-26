@@ -39,6 +39,7 @@ class NavigationManagement extends AbstractView {
         if($nav['position'] !== '') {
           $position = ' ('.$nav['position'].')';
         }
+        $return.= '<div class="navigation-block">';
         $return.= '<h3>'.i('Navigation').': '.$nav['name'].$position.'</h3>';
         $edit_url = Utils::getUrl(array('manage', 'navigation', 'edit', $nav['id']));
         $delete_url = Utils::getUrl(array('manage', 'navigation', 'delete', $nav['id']));
@@ -61,6 +62,7 @@ class NavigationManagement extends AbstractView {
         $return.= '<a href="javascript://" data-open="'.$add_url.'" class="open-overlay">';
         $return.= i('Add navigation item');
         $return.= '</a>';
+        $return.='</div>';
       }
 
       return $return;
