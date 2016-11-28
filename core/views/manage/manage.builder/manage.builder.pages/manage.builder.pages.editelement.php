@@ -27,7 +27,8 @@ class ManagePagesEditElement extends AbstractView {
         $element = $this->app->com->instance($parts[0]);
         $fields = array();
         foreach($element->settings() as $setting) {
-            array_push($fields, Fields::$setting['type']($setting));
+            $call = $setting['type'];
+            array_push($fields, Fields::$call($setting));
         }
         // submit button
         array_push($fields, Fields::button(i('Save')));
