@@ -37,7 +37,7 @@ class Manager extends AbstractView {
         $this->navigation->setMaxWidth();
         $panelLeft = $this->navigation->addPanel();
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
-        if(Auth::allowed($this->permissions[2])) {
+        if(Auth::allowed($this->permissions[2]) && count($this->app->cm->collections) > 0) {
           $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft);
           $this->collectionSubmenu($panelLeft);
         }
