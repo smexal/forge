@@ -56,6 +56,13 @@ class Utils {
       return (json_last_error() == JSON_ERROR_NONE);
     }
 
+    public function maybeJSON($value='') {
+        if (Utils::isJSON($value)) {
+            $value = json_decode($value);
+        }
+        return $value;
+    }
+
     public static function getUsername($id) {
       $user = new User($id);
       return $user->get('username');

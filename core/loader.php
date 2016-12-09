@@ -22,6 +22,7 @@ class Loader {
     public function manageStyles() {
       // required styles
       $this->addStyle("core/css/externals/bootstrap.core.min.css", false, false);
+      $this->addStyle("core/css/externals/bootstrap-datetimepicker.min.css", false, false);
       $this->addStyle("core/css/externals/tooltipster.bundle.min.css", false, false);
 
       // admin styles
@@ -181,6 +182,8 @@ class Loader {
       $this->addScript("core/scripts/externals/bootstrap-tagsinput.min.js");
       $this->addScript("core/scripts/externals/tooltipster.bundle.min.js");
       $this->addScript("core/scripts/externals/tinymce/tinymce.min.js");
+      $this->addScript("core/scripts/externals/moment-with-locales.min.js");
+      $this->addScript("core/scripts/externals/bootstrap-datetimepicker.min.js");
       $this->addScript("core/scripts/externals/dropzone.js");
       $this->addScript("core/scripts/dropzone.js");
       $this->addScript("core/scripts/tinymce.js");
@@ -192,28 +195,32 @@ class Loader {
     }
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {
-      if(file_exists($directory)) {
+      if (file_exists($directory)) {
         $dir = new DirectoryIterator($directory);
         foreach ($dir as $fileinfo) {
-            if (!$fileinfo->isDot() &&  strstr($fileinfo->getFilename(), ".php")) {
-                if(! $filefilter || $filefilter == $fileinfo->getFilename()) {
-                  if(!$namepattern) {
+            if ($fileinfo->isDot()) {
+              continue;
+            }
+
+            if (strstr($fileinfo->getFilename(), ".php")) {
+                if (! $filefilter || $filefilter == $fileinfo->getFilename()) {
+                  if (!$namepattern) {
                     $f = $directory.$fileinfo->getFilename();
                     require_once($f);
                   } else {
                     foreach ($namepattern as $pattern) {
                       $fileparts = explode(".", $fileinfo->getFilename());
-                      if(in_array($pattern, $fileparts)) {
+                      if (in_array($pattern, $fileparts)) {
                         require_once($directory.$fileinfo->getFilename());
                         break;
                       }
                     }
                   }
                 }
-            } elseif(!$fileinfo->isDot() && $fileinfo->isDir()) {
+            } elseif ($fileinfo->isDir()) {
               // check if the subdirectory is part of the queried url. (no manage views without manage queried)
-              if($inquery) {
-                if(in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
+              if ($inquery) {
+                if (in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
                   $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
                 }
               } else {
