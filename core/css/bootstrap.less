@@ -176,10 +176,10 @@ a {
   background-color: #666;
   color: #fff;
 }
-.dropdown-menu {
-  background-color: #404040;
-  border: none;
-  padding: 0;
+.dropdown-menu:not(.bootstrap-datetimepicker-widget) {
+    background-color: #404040;
+    border: none;
+    padding: 0;
 }
 
 .maxed {
@@ -327,3 +327,8 @@ code {
   border-right: 3px solid transparent;
   border-left: 3px solid transparent;
 }
+
+.input-group {
+  width: 100%;
+}
+

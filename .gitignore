@@ -49,3 +49,7 @@ config.php
 themes/*
 modules/*
 core/css/compiled/*
+
+# Dev files
+phpinfo.php
+

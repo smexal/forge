@@ -102,16 +102,12 @@ class ComponentRow extends Component {
             ));
             $no++;
         }
-        $bg = false;
-        if(array_key_exists('row-background-image', $prefs)) {
-            $bg = $prefs['row-background-image'];
-        }
+        $bg = isset($prefs['row-background-image']) ? $prefs['row-background-image'] : false;
         if(is_numeric($bg)) {
             $bg = new Media($bg);
             $bg = $bg->getUrl();
-        } else {
-            $bg = false;
         }
+
         return App::instance()->render(CORE_TEMPLATE_DIR."components/", "row", array(
             'rows' => $rows,
             'displaytype' => $prefs['row-display-type'],
