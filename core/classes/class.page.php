@@ -39,7 +39,7 @@ class Page {
           $lang = Localization::getCurrentLanguage();
       }
       foreach($this->meta as $meta) {
-          if($meta['keyy'] == $key && $meta['lang'] == $lang) {
+          if($meta['keyy'] == $key && ($meta['lang'] == $lang || $meta['lang'] === "0")) {
               return $meta['value'];
           }
       }
