@@ -102,7 +102,10 @@ class ComponentRow extends Component {
             ));
             $no++;
         }
-        $bg = $prefs['row-background-image'];
+        $bg = false;
+        if(array_key_exists('row-background-image', $prefs)) {
+            $bg = $prefs['row-background-image'];
+        }
         if(is_numeric($bg)) {
             $bg = new Media($bg);
             $bg = $bg->getUrl();

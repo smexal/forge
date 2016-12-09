@@ -27,6 +27,35 @@ abstract class DataCollection implements IDataCollection {
     return 'overwrite render method with $item';
   }
 
+  public function getSubnavigation() {
+    return false;
+  }
+
+  private function getSubviewName($name) {
+    $ex = explode("-", $name);
+    for($x = 0; $x < count($ex); $x++) {
+      $ex[$x] = ucfirst($ex[$x]);
+    }
+    return implode("", $ex);
+  }
+
+  public function getSubview($view, $item) {
+    $method = "subview".$this->getSubviewName($view);
+    if(method_exists($this, $method)) {
+      return $this->$method($item);
+    }
+    return 'no subview method found: \"'.$method.'\"';
+  }
+
+  public function getSubviewActions($view, $item) {
+    $method = "subview".$this->getSubviewName($view).'Actions';
+    if(method_exists($this, $method)) {
+      return $this->$method($item);
+    } else {
+      return 'nf';
+    }
+  }
+
   private function init() {
     $this->app = App::instance();
     if(!is_null($this->permission)) {
@@ -294,11 +323,11 @@ abstract class DataCollection implements IDataCollection {
       foreach($cats as $cat) {
         $meta = $this->getCategoryMeta($cat['id']);
         $indent = str_repeat("&nbsp;&nbsp;", $level);
-        $returnable[] = array(
+        $returnable[] = [
           'value' => $cat['id'],
           'active' => false,
           'text' => $indent.$meta->name
-        );
+        ];
         $returnable = array_merge($returnable, $this->getCategoriesForSelection($cat['id'], $level+1));
       }
       return $returnable;

@@ -34,6 +34,11 @@ class ThemeManager {
     }
 
     private function loadTheme() {
+        if(is_null($this->active)) {
+            // there is no theme, just take the first one you can find...
+            $themes = $this->getThemes();
+            $this->active = reset($themes);
+        }
         if($this->active && $this->active != '') {
             $theme_root = $this->theme_directory.$this->active."/theme.php";
             if(file_exists($theme_root)) {

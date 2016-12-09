@@ -10,6 +10,14 @@ class ModuleManager {
     $this->modules = $this->getModules();
   }
 
+  public function getModuleObject($name) {
+    foreach($this->modules as $module) {
+      if($module->id == $name) {
+        return $module;
+      }
+    }
+  }
+
   public function start() {
       // start all active plugins
       $active = $this->getActiveModules();

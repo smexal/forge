@@ -62,7 +62,7 @@ class ManagePageEdit extends AbstractView {
 
     private function defaultContent() {
         return $this->app->render(CORE_TEMPLATE_DIR."views/", "builder", array(
-            'title' => sprintf(i('Edit `%s`'), $this->page->name) . ' ['.strtoupper($this->lang).']',
+            'title' => sprintf(i('Edit %s'), '<span class="highlight">'.$this->page->name.'</span>'),
             'backurl' => Utils::getUrl(array('manage', 'pages')),
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),
@@ -73,7 +73,13 @@ class ManagePageEdit extends AbstractView {
             'lang' => $this->lang,
             'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true),
             'elements' => $this->getElements(0, $this->lang),
-            'custom' => ''
+            'custom' => '',
+            'general_name' => false,
+            'subview_name' => false,
+            'subview_actions' => false,
+            'subview' => false,
+            'subnavigation_root' => false,
+            'subnavigation' => false
         ));
     }
 

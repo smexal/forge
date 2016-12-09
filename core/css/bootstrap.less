@@ -1,25 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans:400,700');
+
 body {
-    font-family: Overpass, sans-serif;
-    color: #404040;
-    font-weight: 600;
+  font-family: "Droid Sans", sans-serif;
+  color: #404040;
+  font-weight: 400;
+  font-size: 13px;
 }
 h1, h2, h3, h4 {
-    font-size: 22px;
-    font-weight: 800;
-    text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 h2 {
-    font-size: 20px;
+  font-size: 20px;
 }
 h3 {
-    font-size: 18px;
+  font-size: 18px;
 }
 h4 {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 label {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 a {
@@ -35,55 +38,59 @@ a {
 
 
 .btn {
-    border-radius: 2px;
-    padding: 16px 20px 14px 20px;
-    transition: 300ms;
-    font-size: 14px;
-    line-height: 14px;
-    text-transform: uppercase;
-    font-weight: 800;
+  border-radius: 2px;
+  padding: 16px 20px 14px 20px;
+  transition: 300ms;
+  font-size: 14px;
+  line-height: 14px;
+  text-transform: uppercase;
+  font-weight: 800;
 }
 .btn-primary {
-    color: #FFF;
-    background-color: @primary_color;
-    border: 1px solid darken(@primary_color, 5%);
+  color: #FFF;
+  background-color: @primary_color;
+  border: 1px solid darken(@primary_color, 5%);
 }
 .btn-default {
-    box-shadow: none;
-    background-color: @light_grey;
-    border-color: darken(@light_grey, 10%);
+  box-shadow: none;
+  background-color: @light_grey;
+  border-color: darken(@light_grey, 5%);
+  color: @dark_grey;
+  &:focus, &:hover, &:active {
     color: @dark_grey;
-    &:focus, &:hover, &:active {
-        color: @dark_grey;
-        background-color: darken(@light_grey, 8%);
-        border: 1px solid darken(@light_grey, 15%);
-    }
+    background-color: darken(@light_grey, 8%);
+    border: 1px solid darken(@light_grey, 15%);
+  }
 }
 .btn-xs {
-    padding: 6px 7px 5px 8px;
+  padding: 3px 6px;
+  span.glyphicon {
+    font-size:12px;
+  }
 }
 
 .btn-primary {
-    &:hover, &:active, &:focus {
-        background-color: darken(@primary_color, 8%);
-        border: 1px solid darken(@primary_color, 3%);
-    }
+  &:hover, &:active, &:focus {
+    background-color: darken(@primary_color, 8%);
+    border: 1px solid darken(@primary_color, 3%);
+  }
 }
 .well {
-    padding: 30px 40px;
-    background-color: #fafafa;
-    border: 1px solid #f2f2f2;
-    border-radius: 2px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+  padding: 30px 40px;
+  background-color: #fafafa;
+  border: 1px solid #f2f2f2;
+  border-radius: 2px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 .well > h2 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .boxed {
-    padding: 10px 20px;
-    margin-bottom: 2rem;
+  padding: 10px 20px;
+  margin-bottom: 2rem;
+  margin-top: 25px;
 }
 
 .progress-bar {
@@ -93,124 +100,134 @@ a {
 
 
 .navbar-default {
-    background-color: @dark_grey;
-    border-bottom: none;
+  background-color: @dark_grey;
+  border-bottom: none;
 
-    .navbar-nav {
-      > li {
-        > a, &.active a {
-          transition: 200ms;
-          line-height: 25px;
-          padding: 20px;
-          text-transform: uppercase;
-          color: #FFF;
+  .navbar-nav {
+    > li {
+      > a, &.active a {
+        transition: 200ms;
+        line-height: 25px;
+        padding: 15px 15px;
+        font-size: 13px;
+        text-transform: none;
+        color: #FFF;
+        background-color: @dark_grey;
+        font-weight: 400;
+
+        &:hover {
+          color: @primary_color;
           background-color: @dark_grey;
-          font-weight: 700;
-
-          &:hover {
-            color: @primary_color;
-            background-color: @dark_grey;
-          }
-
-          &:hover,
-          &:focus {
-              color: @primary_color;
-          }
-
-          &.logo {
-            height:65px;
-            width: 70px;
-            margin-right: 30px;
-            padding: 0;
-            background-color: @primary_color;
-            &:hover {
-              background-color: darken(@primary_color, 10%);
-            }
-            img {
-              width: 30px;
-              height: 25px;
-              margin: 20px;
-            }
-          }
         }
-        // navbar open
-        &.open {
-          a, a:hover, a:focus {
-            background-color: @dark_grey;
-            color: @primary_color;
+
+        &:hover,
+        &:focus {
+          color: @primary_color;
+        }
+
+        &.logo {
+          height:55px;
+          width: 60px;
+          margin-right: 20px;
+          padding: 0;
+          background-color: @primary_color;
+          &:hover {
+            background-color: darken(@primary_color, 10%);
           }
-          .dropdown-menu {
-            li {
-              &:last-child a {
-                border-bottom-right-radius: 3px;
-                border-bottom-left-radius: 3px;
-              }
-              a {
-                backbground-color:@dark_grey;
-                color: white;
-                padding: 10px 25px;
-                border-bottom: 1px solid lighten(@dark_grey, 5%);
-                &:hover {
-                  color: @primary_color;
-                }
-              }
-            }
+          img {
+            width: 25px;
+            height: 25px;
+            margin: 15px 17px;
           }
         }
       }
+// navbar open
+&.open {
+  a, a:hover, a:focus {
+    background-color: lighten(@dark_grey, 5%);
+    color: @primary_color;
+  }
+  .dropdown-menu {
+    li {
+      &:last-child a {
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+      a {
+        color: white;
+        padding: 6px 20px;
+        font-size: 12px;
+        border-bottom: 1px solid lighten(@dark_grey, 5%);
+        &:hover {
+          color: @primary_color;
+        }
+      }
     }
+  }
+}
+}
+}
 }
 .dropdown-menu>li>a {
-    padding: 6px 60px 6px 20px;
-    color: #FFF;
+  padding: 6px 60px 6px 20px;
+  color: #FFF;
 }
 .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
-    background-color: #666;
-    color: #fff;
+  background-color: #666;
+  color: #fff;
 }
 .dropdown-menu {
-    background-color: #404040;
-    border: none;
-    padding: 0;
+  background-color: #404040;
+  border: none;
+  padding: 0;
 }
 
 .maxed {
-    max-width: 1400px;
-    margin: 0 auto;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .table {
-    margin-top: 30px;
+  margin-top: 0px;
+  >tbody>tr:nth-of-type(odd) {
+    background-color: transparent;
+  }
+  >tbody>tr:hover {
+    background-color: lighten(@light_grey, 2%);
+  }
+  >tbody>tr:first-child:hover {
+    background-color: transparent;
+  }
 }
 
 .message-container {
-    position: fixed;
-    bottom: 0;
-    width: 60%;
-    left: 20%;
+  position: fixed;
+  bottom: 0;
+  width: 60%;
+  left: 20%;
 }
 
 .alert-danger {
-    color: #FFF;
-    background-color: #a94442;
-    border-color: #a94442;
+  color: #FFF;
+  background-color: #a94442;
+  border-color: #a94442;
 }
 .alert-success {
-    color: #FFF;
-    background-color: darken(@primary_color, 5%);
-    border-color: darken(@primary_color, 10%);
+  color: #FFF;
+  background-color: darken(@primary_color, 5%);
+  border-color: darken(@primary_color, 10%);
 }
 .alert {
-    border-radius: 2px;
-    margin-bottom: 10px;
+  border-radius: 2px;
+  margin-bottom: 10px;
 }
 
 .label-info {
-    background-color: #333;
+  background-color: #333;
 }
 
 .bar-updater {
-    display:none;
+  display:none;
 }
 
 code {
@@ -233,13 +250,12 @@ code {
         text-transform: uppercase;
         line-height: 1em;
         border-top: none;
-        padding: 10px;
-        color: #333;
+        padding: 6px;
       }
       td {
         vertical-align: middle;
-        border-top: 1px solid #efefef;
-        padding: 10px;
+        border-top: 1px solid lighten(@dark_grey, 75%);
+        padding: 6px;
       }
     }
   }
@@ -249,9 +265,65 @@ code {
   border-bottom: 0;
   padding-top: 20px;
 
+  .back {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: lighten(@dark_grey, 60%);
+
+    &:hover {
+      color: lighten(@dark_grey, 30%);
+    }
+  }
+
+  .btn.btn-primary {
+    padding: 8px 10px;
+  }  
+
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  div > h1 {
+    margin-top: 0;
+    color: lighten(@dark_grey, 60%);
+    > span {
+      color: @dark_grey;
+    }
+  }
+
   .align-right {
     .btn {
       margin-left: 10px;
     }
   }
+}
+.page-header + .subnavigation {
+  position: relative;
+  top: -30px;
+  padding-bottom: 30px;
+  a {
+    margin-right: 20px;
+    padding-bottom: 5px;
+    color: @dark_grey;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    border-bottom: 2px solid @light_grey;
+    &:hover, &.active {
+      border-bottom-color: @dark_grey;
+    }
+  }
+}
+.page-header + .subnavigation .subactions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.caret {
+  margin-top: -1px;
+  border-top: 3px dashed;
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
 }

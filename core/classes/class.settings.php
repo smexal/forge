@@ -21,7 +21,20 @@ class Settings {
     }
 
     public function tabs() {
-        return $this->tabs;
+        $return = array();
+        foreach($this->tabs as $tab) {
+            $skip = false;
+            foreach(App::instance()->mm->getActiveModules() as $mod) {
+                if($mod == $tab['id']) {
+                    $skip = true;
+                    break;
+                }
+            }
+            if(! $skip) {
+                array_push($return, $tab);
+            }
+        }
+        return $return;
     }
 
     public static function set($key, $value) {
