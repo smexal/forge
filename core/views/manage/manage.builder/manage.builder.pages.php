@@ -46,7 +46,7 @@ class PageBuilderManagement extends AbstractView {
 
     private function defaultContent() {
       return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
-          'title' => i('Pages'),
+          'title' => i('Pages'). ' lets do drag&drop...',
           'content' => $this->pageTable(),
           'global_actions' => $this->getGlobalActions()
       ));
