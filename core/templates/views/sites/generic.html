@@ -1,12 +1,19 @@
-<div class="maxed ajax-reload-container">
-    <div class="row heading-row page-header">
-        <div class="col-lg-8"><h1>{$title}</h1></div>
-        <div class="col-lg-4 align-right">{$global_actions}
+<div class="ajax-reload-container">
+  <div class="head-panel">
+    <div class="row heading-row page-header maxed">
+        <div class="col-lg-12">
+          <h1>{$title}</h1>
+          <div class="actions">
+            {$global_actions}
+          </div>
         </div>
     </div>
+  </div>
+  <div class="maxed">
     <div class="row">
       <div class="col-lg-12">
         {$content}
       </div>
     </div>
+  </div>
 </div>

@@ -33,7 +33,7 @@ class Fields {
         }
     }
 
-    public static function linklist($args, $value) {
+    public static function linklist($args, $value = '') {
         $return = App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'linklist', array(
             'title' => $args['label'],
             'links' => $args['links']

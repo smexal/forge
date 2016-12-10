@@ -5,7 +5,7 @@
     min-height: 400px;
 }
 .content.sticky {
-    margin-top: 65px;
+    margin-top: 56px;
 }
 .padded {
     padding: 20px 40px;
@@ -33,4 +33,43 @@
 
 .center {
     text-align: center;
+}
+
+.head-panel {
+    height: 80px;
+    margin-top: 2px;
+    background-color: @dark_grey;
+    border-top: 1px solid #2b2b2b;
+    box-shadow: 0px -2px 0px 0px #1c1c1c;
+
+    .heading-row {
+        padding: 0;
+        > div {
+            padding-left: 0;
+            display: flex;
+
+            .actions {
+                margin-left: 50px;
+                > a, button {
+                    border: none;
+                    background-color: transparent;
+                    font-weight: normal;
+                    text-transform: none;
+                    color: @primary_color;
+                    line-height: 80px;
+                    padding: 0 50px 0 0;
+
+                    &:hover {
+                        color: lighten(@primary_color, 15%);
+                    } 
+
+                }
+            }
+
+            h1 {
+                line-height: 80px;
+                margin-bottom: 0;
+            }
+        }
+    }
 }

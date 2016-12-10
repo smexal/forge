@@ -1,33 +1,35 @@
-<div class="maxed ajax-reload-container" id="builder-content">
-    <div class="row page-header">
-        <div class="col-lg-6">
-            <a class="back" href="{$backurl}">{$backname}</a>
-            <h1>{$title}</h1>
+<div class="ajax-reload-container" id="builder-content">
+    <div class="head-panel">
+        <div class="heading-row page-header maxed">
+            <div class="col-lg-12">
+                <a class="back" href="{$backurl}">{$backname}</a>
+                <h1>{$title}</h1>
+                <div class="actions">
+                    {if="!$subview"}
+                        <a href="{$saveurl}" data-form="page-form" class="ajax form btn btn-primary btn-sm">{$savetext}</a>
+                    {/if}
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6 align-right">
-        {if="!$subview"}
-            <a href="{$saveurl}" data-form="page-form" class="ajax form btn btn-primary btn-sm">{$savetext}</a>
+        {if="$subnavigation"}
+        <div class="row subnavigation maxed">
+            <div class="col-lg-6">
+                <a href="{$subnavigation_root}"{if="!$subview_name"} class="active"{/if}>{$general_name}</a>
+                {loop="$subnavigation"}
+                    <a href="{$subnavigation_root}/{$value.url}"
+                        {if="$subview_name==$value.url"}class="active"{/if}>
+                    {$value.title}
+                    </a>
+                {/loop}
+            </div>
+            <div class="col-lg-6 subactions">
+                {$subview_actions}
+            </div>
+        </div>
         {/if}
-        </div>
     </div>
-    {if="$subnavigation"}
-    <div class="row subnavigation">
-        <div class="col-lg-6">
-            <a href="{$subnavigation_root}"{if="!$subview_name"} class="active"{/if}>{$general_name}</a>
-            {loop="$subnavigation"}
-                <a href="{$subnavigation_root}/{$value.url}"
-                    {if="$subview_name==$value.url"}class="active"{/if}>
-                {$value.title}
-                </a>
-            {/loop}
-        </div>
-        <div class="col-lg-6 subactions">
-            {$subview_actions}
-        </div>
-    </div>
-    {/if}
     {if="$subview"}
-    <div class="row">
+    <div class="row maxed">
         <div class="col-lg-12">
             {$subview}
         </div>
@@ -36,7 +38,7 @@
         <form method="post" action="" id="page-form">
             <input type="hidden" name="itemid" value="{$itemid}">
             <input type="hidden" name="language" value="{$lang}">
-            <div class="row">
+            <div class="row maxed">
                 <div class="col-lg-9">
                     {$panel_left}
                     {if="$new_url"}

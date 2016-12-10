@@ -33,9 +33,10 @@ class PermissionManagement extends AbstractView {
     }
 
     public function ownContent() {
-      return $this->app->render(CORE_TEMPLATE_DIR."views/", "permissions", array(
+      return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
         'title' => i('Permission Management'),
-        'table' => $this->permissionTable()
+        'content' => $this->permissionTable(),
+        'global_actions' => false
       ));
     }
 
