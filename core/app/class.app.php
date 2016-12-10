@@ -76,7 +76,7 @@ class App {
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
 
-      $base_view = '404';
+      $base_view = '';
       if (is_array($this->uri_components) && array_key_exists(0, $this->uri_components))
         $base_view = $this->uri_components[0];
 
