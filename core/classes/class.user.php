@@ -116,7 +116,7 @@ class User {
         $db->where("id", $user);
         $member = $db->getOne("users");
         if(count($member) > 0) {
-          return true;
+          return $user;
         }
       } else {
         if(Utils::isEmail($user)) {

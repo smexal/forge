@@ -62,6 +62,12 @@ if (xhr.readyState == XMLHttpRequest.DONE) {
                         data : formdata
                         }).done(function(data) {
                             try {
+                                if(data.indexOf("<") == 0) {
+                                    var data = $(data);
+                                    // just replace the "ajax container"
+                                    $("body").find(".ajax-reload-container").replaceWith(data.find(".ajax-reload-container"));
+                                    $(document).trigger("ajaxReload");
+                                }
                                 if(typeof(data) !== 'object') {
                                     json = $.parseJSON(data);
                                 } else {

@@ -2,7 +2,7 @@
 class Fields {
 
     public static function build($args, $value='') {
-        return self::$args['type']($args, $value);
+        return self::{$args['type']}($args, $value);
     }
 
     public static function linklist($args, $value) {
