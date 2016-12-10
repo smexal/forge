@@ -141,32 +141,32 @@ a {
           }
         }
       }
-// navbar open
-&.open {
-  a, a:hover, a:focus {
-    background-color: lighten(@dark_grey, 5%);
-    color: @primary_color;
-  }
-  .dropdown-menu {
-    li {
-      &:last-child a {
-        border-bottom-right-radius: 3px;
-        border-bottom-left-radius: 3px;
-      }
-      a {
-        color: white;
-        padding: 6px 20px;
-        font-size: 12px;
-        border-bottom: 1px solid lighten(@dark_grey, 5%);
-        &:hover {
+      // navbar open
+      &.open {
+        a, a:hover, a:focus {
+          background-color: lighten(@dark_grey, 5%);
           color: @primary_color;
+        }
+        .dropdown-menu {
+          li {
+            &:last-child a {
+              border-bottom-right-radius: 3px;
+              border-bottom-left-radius: 3px;
+            }
+            a {
+              color: white;
+              padding: 6px 20px;
+              font-size: 12px;
+              border-bottom: 1px solid lighten(@dark_grey, 5%);
+              &:hover {
+                color: @primary_color;
+              }
+            }
+          }
         }
       }
     }
   }
-}
-}
-}
 }
 .dropdown-menu>li>a {
   padding: 6px 60px 6px 20px;
@@ -176,10 +176,10 @@ a {
   background-color: #666;
   color: #fff;
 }
-.dropdown-menu {
-  background-color: #404040;
-  border: none;
-  padding: 0;
+.dropdown-menu:not(.bootstrap-datetimepicker-widget) {
+    background-color: #404040;
+    border: none;
+    padding: 0;
 }
 
 .maxed {
@@ -329,3 +329,8 @@ code {
   border-right: 3px solid transparent;
   border-left: 3px solid transparent;
 }
+
+.input-group {
+  width: 100%;
+}
+

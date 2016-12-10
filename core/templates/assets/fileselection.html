@@ -1,0 +1,12 @@
+<label class="control-label">{$label}</label>
+<div class="form-group imageselection">
+    <input type="hidden" value="{$value}" id="{$name}" name="{$name}">
+    <div class="selected">
+        {if="$selected_image"}
+            <p>{$selected_image}</p>
+        {else}
+            <p>{$no_file}</p>
+        {/if}
+    </div>
+    <a href="{$change_url}" class="fullscreen-overlay">{$change_text}</a>
+</div>

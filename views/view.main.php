@@ -37,10 +37,10 @@ class Main extends AbstractView {
                 if(!is_null($item)) {
                     return $item->render();
                 } else {
-                    return 'not found';
+                    return App::instance()->displayView(App::instance()->vm->getViewByName('404'));
                 }
             }
-            return 'not found';
+            return App::instance()->displayView(App::instance()->vm->getViewByName('404'));
             // return 404 content...
         }
     }

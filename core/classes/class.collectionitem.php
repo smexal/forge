@@ -57,12 +57,15 @@ class CollectionItem {
         if(!$lang && $lang !== 0) {
             $lang = Localization::getCurrentLanguage();
         }
-        foreach($this->meta as $meta) {
-            if($meta['keyy'] == $key && ($meta['lang'] == $lang || $meta['lang'] === "0")) {
-                if(Utils::isJSON($meta['value'])) {
-                    return json_decode($meta['value']);
+        foreach ($this->meta as $meta) {
+            if ($meta['keyy'] == $key) {
+                if ($meta['lang'] != 0) {
+                    if ($lang !== false ? $lang === $meta['lang'] : $meta['lang'] == Localization::getCurrentLanguage()) {
+                        return Utils::maybeJSON($meta['value']);
+                    }
+                } else {
+                    return Utils::maybeJSON($meta['value']);
                 }
-                return $meta['value'];
             }
         }
         return false;
