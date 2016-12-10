@@ -27,6 +27,9 @@ class Fields {
             case 'image':
                 return self::image($args, $value);
                 break;
+            case 'file':
+                return self::file($args, $value);
+                break;
         }
     }
 
@@ -120,6 +123,22 @@ class Fields {
             'change_url' => Utils::getUrl(array('manage', 'media'), true, array('selection' => 1, 'target' => $args['key'])),
             'selected_image' => $media->getUrl(),
             'no_image' => i('No image selected'),
+            'value' => $value
+        ));
+    }
+
+    public static function file($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        $media = new Media($value);
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'fileselection', array(
+            'label' => $args['label'],
+            'name' => $args['key'],
+            'change_text' => i('Choose file'),
+            'change_url' => Utils::getUrl(array('manage', 'media'), true, array('selection' => 1, 'target' => $args['key'])),
+            'selected_image' => $media->title,
+            'no_file' => i('No file selected'),
             'value' => $value
         ));
     }

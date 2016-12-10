@@ -58,7 +58,7 @@ class CollectionItem {
             $lang = Localization::getCurrentLanguage();
         }
         foreach($this->meta as $meta) {
-            if($meta['keyy'] == $key && $meta['lang'] == $lang) {
+            if($meta['keyy'] == $key && ($meta['lang'] == $lang || $meta['lang'] === "0")) {
                 if(Utils::isJSON($meta['value'])) {
                     return json_decode($meta['value']);
                 }
