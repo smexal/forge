@@ -36,6 +36,40 @@
   background-color: #262626;
   border-top: 1px solid #2b2b2b;
   box-shadow: 0px -2px 0px 0px #1c1c1c;
+  margin-bottom: 30px;
+}
+.head-panel .actions .form-group button.btn.btn-primary {
+  padding-right: 0;
+}
+.head-panel .subnavigation {
+  margin: 0 60px;
+}
+.head-panel .subnavigation .subactions {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.head-panel .subnavigation .subactions a {
+  padding: 0;
+  font-weight: normal;
+  text-transform: none;
+  line-height: 80px;
+}
+.head-panel .subnavigation .subactions a:hover {
+  color: white;
+}
+.head-panel .subnavigation a {
+  line-height: 78px;
+  margin: 0 15px;
+  font-size: 15px;
+  display: inline-block;
+}
+.head-panel .subnavigation a:last-child {
+  margin-right: 0;
+}
+.head-panel .subnavigation a.active {
+  border-bottom: 2px solid white;
+  color: white;
 }
 .head-panel .heading-row {
   padding: 0;
@@ -43,8 +77,11 @@
 .head-panel .heading-row > div {
   padding-left: 0;
   display: flex;
+  position: relative;
 }
 .head-panel .heading-row > div .actions {
+  position: absolute;
+  right: 0;
   margin-left: 50px;
 }
 .head-panel .heading-row > div .actions > a,

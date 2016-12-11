@@ -41,14 +41,58 @@
     background-color: @dark_grey;
     border-top: 1px solid #2b2b2b;
     box-shadow: 0px -2px 0px 0px #1c1c1c;
+    margin-bottom: 30px;
+
+    .actions .form-group {
+        button.btn.btn-primary {
+            padding-right : 0;
+        }
+    }
+
+    .subnavigation {
+        .subactions {
+            position: absolute;
+            right: 0;
+            top: 0;
+            a {
+                padding: 0;
+                font-weight: normal;
+                text-transform: none;
+                line-height: 80px;
+
+                &:hover {
+                    color: white;
+                }
+            }
+        }
+        margin: 0 60px;
+        a {
+            line-height: 78px;
+            margin: 0 15px;
+            font-size: 15px;
+            display: inline-block;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.active {
+                border-bottom: 2px solid white;
+                color: white;
+            }
+        }
+    }
 
     .heading-row {
         padding: 0;
         > div {
             padding-left: 0;
             display: flex;
+            position: relative;
 
             .actions {
+                position: absolute;
+                right: 0;
                 margin-left: 50px;
                 > a, button {
                     border: none;

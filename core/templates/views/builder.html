@@ -9,24 +9,22 @@
                         <a href="{$saveurl}" data-form="page-form" class="ajax form btn btn-primary btn-sm">{$savetext}</a>
                     {/if}
                 </div>
+                {if="$subnavigation"}
+                <div class="subnavigation">
+                    <a href="{$subnavigation_root}"{if="!$subview_name"} class="active"{/if}>{$general_name}</a>
+                    {loop="$subnavigation"}
+                        <a href="{$subnavigation_root}/{$value.url}"
+                            {if="$subview_name==$value.url"}class="active"{/if}>
+                        {$value.title}
+                        </a>
+                    {/loop}
+                    <div class="subactions">
+                        {$subview_actions}
+                    </div>
+                </div>
+                {/if}
             </div>
         </div>
-        {if="$subnavigation"}
-        <div class="row subnavigation maxed">
-            <div class="col-lg-6">
-                <a href="{$subnavigation_root}"{if="!$subview_name"} class="active"{/if}>{$general_name}</a>
-                {loop="$subnavigation"}
-                    <a href="{$subnavigation_root}/{$value.url}"
-                        {if="$subview_name==$value.url"}class="active"{/if}>
-                    {$value.title}
-                    </a>
-                {/loop}
-            </div>
-            <div class="col-lg-6 subactions">
-                {$subview_actions}
-            </div>
-        </div>
-        {/if}
     </div>
     {if="$subview"}
     <div class="row maxed">
