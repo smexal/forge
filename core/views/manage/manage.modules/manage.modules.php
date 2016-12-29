@@ -1,6 +1,10 @@
 <?php
 
-class ModuleManagent extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ModuleManagent extends Abstracts\View {
     public $parent = 'manage';
     public $name = 'modules';
     public $permission = 'manage.modules';

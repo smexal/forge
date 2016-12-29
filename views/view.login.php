@@ -1,6 +1,10 @@
 <?php
 
-class Login extends AbstractView {
+namespace Forge\Views;
+
+use \Forge\Core\Abstracts as Abstracts;
+
+class Login extends Abstracts\View {
     private $message = false;
     public $name = 'login';
     public $events = array(

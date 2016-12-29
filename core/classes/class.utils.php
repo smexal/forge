@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\Classes;
+
 class Utils {
     public static function getUriComponents() {
         preg_match_all("/(.*)(\?.+)/", $_SERVER["REQUEST_URI"], $uri, PREG_PATTERN_ORDER);

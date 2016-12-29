@@ -1,6 +1,10 @@
 <?php
 
-abstract class Module implements IModule {
+namespace Forge\Core\Abstracts;
+
+use Forge\Core\Interfaces as Interfaces;
+
+abstract class Module implements Interfaces\IModule {
   protected static $instances = array();
   abstract protected function setup();
 

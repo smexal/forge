@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class MediaManager {
 
     public function filterFileTypes($file) {

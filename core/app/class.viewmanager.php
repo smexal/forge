@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class ViewManager {
     public $views = null;
 

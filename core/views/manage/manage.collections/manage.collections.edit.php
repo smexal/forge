@@ -1,4 +1,9 @@
 <?php
+
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
 /**
  * View for editing and building collections, content and metadata.
  *
@@ -6,7 +11,7 @@
  * @author SMEXAL
  * @version 0.1
  */
-class ManageCollectionsEdit extends AbstractView {
+class ManageCollectionsEdit extends Abstracts\View {
     public $parent = 'collections';
     public $name = 'edit';
     public $permission = 'manage.collections.edit';

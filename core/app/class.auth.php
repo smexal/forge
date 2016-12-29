@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class Auth {
     public static function any() {
         if(isset($_SESSION['auth']) && is_numeric($_SESSION['auth'])) {

@@ -1,6 +1,10 @@
 <?php
 
-class Manager extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class Manager extends Abstracts\View {
     private $navigation = false;
     public $name = 'manage';
     public $permission = 'manage';

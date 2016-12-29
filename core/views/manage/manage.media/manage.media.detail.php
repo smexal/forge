@@ -1,6 +1,10 @@
 <?php
 
-class MediaManagentDetail extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class MediaManagentDetail extends Abstracts\View {
     public $parent = 'media';
     public $name = 'detail';
     public $permission = 'manage.media';

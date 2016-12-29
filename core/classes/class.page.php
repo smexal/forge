@@ -1,4 +1,6 @@
-<?
+<?php
+
+namespace Forge\Core\Classes;
 
 class Page {
   public $id, $parent, $sequence, $name, $modified, $created, $creator, $url, $status;

@@ -1,6 +1,10 @@
 <?php
 
-class ManageEditNavigationItem extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageEditNavigationItem extends Abstracts\View {
     public $parent = 'navigation';
     public $permission = 'manage.navigations.add';
     public $name = 'itemedit';

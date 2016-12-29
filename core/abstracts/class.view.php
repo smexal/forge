@@ -1,6 +1,11 @@
 <?php
 
-abstract class AbstractView implements IView {
+namespace Forge\Core\Abstracts;
+
+use Forge\Core\Interfaces as Interfaces;
+use Forge\Core\Classes as Classes;
+
+abstract class View implements Interfaces\IView {
     protected static $instances = array();
     public $parent = false;
     public $default = false;
@@ -25,7 +30,7 @@ abstract class AbstractView implements IView {
       foreach($items as $item) {
         array_push($parts, $item->name);
       }
-      return Utils::getUrl($parts);
+      return Classes\Utils::getUrl($parts);
     }
 
     private function getParentItems($c) {

@@ -1,6 +1,10 @@
 <?php
 
-class GroupsManagement extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class GroupsManagement extends Abstracts\View {
     public $parent = 'manage';
     public $name = 'groups';
     public $permission = 'manage.groups';

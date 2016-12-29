@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class API {
     static private $instance = null;
     private $calls = array();

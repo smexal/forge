@@ -1,4 +1,7 @@
 <?php
+
+namespace Forge\Core\Classes;
+
 class Fields {
 
     public static function build($args, $value='') {

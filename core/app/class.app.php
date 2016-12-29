@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class App {
     public $db = null;
     public $eh = null;
@@ -20,7 +22,7 @@ class App {
         if (null === self::$instance) {
             self::$instance = new self;
         }
-        Loader::instance()->prepare();
+        \Forge\Loader::instance()->prepare();
         return self::$instance;
     }
 
@@ -33,7 +35,7 @@ class App {
 
     private function managers() {
       if(is_null($this->db)) {
-        $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
       Auth::setSessionUser();
 
@@ -59,7 +61,7 @@ class App {
       if($this->tm->theme !== '') {
         $this->tm->theme->start();
       } else {
-        Logger::debug('No Theme set.');
+        \Forge\Logger::debug('No Theme set.');
       }
 
       if(is_null($this->com)) {
@@ -88,7 +90,7 @@ class App {
         $collection = $collection::instance();
       }
 
-      Loader::instance()->manageStyles();
+      \Forge\Loader::instance()->manageStyles();
 
       $defaultView = false;
       foreach($this->vm->views as $view) {
@@ -172,7 +174,7 @@ class App {
     }
 
     public function header($view) {
-      $loader = Loader::instance();
+      $loader = \Forge\Loader::instance();
       return $this->render(CORE_TEMPLATE_DIR, "head", array(
           'title' => $this->getTitle($view),
           'scripts' => $loader->getScripts(),

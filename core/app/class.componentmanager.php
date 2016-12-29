@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class ComponentManager {
     private $components = array();
     private $app = null;

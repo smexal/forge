@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\Classes;
+
 class Localization {
 
   public static function getLanguages() {

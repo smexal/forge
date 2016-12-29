@@ -1,6 +1,10 @@
 <?php
 
-class ComponentImage extends Component {
+namespace Forge\Core\Components;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ComponentImage extends Abstracts\Component {
     public $settings = array();
 
     public function prefs() {

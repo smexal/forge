@@ -1,6 +1,10 @@
 <?php
 
-class NavigationManagement extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class NavigationManagement extends Abstracts\View {
     public $parent = 'manage';
     public $name = 'navigation';
     public $permission = 'manage.navigations';

@@ -1,4 +1,6 @@
-<?
+<?php
+
+namespace Forge\Core\App;
 
 class CollectionManager {
   public $collections = null;

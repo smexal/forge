@@ -1,6 +1,10 @@
 <?php
 
-class RegistrationView extends AbstractView {
+namespace Forge\Views;
+
+use \Forge\Core\Abstracts as Abstracts;
+
+class RegistrationView extends Abstracts\View {
     public $name = 'registration';
     public $allowNavigation = true;
     public $events = array(

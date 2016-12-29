@@ -1,6 +1,10 @@
 <?php
 
-class LocalesManagent extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class LocalesManagent extends Abstracts\View {
     public $parent = 'manage';
     public $name = 'locales';
     public $permission = 'manage.locales';

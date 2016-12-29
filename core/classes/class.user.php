@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\Classes;
+
 class User {
     private $app;
     private $data = false;

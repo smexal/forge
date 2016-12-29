@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class ThemeManager {
     public $active = '';
     public $theme = '';

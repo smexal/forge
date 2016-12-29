@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\App;
+
 class EventHandler {
     private static $instance = null;
     public $events = array();

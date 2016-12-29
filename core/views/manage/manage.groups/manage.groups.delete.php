@@ -1,6 +1,10 @@
 <?php
 
-class ManageDeleteGroup extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageDeleteGroup extends Abstracts\View {
     public $parent = 'groups';
     public $permission = 'manage.groups.delete';
     public $name = 'delete';

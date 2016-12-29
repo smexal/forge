@@ -1,6 +1,10 @@
 <?php
 
-class ManagePagesRemoveElement extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManagePagesRemoveElement extends Abstracts\View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.edit';
     public $name = 'remove-element';

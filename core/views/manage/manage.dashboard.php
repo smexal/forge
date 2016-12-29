@@ -1,6 +1,10 @@
 <?php 
 
-class ManagementDashboard extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManagementDashboard extends Abstracts\View {
     public $parent = 'manage';
     public $default = true;
     public $name = 'dashboard';

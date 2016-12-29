@@ -1,6 +1,10 @@
 <?php
 
-class ComponentRow extends Component {
+namespace Forge\Core\Components;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ComponentRow extends Abstracts\Component {
     public $settings = array();
 
     public function prefs() {

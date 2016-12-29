@@ -1,6 +1,10 @@
 <?php
 
-class ManageEditUser extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageEditUser extends Abstracts\View {
     public $parent = 'users';
     public $permission = 'manage.users.edit';
     public $name = 'edit';

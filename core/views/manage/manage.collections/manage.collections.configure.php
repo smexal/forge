@@ -1,6 +1,10 @@
 <?php
 
-class CollectionManagementConfigure extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class CollectionManagementConfigure extends Abstracts\View {
     public $parent = 'collections';
     public $name = 'configure';
     public $permission = 'manage.collections.configure';

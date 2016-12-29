@@ -1,4 +1,9 @@
 <?php
+
+namespace Forge;
+
+use \Forge\Core\Classes as Classes;
+
 /*
     This Class is here to provide loader functionalities
     for various ressource e.g. classes or
@@ -61,7 +66,7 @@ class Loader {
     // gets called on app initialization
     public function prepare() {
         if(is_null($this->lessc)) {
-            $this->lessc = new lessc;
+            $this->lessc = new \lessc;
         }
     }
 
@@ -69,12 +74,13 @@ class Loader {
         $this->ressources();
         $this->loadCoreScripts();
         $this->loadInterfaces();
+        $this->loadTraits();
         $this->loadAbstracts();
         $this->loadClasses();
         $this->loadModules();
-        $this->loadViews();
+        $this->loadApp();$this->loadViews();
         $this->loadComponents();
-        $this->loadApp();
+        
     }
 
     private function ressources() {
@@ -107,7 +113,7 @@ class Loader {
           $style = $this->compileLess($style);
         }
         if($viewCondition) {
-          if(in_array($viewCondition, Utils::getUriComponents())) {
+          if(in_array($viewCondition, Classes\Utils::getUriComponents())) {
             array_push($this->styles, $style);
           }
         } else {
@@ -155,6 +161,10 @@ class Loader {
       $this->loadDirectory(DOC_ROOT."modules/", false, "module.php");
     }
 
+    public function loadTraits() {
+      $this->loadDirectory(CORE_ROOT."traits/");
+    }
+
     public function loadAbstracts() {
       $this->loadDirectory(CORE_ROOT."abstracts/");
     }
@@ -172,7 +182,7 @@ class Loader {
       $this->loadDirectory(DOC_ROOT."views/", true);
 
       // load core views
-      $this->loadDirectory(CORE_ROOT."views/", true, false, Utils::getUriComponents());
+      $this->loadDirectory(CORE_ROOT."views/", true, false, Classes\Utils::getUriComponents());
     }
 
     private function loadCoreScripts() {
@@ -196,7 +206,7 @@ class Loader {
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {
       if (file_exists($directory)) {
-        $dir = new DirectoryIterator($directory);
+        $dir = new \DirectoryIterator($directory);
         foreach ($dir as $fileinfo) {
             if ($fileinfo->isDot()) {
               continue;
@@ -220,7 +230,7 @@ class Loader {
             } elseif ($fileinfo->isDir()) {
               // check if the subdirectory is part of the queried url. (no manage views without manage queried)
               if ($inquery) {
-                if (in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
+                if (in_array($fileinfo->getFilename(), Classes\Utils::getUriComponents())) {
                   $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
                 }
               } else {

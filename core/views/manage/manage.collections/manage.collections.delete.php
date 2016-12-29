@@ -1,6 +1,10 @@
 <?php
 
-class CollectionManagementDelete extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class CollectionManagementDelete extends Abstracts\View {
     public $parent = 'collections';
     public $name = 'delete';
     public $permission = 'manage.collections.delete';

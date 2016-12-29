@@ -1,6 +1,10 @@
 <?php
 
-class ManageNavigationsItemDelete extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageNavigationsItemDelete extends Abstracts\View {
     public $parent = 'navigation';
     public $permission = 'manage.navigations.delete';
     public $name = 'itemdelete';

@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\Classes;
+
 class CollectionItem {
     public $id = null;
 

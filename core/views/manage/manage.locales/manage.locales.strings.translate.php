@@ -1,6 +1,10 @@
 <?php
 
-class StringTranslationTranslate extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class StringTranslationTranslate extends Abstracts\View {
     public $parent = 'string-translation';
     public $name = 'translate';
     public $permission = 'manage.locales.strings.translate';

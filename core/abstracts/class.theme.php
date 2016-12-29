@@ -1,6 +1,10 @@
 <?php
 
-abstract class Theme implements ITheme {
+namespace Forge\Core\Abstracts;
+
+use Forge\Core\Interfaces as Interfaces;
+
+abstract class Theme implements Interfaces\ITheme {
     protected static $instances = array();
     private $styles = array();
     private $load_scripts = array();

@@ -1,6 +1,10 @@
 <?php
 
-abstract class Component implements IComponent {
+namespace Forge\Core\Abstracts;
+
+use Forge\Core\Interfaces as Interfaces;
+
+abstract class Component implements Interfaces\IComponent {
     public $id = null;
     public $prefs = null;
     protected $defaults = array(

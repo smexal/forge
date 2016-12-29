@@ -1,4 +1,6 @@
-<?
+<?php
+
+namespace Forge\Core\App;
 
 class ModuleManager {
   private $app = null;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\Classes;
+
 class Logger {
     public static $levels = array("DEBUG", "INFO", "WARN", "ERROR");
     public static $log_level = "DEBUG";

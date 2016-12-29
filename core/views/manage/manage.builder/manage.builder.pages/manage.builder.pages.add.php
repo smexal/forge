@@ -1,6 +1,10 @@
 <?php
 
-class ManageAddPage extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageAddPage extends Abstracts\View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.add';
     public $name = 'add';

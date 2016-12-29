@@ -1,6 +1,10 @@
 <?php
 
-class ManageDeleteUser extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageDeleteUser extends Abstracts\View {
     public $parent = 'users';
     public $permission = 'manage.users.delete';
     public $name = 'delete';

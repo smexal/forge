@@ -1,4 +1,6 @@
-<?
+<?php
+
+namespace Forge\Core\Classes;
 
 class Mail {
     private $subject = '';

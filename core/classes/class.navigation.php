@@ -1,5 +1,7 @@
 <?php 
 
+namespace Forge\Core\Classes;
+
 class Navigation {
     private $sticky = false;
     private $panels = array();

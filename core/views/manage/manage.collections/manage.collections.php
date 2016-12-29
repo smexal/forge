@@ -1,6 +1,10 @@
 <?php
 
-class CollectionManagement extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class CollectionManagement extends Abstracts\View {
     public $parent = 'manage';
     public $name = 'collections';
     public $permission = 'manage.collections';
@@ -15,18 +19,18 @@ class CollectionManagement extends AbstractView {
 
     public function content($uri=array()) {
       // find out which collection we are editing
-      foreach( $this->app->cm->collections as $collection) {
-        if($collection->getPref('name') == $uri[0]) {
+      foreach ($this->app->cm->collections as $collection) {
+        if ($collection->getPref('name') == $uri[0]) {
           $this->collection = $collection;
           break;
         }
       }
 
       // check if user has permission
-      if($collection && Auth::allowed($collection->permission)) {
+      if ($collection && Auth::allowed($collection->permission)) {
 
         // render subview
-        if(count($uri) > 1) {
+        if (count($uri) > 1) {
           return $this->subviews($uri);
           // render the overview
         } else {
@@ -38,13 +42,13 @@ class CollectionManagement extends AbstractView {
           } else {
             $global_actions = '';
           }
-          if(Auth::allowed($this->permissions['configure'])) {
+          if (Auth::allowed($this->permissions['configure'])) {
             $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
               'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'configure')),
               'label' => i('Configure', 'core')
             ));
           }
-          if(Auth::allowed($this->permissions['categories'])) {
+          if (Auth::allowed($this->permissions['categories'])) {
             $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
               'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'categories')),
               'label' => i('Categories', 'core')
@@ -63,7 +67,7 @@ class CollectionManagement extends AbstractView {
     }
 
     private function subviews($uri) {
-      switch($uri[1]) {
+      switch ($uri[1]) {
         case 'add':
           return $this->getSubview('add', $this);
         case 'delete':
@@ -80,22 +84,28 @@ class CollectionManagement extends AbstractView {
     }
 
     private function collectionList() {
-      return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", array(
-          'id' => "pagesTable",
-          'th' => array(
+      $headings = [
               Utils::tableCell(i('Name')),
               Utils::tableCell(i('Author')),
               Utils::tableCell(i('Created')),
               Utils::tableCell(i('status')),
               Utils::tableCell(i('Actions'))
-          ),
+      ];
+
+      $headings = ModifyHandler::instance()->trigger('ForgeCore_CollectionManagement_HeaderList', $headings);
+
+      $table = [
+          'id' => "pagesTable",
+          'th' => $headings,
           'td' => $this->getPageRows()
-      ));
+      ];
+
+      return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", $table);
     }
 
     private function getPageRows($parent=0, $level=0) {
       $rows = array();
-      foreach($this->collection->items() as $item) {
+      foreach ($this->collection->items() as $item) {
         $user = new User($item->getAuthor());
         array_push($rows, array(
           Utils::tableCell(
@@ -110,6 +120,9 @@ class CollectionManagement extends AbstractView {
           Utils::tableCell($this->actions($item))
         ));
       }
+
+      $rows = $rows; // filter
+
       return $rows;
     }
 
@@ -123,7 +136,7 @@ class CollectionManagement extends AbstractView {
             "confirm" => false
         )
       );
-      if(Auth::allowed($this->permissions["delete"])) {
+      if (Auth::allowed($this->permissions["delete"])) {
         array_push($actions, array(
             "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'delete', $item->id)),
             "icon" => "remove",

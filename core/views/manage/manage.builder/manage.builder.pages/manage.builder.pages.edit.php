@@ -1,4 +1,9 @@
 <?php
+
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
 /**
  * View for editing and building pages, content and metadata.
  *
@@ -6,7 +11,7 @@
  * @author SMEXAL
  * @version 0.1
  */
-class ManagePageEdit extends AbstractView {
+class ManagePageEdit extends Abstracts\View {
     public $parent = 'pages';
     public $name = 'edit';
     public $permission = 'manage.builder.pages.edit';

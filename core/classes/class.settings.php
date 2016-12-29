@@ -1,4 +1,7 @@
-<?
+<?php
+
+namespace Forge\Core\Classes;
+
 class Settings {
     private static $instance = null;
     private $allowedPositions = array('left', 'right');

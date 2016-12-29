@@ -1,6 +1,10 @@
 <?php
 
-class ManageLocalesAdd extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageLocalesAdd extends Abstracts\View {
     public $parent = 'locales';
     public $permission = 'manage.locales.add';
     public $name = 'add-language';

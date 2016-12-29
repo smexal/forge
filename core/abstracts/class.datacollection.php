@@ -1,6 +1,10 @@
 <?php
 
-abstract class DataCollection implements IDataCollection {
+namespace Forge\Core\Abstracts;
+
+use Forge\Core\Interfaces as Interfaces;
+
+abstract class DataCollection implements Interfaces\IDataCollection {
   public $permission = null;
   protected static $instances = array();
   protected $app;

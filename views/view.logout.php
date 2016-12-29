@@ -1,6 +1,10 @@
-<?php 
+<?php
 
-class Logout extends AbstractView {
+namespace Forge\Views;
+
+use \Forge\Core\Abstracts as Abstracts;
+
+class Logout extends Abstracts\View {
     public $name = 'logout';
     public $allowNavigation = true;
 

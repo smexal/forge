@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\Classes;
+
 class Group {
     private $app = null;
     public $id = null;

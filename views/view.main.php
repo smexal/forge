@@ -1,6 +1,10 @@
 <?php
 
-class Main extends AbstractView {
+namespace Forge\Views;
+
+use \Forge\Core\Abstracts as Abstracts;
+
+class Main extends Abstracts\View {
     public $name = 'main';
     public $standalone = true;
     public $default = true;

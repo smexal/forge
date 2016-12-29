@@ -1,4 +1,7 @@
 <?php
+
+namespace Forge\Core\Classes;
+
 /**
 * This class is made for the page handling in forge.
 * Delivers the page objects, searches for pages and knowns what fields

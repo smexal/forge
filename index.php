@@ -3,11 +3,13 @@
 include("config.php");
 include("core/loader.php");
 
-$loader = Loader::instance();
+$loader = Forge\Loader::instance();
 
-Auth::session();
+use Forge\Core\App as App;
+
+App\Auth::session();
 // all php loaded; instance the app
-$app = App::instance();
+$app = App\App::instance();
 
 // run and output
 $app->run();

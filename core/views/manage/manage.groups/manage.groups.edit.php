@@ -1,6 +1,10 @@
 <?php
 
-class ManageEditGroup extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class ManageEditGroup extends Abstracts\View {
     public $parent = 'groups';
     public $permission = 'manage.groups.edit';
     public $name = 'edit';

@@ -1,6 +1,10 @@
 <?php 
 
-class FourOhFour extends AbstractView {
+namespace Forge\Views;
+
+use \Forge\Core\Abstracts as Abstracts;
+
+class FourOhFour extends Abstracts\View {
     public $name = '404';
 
     public function content() {

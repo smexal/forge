@@ -1,6 +1,10 @@
 <?php
 
-class CollectionManagementAdd extends AbstractView {
+namespace Forge\Core\Views;
+
+use Forge\Core\Abstracts as Abstracts;
+
+class CollectionManagementAdd extends Abstracts\View {
     public $parent = 'collections';
     public $name = 'add';
     public $permission = 'manage.collections.add';
