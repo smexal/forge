@@ -88,6 +88,9 @@ class Pages {
   }
 
   public static function updateOrder($order) {
+      if(! Auth::allowed("manage.builder.pages.edit")) {
+          return;
+      }
       $db = App::instance()->db;
       foreach($order as $page) {
           $db->where('id', $page['id']);
