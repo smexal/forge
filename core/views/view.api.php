@@ -50,6 +50,9 @@ class ApiView extends AbstractView {
         if($query[0] == 'search') {
           return json_encode(Pages::search($query[1]));
         }
+        if($query[0] == 'update-order') {
+          return Pages::updateOrder($_POST['pageset']);
+        }
       }
     }
 

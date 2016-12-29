@@ -87,6 +87,17 @@ class Pages {
       $page->updateMeta($key, $value, $lang);
   }
 
+  public static function updateOrder($order) {
+      $db = App::instance()->db;
+      foreach($order as $page) {
+          $db->where('id', $page['id']);
+          $db->update("pages", array(
+              'sequence' => $page['order'],
+              'parent' => $page['parent']
+          ));
+      }
+  }
+
   private static function checkName($name) {
     $app = App::instance();
     if( strlen($name) <= 2 ) {

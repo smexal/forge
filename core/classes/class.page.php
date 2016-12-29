@@ -71,6 +71,16 @@ class Page {
     return new User($this->creator);
   }
 
+  public function lastModified() {
+      $this->db->where('id', $this->id);
+      $data = $this->db->getOne('pages');
+      if(is_null($data['modified'])) {
+          return Utils::dateFormat($data['created'], true);
+      } else {
+          return Utils::dateFormat($data['modified'], true);
+      }
+  }
+
   public function setMeta($key, $value, $language) {
       $this->db->where('keyy', $key);
       $this->db->where('page', $this->id);

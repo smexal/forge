@@ -11,6 +11,10 @@ class API {
         return self::$instance;
     }
 
+    public function exists($query) {
+        return array_key_exists($query, $this->calls);
+    }
+
     public function run($query, $subquery=array(), $post=array()) {
         if(array_key_exists($query, $this->calls)) {
             if(count($subquery) > 1) {

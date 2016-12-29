@@ -1,5 +1,10 @@
 <?php
 
+/* Help the translation scanner
+* i('draft')
+* i('published')
+*/
+
 class PageBuilderManagement extends AbstractView {
     public $parent = 'manage';
     public $name = 'pages';
@@ -46,8 +51,8 @@ class PageBuilderManagement extends AbstractView {
 
     private function defaultContent() {
       return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
-          'title' => i('Pages'). ' lets do drag&drop...',
-          'content' => $this->pageTable(),
+          'title' => i('Page Management', 'core'),
+          'content' => $this->draggableList(),
           'global_actions' => $this->getGlobalActions()
       ));
     }
@@ -61,53 +66,49 @@ class PageBuilderManagement extends AbstractView {
       return $return;
     }
 
-    private function pageTable() {
-      return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", array(
-          'id' => "pagesTable",
-          'th' => array(
-              Utils::tableCell(i('Name')),
-              Utils::tableCell(i('Author')),
-              Utils::tableCell(i('last modified')),
-              Utils::tableCell(i('status')),
-              Utils::tableCell(i('Actions'))
-          ),
-          'td' => $this->getPageRows()
+    private function draggableList() {
+      return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "dragsort", array(
+        'callback' => Utils::getUrl(array("api", "pages", "update-order")),
+        'items' => $this->getPageItems()
       ));
     }
 
-    private function getPageRows($parent=0, $level=0) {
-      $rows = array();
+    private function getPageItems($parent = 0, $level = 0) {
+      $return = array();
       $pages = new Pages();
-      $items = '';
-      $indent = '';
-      for($x=0;$x<$level;$x++) {
-        $indent.='&nbsp;&nbsp;';
-      }
-      if($level > 0) {
-        $indent.="&minus;&nbsp;";
-      }
       foreach($pages->get($parent) as $p) {
         $page = new Page($p['id']);
-        $link = $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
-            "href" => Utils::getUrl(array("manage", "pages", "edit", $page->id)),
-            "name" => $page->name
-        ));
-        /* Help the translation scanner
-         * i('draft')
-         * i('published')
-         */
-
-        $author = $page->author();
-        array_push($rows, array(
-          Utils::tableCell($indent.$link),
-          Utils::tableCell($author->get('username')),
-          Utils::tableCell(Utils::dateFormat($page->modified)),
-          Utils::tableCell(i($page->status())),
-          Utils::tableCell($this->actions($page->id))
-        ));
-        $rows = array_merge($rows, $this->getPageRows($page->id, $level+1));
+        $return[] = array(
+          'level' => $level,
+          'id' => $page->id,
+          'content' => $this->getPageListContent($page)
+        );
+        $return = array_merge($return, $this->getPageItems($page->id, $level+1));
       }
-      return $rows;
+      return $return;
+    }
+
+    private function getPageListContent($page) {
+      return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "listcontent", [
+        'elements' => [
+          [
+            'top' => $page->status(),
+            'main' => '<a href="'.Utils::getUrl(array("manage", "pages", "edit", $page->id)).'">'.$page->name.'</a>'
+          ],
+          [
+            'top' => i('Author', 'core'),
+            'main' => $page->author()->get('username')
+          ],
+          [
+            'top' => i('Last modified', 'core'),
+            'main' => $page->lastModified()
+          ],
+          [
+            'top' => false,
+            'main' => $this->actions($page->id)
+          ]
+        ]
+      ]);
     }
 
     private function actions($id) {

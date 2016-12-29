@@ -177,6 +177,7 @@ class Loader {
 
     private function loadCoreScripts() {
       $this->addScript("core/scripts/externals/jquery.js");
+      $this->addScript("core/scripts/externals/jquery-ui.js");
       $this->addScript("core/scripts/externals/bootstrap.js");
       $this->addScript("core/scripts/externals/typeahead.js");
       $this->addScript("core/scripts/externals/bootstrap-tagsinput.min.js");
@@ -192,6 +193,7 @@ class Loader {
       $this->addScript("core/scripts/forms.js");
       $this->addScript("core/scripts/messages.js");
       $this->addScript("core/scripts/overlay.js");
+      $this->addScript("core/scripts/dragsort.js");
     }
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {
