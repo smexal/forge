@@ -68,13 +68,18 @@ class Pages {
           }
 
           foreach($pages->fields() as $field) {
-              if(! array_key_exists($field['key'], $data)) {
-                  continue;
-              }
               if($field['multilang'] == false) {
                   $lang = false;
               } else {
                   $lang = $data['language'];
+              }
+              
+              if($field['type'] == 'checkbox' && ! array_key_exists($field['key'], $data)) {
+                  self::savefield($page, $field['key'], '', $lang);
+              }
+
+              if(! array_key_exists($field['key'], $data)) {
+                  continue;
               }
               self::savefield($page, $field['key'], $data[$field['key']], $lang);
           }
@@ -115,7 +120,7 @@ class Pages {
   }
 
   /*
-   * This method deletes a page
+   * This method deletes a page.
    * really. DELETES.
    */
   public function delete($id) {
@@ -230,6 +235,15 @@ class Pages {
                 'order' => 90,
                 'position' => 'right',
                 'hint' => i('If this checkbox is set, the theme knows, that you want to move this content up and below the navigation.')
+            ),
+            array(
+                'key' => 'subnavigation',
+                'label' => i('Hide Subnavigation'),
+                'multilang' => true,
+                'type' => 'checkbox',
+                'order' => 100,
+                'position' => 'right',
+                'hint' => i('If this checkbox is set, the subnavigation will NOT be displayed.')
             )
         );
         return $fields;
