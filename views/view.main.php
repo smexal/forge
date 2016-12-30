@@ -28,7 +28,7 @@ class Main extends AbstractView {
             }
             // no collections item is required, check for pages
             if(! $displayCollectionsItem) {
-                $page = $this->getPage(0);
+                $page = $this->getPage();
                 if($page) {
                     return $page;
                 }
@@ -52,29 +52,25 @@ class Main extends AbstractView {
         return false;
     }
 
-    private function getPage($index, $parent=null) {
-        $key = $this->parts[$index];
-        if(! is_null($parent)) {
-            $this->app->db->where('parent', $parent);
-        } else {
-            $this->app->db->where('parent', 0);
-        }
-        $pages = $this->app->db->get('pages');
-        foreach( $pages as $page ) {
-            $page = new Page($page['id']);
-            if($page->getUrlPart() == $this->parts[$index]) {
-                if(count($this->parts) > $index+1) {
-                    return $this->getPage($index+1, $page->id);
-                } else {
-                    if($page->id == Settings::get('home_page')) {
-                        // this is the home page.. redirect to home...
-                        $current = Localization::getCurrentLanguage();
-                        $this->app->redirect(array($current));
-                    }
-                    App::instance()->page = $page;
-                    return $page->render();
+    private function getPage($index = 0, $parent=null) {
+        $pageToDisplay = null;
+        foreach($this->parts as $part) {
+            foreach($this->app->db->get('pages') as $page) {
+                $page = new Page($page['id']);
+                if($page->getUrlPart() == $part && $page->isPublished()) {
+                    $pageToDisplay = $page;
+                    continue;
                 }
             }
+        }
+        if($pageToDisplay) {
+            if($pageToDisplay->id == Settings::get('home_page')) {
+                // this is the home page.. redirect to home...
+                $current = Localization::getCurrentLanguage();
+                $this->app->redirect(array($locale));
+            }
+            App::instance()->page = $pageToDisplay;
+            return $pageToDisplay->render();
         }
         return false;
     }
