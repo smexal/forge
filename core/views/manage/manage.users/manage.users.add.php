@@ -1,6 +1,16 @@
 <?php
 
-class ManageAddUser extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\User;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class ManageAddUser extends View {
     public $parent = 'users';
     public $permission = 'manage.users.add';
     public $name = 'add';

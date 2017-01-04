@@ -1,6 +1,15 @@
 <?php
 
-class ApiView extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\API;
+use \Forge\Core\App\App;
+use \Forge\Core\App\MediaManager;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\User;
+
+class ApiView extends View {
     public $name = 'api';
     public $permission = null;
     public $standalone = true;

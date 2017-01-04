@@ -1,6 +1,16 @@
 <?php
 
-class ManageEditGroup extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Group;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class ManageEditGroup extends View {
     public $parent = 'groups';
     public $permission = 'manage.groups.edit';
     public $name = 'edit';
@@ -11,7 +21,7 @@ class ManageEditGroup extends AbstractView {
     private $group = null;
 
     public function content($parts = array()) {
-      if(is_null($this->group)) {
+      if (is_null($this->group)) {
         $this->group = new Group($parts[0]);
       }
       return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
@@ -27,7 +37,7 @@ class ManageEditGroup extends AbstractView {
       $this->message = $group->setName($data['modify_name']);
 
       // everything correct. redirect to list.
-      if($this->message === true) {
+      if ($this->message === true) {
         App::instance()->addMessage(i('Successfully renamed group.'),"success");
         App::instance()->redirect(Utils::getUrl(array('manage', 'groups')));
       }

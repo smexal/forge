@@ -1,6 +1,16 @@
 <?php
 
-class ManageEditUser extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\User;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class ManageEditUser extends View {
     public $parent = 'users';
     public $permission = 'manage.users.edit';
     public $name = 'edit';
@@ -13,7 +23,7 @@ class ManageEditUser extends AbstractView {
     private $user = null;
 
     public function content($parts = array()) {
-      if(is_null($this->user)) {
+      if (is_null($this->user)) {
         $this->user = new User($parts[0]);
       }
       return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
@@ -29,21 +39,21 @@ class ManageEditUser extends AbstractView {
       $statusMail = $user->setMail($data['modify_email']);
       // new email has been set.
       $statusPassword = true;
-      if(strlen($data["new_password"]) > 0 && strlen($data["new_password_repeat"]) > 0) {
+      if (strlen($data["new_password"]) > 0 && strlen($data["new_password_repeat"]) > 0) {
         $statusPassword = $user->setPassword($data['new_password'], $data['new_password_repeat']);
       }
       $this->message = false;
-      if($statusName !== true) {
+      if ($statusName !== true) {
         $this->message.= $statusName."\n";
       }
-      if($statusMail !== true) {
+      if ($statusMail !== true) {
         $this->message.= $statusMail."\n";
       }
-      if($statusPassword !== true) {
+      if ($statusPassword !== true) {
         $this->message.= $statusPassword."\n";
       }
       // everything correct. redirect to list.
-      if( ! $this->message) {
+      if (! $this->message) {
         App::instance()->addMessage(
           sprintf(i('User modifications on the user %1$s (%2$s) have been saved.'),
           $data['modify_name'],

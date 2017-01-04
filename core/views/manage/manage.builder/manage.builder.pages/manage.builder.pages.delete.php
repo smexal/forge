@@ -1,6 +1,16 @@
 <?php
 
-class ManageDeletePage extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Page;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class ManageDeletePage extends View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.delete';
     public $name = 'delete';
@@ -8,7 +18,7 @@ class ManageDeletePage extends AbstractView {
     public function content($uri=array()) {
       if(is_array($uri)) {
         if($uri[0] == "cancel") {
-            App::instance()->redirect(Utils::getUrl(array('manage', 'pages')));
+            App::instance()->redirect(Classes\Utils::getUrl(array('manage', 'pages')));
         }
         $id = $uri[0];
         if(count($uri) > 1) {

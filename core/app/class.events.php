@@ -1,10 +1,14 @@
 <?php
 
+namespace Forge\Core\App;
+
+use \Forge\Core\Classes\Logger;
+
 class EventHandler {
     private static $instance = null;
     public $events = array();
     public $callables = array();
-   
+
     public static function instance() {
         if (null === self::$instance) {
             self::$instance = new self;
@@ -48,7 +52,7 @@ class EventHandler {
         if(in_array($event, $this->events)) {
             $vm = new ViewManager();
             foreach($vm->views as $view) {
-                $rc = new ReflectionClass($view);
+                $rc = new \ReflectionClass($view);
                 if($rc->isAbstract())
                   continue;
                 if($rc->hasMethod($event)) {

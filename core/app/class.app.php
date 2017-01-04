@@ -1,5 +1,11 @@
 <?php
 
+namespace Forge\Core\App;
+
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Utils;
+use \Forge\Loader;
+
 class App {
     public $db = null;
     public $eh = null;
@@ -33,7 +39,7 @@ class App {
 
     private function managers() {
       if(is_null($this->db)) {
-        $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
       Auth::setSessionUser();
 
@@ -205,8 +211,8 @@ class App {
         "cache_dir"     => $template_dir."cache/",
         "path_replace"  => false
       );
-      RainTPL::configure( $config );
-      $tpl = new RainTPL();
+      \RainTPL::configure( $config );
+      $tpl = new \RainTPL();
       foreach($args as $key => $value)
         $tpl->assign($key, $value);
       return $tpl->draw($template_file, true);

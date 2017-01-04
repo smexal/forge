@@ -1,6 +1,15 @@
 <?php
 
-class ManagePagesEditElement extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class ManagePagesEditElement extends View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.edit';
     public $name = 'edit-element';
