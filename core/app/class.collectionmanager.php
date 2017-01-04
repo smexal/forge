@@ -34,9 +34,9 @@ class CollectionManager {
     $classes = get_declared_classes();
     $implementsIModule = array();
     foreach($classes as $klass) {
-      $reflect = new ReflectionClass($klass);
-      if($reflect->implementsInterface('IDataCollection')) {
-        $rc = new ReflectionClass($klass);
+      $reflect = new \ReflectionClass($klass);
+      if($reflect->implementsInterface('Forge\Core\Interfaces\IDataCollection')) {
+        $rc = new \ReflectionClass($klass);
         if(! $rc->isAbstract())
           $implementsIModule[] = $klass;
       }

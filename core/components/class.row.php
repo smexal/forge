@@ -2,9 +2,14 @@
 
 namespace Forge\Core\Components;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\Component;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Media;
+use \Forge\Core\Classes\Utils;
 
-class ComponentRow extends Abstracts\Component {
+use function \Forge\Core\Classes\i;
+
+class ComponentRow extends Component {
     public $settings = array();
 
     public function prefs() {

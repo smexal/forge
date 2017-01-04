@@ -2,9 +2,14 @@
 
 namespace Forge\Core\Abstracts;
 
-use Forge\Core\Interfaces as Interfaces;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Util;
+use \Forge\Core\Interfaces\IComponent;
 
-abstract class Component implements Interfaces\IComponent {
+use function \Forge\Core\Classes\i;
+
+abstract class Component implements IComponent {
     public $id = null;
     public $prefs = null;
     protected $defaults = array(
@@ -17,10 +22,10 @@ abstract class Component implements Interfaces\IComponent {
     public function __construct() {}
 
     public function getPref($key) {
-        if(is_null($this->prefs)) {
+        if (is_null($this->prefs)) {
             $this->prefs = $this->prefs();
         }
-        if(array_key_exists($key, $this->prefs)) {
+        if (array_key_exists($key, $this->prefs)) {
             return $this->prefs[$key];
         } else {
             return $this->returnDefault($key);
@@ -28,12 +33,12 @@ abstract class Component implements Interfaces\IComponent {
     }
 
     public function settings() {
-        if(is_null($this->prefs)) {
+        if (is_null($this->prefs)) {
             $this->prefs = $this->prefs();
-        }        
+        }
         $savedPrefs = $this->getSavedPrefs();
-        foreach($this->settings as $key => $value) {
-            if(array_key_exists($value['key'], $savedPrefs)) {
+        foreach ($this->settings as $key => $value) {
+            if (array_key_exists($value['key'], $savedPrefs)) {
                 $this->settings[$key]['saved_value'] = $savedPrefs[$value['key']];
             }
         }
@@ -53,7 +58,7 @@ abstract class Component implements Interfaces\IComponent {
     }
 
     protected function returnDefault($key) {
-        if(array_key_exists($key, $this->defaults)) {
+        if (array_key_exists($key, $this->defaults)) {
             return $this->defaults[$key];
         } else {
             Logger::debug("Unknown Pref '".$key."' for Component '".get_called_class()."'");
@@ -62,47 +67,47 @@ abstract class Component implements Interfaces\IComponent {
     }
 
     public function getId() {
-        if(is_null($this->prefs)) {
+        if (is_null($this->prefs)) {
             $this->prefs = $this->prefs();
         }
         $this->savedPrefsReady();
-        if(!$this->id) {
+        if (!$this->id) {
             return;
         }
         return $this->id;
     }
 
     public function getSavedPrefs($forceUpdate=false) {
-        if(is_null($this->prefs)) {
+        if (is_null($this->prefs)) {
             $this->prefs = $this->prefs();
-        }        
-        if($forceUpdate) {
+        }
+        if ($forceUpdate) {
             $this->setPageElementPrefs();
         }
-        if($this->savedPrefsReady()) {
+        if ($this->savedPrefsReady()) {
             $saved = json_decode($this->prefs['page_element_prefs']['prefs'], true);
         }
-        if(is_null($saved)) {
+        if (is_null($saved)) {
             return array();
         }
         return $saved;
     }
 
     public function getPage() {
-        if($this->savedPrefsReady()) {
+        if ($this->savedPrefsReady()) {
             return $this->prefs['page_element_prefs']['pageid'];
         }
         return false;
     }
 
     private function savedPrefsReady() {
-        if(is_null($this->prefs)) {
+        if (is_null($this->prefs)) {
             $this->prefs = $this->prefs();
-        }        
-        if(!$this->id) {
+        }
+        if (!$this->id) {
             return false;
         }
-        if(!array_key_exists('page_element_prefs', $this->prefs)) {
+        if (!array_key_exists('page_element_prefs', $this->prefs)) {
             $this->setPageElementPrefs();
         }
         return true;
@@ -122,9 +127,9 @@ abstract class Component implements Interfaces\IComponent {
     }
 
     public function getField($key) {
-        if($this->savedPrefsReady()) {
+        if ($this->savedPrefsReady()) {
             $prefs = $this->getSavedPrefs();
-            if(array_key_exists($key, $prefs)) {
+            if (array_key_exists($key, $prefs)) {
                 return $prefs[$key];
             }
             return false;
@@ -135,8 +140,8 @@ abstract class Component implements Interfaces\IComponent {
     public function getChildrenBuilderContent($position_x) {
         $com = App::instance()->com;
         $content = '';
-        foreach($com->getChildrenOf($this->getId(), $position_x) as $component) {
-            if(is_null($component)) {
+        foreach ($com->getChildrenOf($this->getId(), $position_x) as $component) {
+            if (is_null($component)) {
                 continue;
             }
             $content.= $component->getBuilderContent();
@@ -147,8 +152,8 @@ abstract class Component implements Interfaces\IComponent {
     public function getChildrenContent($position_x) {
         $com = App::instance()->com;
         $content = '';
-        foreach($com->getChildrenOf($this->getId(), $position_x) as $component) {
-            if(is_null($component)) {
+        foreach ($com->getChildrenOf($this->getId(), $position_x) as $component) {
+            if (is_null($component)) {
                 continue;
             }
             $content.= $component->content();
@@ -180,7 +185,7 @@ abstract class Component implements Interfaces\IComponent {
     }
 
     public function parent() {
-        if($this->savedPrefsReady()) {
+        if ($this->savedPrefsReady()) {
             return $this->prefs['page_element_prefs']['parent'];
         }
         return 0;

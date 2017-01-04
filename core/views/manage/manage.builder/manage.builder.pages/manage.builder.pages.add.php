@@ -2,9 +2,15 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\Utils;
+use \Forge\Core\Classes\Pages;
 
-class ManageAddPage extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class ManageAddPage extends View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.add';
     public $name = 'add';

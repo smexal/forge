@@ -2,9 +2,12 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Classes\Utils;
 
-class ModuleManagent extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class ModuleManagent extends View {
     public $parent = 'manage';
     public $name = 'modules';
     public $permission = 'manage.modules';
@@ -51,7 +54,7 @@ class ModuleManagent extends Abstracts\View {
               'image' => $module->image,
               'image_alt' => $module->name.' '.i('Module Image', 'core'),
               'button' => in_array($module->id, $activeModules) ?
-                Utils::getUrl(array("manage", "modules", "deactivate", $module->id)) : 
+                Utils::getUrl(array("manage", "modules", "deactivate", $module->id)) :
                 Utils::getUrl(array("manage", "modules", "activate", $module->id)),
               'button_text' => in_array($module->id, $activeModules) ? i('Deactivate', 'core') : i('Activate', 'core'),
               'button_class' => 'ajax',

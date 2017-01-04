@@ -2,9 +2,14 @@
 
 namespace Forge\Views;
 
-use \Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Form;
 
-class Login extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class Login extends View {
     private $message = false;
     public $name = 'login';
     public $events = array(

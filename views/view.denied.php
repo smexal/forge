@@ -2,9 +2,11 @@
 
 namespace Forge\Views;
 
-use \Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
 
-class PermissionDenied extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class PermissionDenied extends View {
     public $name = 'denied';
 
     public function content() {

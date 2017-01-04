@@ -2,9 +2,14 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Utils;
 
-class StringTranslationTranslate extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class StringTranslationTranslate extends View {
     public $parent = 'string-translation';
     public $name = 'translate';
     public $permission = 'manage.locales.strings.translate';
@@ -38,13 +43,13 @@ class StringTranslationTranslate extends Abstracts\View {
         $string = Localization::getStringById($id);
         $form->area(
             "string-original",
-            i('Orignal String'), 
+            i('Orignal String'),
             $string['string'],
             i('Do not replace <code>%s</code> or strings like <code>%1$s</code>, these are placeholders and will be filled with actual values.'),
             true);
         foreach(Localization::getLanguages() as $language) {
           $form->area(
-              "lang-".$language['id'], 
+              "lang-".$language['id'],
               $language['name'],
               Localization::stringTranslation($string['string'], $string['domain'], $language['code'])
           );

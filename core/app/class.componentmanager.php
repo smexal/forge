@@ -2,6 +2,8 @@
 
 namespace Forge\Core\App;
 
+use \Forge\Loader;
+
 class ComponentManager {
     private $components = array();
     private $app = null;
@@ -67,9 +69,9 @@ class ComponentManager {
         $classes = get_declared_classes();
         $implementsIModule = array();
         foreach($classes as $klass) {
-            $reflect = new ReflectionClass($klass);
-            if($reflect->implementsInterface('IComponent')) {
-                $rc = new ReflectionClass($klass);
+            $reflect = new \ReflectionClass($klass);
+            if($reflect->implementsInterface('Forge\Core\Interfaces\IComponent')) {
+                $rc = new \ReflectionClass($klass);
                 if(! $rc->isAbstract())
                     $implementsIModule[] = new $klass();
             }

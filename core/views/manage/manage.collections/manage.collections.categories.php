@@ -2,9 +2,14 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\Utils;
 
-class CollectionManagementCategories extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class CollectionManagementCategories extends View {
     public $parent = 'collections';
     public $name = 'categories';
     public $permission = 'manage.collections.categories';
@@ -65,7 +70,7 @@ class CollectionManagementCategories extends Abstracts\View {
         }
         if($parent > 0) {
             $items.= '</ul>';
-        }        
+        }
         return $items;
     }
 

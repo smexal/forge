@@ -2,9 +2,17 @@
 
 namespace Forge\Views;
 
-use \Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Abstracts;
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\User;
+use \Forge\Core\Classes\Settings;
 
-class RegistrationView extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class RegistrationView extends View {
     public $name = 'registration';
     public $allowNavigation = true;
     public $events = array(
@@ -71,12 +79,12 @@ class RegistrationView extends Abstracts\View {
     }
 
     public function getRegistrationForm() {
-        if(! Settings::get('allow_registration')) { 
+        if(! Settings::get('allow_registration')) {
             return;
         }
         $return = '';
         $return.= Fields::hidden(array(
-            "name" => "event", 
+            "name" => "event",
             "value" => "onRegistrationSubmit"
         ));
         $return.= Fields::text(array(

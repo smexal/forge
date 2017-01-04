@@ -2,9 +2,15 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Page;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Utils;
 
-class PageBuilderManagement extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class PageBuilderManagement extends View {
     public $parent = 'manage';
     public $name = 'pages';
     public $permission = 'manage.builder.pages';
@@ -15,31 +21,31 @@ class PageBuilderManagement extends Abstracts\View {
     );
 
     public function content($uri=array()) {
-      if(count($uri) == 0) {
+      if (count($uri) == 0) {
         return $this->defaultContent();
       }
-      if(count($uri) > 0 ) {
+      if (count($uri) > 0 ) {
         switch ($uri[0]) {
           case 'add':
-            if(Auth::allowed($this->permissions[0])) {
+            if (Auth::allowed($this->permissions[0])) {
               return $this->getSubview($uri, $this);
             }
             break;
           case 'delete':
-            if(Auth::allowed($this->permissions[1])) {
+            if (Auth::allowed($this->permissions[1])) {
               return $this->getSubview($uri, $this);
             }
             break;
           case 'edit':
-            if(Auth::allowed($this->permission[2])) {
+            if (Auth::allowed($this->permission[2])) {
               return $this->getSubview($uri, $this);
             }
           case 'edit-element':
-              if(Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permission[2])) {
                 return $this->getSubview($uri, $this);
               }
           case 'remove-element':
-              if(Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permission[2])) {
                 return $this->getSubview($uri, $this);
               }
           default:
@@ -59,7 +65,7 @@ class PageBuilderManagement extends Abstracts\View {
     private function getGlobalActions() {
       $return = '';
       // allowed to add pages?
-      if(Auth::allowed($this->permissions[1])) {
+      if (Auth::allowed($this->permissions[1])) {
         $return.= Utils::overlayButton(Utils::getUrl(array("manage" , "pages", "add")), i('Add new page', 'core'));
       }
       return $return;
@@ -87,10 +93,10 @@ class PageBuilderManagement extends Abstracts\View {
       for($x=0;$x<$level;$x++) {
         $indent.='&nbsp;&nbsp;';
       }
-      if($level > 0) {
+      if ($level > 0) {
         $indent.="&minus;&nbsp;";
       }
-      foreach($pages->get($parent) as $p) {
+      foreach ($pages->get($parent) as $p) {
         $page = new Page($p['id']);
         $link = $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
             "href" => Utils::getUrl(array("manage", "pages", "edit", $page->id)),
@@ -124,7 +130,7 @@ class PageBuilderManagement extends Abstracts\View {
             "confirm" => false
         )
       );
-      if(Auth::allowed($this->permissions[0])) {
+      if (Auth::allowed($this->permissions[0])) {
         array_push($actions, array(
             "url" => Utils::getUrl(array("manage", "pages", "delete", $id)),
             "icon" => "remove",

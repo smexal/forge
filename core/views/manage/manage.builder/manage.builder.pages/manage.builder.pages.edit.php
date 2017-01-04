@@ -2,7 +2,13 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
 
 /**
  * View for editing and building pages, content and metadata.
@@ -11,7 +17,7 @@ use Forge\Core\Abstracts as Abstracts;
  * @author SMEXAL
  * @version 0.1
  */
-class ManagePageEdit extends Abstracts\View {
+class ManagePageEdit extends View {
     public $parent = 'pages';
     public $name = 'edit';
     public $permission = 'manage.builder.pages.edit';

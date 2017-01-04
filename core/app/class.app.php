@@ -2,6 +2,10 @@
 
 namespace Forge\Core\App;
 
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Utils;
+use \Forge\Loader;
+
 class App {
     public $db = null;
     public $eh = null;
@@ -22,7 +26,7 @@ class App {
         if (null === self::$instance) {
             self::$instance = new self;
         }
-        \Forge\Loader::instance()->prepare();
+        Loader::instance()->prepare();
         return self::$instance;
     }
 
@@ -61,7 +65,7 @@ class App {
       if($this->tm->theme !== '') {
         $this->tm->theme->start();
       } else {
-        \Forge\Logger::debug('No Theme set.');
+        Logger::debug('No Theme set.');
       }
 
       if(is_null($this->com)) {
@@ -90,7 +94,7 @@ class App {
         $collection = $collection::instance();
       }
 
-      \Forge\Loader::instance()->manageStyles();
+      Loader::instance()->manageStyles();
 
       $defaultView = false;
       foreach($this->vm->views as $view) {
@@ -174,7 +178,7 @@ class App {
     }
 
     public function header($view) {
-      $loader = \Forge\Loader::instance();
+      $loader = Loader::instance();
       return $this->render(CORE_TEMPLATE_DIR, "head", array(
           'title' => $this->getTitle($view),
           'scripts' => $loader->getScripts(),
@@ -207,8 +211,8 @@ class App {
         "cache_dir"     => $template_dir."cache/",
         "path_replace"  => false
       );
-      RainTPL::configure( $config );
-      $tpl = new RainTPL();
+      \RainTPL::configure( $config );
+      $tpl = new \RainTPL();
       foreach($args as $key => $value)
         $tpl->assign($key, $value);
       return $tpl->draw($template_file, true);

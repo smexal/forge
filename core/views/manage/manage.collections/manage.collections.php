@@ -2,9 +2,15 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\Auth;
+use \Forge\Core\App\ModifyHandler;
+use \Forge\Core\Classes\User;
+use \Forge\Core\Classes\Utils;
 
-class CollectionManagement extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class CollectionManagement extends View {
     public $parent = 'manage';
     public $name = 'collections';
     public $permission = 'manage.collections';
@@ -72,11 +78,11 @@ class CollectionManagement extends Abstracts\View {
           return $this->getSubview('add', $this);
         case 'delete':
           return $this->getSubview('delete', $this);
-        case 'edit': 
+        case 'edit':
           return $this->getSubview('edit', $this);
         case 'categories':
           return $this->getSubview('categories', $this);
-        case 'configure': 
+        case 'configure':
           return $this->getSubview('configure', $this);
         default:
           return '';

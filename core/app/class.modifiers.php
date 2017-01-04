@@ -2,10 +2,10 @@
 
 namespace Forge\Core\App;
 
-use Forge\Core\Traits as Traits;
+use \Forge\Core\Traits\Singleton;
 
 class ModifyHandler {
-    use Traits\Singleton;
+    use Singleton;
 
     private $modifiers = [];
 

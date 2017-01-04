@@ -2,9 +2,12 @@
 
 namespace Forge\Core\Components;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\Component;
+use \Forge\Core\App\App;
 
-class ComponentHtml extends Abstracts\Component {
+use function \Forge\Core\Classes\i;
+
+class ComponentHtml extends Component {
     public $settings = array();
 
     public function prefs() {

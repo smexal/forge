@@ -1,6 +1,8 @@
-<?php 
+<?php
 
 namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
 
 class Navigation {
     private $sticky = false;

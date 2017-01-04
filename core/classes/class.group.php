@@ -2,6 +2,11 @@
 
 namespace Forge\Core\Classes;
 
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+
+use function \Forge\Core\Classes\i;
+
 class Group {
     private $app = null;
     public $id = null;
@@ -11,7 +16,7 @@ class Group {
     );
 
     public function __construct($id) {
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             $this->app = App::instance();
             $this->id = $id;
         } else {
@@ -25,7 +30,7 @@ class Group {
      * @return String        Value of the required field
      */
     public function get($field) {
-      if(in_array($field, $this->fields)) {
+      if (in_array($field, $this->fields)) {
         $this->app->db->where("id", $this->id);
         $group = $this->app->db->getOne("groups");
         return $group[$field];
@@ -42,20 +47,20 @@ class Group {
       $this->app->db->where("groupid", $this->id);
       $members = $this->app->db->get("groups_users");
       $id_array = array();
-      foreach($members as $member) {
+      foreach ($members as $member) {
         array_push($id_array, $member['userid']);
       }
       return $id_array;
     }
 
     public function addMembers($members) {
-      if(!Auth::allowed("manage.groups.members")) {
+      if (!Auth::allowed("manage.groups.members")) {
         return;
       }
-      if(is_array($members)) {
+      if (is_array($members)) {
         $current = $this->members();
-        foreach($members as $member) {
-          if(!in_array($member, $current) && User::exists($member)) {
+        foreach ($members as $member) {
+          if (!in_array($member, $current) && User::exists($member)) {
             $this->app->db->insert("groups_users", array(
                 "groupid" => $this->get('id'),
                 "userid" => $member
@@ -70,14 +75,14 @@ class Group {
     }
 
     public function setName($newName) {
-      if($newName == $this->get('name')) {
+      if ($newName == $this->get('name')) {
         // nothing to change...
         return true;
       }
-      if(strlen($newName) < 3) {
+      if (strlen($newName) < 3) {
         return i('The given group name is too short.');
       }
-      if(Group::exists($newName)) {
+      if (Group::exists($newName)) {
         return i('A group with that name already exists.');
       }
       $app = App::instance();
@@ -89,7 +94,7 @@ class Group {
     }
 
     public function grant($permission) {
-      if(! self::hasPermission($this->id, $permission)) {
+      if (! self::hasPermission($this->id, $permission)) {
         $this->app->db->insert('permissions_groups', array(
             "groupid" => $this->id,
             "permissionid" => $permission
@@ -109,7 +114,7 @@ class Group {
       $app = App::instance();
       $app->db->where('name', $name);
       $app->db->get('groups');
-      if($app->db->count > 0) {
+      if ($app->db->count > 0) {
         return true;
       }
       return false;
@@ -123,7 +128,7 @@ class Group {
      */
     public static function create($name) {
       $app = App::instance();
-      if(!Group::exists($name)) {
+      if (!Group::exists($name)) {
         $app->db->insert('groups', array(
           "name" => $name
         ));
@@ -143,12 +148,12 @@ class Group {
      * @return Boolean     Success = True, Failure = False
      */
     public static function delete($id) {
-      if(! Auth::allowed("manage.groups.delete")) {
+      if (! Auth::allowed("manage.groups.delete")) {
         return i('Permission denied');
       }
       $app = App::instance();
       // check if the current user is in this group... then no delete.
-      if($app->user->hasGroup($id)) {
+      if ($app->user->hasGroup($id)) {
         return i('Unable to delete a group, where the current user is in.');
       }
 
@@ -171,7 +176,7 @@ class Group {
       $db = App::instance()->db;
       $db->where("groupid", $group);
       $db->where("permissionid", $permission);
-      if(count($db->get("permissions_groups")) > 0) {
+      if (count($db->get("permissions_groups")) > 0) {
         return true;
       }
       return false;

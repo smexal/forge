@@ -2,6 +2,10 @@
 
 namespace Forge\Core\Classes;
 
+use \Forge\Core\App\App;
+
+use function \Forge\Core\Classes\i;
+
 class Utils {
     public static function getUriComponents() {
         preg_match_all("/(.*)(\?.+)/", $_SERVER["REQUEST_URI"], $uri, PREG_PATTERN_ORDER);

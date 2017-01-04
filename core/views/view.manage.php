@@ -2,9 +2,16 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Navigation;
+use \Forge\Core\Classes\Utils;
 
-class Manager extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class Manager extends View {
     private $navigation = false;
     public $name = 'manage';
     public $permission = 'manage';

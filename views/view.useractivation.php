@@ -2,9 +2,13 @@
 
 namespace Forge\Views;
 
-use \Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\User;
 
-class UserActivationView extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class UserActivationView extends View {
     public $name = 'user-verification';
 
     public function content($parts = array()) {

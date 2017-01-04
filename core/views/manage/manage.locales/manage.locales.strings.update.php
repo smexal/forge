@@ -2,9 +2,13 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Utils;
 
-class StringTranslationUpdateManagement extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class StringTranslationUpdateManagement extends View {
     public $parent = 'string-translation';
     public $name = 'update';
     public $permission = 'manage.locales.strings.update';

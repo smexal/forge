@@ -2,9 +2,18 @@
 
 namespace Forge\Core\Views;
 
-use Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Group;
+use \Forge\Core\Classes\Settings;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Utils;
 
-class SettingsManagement extends Abstracts\View {
+use function \Forge\Core\Classes\i;
+
+class SettingsManagement extends View {
     public $parent = 'manage';
     public $name = 'settings';
     public $permission = 'manage.settings';
@@ -129,7 +138,7 @@ class SettingsManagement extends Abstracts\View {
             $return .= '<hr />';
         }
 
-        if(array_key_exists($tab_id, $this->settings->fields) 
+        if(array_key_exists($tab_id, $this->settings->fields)
             && array_key_exists('left', $this->settings->fields[$tab_id])) {
             foreach($this->settings->fields[$tab_id]['left'] as $customField) {
                 $return.=$customField;
@@ -146,7 +155,7 @@ class SettingsManagement extends Abstracts\View {
             $return .= $this->getBackendThemeColor();
             $return .= '<hr />';
         }
-        if(array_key_exists($tab_id, $this->settings->fields) 
+        if(array_key_exists($tab_id, $this->settings->fields)
             && array_key_exists('right', $this->settings->fields[$tab_id])) {
 
             foreach($this->settings->fields[$tab_id]['right'] as $customField) {

@@ -2,9 +2,14 @@
 
 namespace Forge\Views;
 
-use \Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Page;
+use \Forge\Core\Classes\Settings;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Utils;
 
-class Main extends Abstracts\View {
+class Main extends View {
     public $name = 'main';
     public $standalone = true;
     public $default = true;

@@ -2,9 +2,12 @@
 
 namespace Forge\Views;
 
-use \Forge\Core\Abstracts as Abstracts;
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Utils;
 
-class Logout extends Abstracts\View {
+class Logout extends View {
     public $name = 'logout';
     public $allowNavigation = true;
 

@@ -2,9 +2,12 @@
 
 namespace Forge\Core\Abstracts;
 
-use Forge\Core\Interfaces as Interfaces;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Interfaces\IModule;
 
-abstract class Module implements Interfaces\IModule {
+use function \Forge\Core\Classes\i;
+
+abstract class Module implements IModule {
   protected static $instances = array();
   abstract protected function setup();
 
@@ -17,7 +20,7 @@ abstract class Module implements Interfaces\IModule {
   public $settingsViews = array();
 
   public function directory() {
-      if(is_null($this->id)) {
+      if (is_null($this->id)) {
           Logger::debug('No id for module: '.get_called_class().' Set it to the foldername for the plugin');
           return;
       }
@@ -25,7 +28,7 @@ abstract class Module implements Interfaces\IModule {
   }
 
   public function url() {
-      if(is_null($this->id)) {
+      if (is_null($this->id)) {
           Logger::debug('No id for module: '.get_called_class().' Set it to the foldername for the plugin');
           return;
       }
@@ -37,7 +40,7 @@ abstract class Module implements Interfaces\IModule {
   }
 
   public function check() {
-    if(is_null($this->name)) {
+    if (is_null($this->name)) {
         return sprintf(i('Name for Module not set. Set $name in setup Method in Module `%s`'), get_called_class());
     }
     return true;
@@ -45,7 +48,7 @@ abstract class Module implements Interfaces\IModule {
 
   static public function instance() {
     $class = get_called_class();
-    if(!array_key_exists($class, static::$instances)) {
+    if (!array_key_exists($class, static::$instances)) {
         static::$instances[$class] = new $class();
     }
     static::$instances[$class]->id = $class;

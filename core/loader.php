@@ -2,7 +2,9 @@
 
 namespace Forge;
 
-use \Forge\Core\Classes as Classes;
+use \Forge\Core\Classes\Settings;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Utils;
 
 /*
     This Class is here to provide loader functionalities
@@ -47,10 +49,10 @@ class Loader {
     }
 
     public function setLessVariables() {
-      if(!$this->lessVariablesSet) {
+      if (!$this->lessVariablesSet) {
         $prim = '#4194e1';
         $set = Settings::get('primary_color');
-        if($set) {
+        if ($set) {
           $prim = $set;
         }
         $this->lessc->setVariables(array(
@@ -65,7 +67,7 @@ class Loader {
 
     // gets called on app initialization
     public function prepare() {
-        if(is_null($this->lessc)) {
+        if (is_null($this->lessc)) {
             $this->lessc = new \lessc;
         }
     }
@@ -80,7 +82,7 @@ class Loader {
         $this->loadModules();
         $this->loadApp();$this->loadViews();
         $this->loadComponents();
-        
+
     }
 
     private function ressources() {
@@ -96,7 +98,7 @@ class Loader {
     }
 
     public function addScript($script, $absolute=false) {
-        if(!$absolute)
+        if (!$absolute)
             $script = WWW_ROOT.$script;
         array_push($this->scripts, $script);
     }
@@ -106,14 +108,14 @@ class Loader {
 
     public function addStyle($style, $absolute=false, $viewCondition = false) {
         $this->setLessVariables();
-        if(!$absolute && ! strstr($style, ".less")) {
+        if (!$absolute && ! strstr($style, ".less")) {
           $style = WWW_ROOT.$style;
         }
-        if(!$absolute && strstr($style, ".less")) {
+        if (!$absolute && strstr($style, ".less")) {
           $style = $this->compileLess($style);
         }
-        if($viewCondition) {
-          if(in_array($viewCondition, Classes\Utils::getUriComponents())) {
+        if ($viewCondition) {
+          if (in_array($viewCondition, Utils::getUriComponents())) {
             array_push($this->styles, $style);
           }
         } else {
@@ -127,16 +129,16 @@ class Loader {
 
     public function compileLess($less) {
         $less_path = DOC_ROOT.$less;
-        if(file_exists($less)) {
+        if (file_exists($less)) {
             $pathinfo = pathinfo($less_path);
             $base_uri = str_replace($pathinfo['basename'], "", $less);
             $css_file = str_replace(".less", ".css", DOC_ROOT."core/css/compiled/".$pathinfo['basename']);
             $run = false;
-            if(file_exists($css_file) && filemtime($less_path) > filemtime($css_file))
+            if (file_exists($css_file) && filemtime($less_path) > filemtime($css_file))
                 $run = true;
-            if(!file_exists($css_file))
+            if (!file_exists($css_file))
                 $run = true;
-            if($run) {
+            if ($run) {
                 if ($handle = fopen($css_file, "w")) {
                     $content = $this->lessc->compileFile($less_path);
                     fwrite($handle, $content);
@@ -182,7 +184,7 @@ class Loader {
       $this->loadDirectory(DOC_ROOT."views/", true);
 
       // load core views
-      $this->loadDirectory(CORE_ROOT."views/", true, false, Classes\Utils::getUriComponents());
+      $this->loadDirectory(CORE_ROOT."views/", true, false, Utils::getUriComponents());
     }
 
     private function loadCoreScripts() {
@@ -230,7 +232,7 @@ class Loader {
             } elseif ($fileinfo->isDir()) {
               // check if the subdirectory is part of the queried url. (no manage views without manage queried)
               if ($inquery) {
-                if (in_array($fileinfo->getFilename(), Classes\Utils::getUriComponents())) {
+                if (in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
                   $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
                 }
               } else {
