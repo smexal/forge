@@ -136,7 +136,6 @@ class ContentNavigation {
             if(!$list) {
                 array_push($items, $item);
             } else {
-                $list.='<li class="item-'.$item['item_id'].'">';
                 if($item['item_type'] == 'page') {
                     $page = new Page($item['item_id']);
                     $link = $page->getUrl();
@@ -150,13 +149,19 @@ class ContentNavigation {
                             $link.='/'.$parts[1];
                         }
                     } else {
-                        Logger::debug('Could not find view'. $item['item_id']);
+                        Logger::debug('Could not find view: '. $item['item_id']);
                         $link = '#';
                     }
                 } else  {
                     $collectionItem = new CollectionItem($item['item_id']);
                     $link = $collectionItem->url();
                 }
+                if(0 === strpos(Utils::getCurrentUrl(), $link)) {
+                    $active = " active";
+                } else {
+                    $active = "";
+                }
+                $list.='<li class="item-'.$item['item_id'].$active.'">';
                 $list.='<a href="'.$link.'">';
                 $list.=$item['name'];
                 $list.='</a>';

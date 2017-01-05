@@ -68,7 +68,7 @@ class Utils {
       return $user->get('username');
     }
 
-    public static function getUrl($params = array(), $addGET=false, $additionalGET = array()) {
+    public static function getUrl($params = array(), $addGET=false, $additionalGET = array(), $language = false) {
         $query = '';
         if($addGET) {
             if(is_array($additionalGET)) {
@@ -81,7 +81,15 @@ class Utils {
             if(strlen($query) == 1)
                 $query = '';
         }
-        return WWW_ROOT.implode("/", $params).$query;
+        $start = WWW_ROOT;
+        if($language) {
+          $start.= Localization::getCurrentLanguage()."/";
+        }
+        return $start.implode("/", $params).$query;
+    }
+
+    public static function getLanguageUrl($params = array(), $addGET=false, $additionalGET = array()) {
+      return self::getUrl($params, $addGET, $additionalGET, true);
     }
 
     public static function getProgressBar($id, $current, $text="") {

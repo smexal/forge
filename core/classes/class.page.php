@@ -47,6 +47,10 @@ class Page {
   }
 
     public function getUrl() {
+        return Utils::getUrl($this->getUrlParts());
+    }
+
+    public function getUrlParts() {
         $p = $this;
         $parts = [];
         $parts[] = $p->getUrlPart($p);
@@ -55,7 +59,7 @@ class Page {
             $parts[] = $p->getUrlPart($p);
         }
         $parts = array_reverse($parts);
-        return Utils::getUrl($parts);
+        return $parts;
     }
 
     public function getUrlPart($p = null) {
@@ -212,8 +216,10 @@ class Page {
           if(! $page->isPublished()) {
               continue;
           }
+
           $return.= App::instance()->render(CORE_TEMPLATE_DIR."assets/", "list-item", [
               'link' => [
+                  'active' => count(array_intersect($page->getUrlParts(), Utils::getUriComponents())) == count($page->getUrlParts()) ? true : false,
                   'url' => $page->getUrl()
               ],
               'value' => $page->getMeta('title') == '' ? $page->name : $page->getMeta('title'),
