@@ -1,5 +1,9 @@
 <?php
 
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+
 class ContentNavigation {
     private $positions = array();
 

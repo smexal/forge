@@ -1,6 +1,14 @@
 <?php
 
-abstract class AbstractView implements IView {
+namespace Forge\Core\Abstracts;
+
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Utils;
+use \Forge\Core\Interfaces\IView;
+
+abstract class View implements IView {
     protected static $instances = array();
     public $parent = false;
     public $default = false;
@@ -22,7 +30,7 @@ abstract class AbstractView implements IView {
       $items = array($this);
       $items = array_merge($items, $this->getParentItems($this));
       $parts = array();
-      foreach($items as $item) {
+      foreach ($items as $item) {
         array_push($parts, $item->name);
       }
       return Utils::getUrl($parts);
@@ -30,20 +38,20 @@ abstract class AbstractView implements IView {
 
     private function getParentItems($c) {
       $items = array();
-      if($c->parent) {
+      if ($c->parent) {
         $items = array_merge($items, $this->getParentItems($c::instance()));
       }
       return $items;
     }
 
     public function initEssential() {
-        if(is_null($this->app))
+        if (is_null($this->app))
             $this->app = App::instance();
         $this->permissions();
-        if(is_null($this->permission)) {
+        if (is_null($this->permission)) {
           return;
         }
-        if(! Auth::allowed($this->permission)) {
+        if (! Auth::allowed($this->permission)) {
           $this->app->redirect('denied');
         }
     }
@@ -56,10 +64,10 @@ abstract class AbstractView implements IView {
       Registers permission in the database if they do not yet exist.
     */
     public function permissions() {
-      if(!is_null($this->permission)) {
+      if (!is_null($this->permission)) {
         Auth::registerPermissions($this->permission);
       }
-      if(count($this->permissions) == 0 || is_null($this->permissions)) {
+      if (count($this->permissions) == 0 || is_null($this->permissions)) {
         return;
       }
       Auth::registerPermissions($this->permissions);
@@ -67,10 +75,10 @@ abstract class AbstractView implements IView {
 
     public function getSubview($uri_components, $parent) {
       $vm = App::instance()->vm;
-      if(!is_array($uri_components)) {
+      if (!is_array($uri_components)) {
         $subview = $uri_components;
       } else {
-        if(count($uri_components) == 0) {
+        if (count($uri_components) == 0) {
           $subview = '';
         } else {
           $this->app->setUri($uri_components);
@@ -79,20 +87,20 @@ abstract class AbstractView implements IView {
       }
       $found = false;
       $load_main_subview = $subview == '' ? true : false;
-      foreach($vm->views as $view) {
-        $rc = new ReflectionClass($view);
+      foreach ($vm->views as $view) {
+        $rc = new \ReflectionClass($view);
 
-        if($rc->isAbstract())
+        if ($rc->isAbstract())
           continue;
         $view = $view::instance();
-        if($load_main_subview && $view->default
+        if ($load_main_subview && $view->default
           || $subview == $view->name()
           && $view->parent == $parent->name) {
           $found = true;
           break;
         }
       }
-      if(!$found) {
+      if (!$found) {
         Logger::error("View '".Utils::getUrl($uri_components)."' not found.");
         App::instance()->redirect('404');
       } else {
@@ -114,7 +122,7 @@ abstract class AbstractView implements IView {
 
     static public function instance() {
         $class = get_called_class();
-        if(!array_key_exists($class, static::$instances)) {
+        if (!array_key_exists($class, static::$instances)) {
             static::$instances[$class] = new $class();
         }
         static::$instances[$class]->init();

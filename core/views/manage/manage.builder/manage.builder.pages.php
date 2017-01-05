@@ -4,8 +4,17 @@
 * i('draft')
 * i('published')
 */
+namespace Forge\Core\Views;
 
-class PageBuilderManagement extends AbstractView {
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Page;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class PageBuilderManagement extends View {
     public $parent = 'manage';
     public $name = 'pages';
     public $permission = 'manage.builder.pages';
@@ -16,31 +25,31 @@ class PageBuilderManagement extends AbstractView {
     );
 
     public function content($uri=array()) {
-      if(count($uri) == 0) {
+      if (count($uri) == 0) {
         return $this->defaultContent();
       }
-      if(count($uri) > 0 ) {
+      if (count($uri) > 0 ) {
         switch ($uri[0]) {
           case 'add':
-            if(Auth::allowed($this->permissions[0])) {
+            if (Auth::allowed($this->permissions[0])) {
               return $this->getSubview($uri, $this);
             }
             break;
           case 'delete':
-            if(Auth::allowed($this->permissions[1])) {
+            if (Auth::allowed($this->permissions[1])) {
               return $this->getSubview($uri, $this);
             }
             break;
           case 'edit':
-            if(Auth::allowed($this->permission[2])) {
+            if (Auth::allowed($this->permission[2])) {
               return $this->getSubview($uri, $this);
             }
           case 'edit-element':
-              if(Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permission[2])) {
                 return $this->getSubview($uri, $this);
               }
           case 'remove-element':
-              if(Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permission[2])) {
                 return $this->getSubview($uri, $this);
               }
           default:
@@ -60,7 +69,7 @@ class PageBuilderManagement extends AbstractView {
     private function getGlobalActions() {
       $return = '';
       // allowed to add pages?
-      if(Auth::allowed($this->permissions[1])) {
+      if (Auth::allowed($this->permissions[1])) {
         $return.= Utils::overlayButton(Utils::getUrl(array("manage" , "pages", "add")), i('Add new page', 'core'));
       }
       return $return;
@@ -121,7 +130,7 @@ class PageBuilderManagement extends AbstractView {
             "confirm" => false
         )
       );
-      if(Auth::allowed($this->permissions[0])) {
+      if (Auth::allowed($this->permissions[0])) {
         array_push($actions, array(
             "url" => Utils::getUrl(array("manage", "pages", "delete", $id)),
             "icon" => "remove",

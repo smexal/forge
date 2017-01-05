@@ -1,5 +1,14 @@
 <?php
 
+namespace Forge\Core\Abstracts;
+
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Utils;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Settings;
+use \Forge\Core\Interfaces\ITheme;
+
 abstract class Theme implements ITheme {
     protected static $instances = array();
     private $styles = array();
@@ -47,7 +56,7 @@ abstract class Theme implements ITheme {
 
     public function init() {
         if(is_null($this->lessc)) {
-            $this->lessc = new lessc;
+            $this->lessc = new \lessc;
             $this->lessc->setVariables($this->lessVariables);
         }
     }

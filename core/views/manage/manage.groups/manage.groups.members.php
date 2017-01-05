@@ -1,6 +1,16 @@
 <?php
 
-class ManageGroupMembers extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Classes\Group;
+use \Forge\Core\Classes\User;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class ManageGroupMembers extends View {
     public $parent = 'groups';
     public $permission = 'manage.groups.members';
     public $name = 'members';
@@ -15,7 +25,7 @@ class ManageGroupMembers extends AbstractView {
       if(is_numeric($uri[0]) && is_null($this->group)) {
         $this->group = new Group($uri[0]);
       }
-      
+
       if(count($uri) > 1) {
         if($uri[1] === 'remove' && is_numeric($uri[2]) && User::exists($uri[2])) {
           // remove user from group.
@@ -34,7 +44,7 @@ class ManageGroupMembers extends AbstractView {
         'memberlist' => $this->getMemberList()
       ));
     }
-    
+
     public function onAddNewGroupMember($data) {
       $members = explode(",", $data['new_users']);
       if(count($members) > 0) {

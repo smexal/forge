@@ -53,3 +53,4 @@ core/css/compiled/*
 # Dev files
 phpinfo.php
 
+.phpintel

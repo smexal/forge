@@ -1,6 +1,12 @@
-<?php 
+<?php
 
-class PermissionDenied extends AbstractView {
+namespace Forge\Views;
+
+use \Forge\Core\Abstracts\View;
+
+use function \Forge\Core\Classes\i;
+
+class PermissionDenied extends View {
     public $name = 'denied';
 
     public function content() {

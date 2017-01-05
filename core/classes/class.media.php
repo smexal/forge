@@ -1,5 +1,9 @@
 <?php
 
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+
 class Media {
     public $rel_path = null;
     public $abs_path = null;
