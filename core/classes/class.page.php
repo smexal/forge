@@ -53,7 +53,7 @@ class Page {
   }
 
     public function getUrl() {
-        return Utils::getUrl($this->getUrlParts());
+        return Utils::getLanguageUrl($this->getUrlParts());
     }
 
     public function getUrlParts() {

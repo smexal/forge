@@ -5,6 +5,7 @@ namespace Forge\Core\Views;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Page;
 use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\Utils;
 

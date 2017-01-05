@@ -160,6 +160,7 @@ class ContentNavigation {
                     $collectionItem = new CollectionItem($item['item_id']);
                     $link = $collectionItem->url();
                 }
+
                 if(0 === strpos(Utils::getCurrentUrl(), $link)) {
                     $active = " active";
                 } else {
