@@ -29,15 +29,14 @@ class ComponentManager {
     }
 
     private function loadThemeComponents() {
-        $tm = App::instance()->tm;
-        if($tm->theme) {
-            Loader::instance()->loadDirectory($tm->theme->directory()."components/");
+        if($this->app->tm->theme) {
+            Loader::instance()->loadDirectory($this->app->tm->theme->directory()."components/");
         }
     }
 
     public function getChildrenOf($id, $position_x = 0) {
         $children = array();
-        $db = App::instance()->db;
+        $db = $this->app->db;
         $db->where('parent', $id);
         $db->where('position_x', $position_x);
         $components = $db->get('page_elements');
@@ -71,8 +70,7 @@ class ComponentManager {
         foreach($classes as $klass) {
             $reflect = new \ReflectionClass($klass);
             if($reflect->implementsInterface('Forge\Core\Interfaces\IComponent')) {
-                $rc = new \ReflectionClass($klass);
-                if(! $rc->isAbstract())
+                if(! $reflect->isAbstract())
                     $implementsIModule[] = new $klass();
             }
         }
@@ -80,7 +78,7 @@ class ComponentManager {
     }
 
     public function deleteComponent($id) {
-        $db = App::instance()->db;
+        $db = $this->app->db;
         $db->where('id', $id);
         $db->delete('page_elements');
 

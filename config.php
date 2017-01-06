@@ -21,6 +21,7 @@ define('FOOTPRINT_SIZE', 10);
 
 // DEVELOPMENTZ
 define('LOG_LEVEL', 'DEBUG');
+define('LOG_TRACE_LINES', 10);
 
 // LANGUAGE DEFINTIONS
 define('DEFAULT_LANGUAGE', 'de');

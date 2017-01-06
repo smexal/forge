@@ -48,9 +48,6 @@ abstract class View implements IView {
         if (is_null($this->app))
             $this->app = App::instance();
         $this->permissions();
-        if (is_null($this->permission)) {
-          return;
-        }
         if (! Auth::allowed($this->permission)) {
           $this->app->redirect('denied');
         }
@@ -64,13 +61,12 @@ abstract class View implements IView {
       Registers permission in the database if they do not yet exist.
     */
     public function permissions() {
-      if (!is_null($this->permission)) {
+      if (! is_null($this->permission)) {
         Auth::registerPermissions($this->permission);
       }
-      if (count($this->permissions) == 0 || is_null($this->permissions)) {
-        return;
+      if (! is_null($this->permissions) || count($this->permissions) > 0) {
+        Auth::registerPermissions($this->permissions);
       }
-      Auth::registerPermissions($this->permissions);
     }
 
     public function getSubview($uri_components, $parent) {
