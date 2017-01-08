@@ -134,6 +134,9 @@ class Manager extends View {
 
     private function collectionSubmenu($panelLeft) {
       foreach($this->app->cm->collections as $collection) {
+        if(!Auth::allowed($collection->permission)) {
+            continue;
+        }
         $this->navigation->add(
           $collection->getPref('name'),
           $collection->getPref('title'),
