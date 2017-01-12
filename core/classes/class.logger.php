@@ -40,11 +40,12 @@ class Logger {
             $output = date("Y-m-d H:i:s")." - ".$level." - ".$key." => ".$value."\n";
             if ($trace) {
                 $t = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+                $lines = LOG_TRACE_LINES;
                 if (! defined(LOG_TRACE_LINES) || count($t) < LOG_TRACE_LINES) {
-                    define(LOG_TRACE_LINES, count($t));
+                    $lines = count($t)-1;
                 }
                 
-                for ($i = 1; $i <= LOG_TRACE_LINES; $i++) {
+                for ($i = 1; $i <= $lines; $i++) {
                     $output .= str_pad("#$i",4," ") ."> ".$t[$i]['file'].':'.$t[1]['line']."\n";
                 }
             }
