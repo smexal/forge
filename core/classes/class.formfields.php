@@ -271,6 +271,7 @@ class Fields {
             'hint' => $args['hint'],
             'disabled' => false,
             'formats' => $formats,
+            'linklist' => Utils::getUrl(array( "api", "navigation-items"), true, array("format" => "json")),
             'css' => $css
         ));
     }

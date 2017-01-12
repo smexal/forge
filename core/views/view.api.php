@@ -8,6 +8,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\App\MediaManager;
 use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\User;
+use \Forge\Core\Classes\ContentNavigation;
 
 class ApiView extends View {
     public $name = 'api';
@@ -26,7 +27,7 @@ class ApiView extends View {
         case 'media':
             return $this->media($query);
         case 'navigation-items':
-            return $this->navigationItems();
+            return ContentNavigation::getPossibleItems();
         case 'edit-navigation-item-additional-form':
             return $this->additionalNavigationItemForm($query);
         default:

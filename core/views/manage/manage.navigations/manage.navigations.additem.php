@@ -54,11 +54,11 @@ class ManageAddNavigationItem extends View {
         $form->hidden("navigation", $this->navigation);
         $form->input("new_name", "new_name", i('Item name'), 'input', '');
 
-        $items = $this->getItems();
+        $items = ContentNavigation::getPossibleItems();
         $form->select(array(
             "key" => 'item',
             "label" => i('Select item'),
-            "values" => $this->getItems()
+            "values" => ContentNavigation::getPossibleItems()
         ), '');
 
         $items = $this->getNavigationItems($this->navigation);
@@ -80,24 +80,6 @@ class ManageAddNavigationItem extends View {
             $items[$item['id']] = $item['name'];
         }
         return $items;
-    }
-
-    private function getItems() {
-      $items = array();
-      $db = App::instance()->db;
-      foreach($db->get('pages') as $page) {
-        $items['page##'.$page['id']] = $page['name'].' ('.i('Page').')';
-      }
-
-      foreach($db->get('collections') as $collection) {
-        $items[$collection['type'].'##'.$collection['id']] = $collection['name'].' ('.i($collection['type']).')';
-      }
-
-      foreach(App::instance()->vm->getNavigationViews() as $view) {
-        $items['view##'.$view->name] = i($view->name).' ('.i('Specific view').')';
-      }
-
-      return $items;
     }
 }
 

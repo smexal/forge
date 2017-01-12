@@ -56,6 +56,10 @@ class Page {
         return Utils::getLanguageUrl($this->getUrlParts());
     }
 
+    public function getTitle() {
+        return $this->getMeta('title') == '' ? $this->name : $this->getMeta('title');
+    }
+
     public function getUrlParts() {
         $p = $this;
         $parts = [];
