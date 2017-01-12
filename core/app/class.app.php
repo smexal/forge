@@ -47,19 +47,20 @@ class App {
         $this->eh = EventHandler::instance();
       }
 
-      if(is_null($this->vm)) {
-        $this->vm = new ViewManager();
-      }
-
       if(is_null($this->mm)) {
         $this->mm = new ModuleManager();
       }
+
       if(is_null($this->tm)) {
           $this->tm = new ThemeManager();
       }
 
       // start all active modules
       $this->mm->start();
+
+      if(is_null($this->vm)) {
+          $this->vm = new ViewManager();
+      }
 
       // init theme
       if($this->tm->theme !== '') {
@@ -88,11 +89,6 @@ class App {
 
       $requiredView = false;
       $load_main = $base_view == '' ? true : false;
-
-      // loading all collections
-      foreach ($this->cm->collections as $collection) {
-        $collection = $collection::instance();
-      }
 
       Loader::instance()->manageStyles();
 

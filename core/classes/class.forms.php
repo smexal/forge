@@ -4,6 +4,7 @@ namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
 
+
 class Form {
     private $content = array();
     private $app = null;
@@ -15,6 +16,7 @@ class Form {
     private $multilanguage = false;
 
     public function __construct($action=false) {
+        Logger::warn('Would you kindly? Use the friggin Fields!', true);
         if(is_null($this->app)) {
             $this->app = App::instance();
         }

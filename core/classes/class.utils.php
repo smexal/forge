@@ -239,7 +239,7 @@ class Utils {
 
     public static function formatAmount($amount) {
       $currency = 'CHF';
-      return sprintf(i("%s %s", 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
+      return sprintf(i('%1$s %2$d', 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
     }
 }
 

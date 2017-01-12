@@ -28,8 +28,7 @@ class ThemeManager {
         foreach ($classes as $klass) {
             $reflect = new \ReflectionClass($klass);
             if ($reflect->implementsInterface('Forge\Core\Interfaces\ITheme')) {
-                $rc = new \ReflectionClass($klass);
-                if (! $rc->isAbstract()) {
+                if (! $reflect->isAbstract()) {
                     $this->theme = $klass::instance();
                     return true;
                 }
