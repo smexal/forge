@@ -218,7 +218,7 @@ abstract class DataCollection implements IDataCollection {
       $fields = array(
             array(
                 'key' => 'slug',
-                'label' => i('Slug', 'core'),      // default value is "Label"
+                'label' => i('Slug', 'core'),       // default value is "Label"
                 'multilang' => true,
                 'type' => 'text',                   // default value is text
                 'order' => 1,                       // default value is 1000

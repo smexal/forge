@@ -100,6 +100,7 @@ class CollectionItem {
 
     public function deleteMeta($key, $language) {
         $this->db->where('keyy', $key);
+        $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->delete('collection_meta');
     }
