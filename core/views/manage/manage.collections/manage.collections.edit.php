@@ -8,6 +8,8 @@ use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Utils;
 
+use \Forge\Modules\ForgeTournaments;
+
 use function \Forge\Core\Classes\i;
 
 /**
@@ -34,6 +36,7 @@ class ManageCollectionsEdit extends View {
         $this->uri = $uri;
         $manager = App::instance()->cm;
         $full_uri = Utils::getUriComponents();
+
         $this->collection = $manager->getCollection($full_uri[2]);
         $this->item = $this->collection->getItem($this->uri[1]);
 
@@ -57,12 +60,14 @@ class ManageCollectionsEdit extends View {
             $subviewActions = $this->collection->getSubviewActions($subview, $this->item->id);
         }
 
+        $this->collection->customFields();
+
         return $this->app->render(CORE_TEMPLATE_DIR."views/", "builder", array(
             'title' => sprintf(
                 i('Edit %1$s %2$s'),
                 $this->collection->preferences['single-item'],
                 '<span class="highlight">'.$this->item->getName()).'</span>',
-            'backurl' => Utils::getUrl(array('manage', 'collections', $this->collection->name)),
+            'backurl' => Utils::getUrl(array('manage', 'collections', $this->collection->getName())),
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),
             'panel_right' => $this->rightFields(),
@@ -78,7 +83,7 @@ class ManageCollectionsEdit extends View {
             'subview_actions' => $subview ? $subviewActions : $subview,
             'subview' => $subview ? $subviewContent : $subview,
             'subnavigation_root' => Utils::getUrl(
-                array('manage', 'collections', $this->collection->name, 'edit', $this->item->id)
+                array('manage', 'collections', $this->collection->getName(), 'edit', $this->item->id)
             ),
             'subnavigation' => $this->collection->getSubnavigation()
         ));
@@ -133,7 +138,7 @@ class ManageCollectionsEdit extends View {
         foreach($languages as $lang) {
             $links[] = array(
                 'label' => i($lang['name'], 'core').' '.($lang['code'] == Localization::currentLang() ? i('(Current)') : ''),
-                'url' => Utils::getUrl(array("manage", "collections", $this->collection->name ,"edit", $this->item->id)).'?lang='.$lang['code']
+                'url' => Utils::getUrl(array("manage", "collections", $this->collection->getName() ,"edit", $this->item->id)).'?lang='.$lang['code']
             );
         }
         return $links;

@@ -21,8 +21,8 @@ class CollectionManager {
 
   public function getCollection($name) {
     foreach($this->getCollections() as $col) {
-      if($col->name == $name) {
-        return $col;
+      if($col::$name == $name) {
+        return $col::instance();
       }
     }
   }
@@ -42,7 +42,7 @@ class CollectionManager {
     }
     $collections = array();
     foreach($implementsIModule as $collection) {
-      $collections[] = $collection::instance();
+      $collections[] = $collection; //::instance(); // TODO Vermeiden wenn möglich
     }
     $this->collections = $collections;
     return $this->collections;

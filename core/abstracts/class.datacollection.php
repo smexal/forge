@@ -12,11 +12,11 @@ use \Forge\Core\Interfaces\IDataCollection;
 use function \Forge\Core\Classes\i;
 
 abstract class DataCollection implements IDataCollection {
-  public $permission = null;
+  public static $name;
+  public static $permission;
   protected static $instances = array();
   protected $app;
   public $preferences = array();
-  public $name = false;
   private $customFields = array();
   private $customConfiguration = array();
 
@@ -24,6 +24,14 @@ abstract class DataCollection implements IDataCollection {
 
   public function getPref($name) {
     return $this->preferences[$name];
+  }
+
+  public function getName() {
+    return static::$name;
+  }
+
+  public function getPermission() {
+    return static::$permission;
   }
 
   public static function savefield($item, $key, $value, $lang) {
@@ -69,22 +77,24 @@ abstract class DataCollection implements IDataCollection {
 
   private function init() {
     $this->app = App::instance();
-    if (!is_null($this->permission)) {
-      Auth::registerPermissions($this->permission);
+    if (!is_null($this::$permission)) {
+      Auth::registerPermissions($this::$permission);
     }
     $this->preferences = array(
-      'name' => strtolower(get_class($this)),
       'title' => i('Data'),
       'all-title' => i('All Collection Items'),
       'add-label' => i('Add item'),
       'single-item' => i('item')
     );
     $this->setup();
-    $this->name = $this->getPref('name');
   }
 
   public function customEditContent($id) {
     return false;
+  }
+
+  public function customFields() {
+    return;
   }
 
   public function items($settings = array()) {
@@ -100,7 +110,8 @@ abstract class DataCollection implements IDataCollection {
     if (array_key_exists('limit', $settings)) {
       $limit = $settings['limit'];
     }
-    $db->where('type', $this->name);
+    error_log($this->getName());
+    $db->where('type', $this->getName());
     if (! $limit) {
       $items = $db->get('collections');
     } else {
@@ -128,7 +139,7 @@ abstract class DataCollection implements IDataCollection {
     if (! is_null($slug)) {
       return $slug;
     } else {
-      return $this->name;
+      return $this->getName();
     }
   }
 
@@ -152,12 +163,12 @@ abstract class DataCollection implements IDataCollection {
     }
     $db = App::instance()->db;
 
-    $db->where('type', $this->name);
+    $db->where('type', $this->getName());
     $db->where('keyy', $key);
     $db->where('lang', $lang);
     $val = $db->getOne('collection_settings');
     if ($val) {
-      $db->where('type', $this->name);
+      $db->where('type', $this->getName());
       $db->where('keyy', $key);
       $db->where('lang', $lang);
       $db->update('collection_settings', array(
@@ -168,7 +179,7 @@ abstract class DataCollection implements IDataCollection {
         'keyy' => $key,
         'value' => $value,
         'lang' => $lang,
-        'type' => $this->name
+        'type' => $this->getName()
       ));
     }
   }
@@ -178,7 +189,7 @@ abstract class DataCollection implements IDataCollection {
       $lang = Localization::getCurrentLanguage();
     }
     $db = App::instance()->db;
-    $db->where('type', $this->name);
+    $db->where('type', $this->getName());
     $db->where('keyy', $key);
     $db->where('lang', $lang);
     $setting = $db->getOne('collection_settings');
@@ -192,6 +203,8 @@ abstract class DataCollection implements IDataCollection {
               App::instance()->addMessage(i('Language for saving values for page not set.'));
               return;
           }
+
+          $this->customFields();
 
           foreach ($this->fields() as $field) {
               if (! array_key_exists($field['key'], $data)) {
@@ -346,7 +359,7 @@ abstract class DataCollection implements IDataCollection {
 
     public function getCategories($parent = 0) {
       $db = App::instance()->db;
-      $db->where('collection', $this->name);
+      $db->where('collection', $this->getName());
       $db->where('parent', $parent);
       $cats = $db->get('collection_categories');
       return $cats;
@@ -381,7 +394,7 @@ abstract class DataCollection implements IDataCollection {
       }
       $db = App::instance()->db;
       $category = $db->insert("collection_categories", array(
-        "collection" => $this->name,
+        "collection" => $this->getName(),
         "meta" => '',
         "parent" => $data['parent'],
         "sequence" => 0
@@ -413,6 +426,7 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function addField($field=array()) {
+      error_log(print_r($field,true));
         if (! array_key_exists('key', $field)) {
             Logger::debug('<key> for field not set: '.implode(", ", $field));
             return;

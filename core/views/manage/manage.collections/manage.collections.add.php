@@ -41,7 +41,7 @@ class CollectionManagementAdd extends View {
       $collectionName = Utils::getUriComponents();
       $collectionName = $collectionName[count($collectionName)-2];
       foreach( $this->app->cm->collections as $collection) {
-        if ($collection->getPref('name') == $collectionName) {
+        if ($collection->getName() == $collectionName) {
           $this->collection = $collection;
           break;
         }
@@ -64,10 +64,10 @@ class CollectionManagementAdd extends View {
     }
 
     public function form() {
-        $form = new Form(Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'add')));
+        $form = new Form(Utils::getUrl(array("manage", "collections", $this->collection->getName(), 'add')));
         $form->ajax(".content");
         $form->disableAuto();
-        $form->hidden("collection", $this->collection->getPref('name'));
+        $form->hidden("collection", $this->collection->getName());
         $form->hidden("event", $this->events[0]);
         $form->input("new_title", "new_title", i('Title'), 'input', $this->title);
         $form->submit(i('Save as new Draft'));

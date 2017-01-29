@@ -134,13 +134,15 @@ class Manager extends View {
 
     private function collectionSubmenu($panelLeft) {
       foreach($this->app->cm->collections as $collection) {
-        if(!Auth::allowed($collection->permission)) {
+        if(!Auth::allowed($collection::$permission)) {
             continue;
         }
+        $collection = $collection::instance();
+
         $this->navigation->add(
-          $collection->getPref('name'),
+          $collection::$name,
           $collection->getPref('title'),
-          Utils::getUrl(array('manage', 'collections', $collection->getPref('name'))),
+          Utils::getUrl(array('manage', 'collections', $collection::$name)),
           $panelLeft,
           false,
           'collections'

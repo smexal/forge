@@ -81,15 +81,13 @@ class CollectionItem {
         if(!$language) {
             $language = 0;
         }
-        $current_value = $this->getMeta($key, $language);
-        if(is_array($current_value)) {
-            $current_value = json_encode($current_value);
-        }
-        if(strlen($value) == 0) {
+        if(empty($value)) {
             // remove meta value, if there is no value
             $this->deleteMeta($key, $language);
+            return;
         }
-        if($current_value) {
+
+        if($this->getMeta($key, $language)) {
             // update with new
             $this->setMeta($key, $value, $language);
         } else {

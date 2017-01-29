@@ -24,51 +24,60 @@ class CollectionManagement extends View {
     private $collection = false;
 
     public function content($uri=array()) {
+      if (empty($uri)) {
+        return $this->app->redirect("404");
+      }
+
       // find out which collection we are editing
       foreach ($this->app->cm->collections as $collection) {
-        if ($collection->getPref('name') == $uri[0]) {
-          $this->collection = $collection;
+        if ($collection::$name == $uri[0]) {
+          $this->collection = $collection::instance();
           break;
         }
       }
 
-      // check if user has permission
-      if ($collection && Auth::allowed($collection->permission)) {
+      if (is_null($this->collection)) {
+        $this->app->redirect("404");
+      }
 
-        // render subview
-        if (count($uri) > 1) {
-          return $this->subviews($uri);
-          // render the overview
-        } else {
-          if(Auth::allowed($this->permissions['add'])) {
-            $global_actions = $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
-              'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'add')),
-              'label' => $this->collection->getPref('add-label')
-            ));
-          } else {
-            $global_actions = '';
-          }
-          if (Auth::allowed($this->permissions['configure'])) {
-            $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
-              'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'configure')),
-              'label' => i('Configure', 'core')
-            ));
-          }
-          if (Auth::allowed($this->permissions['categories'])) {
-            $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
-              'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'categories')),
-              'label' => i('Categories', 'core')
-            ));
-          }
-          return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
-              'title' => $this->collection->getPref('all-title'),
-              'global_actions' => $global_actions,
-              'content' => $this->collectionList()
+      // check if user has permission
+      if (!Auth::allowed($this->collection->getPermission())) {
+        $this->app->redirect("denied");
+      }
+      
+      // render subview
+      if (count($uri) > 1) {
+        return $this->subviews($uri);
+        // render the overview
+      } else {
+        $global_actions = '';
+
+        if(Auth::allowed($this->permissions['add'])) {
+          $global_actions = $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+            'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getName(), 'add')),
+            'label' => $this->collection->getPref('add-label')
           ));
         }
 
-      } else {
-        $this->app->redirect("denied");
+        if (Auth::allowed($this->permissions['configure'])) {
+          $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+            'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getName(), 'configure')),
+            'label' => i('Configure', 'core')
+          ));
+        }
+
+        if (Auth::allowed($this->permissions['categories'])) {
+          $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+            'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getName(), 'categories')),
+            'label' => i('Categories', 'core')
+          ));
+        }
+
+        return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
+            'title' => $this->collection->getPref('all-title'),
+            'global_actions' => $global_actions,
+            'content' => $this->collectionList()
+        ));
       }
     }
 
@@ -111,12 +120,14 @@ class CollectionManagement extends View {
 
     private function getPageRows($parent=0, $level=0) {
       $rows = array();
+
       foreach ($this->collection->items() as $item) {
+        error_log("TEST");
         $user = new User($item->getAuthor());
         array_push($rows, array(
           Utils::tableCell(
             $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
-                "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
+                "href" => Utils::getUrl(array("manage", "collections", $this->collection->getName(), 'edit', $item->id)),
                 "name" => $item->getName()
             ))
           ),
@@ -135,7 +146,7 @@ class CollectionManagement extends View {
     private function actions($item) {
       $actions = array(
         array(
-            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
+            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getName(), 'edit', $item->id)),
             "icon" => "pencil",
             "name" => sprintf(i('edit %s'), $this->collection->getPref('single-item')),
             "ajax" => false,
@@ -144,7 +155,7 @@ class CollectionManagement extends View {
       );
       if (Auth::allowed($this->permissions["delete"])) {
         array_push($actions, array(
-            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'delete', $item->id)),
+            "url" => Utils::getUrl(array("manage", "collections", $this->collection->getName(), 'delete', $item->id)),
             "icon" => "remove",
             "name" => sprintf(i('delete %s'), $this->collection->getPref('single-item')),
             "ajax" => true,

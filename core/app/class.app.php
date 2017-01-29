@@ -88,21 +88,21 @@ class App {
         $base_view = $this->uri_components[0];
 
       $requiredView = false;
-      $load_main = $base_view == '' ? true : false;
+      $load_main = empty($base_view);
 
       Loader::instance()->manageStyles();
 
       $defaultView = false;
       foreach($this->vm->views as $view) {
-        $view = $view::instance();
-        $this->eh->add($view->events);
+        $view = $view::instance(); // TODO: mach das bitte nöd
+        $this->eh->add($view->events); // TODO: da bitte statisch zugreifen
         // tried to load subview as main view.
-        if($view->parent !== false)
+        if($view->parent !== false) // TODO: das au statisch
           continue;
-        if($view->default) {
+        if($view->default) { // TODO: statisch
             $defaultView = $view;
         }
-        if($load_main && $view->default || $base_view == $view->name()) {
+        if(($load_main && $view->default) || $base_view == $view->name()) { // TODO: statisch
           $requiredView = $view;
           break;
         }
@@ -267,18 +267,20 @@ class App {
     }
 
     public function addFootprint($uri_components) {
-      if(!isset($_SESSION['footprint'])) {
-        $_SESSION['footprint'] = array();
-      }
-      // if the site is the same as before, don't set print
-      if(count($_SESSION['footprint']) > 0)
-        if($_SESSION['footprint'][count($_SESSION['footprint'])-1] == $uri_components)
-          return;
+        if (!isset($_SESSION['footprint'])) {
+            $_SESSION['footprint'] = array();
+        }
+        $size = count($_SESSION['footprint']);
+        // if the site is the same as before, don't set print
+        if (isset($_SESSION['footprint'][$size-1]) && 
+            $_SESSION['footprint'][$size-1] == $uri_components) {
+            return;
+        }
 
-      while(count($_SESSION['footprint']) > FOOTPRINT_SIZE) {
-        array_shift($_SESSION['footprint']);
-      }
-      array_push($_SESSION['footprint'], $uri_components);
+        while (count($_SESSION['footprint']) > FOOTPRINT_SIZE) {
+            array_shift($_SESSION['footprint']);
+        }
+        array_push($_SESSION['footprint'], $uri_components);
     }
 
     public function addMessage($message, $type="warning") {

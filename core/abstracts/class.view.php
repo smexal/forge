@@ -70,39 +70,41 @@ abstract class View implements IView {
     }
 
     public function getSubview($uri_components, $parent) {
-      $vm = App::instance()->vm;
-      if (!is_array($uri_components)) {
-        $subview = $uri_components;
-      } else {
-        if (count($uri_components) == 0) {
-          $subview = '';
+        $vm = App::instance()->vm;
+        if (!is_array($uri_components)) {
+            $subview = $uri_components;
         } else {
-          $this->app->setUri($uri_components);
-          $subview = $uri_components[0];
+            if (empty($uri_components)) {
+                $subview = '';
+            } else {
+                $this->app->setUri($uri_components);
+                $subview = $uri_components[0];
+            }
         }
-      }
-      $found = false;
-      $load_main_subview = $subview == '' ? true : false;
-      foreach ($vm->views as $view) {
-        $rc = new \ReflectionClass($view);
+        $found_view = null;
+        $load_main_subview = empty($subview);
+        foreach ($vm->views as $view) {
+            $rc = new \ReflectionClass($view);
 
-        if ($rc->isAbstract())
-          continue;
-        $view = $view::instance();
-        if ($load_main_subview && $view->default
-          || $subview == $view->name()
-          && $view->parent == $parent->name) {
-          $found = true;
-          break;
+            if ($rc->isAbstract()) {
+                continue;
+            }
+            $view = $view::instance(); // TODO mach es weg
+            if (($load_main_subview && $view->default)
+                || ($subview == $view->name()
+                && $view->parent == $parent->name)) { // TODO Statische Zugriffe
+                $found_view = $view;
+                break;
+            }
         }
-      }
-      if (!$found) {
-        Logger::error("View '".Utils::getUrl($uri_components)."' not found.");
-        App::instance()->redirect('404');
-      } else {
-        $parent->activeSubview = $view->name;
-        return $this->app->content($view);
-      }
+        if (is_null($found_view)) {
+            Logger::error("View '".Utils::getUrl($uri_components)."' not found.");
+            App::instance()->redirect('404');
+        } else {
+            // TODO instanziere view
+            $parent->activeSubview = $found_view->name; // TODO Statisch Zugriff
+            return $this->app->content($found_view);
+        }
     }
 
 
