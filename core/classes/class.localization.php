@@ -4,6 +4,7 @@ namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
+use \Forge\Core\App\APIKeys;
 
 use function \Forge\Core\Classes\i;
 
@@ -340,6 +341,40 @@ class Localization {
             }
         }
         return $files;
+    }
+
+    public static function apiQuery($query, $format = 'json', $key=false) {
+        if(($key && APIKeys::allowed("manage.locales", $key)) || Auth::allowed('manage.locales')) {
+            if($format == 'xml') {
+                return self::xmlApiQuery($query, $key);
+            }
+            if($format == 'json') {
+                // TODO: make this json shizzle
+            }
+        }
+    }
+
+    public static function xmlApiQuery($query, $key) {
+        $xml = new \DOMDocument('1.0', 'utf-8');
+        $root = $xml->createElement("StringTranslations");
+        foreach(self::getAllStrings(array('domain', 'asc')) as $string) {
+            $xmlString = $xml->createElement("String");
+            $xmlString->setAttribute('original', $string['string']);
+            $xmlString->setAttribute('domain', $string['domain']);
+            $xmlString->setAttribute('in-use', $string['used']);
+            foreach(self::getActiveLanguages() as $lang) {
+                $translation = self::stringTranslation($string['string'], $string['domain'], $lang['code']);
+                
+                $xmlTranslation = $xml->createElement('Translation');
+                $xmlTranslation->setAttribute('lang', $lang['code']);
+                $xmlTranslation->appendChild($xml->createTextNode($translation));
+                $xmlString->appendChild($xmlTranslation);
+
+            }
+            $root->appendChild( $xmlString );
+        }
+        $xml->appendChild( $root );
+        return $xml->saveXML();
     }
 }
 

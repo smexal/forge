@@ -13,6 +13,9 @@ class Fields {
             case 'text':
                 return self::text($args, $value);
                 break;
+            case 'number':
+                return self::number($args, $value);
+                break;                
             case 'select':
                 return self::select($args, $value);
                 break;

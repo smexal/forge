@@ -40,7 +40,7 @@ class API {
         if (! array_key_exists($query, $this->calls)) {
             $this->calls[$query] = $callable;
         } else {
-            Logger::debug('Tryed to add \"'.$query.'\" to the api, which does already exist.');
+            Logger::debug('Tried to add \"'.$query.'\" to the api, which does already exist.');
         }
     }
 
