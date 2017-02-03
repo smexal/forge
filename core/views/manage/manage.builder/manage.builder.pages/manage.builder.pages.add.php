@@ -7,6 +7,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Utils;
 use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Logger;
 
 use function \Forge\Core\Classes\i;
 
@@ -32,6 +33,7 @@ class ManageAddPage extends View {
       $parent = 0;
       if($data['parent'])
         $parent = $data['parent'];
+
       $this->message = Pages::create($data['new_name'], $data['parent']);
 
       if($this->message) {

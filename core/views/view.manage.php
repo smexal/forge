@@ -12,7 +12,7 @@ use \Forge\Core\Classes\Utils;
 use function \Forge\Core\Classes\i;
 
 class Manager extends View {
-    private $navigation = false;
+    public $allowNavigation = true;
     public $name = 'manage';
     public $permission = 'manage';
     public $permissions = array(

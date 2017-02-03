@@ -54,22 +54,34 @@ class Pages {
      * @return String as status message or false if everything is okay ;-O
      */
     public static function create($name, $parent) {
-
         if(! Auth::allowed("manage.builder.pages.add")) {
             return;
         }
+
         $nameStatus = self::checkName($name);
         if($nameStatus !== true) {
           return $nameStatus;
         }
         $app = App::instance();
 
+        $sequence = self::getNextPageSequence();
+
         $data = array(
             'name' => $name,
-            'parent' => $parent
+            'parent' => $parent,
+            'sequence' => $sequence,
+            'creator' => App::instance()->user->get('id')
         );
         $app->db->insert('pages', $data);
+        Logger::debug($data);
         return false;
+    }
+
+    public static function getNextPageSequence() {
+        $db = App::instance()->db;
+        $db->orderBy('sequence', 'desc');
+        $topSeq = $db->getOne('pages');
+        return $topSeq['sequence']+1;
     }
 
     public static function save($data) {
