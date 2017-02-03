@@ -1,6 +1,15 @@
 <?php
 
-class ManagePagesEditElement extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class ManagePagesEditElement extends View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.edit';
     public $name = 'edit-element';
@@ -27,7 +36,8 @@ class ManagePagesEditElement extends AbstractView {
         $element = $this->app->com->instance($parts[0]);
         $fields = array();
         foreach($element->settings() as $setting) {
-            array_push($fields, Fields::$setting['type']($setting));
+            $call = $setting['type'];
+            array_push($fields, Fields::$call($setting));
         }
         // submit button
         array_push($fields, Fields::button(i('Save')));

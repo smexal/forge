@@ -1,9 +1,12 @@
 <?php
 
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+
 include("config.php");
 include("core/loader.php");
 
-$loader = Loader::instance();
+$loader = \Forge\Loader::instance();
 
 Auth::session();
 // all php loaded; instance the app

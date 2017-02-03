@@ -1,6 +1,20 @@
 <?php
 
-class PageBuilderManagement extends AbstractView {
+/* Help the translation scanner
+* i('draft')
+* i('published')
+*/
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Page;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class PageBuilderManagement extends View {
     public $parent = 'manage';
     public $name = 'pages';
     public $permission = 'manage.builder.pages';
@@ -11,31 +25,31 @@ class PageBuilderManagement extends AbstractView {
     );
 
     public function content($uri=array()) {
-      if(count($uri) == 0) {
+      if (count($uri) == 0) {
         return $this->defaultContent();
       }
-      if(count($uri) > 0 ) {
+      if (count($uri) > 0 ) {
         switch ($uri[0]) {
           case 'add':
-            if(Auth::allowed($this->permissions[0])) {
+            if (Auth::allowed($this->permissions[0])) {
               return $this->getSubview($uri, $this);
             }
             break;
           case 'delete':
-            if(Auth::allowed($this->permissions[1])) {
+            if (Auth::allowed($this->permissions[1])) {
               return $this->getSubview($uri, $this);
             }
             break;
           case 'edit':
-            if(Auth::allowed($this->permission[2])) {
+            if (Auth::allowed($this->permission[2])) {
               return $this->getSubview($uri, $this);
             }
           case 'edit-element':
-              if(Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permission[2])) {
                 return $this->getSubview($uri, $this);
               }
           case 'remove-element':
-              if(Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permission[2])) {
                 return $this->getSubview($uri, $this);
               }
           default:
@@ -46,8 +60,8 @@ class PageBuilderManagement extends AbstractView {
 
     private function defaultContent() {
       return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
-          'title' => i('Pages'),
-          'content' => $this->pageTable(),
+          'title' => i('Page Management', 'core'),
+          'content' => $this->draggableList(),
           'global_actions' => $this->getGlobalActions()
       ));
     }
@@ -55,59 +69,55 @@ class PageBuilderManagement extends AbstractView {
     private function getGlobalActions() {
       $return = '';
       // allowed to add pages?
-      if(Auth::allowed($this->permissions[1])) {
+      if (Auth::allowed($this->permissions[1])) {
         $return.= Utils::overlayButton(Utils::getUrl(array("manage" , "pages", "add")), i('Add new page', 'core'));
       }
       return $return;
     }
 
-    private function pageTable() {
-      return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", array(
-          'id' => "pagesTable",
-          'th' => array(
-              Utils::tableCell(i('Name')),
-              Utils::tableCell(i('Author')),
-              Utils::tableCell(i('last modified')),
-              Utils::tableCell(i('status')),
-              Utils::tableCell(i('Actions'))
-          ),
-          'td' => $this->getPageRows()
+    private function draggableList() {
+      return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "dragsort", array(
+        'callback' => Utils::getUrl(array("api", "pages", "update-order")),
+        'items' => $this->getPageItems()
       ));
     }
 
-    private function getPageRows($parent=0, $level=0) {
-      $rows = array();
+    private function getPageItems($parent = 0, $level = 0) {
+      $return = array();
       $pages = new Pages();
-      $items = '';
-      $indent = '';
-      for($x=0;$x<$level;$x++) {
-        $indent.='&nbsp;&nbsp;';
-      }
-      if($level > 0) {
-        $indent.="&minus;&nbsp;";
-      }
       foreach($pages->get($parent) as $p) {
         $page = new Page($p['id']);
-        $link = $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
-            "href" => Utils::getUrl(array("manage", "pages", "edit", $page->id)),
-            "name" => $page->name
-        ));
-        /* Help the translation scanner
-         * i('draft')
-         * i('published')
-         */
-
-        $author = $page->author();
-        array_push($rows, array(
-          Utils::tableCell($indent.$link),
-          Utils::tableCell($author->get('username')),
-          Utils::tableCell(Utils::dateFormat($page->modified)),
-          Utils::tableCell(i($page->status())),
-          Utils::tableCell($this->actions($page->id))
-        ));
-        $rows = array_merge($rows, $this->getPageRows($page->id, $level+1));
+        $return[] = array(
+          'level' => $level,
+          'id' => $page->id,
+          'content' => $this->getPageListContent($page)
+        );
+        $return = array_merge($return, $this->getPageItems($page->id, $level+1));
       }
-      return $rows;
+      return $return;
+    }
+
+    private function getPageListContent($page) {
+      return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "listcontent", [
+        'elements' => [
+          [
+            'top' => $page->status(),
+            'main' => '<a href="'.Utils::getUrl(array("manage", "pages", "edit", $page->id)).'">'.$page->name.'</a>'
+          ],
+          [
+            'top' => i('Author', 'core'),
+            'main' => $page->author()->get('username')
+          ],
+          [
+            'top' => i('Last modified', 'core'),
+            'main' => $page->lastModified()
+          ],
+          [
+            'top' => false,
+            'main' => $this->actions($page->id)
+          ]
+        ]
+      ]);
     }
 
     private function actions($id) {
@@ -120,7 +130,7 @@ class PageBuilderManagement extends AbstractView {
             "confirm" => false
         )
       );
-      if(Auth::allowed($this->permissions[0])) {
+      if (Auth::allowed($this->permissions[0])) {
         array_push($actions, array(
             "url" => Utils::getUrl(array("manage", "pages", "delete", $id)),
             "icon" => "remove",

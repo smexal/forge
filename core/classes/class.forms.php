@@ -1,5 +1,10 @@
 <?php
 
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+
+
 class Form {
     private $content = array();
     private $app = null;
@@ -11,6 +16,7 @@ class Form {
     private $multilanguage = false;
 
     public function __construct($action=false) {
+        Logger::warn('Would you kindly? Use the friggin Fields!', true);
         if(is_null($this->app)) {
             $this->app = App::instance();
         }
@@ -86,9 +92,9 @@ class Form {
 
     public function tags($name, $id, $label, $values=false, $getter=false, $multiple=true) {
       if($getter) {
-        if(!is_array($getter) 
-            || ! array_key_exists("value", $getter) 
-            || ! array_key_exists("name", $getter) 
+        if(!is_array($getter)
+            || ! array_key_exists("value", $getter)
+            || ! array_key_exists("name", $getter)
             || ! array_key_exists("url", $getter)) {
            throw new Exception("Invalid getter given. value, name and url required in assoc array.");
         }

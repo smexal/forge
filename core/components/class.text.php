@@ -1,5 +1,12 @@
 <?php
 
+namespace Forge\Core\Components;
+
+use \Forge\Core\Abstracts\Component;
+use \Forge\Core\App\App;
+
+use function \Forge\Core\Classes\i;
+
 class ComponentText extends Component {
     public $settings = array();
 

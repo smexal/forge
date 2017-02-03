@@ -1,57 +1,83 @@
-<div class="maxed ajax-reload-container" id="builder-content">
-    <div class="row page-header">
-        <div class="col-lg-9">
-            <a class="back" href="{$backurl}">{$backname}</a>
-            <h1>{$title}</h1>
-        </div>
-        <div class="col-lg-3 align-right">
-            <a href="{$saveurl}" data-form="page-form" class="ajax form btn btn-primary btn-sm">{$savetext}</a>
-        </div>
-    </div>
-    <form method="post" action="" id="page-form">
-        <input type="hidden" name="itemid" value="{$itemid}">
-        <input type="hidden" name="language" value="{$lang}">
-        <div class="row">
-            <div class="col-lg-9">
-                {$panel_left}
-                {if="$new_url"}
-                <div class="builder">
-                    <div class="container">
-                        <!-- display existing elements -->
-                        {if="$elements"}
-                        <div class="elements">
-                        {loop="$elements"}
-                            <div class="element {$value.type}" data-id="{$value.id}">
-                                <div class="self">
-                                    <h4>{$value.name}</h4>
-                                    <div class="actions">
-                                        <a href="{$value.edit.link}" class="ajax slidein">{$value.edit.name}</a>
-                                        <a href="{$value.remove.link}" class="ajax slidein">{$value.remove.name}</a>
-                                    </div>
-                                </div>
-                                {if="$value.container"}
-                                <div class="content inner">
-                                    {$value.content}
-                                </div>
-                                {/if}
-                            </div>
-                        {/loop}
-                        </div>
-                        {/if}
-                        <!-- add new item button -->
-                        <a href="{$new_url}" class="add ajax slidein">
-                            <span class="glyphicon glyphicon-plus"></span>
+<div class="ajax-reload-container" id="builder-content">
+    <div class="head-panel">
+        <div class="heading-row page-header maxed">
+            <div class="col-lg-12">
+                <a class="back" href="{$backurl}">{$backname}</a>
+                <h1>{$title}</h1>
+                <div class="actions">
+                    {if="!$subview"}
+                        <a href="{$saveurl}" data-form="page-form" class="ajax form btn btn-primary btn-sm">{$savetext}</a>
+                    {/if}
+                </div>
+                {if="$subnavigation"}
+                <div class="subnavigation">
+                    <a href="{$subnavigation_root}"{if="!$subview_name"} class="active"{/if}>{$general_name}</a>
+                    {loop="$subnavigation"}
+                        <a href="{$subnavigation_root}/{$value.url}"
+                            {if="$subview_name==$value.url"}class="active"{/if}>
+                        {$value.title}
                         </a>
+                    {/loop}
+                    <div class="subactions">
+                        {$subview_actions}
                     </div>
                 </div>
                 {/if}
-                {if="$custom"}
-                    {$custom}
-                {/if}
-            </div>
-            <div class="col-lg-3">
-                {$panel_right}
             </div>
         </div>
-    </form>
+    </div>
+    {if="$subview"}
+    <div class="row maxed">
+        <div class="col-lg-12">
+            {$subview}
+        </div>
+    </div>
+    {else}
+        <form method="post" action="" id="page-form">
+            <input type="hidden" name="itemid" value="{$itemid}">
+            <input type="hidden" name="language" value="{$lang}">
+            <div class="row maxed">
+                <div class="col-lg-9">
+                    {$panel_left}
+                    {if="$new_url"}
+                    <div class="builder">
+                        <div class="container">
+                            <!-- display existing elements -->
+                            {if="$elements"}
+                            <div class="elements">
+                            {loop="$elements"}
+                                <div class="element {$value.type}" data-id="{$value.id}">
+                                    <div class="self">
+                                        <h4>{$value.name}</h4>
+                                        <div class="actions">
+                                            <a href="{$value.edit.link}" class="ajax slidein">{$value.edit.name}</a>
+                                            <a href="{$value.remove.link}" class="ajax slidein">{$value.remove.name}</a>
+                                        </div>
+                                    </div>
+                                    {if="$value.container"}
+                                    <div class="content inner">
+                                        {$value.content}
+                                    </div>
+                                    {/if}
+                                </div>
+                            {/loop}
+                            </div>
+                            {/if}
+                            <!-- add new item button -->
+                            <a href="{$new_url}" class="add ajax slidein">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    {/if}
+                    {if="$custom"}
+                        {$custom}
+                    {/if}
+                </div>
+                <div class="col-lg-3">
+                    {$panel_right}
+                </div>
+            </div>
+        </form>
+    {/if}
 </div>

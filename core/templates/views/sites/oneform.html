@@ -1,35 +1,64 @@
-<div class="maxed ajax-reload-container">
+<div class="ajax-reload-container">
     <form method="post" action="{$action}" class="ajax" data-target="">
         <input type="hidden" name="event" value="{$event}">
-        <div class="row heading-row page-header">
-            <div class="col-lg-8"><h1>{$title}</h1></div>
-            <div class="col-lg-4 align-right">{$global_actions}
+        <div class="head-panel">
+            <div class="row heading-row page-header maxed">
+                <div class="col-lg-12">
+                    <h1>{$title}</h1>
+                    {if="$subnavigation"}
+                    <div class="subnavigation">
+                        <a href="{$subnavigation_root}"{if="!$subview_name"} class="active"{/if}>{$general_name}</a>
+                        {loop="$subnavigation"}
+                            <a href="{$subnavigation_root}/{$value.url}"
+                                {if="$subview_name==$value.url"}class="active"{/if}>
+                            {$value.title}
+                            </a>
+                        {/loop}
+                        <div class="subactions">
+                            {$subview_actions}
+                        </div>
+                    </div>
+                    {/if}
+                    {if="$tabs"}
+                    <div class="subnavigation">
+                        <ul class="nav nav-tabs">
+                        {loop="tabs"}
+                            <li class="{if="$value.active"}active{/if}">
+                                <a data-toggle="tab" href="#{$value.id}">{$value.title}</a>
+                            </li>
+                        {/loop}
+                        </ul>
+                    </div>
+                    {/if}
+                    {if="!$subview"}
+                    <div class="actions">
+                        {$global_actions}
+                    </div>
+                    {/if}
+                </div>
             </div>
         </div>
-        <div class="row">
-        <div class="col-lg-12">
-          <ul class="nav nav-tabs">
-          {loop="tabs"}
-              <li class="{if="$value.active"}active{/if}">
-                  <a data-toggle="tab" href="#{$value.id}">{$value.title}</a>
-              </li>
-          {/loop}
-          </ul>
+        {if="$subview"}
+        <div class="row maxed">
+          <div class="col-lg-12">
+            {$subview}
           </div>
         </div>
-        <div class="tab-content">
-        {loop="tab_content"}
-            <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
-              <div class="row">
-                <div class="col-lg-6">
-                  {$value.left}
-                </div>
-                <div class="col-lg-6">
-                  {$value.right}
+        {else}
+          <div class="row maxed{if="$tabs"} tab-content{/if}">
+          {loop="tab_content"}
+              <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
+                <div class="row">
+                  <div class="col-lg-6">
+                    {$value.left}
+                  </div>
+                  <div class="col-lg-6">
+                    {$value.right}
+                  </div>
                 </div>
               </div>
-            </div>
+          {/if}
+          </div>
         {/if}
-        </div>
     </form>
 </div>

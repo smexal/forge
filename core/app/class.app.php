@@ -1,5 +1,11 @@
 <?php
 
+namespace Forge\Core\App;
+
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Utils;
+use \Forge\Loader;
+
 class App {
     public $db = null;
     public $eh = null;
@@ -33,7 +39,7 @@ class App {
 
     private function managers() {
       if(is_null($this->db)) {
-        $this->db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
       Auth::setSessionUser();
 
@@ -41,19 +47,20 @@ class App {
         $this->eh = EventHandler::instance();
       }
 
-      if(is_null($this->vm)) {
-        $this->vm = new ViewManager();
-      }
-
       if(is_null($this->mm)) {
         $this->mm = new ModuleManager();
       }
+
       if(is_null($this->tm)) {
           $this->tm = new ThemeManager();
       }
 
       // start all active modules
       $this->mm->start();
+
+      if(is_null($this->vm)) {
+          $this->vm = new ViewManager();
+      }
 
       // init theme
       if($this->tm->theme !== '') {
@@ -75,14 +82,13 @@ class App {
 
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
-      $base_view = $this->uri_components[0];
+
+      $base_view = '';
+      if (is_array($this->uri_components) && array_key_exists(0, $this->uri_components))
+        $base_view = $this->uri_components[0];
+
       $requiredView = false;
       $load_main = $base_view == '' ? true : false;
-
-      // loading all collections
-      foreach ($this->cm->collections as $collection) {
-        $collection = $collection::instance();
-      }
 
       Loader::instance()->manageStyles();
 
@@ -201,8 +207,8 @@ class App {
         "cache_dir"     => $template_dir."cache/",
         "path_replace"  => false
       );
-      RainTPL::configure( $config );
-      $tpl = new RainTPL();
+      \RainTPL::configure( $config );
+      $tpl = new \RainTPL();
       foreach($args as $key => $value)
         $tpl->assign($key, $value);
       return $tpl->draw($template_file, true);

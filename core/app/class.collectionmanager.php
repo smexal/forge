@@ -1,4 +1,6 @@
-<?
+<?php
+
+namespace Forge\Core\App;
 
 class CollectionManager {
   public $collections = null;
@@ -32,10 +34,9 @@ class CollectionManager {
     $classes = get_declared_classes();
     $implementsIModule = array();
     foreach($classes as $klass) {
-      $reflect = new ReflectionClass($klass);
-      if($reflect->implementsInterface('IDataCollection')) {
-        $rc = new ReflectionClass($klass);
-        if(! $rc->isAbstract())
+      $reflect = new \ReflectionClass($klass);
+      if($reflect->implementsInterface('Forge\Core\Interfaces\IDataCollection')) {
+        if(! $reflect->isAbstract())
           $implementsIModule[] = $klass;
       }
     }

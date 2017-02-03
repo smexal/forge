@@ -1,4 +1,11 @@
 <?php
+
+namespace Forge;
+
+use \Forge\Core\Classes\Settings;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Utils;
+
 /*
     This Class is here to provide loader functionalities
     for various ressource e.g. classes or
@@ -22,6 +29,7 @@ class Loader {
     public function manageStyles() {
       // required styles
       $this->addStyle("core/css/externals/bootstrap.core.min.css", false, false);
+      $this->addStyle("core/css/externals/bootstrap-datetimepicker.min.css", false, false);
       $this->addStyle("core/css/externals/tooltipster.bundle.min.css", false, false);
 
       // admin styles
@@ -41,10 +49,10 @@ class Loader {
     }
 
     public function setLessVariables() {
-      if(!$this->lessVariablesSet) {
+      if (!$this->lessVariablesSet) {
         $prim = '#4194e1';
         $set = Settings::get('primary_color');
-        if($set) {
+        if ($set) {
           $prim = $set;
         }
         $this->lessc->setVariables(array(
@@ -59,8 +67,8 @@ class Loader {
 
     // gets called on app initialization
     public function prepare() {
-        if(is_null($this->lessc)) {
-            $this->lessc = new lessc;
+        if (is_null($this->lessc)) {
+            $this->lessc = new \lessc;
         }
     }
 
@@ -68,12 +76,13 @@ class Loader {
         $this->ressources();
         $this->loadCoreScripts();
         $this->loadInterfaces();
+        $this->loadTraits();
         $this->loadAbstracts();
         $this->loadClasses();
         $this->loadModules();
-        $this->loadViews();
+        $this->loadApp();$this->loadViews();
         $this->loadComponents();
-        $this->loadApp();
+
     }
 
     private function ressources() {
@@ -89,7 +98,7 @@ class Loader {
     }
 
     public function addScript($script, $absolute=false) {
-        if(!$absolute)
+        if (!$absolute)
             $script = WWW_ROOT.$script;
         array_push($this->scripts, $script);
     }
@@ -99,14 +108,14 @@ class Loader {
 
     public function addStyle($style, $absolute=false, $viewCondition = false) {
         $this->setLessVariables();
-        if(!$absolute && ! strstr($style, ".less")) {
+        if (!$absolute && ! strstr($style, ".less")) {
           $style = WWW_ROOT.$style;
         }
-        if(!$absolute && strstr($style, ".less")) {
+        if (!$absolute && strstr($style, ".less")) {
           $style = $this->compileLess($style);
         }
-        if($viewCondition) {
-          if(in_array($viewCondition, Utils::getUriComponents())) {
+        if ($viewCondition) {
+          if (in_array($viewCondition, Utils::getUriComponents())) {
             array_push($this->styles, $style);
           }
         } else {
@@ -120,16 +129,16 @@ class Loader {
 
     public function compileLess($less) {
         $less_path = DOC_ROOT.$less;
-        if(file_exists($less)) {
+        if (file_exists($less)) {
             $pathinfo = pathinfo($less_path);
             $base_uri = str_replace($pathinfo['basename'], "", $less);
             $css_file = str_replace(".less", ".css", DOC_ROOT."core/css/compiled/".$pathinfo['basename']);
             $run = false;
-            if(file_exists($css_file) && filemtime($less_path) > filemtime($css_file))
+            if (file_exists($css_file) && filemtime($less_path) > filemtime($css_file))
                 $run = true;
-            if(!file_exists($css_file))
+            if (!file_exists($css_file))
                 $run = true;
-            if($run) {
+            if ($run) {
                 if ($handle = fopen($css_file, "w")) {
                     $content = $this->lessc->compileFile($less_path);
                     fwrite($handle, $content);
@@ -154,6 +163,10 @@ class Loader {
       $this->loadDirectory(DOC_ROOT."modules/", false, "module.php");
     }
 
+    public function loadTraits() {
+      $this->loadDirectory(CORE_ROOT."traits/");
+    }
+
     public function loadAbstracts() {
       $this->loadDirectory(CORE_ROOT."abstracts/");
     }
@@ -176,11 +189,14 @@ class Loader {
 
     private function loadCoreScripts() {
       $this->addScript("core/scripts/externals/jquery.js");
+      $this->addScript("core/scripts/externals/jquery-ui.js");
       $this->addScript("core/scripts/externals/bootstrap.js");
       $this->addScript("core/scripts/externals/typeahead.js");
       $this->addScript("core/scripts/externals/bootstrap-tagsinput.min.js");
       $this->addScript("core/scripts/externals/tooltipster.bundle.min.js");
       $this->addScript("core/scripts/externals/tinymce/tinymce.min.js");
+      $this->addScript("core/scripts/externals/moment-with-locales.min.js");
+      $this->addScript("core/scripts/externals/bootstrap-datetimepicker.min.js");
       $this->addScript("core/scripts/externals/dropzone.js");
       $this->addScript("core/scripts/dropzone.js");
       $this->addScript("core/scripts/tinymce.js");
@@ -189,31 +205,36 @@ class Loader {
       $this->addScript("core/scripts/forms.js");
       $this->addScript("core/scripts/messages.js");
       $this->addScript("core/scripts/overlay.js");
+      $this->addScript("core/scripts/dragsort.js");
     }
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {
-      if(file_exists($directory)) {
-        $dir = new DirectoryIterator($directory);
+      if (file_exists($directory)) {
+        $dir = new \DirectoryIterator($directory);
         foreach ($dir as $fileinfo) {
-            if (!$fileinfo->isDot() &&  strstr($fileinfo->getFilename(), ".php")) {
-                if(! $filefilter || $filefilter == $fileinfo->getFilename()) {
-                  if(!$namepattern) {
+            if ($fileinfo->isDot()) {
+              continue;
+            }
+
+            if (strstr($fileinfo->getFilename(), ".php")) {
+                if (! $filefilter || $filefilter == $fileinfo->getFilename()) {
+                  if (!$namepattern) {
                     $f = $directory.$fileinfo->getFilename();
                     require_once($f);
                   } else {
                     foreach ($namepattern as $pattern) {
                       $fileparts = explode(".", $fileinfo->getFilename());
-                      if(in_array($pattern, $fileparts)) {
+                      if (in_array($pattern, $fileparts)) {
                         require_once($directory.$fileinfo->getFilename());
                         break;
                       }
                     }
                   }
                 }
-            } elseif(!$fileinfo->isDot() && $fileinfo->isDir()) {
+            } elseif ($fileinfo->isDir()) {
               // check if the subdirectory is part of the queried url. (no manage views without manage queried)
-              if($inquery) {
-                if(in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
+              if ($inquery) {
+                if (in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
                   $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
                 }
               } else {

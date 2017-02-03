@@ -1,4 +1,12 @@
 <?php
+
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+
+use function \Forge\Core\Classes\i;
+
 /**
 * This class is made for the page handling in forge.
 * Delivers the page objects, searches for pages and knowns what fields
@@ -68,13 +76,18 @@ class Pages {
           }
 
           foreach($pages->fields() as $field) {
-              if(! array_key_exists($field['key'], $data)) {
-                  continue;
-              }
               if($field['multilang'] == false) {
                   $lang = false;
               } else {
                   $lang = $data['language'];
+              }
+              
+              if($field['type'] == 'checkbox' && ! array_key_exists($field['key'], $data)) {
+                  self::savefield($page, $field['key'], '', $lang);
+              }
+
+              if(! array_key_exists($field['key'], $data)) {
+                  continue;
               }
               self::savefield($page, $field['key'], $data[$field['key']], $lang);
           }
@@ -85,6 +98,20 @@ class Pages {
 
   public static function savefield($page, $key, $value, $lang) {
       $page->updateMeta($key, $value, $lang);
+  }
+
+  public static function updateOrder($order) {
+      if(! Auth::allowed("manage.builder.pages.edit")) {
+          return;
+      }
+      $db = App::instance()->db;
+      foreach($order as $page) {
+          $db->where('id', $page['id']);
+          $db->update("pages", array(
+              'sequence' => $page['order'],
+              'parent' => $page['parent']
+          ));
+      }
   }
 
   private static function checkName($name) {
@@ -101,7 +128,7 @@ class Pages {
   }
 
   /*
-   * This method deletes a page
+   * This method deletes a page.
    * really. DELETES.
    */
   public function delete($id) {
@@ -216,6 +243,15 @@ class Pages {
                 'order' => 90,
                 'position' => 'right',
                 'hint' => i('If this checkbox is set, the theme knows, that you want to move this content up and below the navigation.')
+            ),
+            array(
+                'key' => 'subnavigation',
+                'label' => i('Hide Subnavigation'),
+                'multilang' => true,
+                'type' => 'checkbox',
+                'order' => 100,
+                'position' => 'right',
+                'hint' => i('If this checkbox is set, the subnavigation will NOT be displayed.')
             )
         );
         return $fields;

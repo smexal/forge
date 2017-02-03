@@ -1,0 +1,8 @@
+<div class="list-content">
+    {loop="$elements"}
+        <div class="element">
+            {if="$value.top"}<small>{$value.top}</small>{/if}
+            <p>{$value.main}</p>
+        </div>
+    {/loop}
+</div>

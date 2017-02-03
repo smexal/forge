@@ -1,5 +1,10 @@
 <?php
 
+namespace Forge\Core\App;
+
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Settings;
+
 class ThemeManager {
     public $active = '';
     public $theme = '';
@@ -20,11 +25,10 @@ class ThemeManager {
     private function instance() {
         $classes = get_declared_classes();
         $implementsIModule = array();
-        foreach($classes as $klass) {
-            $reflect = new ReflectionClass($klass);
-            if($reflect->implementsInterface('ITheme')) {
-                $rc = new ReflectionClass($klass);
-                if(! $rc->isAbstract()) {
+        foreach ($classes as $klass) {
+            $reflect = new \ReflectionClass($klass);
+            if ($reflect->implementsInterface('Forge\Core\Interfaces\ITheme')) {
+                if (! $reflect->isAbstract()) {
                     $this->theme = $klass::instance();
                     return true;
                 }
@@ -34,9 +38,14 @@ class ThemeManager {
     }
 
     private function loadTheme() {
-        if($this->active && $this->active != '') {
+        if (is_null($this->active)) {
+            // there is no theme, just take the first one you can find...
+            $themes = $this->getThemes();
+            $this->active = reset($themes);
+        }
+        if ($this->active && $this->active != '') {
             $theme_root = $this->theme_directory.$this->active."/theme.php";
-            if(file_exists($theme_root)) {
+            if (file_exists($theme_root)) {
                 require_once($theme_root);
             } else {
                 Logger::error('Could not load theme `'.$this->active.'`, theme.php not found in `'.$theme_root.'`');
@@ -47,8 +56,8 @@ class ThemeManager {
     public function getThemes() {
         $dir = scandir($this->theme_directory);
         $valid_themes = array();
-        foreach($dir as $theme) {
-            if($this->isValid($this->theme_directory, $theme)) {
+        foreach ($dir as $theme) {
+            if ($this->isValid($this->theme_directory, $theme)) {
                 $valid_themes[$theme] = $theme;
             }
         }
@@ -56,10 +65,10 @@ class ThemeManager {
     }
 
     private function isValid($path, $name) {
-        if($name == '.' || $name == '..') {
+        if ($name == '.' || $name == '..') {
             return false;
         }
-        if(file_exists($path.$name."/theme.php")) {
+        if (file_exists($path.$name."/theme.php")) {
             return true;
         }
         return false;

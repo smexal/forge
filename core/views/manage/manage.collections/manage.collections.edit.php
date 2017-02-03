@@ -1,4 +1,15 @@
 <?php
+
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
 /**
  * View for editing and building collections, content and metadata.
  *
@@ -6,7 +17,7 @@
  * @author SMEXAL
  * @version 0.1
  */
-class ManageCollectionsEdit extends AbstractView {
+class ManageCollectionsEdit extends View {
     public $parent = 'collections';
     public $name = 'edit';
     public $permission = 'manage.collections.edit';
@@ -26,23 +37,31 @@ class ManageCollectionsEdit extends AbstractView {
         $this->collection = $manager->getCollection($full_uri[2]);
         $this->item = $this->collection->getItem($this->uri[1]);
 
-        if($full_uri[count($full_uri)-1] == 'save') {
+        $subview = $full_uri[count($full_uri)-1];
+        if($subview == 'save') {
             $this->collection->save($_POST);
 
             $redir = Utils::getUriComponents();
             array_pop($redir);
             $this->app->redirect($redir);
         }
-
+        if(strlen($subview) > 0 && ! is_numeric($subview)) {
+            return $this->defaultContent($subview);
+        }
         return $this->defaultContent();
     }
 
-    private function defaultContent() {
+    private function defaultContent($subview = false) {
+        if($subview) {
+            $subviewContent = $this->collection->getSubview($subview, $this->item->id);
+            $subviewActions = $this->collection->getSubviewActions($subview, $this->item->id);
+        }
+
         return $this->app->render(CORE_TEMPLATE_DIR."views/", "builder", array(
             'title' => sprintf(
-                i('Edit %1$s `%2$s`'),
+                i('Edit %1$s %2$s'),
                 $this->collection->preferences['single-item'],
-                $this->item->getName()) . ' ['.strtoupper($this->lang).']',
+                '<span class="highlight">'.$this->item->getName()).'</span>',
             'backurl' => Utils::getUrl(array('manage', 'collections', $this->collection->name)),
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),
@@ -53,7 +72,15 @@ class ManageCollectionsEdit extends AbstractView {
             'lang' => $this->lang,
             'new_url' => false,
             'elements' => false,
-            'custom' => $this->collection->customEditContent($this->item->id)
+            'custom' => $this->collection->customEditContent($this->item->id),
+            'general_name' => i('General', 'core'),
+            'subview_name' => $subview,
+            'subview_actions' => $subview ? $subviewActions : $subview,
+            'subview' => $subview ? $subviewContent : $subview,
+            'subnavigation_root' => Utils::getUrl(
+                array('manage', 'collections', $this->collection->name, 'edit', $this->item->id)
+            ),
+            'subnavigation' => $this->collection->getSubnavigation()
         ));
     }
 

@@ -1,4 +1,11 @@
 <?php
+
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+
+use function \Forge\Core\Classes\i;
+
 class Fields {
 
     public static function build($args, $value='') {
@@ -6,6 +13,9 @@ class Fields {
             case 'text':
                 return self::text($args, $value);
                 break;
+            case 'number':
+                return self::number($args, $value);
+                break;                
             case 'select':
                 return self::select($args, $value);
                 break;
@@ -27,10 +37,13 @@ class Fields {
             case 'image':
                 return self::image($args, $value);
                 break;
+            case 'file':
+                return self::file($args, $value);
+                break;
         }
     }
 
-    public static function linklist($args) {
+    public static function linklist($args, $value = '') {
         $return = App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'linklist', array(
             'title' => $args['label'],
             'links' => $args['links']
@@ -61,9 +74,12 @@ class Fields {
     }
 
     public static function text($args, $value='') {
-        if(array_key_exists('saved_value', $args)) {
+        if (array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
+        } else if (empty($value) && array_key_exists('value', $args)) {
+            $value = $args['value'];
         }
+
         if(! array_key_exists('hint', $args)) {
             $args['hint'] = '';
         }
@@ -91,10 +107,70 @@ class Fields {
         ));
     }
 
-    public static function checkbox($args, $value='') {
-        if(array_key_exists('saved_value', $args)) {
+    public static function email($args, $value='') {
+        return self::text($args, $value);
+    }
+
+    public static function url($args, $value='') {
+        return self::text($args, $value);
+    }
+
+    public static function tel($args, $value='') {
+        return self::text($args, $value);
+    }
+
+    public static function number($args, $value='') {
+        return self::text($args, $value);
+    }
+
+    public static function range($args, $value='') {
+        return self::text($args, $value);
+    }
+
+    public static function date($args, $value='') {
+        return self::datetime($args, $value);
+    }
+
+    public static function time($args, $value='') {
+        return self::datetime($args, $value);
+    }
+
+    public static function datetime($args, $value='') {
+        if (array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
+        } else if (empty($value) && array_key_exists('value', $args)) {
+            $value = $args['value'];
         }
+
+        if(! array_key_exists('hint', $args)) {
+            $args['hint'] = '';
+        }
+        if(! array_key_exists('error', $args)) {
+            $args['error'] = false;
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "datetime", array(
+            'name' => $args['key'],
+            'id' => $args['key'],
+            'label' => $args['label'],
+            'type' => $args['type'],
+            'hor' => false,
+            'value' => $value,
+            'hint' => $args['hint'],
+            'error' => $args['error']
+        ));
+    }
+
+    public static function color($args, $value='') {
+        return self::text($args, $value);
+    }
+
+    public static function checkbox($args, $value='') {
+        if (array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        } else if (empty($value) && array_key_exists('value', $args)) {
+            $value = $args['value'];
+        }
+
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
             'name' => $args['key'],
             'id' => $args['key'],
@@ -120,6 +196,22 @@ class Fields {
             'change_url' => Utils::getUrl(array('manage', 'media'), true, array('selection' => 1, 'target' => $args['key'])),
             'selected_image' => $media->getUrl(),
             'no_image' => i('No image selected'),
+            'value' => $value
+        ));
+    }
+
+    public static function file($args, $value='') {
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
+        $media = new Media($value);
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'fileselection', array(
+            'label' => $args['label'],
+            'name' => $args['key'],
+            'change_text' => i('Choose file'),
+            'change_url' => Utils::getUrl(array('manage', 'media'), true, array('selection' => 1, 'target' => $args['key'])),
+            'selected_image' => $media->title,
+            'no_file' => i('No file selected'),
             'value' => $value
         ));
     }
@@ -182,6 +274,7 @@ class Fields {
             'hint' => $args['hint'],
             'disabled' => false,
             'formats' => $formats,
+            'linklist' => Utils::getUrl(array( "api", "navigation-items"), true, array("format" => "json")),
             'css' => $css
         ));
     }

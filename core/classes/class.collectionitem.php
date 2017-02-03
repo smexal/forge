@@ -1,5 +1,11 @@
 <?php
 
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+
+use function \Forge\Core\Classes\i;
+
 class CollectionItem {
     public $id = null;
 
@@ -57,12 +63,15 @@ class CollectionItem {
         if(!$lang && $lang !== 0) {
             $lang = Localization::getCurrentLanguage();
         }
-        foreach($this->meta as $meta) {
-            if($meta['keyy'] == $key && $meta['lang'] == $lang) {
-                if(Utils::isJSON($meta['value'])) {
-                    return json_decode($meta['value']);
+        foreach ($this->meta as $meta) {
+            if ($meta['keyy'] == $key) {
+                if ($meta['lang'] != 0) {
+                    if ($lang !== false ? $lang === $meta['lang'] : $meta['lang'] == Localization::getCurrentLanguage()) {
+                        return Utils::maybeJSON($meta['value']);
+                    }
+                } else {
+                    return Utils::maybeJSON($meta['value']);
                 }
-                return $meta['value'];
             }
         }
         return false;
@@ -91,6 +100,7 @@ class CollectionItem {
 
     public function deleteMeta($key, $language) {
         $this->db->where('keyy', $key);
+        $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->delete('collection_meta');
     }

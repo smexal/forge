@@ -1,5 +1,14 @@
 <?php
 
+namespace Forge\Core\Components;
+
+use \Forge\Core\Abstracts\Component;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Media;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
 class ComponentRow extends Component {
     public $settings = array();
 
@@ -102,13 +111,12 @@ class ComponentRow extends Component {
             ));
             $no++;
         }
-        $bg = $prefs['row-background-image'];
+        $bg = isset($prefs['row-background-image']) ? $prefs['row-background-image'] : false;
         if(is_numeric($bg)) {
             $bg = new Media($bg);
             $bg = $bg->getUrl();
-        } else {
-            $bg = false;
         }
+
         return App::instance()->render(CORE_TEMPLATE_DIR."components/", "row", array(
             'rows' => $rows,
             'displaytype' => $prefs['row-display-type'],

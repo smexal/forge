@@ -2,20 +2,38 @@ var forge_tinymce = {
 
     init : function() {
         var url = $("textarea.tinymce").attr('data-style');
+        var link_url = $("textarea.tinymce").attr('data-link-list');
         var styles = false;
         if( typeof($("textarea.tinymce").attr('data-formats')) != 'undefined') {
             styles = jQuery.parseJSON($("textarea.tinymce").attr('data-formats'))
         }
+        /**
+         * Available Editor Controllers: https://www.tinymce.com/docs/advanced/editor-control-identifiers/
+         */
         tinymce.remove();
         tinymce.init({
             selector:'textarea.tinymce',
-            plugins: "autoresize",
+            toolbar: 'undo redo | styleselect | bold italic | link',
+            plugins: "autoresize link",
             menu: {
               edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
-              format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'}
+              format: {title: 'Format', items: 'bold italic link | formats | removeformat'},
+              table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'}
             },
             content_css: url,
-            style_formats: styles
+            style_formats: styles,
+            convert_urls : false,
+            link_list: function(success) {
+                $.ajax({
+                    method: 'GET',
+                    url: link_url
+                }).done(function(data) {
+                    $(data).each(function() {
+                        console.log($(this)[0].value);
+                    });
+                    success(data);
+                });
+            }
         });
     }
 };

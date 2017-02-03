@@ -1,0 +1,33 @@
+<div class="form-group {if="$hor"}row{/if}">
+    <label class='control-label{if="$hor"} col-lg-3{/if}{if="$noautocomplete"} readOnlyInput{/if}' for="{$id}">{$label}</label>
+    <div class="input-group">
+    {if="$hor"}
+        <div class="col-lg-9">
+    {/if}
+        <input class=" date form-control{if="$error"} has-error{/if}" id="{$id}" name="{$name}" type="{$type}"
+            {if="$value"}value="{$value}"{/if}>
+
+        {if="$type=='datetime'"}
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+        {/if}
+
+        {if="$error"}<small class="clearfix error-message">{$error}</small>{/if}
+        {if="$hint"}<small class="clearfix">{$hint}</small>{/if}
+    {if="$hor"}
+        </div>
+    {/if}
+    </div>
+</div>
+
+{if="$type=='datetime'"}
+ <script type="text/javascript">
+    $(function () {
+        $('#{$id}').datetimepicker({
+            locale: moment.locale("de"), // TODO: Current locale
+            calendarWeeks: true
+        });
+    });
+</script>
+{/if}

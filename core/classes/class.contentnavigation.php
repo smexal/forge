@@ -1,5 +1,9 @@
 <?php
 
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+
 class ContentNavigation {
     private $positions = array();
 
@@ -31,6 +35,49 @@ class ContentNavigation {
         $db->where('navigation_id', $id);
         $db->delete('navigation_items', $id);
         return false;
+    }
+
+    public static function getPossibleItems() {
+        $items = array();
+        $db = App::instance()->db;
+        foreach($db->get('pages') as $page) {
+            if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
+                $p = new Page($page['id']);
+                array_push($items, [
+                    'title' => $p->getTitle().' ('.i('Page', 'core').')',
+                    'value' => $p->getUrl()
+                ]);
+            } else {
+                $items['page##'.$page['id']] = $page['name'].' ('.i('Page').')';
+            }
+        }
+
+        foreach($db->get('collections') as $collection) {
+            if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
+                $c = new CollectionItem($collection['id']);
+                array_push($items, [
+                    'title' => $c->getName().' ('.i($collection['type']).')',
+                    'value' => $c->url()
+                ]);
+            } else {
+                $items[$collection['type'].'##'.$collection['id']] = $collection['name'].' ('.i($collection['type']).')';
+            }
+        }
+
+        foreach(App::instance()->vm->getNavigationViews() as $view) {
+            if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
+                array_push($items, [
+                    'title' => $view->title().' ('.i('View', 'core').')',
+                    'value' => $view->buildURL()
+                ]);
+            } else {
+                $items['view##'.$view->name] = i($view->name).' ('.i('View').')';
+            }
+        }
+        if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
+            return json_encode($items);
+        }
+        return $items;
     }
 
     public static function getById($id) {
@@ -136,7 +183,6 @@ class ContentNavigation {
             if(!$list) {
                 array_push($items, $item);
             } else {
-                $list.='<li class="item-'.$item['item_id'].'">';
                 if($item['item_type'] == 'page') {
                     $page = new Page($item['item_id']);
                     $link = $page->getUrl();
@@ -150,13 +196,20 @@ class ContentNavigation {
                             $link.='/'.$parts[1];
                         }
                     } else {
-                        Logger::debug('Could not find view'. $item['item_id']);
+                        Logger::debug('Could not find view: '. $item['item_id']);
                         $link = '#';
                     }
                 } else  {
                     $collectionItem = new CollectionItem($item['item_id']);
                     $link = $collectionItem->url();
                 }
+
+                if(0 === strpos(Utils::getCurrentUrl(), $link)) {
+                    $active = " active";
+                } else {
+                    $active = "";
+                }
+                $list.='<li class="item-'.$item['item_id'].$active.'">';
                 $list.='<a href="'.$link.'">';
                 $list.=$item['name'];
                 $list.='</a>';

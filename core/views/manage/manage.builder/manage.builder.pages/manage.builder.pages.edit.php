@@ -1,4 +1,16 @@
 <?php
+
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Page;
+use \Forge\Core\Classes\Pages;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
 /**
  * View for editing and building pages, content and metadata.
  *
@@ -6,7 +18,7 @@
  * @author SMEXAL
  * @version 0.1
  */
-class ManagePageEdit extends AbstractView {
+class ManagePageEdit extends View {
     public $parent = 'pages';
     public $name = 'edit';
     public $permission = 'manage.builder.pages.edit';
@@ -62,7 +74,7 @@ class ManagePageEdit extends AbstractView {
 
     private function defaultContent() {
         return $this->app->render(CORE_TEMPLATE_DIR."views/", "builder", array(
-            'title' => sprintf(i('Edit `%s`'), $this->page->name) . ' ['.strtoupper($this->lang).']',
+            'title' => sprintf(i('Edit %s'), '<span class="highlight">'.$this->page->name.'</span>'),
             'backurl' => Utils::getUrl(array('manage', 'pages')),
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),
@@ -73,7 +85,13 @@ class ManagePageEdit extends AbstractView {
             'lang' => $this->lang,
             'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true),
             'elements' => $this->getElements(0, $this->lang),
-            'custom' => ''
+            'custom' => '',
+            'general_name' => false,
+            'subview_name' => false,
+            'subview_actions' => false,
+            'subview' => false,
+            'subnavigation_root' => false,
+            'subnavigation' => false
         ));
     }
 

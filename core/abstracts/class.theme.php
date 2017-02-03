@@ -1,5 +1,14 @@
 <?php
 
+namespace Forge\Core\Abstracts;
+
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Utils;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Settings;
+use \Forge\Core\Interfaces\ITheme;
+
 abstract class Theme implements ITheme {
     protected static $instances = array();
     private $styles = array();
@@ -19,15 +28,15 @@ abstract class Theme implements ITheme {
         if(in_array($script, $this->load_scripts)) {
             return;
         }
-        if(!$absolute)
-            $script = $this->url().$script;
 
-        if($index || $index === 0) {
-            if(array_key_exists($index, $this->load_scripts)) {
-                $save = $this->load_scripts[$index];
+        if(!$absolute) {
+            $script = $this->url().$script;
+        }
+
+        if ($index || $index === 0) {
+            if (array_key_exists($index, $this->load_scripts)) {
+                array_splice($this->load_scripts, $index, 0, $script);
             }
-            $this->load_scripts[$index] = $script;
-            array_push($this->load_scripts, $save);
         } else {
             array_push($this->load_scripts, $script);
         }
@@ -47,7 +56,7 @@ abstract class Theme implements ITheme {
 
     public function init() {
         if(is_null($this->lessc)) {
-            $this->lessc = new lessc;
+            $this->lessc = new \lessc;
             $this->lessc->setVariables($this->lessVariables);
         }
     }
@@ -136,6 +145,13 @@ abstract class Theme implements ITheme {
         }
 
         $this->scripts();
+
+        // add required core scripts
+        $this->addScript(CORE_WWW_ROOT."scripts/externals/jquery.js", true, 0);
+        $this->addScript(CORE_WWW_ROOT."scripts/externals/bootstrap.js", true, 1);
+        $this->addScript(CORE_WWW_ROOT."scripts/helpers.js", true, 2);
+        $this->addScript(CORE_WWW_ROOT."scripts/externals/tooltipster.bundle.min.js", true, 3);
+
         $return = App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle(),
             'scripts' => $this->load_scripts,

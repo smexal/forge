@@ -1,8 +1,6 @@
-<li class="">
-  <div class="main">
-    {if="$link"}<a href="{$link.url}">{/if}
-    {$value}
-    {if="$link"}</a>{/if}
-  </div>
-  {if="$children"}{$children}{/if}
+<li class="{if="$link.active"}active{/if}">
+  {if="$link"}<a href="{$link.url}">{/if}
+  {$value}
+  {if="$link"}</a>{/if}
+  {if="$children"}<ul>{$children}</ul>{/if}
 </li>

@@ -1,5 +1,9 @@
 <?php
 
+namespace Forge\Core\App;
+
+use \Forge\Core\Classes\Media;
+
 class MediaManager {
 
     public function filterFileTypes($file) {
@@ -8,7 +12,7 @@ class MediaManager {
     }
 
     public function create($file) {
-        if(! Auth::allowed("manage.media")) {
+        if (! Auth::allowed("manage.media")) {
             return false;
         }
         $media = new Media();
@@ -20,8 +24,8 @@ class MediaManager {
         $db->orderBy('date', 'desc');
         $media = $db->get('media');
         $return = array();
-        foreach($media as $med) {
-            if($filter && $filter == 'images' && ! strstr($med['mime'], "image/")) {
+        foreach ($media as $med) {
+            if ($filter && $filter == 'images' && ! strstr($med['mime'], "image/")) {
                 continue;
             }
             array_push($return, new Media($med['id'], $med));

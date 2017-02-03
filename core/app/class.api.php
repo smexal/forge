@@ -1,5 +1,9 @@
 <?php
 
+namespace Forge\Core\App;
+
+use \Forge\Core\Classes\Logger;
+
 class API {
     static private $instance = null;
     private $calls = array();
@@ -11,9 +15,13 @@ class API {
         return self::$instance;
     }
 
+    public function exists($query) {
+        return array_key_exists($query, $this->calls);
+    }
+
     public function run($query, $subquery=array(), $post=array()) {
-        if(array_key_exists($query, $this->calls)) {
-            if(count($subquery) > 1) {
+        if (array_key_exists($query, $this->calls)) {
+            if (count($subquery) > 1) {
                 $args = array(array(
                         'query' => $subquery,
                         'data' => $post
@@ -29,10 +37,10 @@ class API {
     }
 
     public function register($query, $callable) {
-        if(! array_key_exists($query, $this->calls)) {
+        if (! array_key_exists($query, $this->calls)) {
             $this->calls[$query] = $callable;
         } else {
-            Logger::debug('Tryed to add \"'.$query.'\" to the api, which does already exist.');
+            Logger::debug('Tried to add \"'.$query.'\" to the api, which does already exist.');
         }
     }
 

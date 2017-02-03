@@ -1,5 +1,11 @@
 <?php
 
+namespace Forge\Core\Classes;
+
+use \Forge\Core\App\App;
+
+use function \Forge\Core\Classes\i;
+
 class Utils {
     public static function getUriComponents() {
         preg_match_all("/(.*)(\?.+)/", $_SERVER["REQUEST_URI"], $uri, PREG_PATTERN_ORDER);
@@ -56,12 +62,19 @@ class Utils {
       return (json_last_error() == JSON_ERROR_NONE);
     }
 
+    public function maybeJSON($value='') {
+        if (Utils::isJSON($value)) {
+            $value = json_decode($value);
+        }
+        return $value;
+    }
+
     public static function getUsername($id) {
       $user = new User($id);
       return $user->get('username');
     }
 
-    public static function getUrl($params = array(), $addGET=false, $additionalGET = array()) {
+    public static function getUrl($params = array(), $addGET=false, $additionalGET = array(), $language = false) {
         $query = '';
         if($addGET) {
             if(is_array($additionalGET)) {
@@ -74,7 +87,15 @@ class Utils {
             if(strlen($query) == 1)
                 $query = '';
         }
-        return WWW_ROOT.implode("/", $params).$query;
+        $start = WWW_ROOT;
+        if($language) {
+          $start.= Localization::getCurrentLanguage()."/";
+        }
+        return $start.implode("/", $params).$query;
+    }
+
+    public static function getLanguageUrl($params = array(), $addGET=false, $additionalGET = array()) {
+      return self::getUrl($params, $addGET, $additionalGET, true);
     }
 
     public static function getProgressBar($id, $current, $text="") {
@@ -101,8 +122,11 @@ class Utils {
       ));
     }
 
-    public static function dateFormat($date) {
+    public static function dateFormat($date, $long = false) {
       $time = strtotime($date);
+      if($long) {
+        return date('d.m.Y H:i',$time);
+      }
       return date('d.m.Y',$time);
     }
 
@@ -215,7 +239,7 @@ class Utils {
 
     public static function formatAmount($amount) {
       $currency = 'CHF';
-      return sprintf(i("%s %s", 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
+      return sprintf(i('%1$s %2$d', 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
     }
 }
 

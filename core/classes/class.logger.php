@@ -1,5 +1,7 @@
 <?php
 
+namespace Forge\Core\Classes;
+
 class Logger {
     public static $levels = array("DEBUG", "INFO", "WARN", "ERROR");
     public static $log_level = "DEBUG";
@@ -14,12 +16,12 @@ class Logger {
         self::debug("Execution Time: ".$exec_time." ms");
     }
 
-    public static function log($text, $level=null) {
+    public static function log($text, $level=null, $trace=false) {
         if(is_null($level)) {
             $level = "INFO";
         }
         if(! in_array($level, self::$levels)) {
-            self::log("Logged on uknown Level '".$message."'", "WARN");
+            self::warn("Logged on unknown Level '".$message."'");
         }
         $log_level = self::$log_level;
         if(! is_null(LOG_LEVEL)) {
@@ -36,6 +38,17 @@ class Logger {
               $value = implode(", ", $value);
             }
             $output = date("Y-m-d H:i:s")." - ".$level." - ".$key." => ".$value."\n";
+            if ($trace) {
+                $t = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+                $lines = LOG_TRACE_LINES;
+                if (! defined(LOG_TRACE_LINES) || count($t) < LOG_TRACE_LINES) {
+                    $lines = count($t)-1;
+                }
+                
+                for ($i = 1; $i <= $lines; $i++) {
+                    $output .= str_pad("#$i",4," ") ."> ".$t[$i]['file'].':'.$t[1]['line']."\n";
+                }
+            }
             if($level == 'DEBUG') {
                 if(!Utils::isAjax()) {
                     echo '<script>console.log("'.$level. " - ".$key." => ".$value.'")</script>';
@@ -50,20 +63,20 @@ class Logger {
         }
     }
 
-    public static function warn($message) {
-        self::log($message, "WARN");
+    public static function warn($message, $trace=false) {
+        self::log($message, "WARN", $trace);
     }
 
-    public static function error($message) {
-        self::log($message, "ERROR");
+    public static function error($message, $trace=false) {
+        self::log($message, "ERROR", $trace);
     }
 
-    public static function info($message) {
-        self::log($message, "INFO");
+    public static function info($message, $trace=false) {
+        self::log($message, "INFO", $trace);
     }
 
-    public static function debug($message) {
-        self::log($message, "DEBUG");
+    public static function debug($message, $trace=false) {
+        self::log($message, "DEBUG", $trace);
     }
 }
 

@@ -1,6 +1,14 @@
 <?php
 
-class PermissionManagement extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Classes\Group;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class PermissionManagement extends View {
     public $parent = 'manage';
     public $name = 'permissions';
     public $permission = 'manage.permissions';
@@ -33,9 +41,10 @@ class PermissionManagement extends AbstractView {
     }
 
     public function ownContent() {
-      return $this->app->render(CORE_TEMPLATE_DIR."views/", "permissions", array(
+      return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
         'title' => i('Permission Management'),
-        'table' => $this->permissionTable()
+        'content' => $this->permissionTable(),
+        'global_actions' => false
       ));
     }
 
@@ -48,7 +57,7 @@ class PermissionManagement extends AbstractView {
         'td' => $this->getRows($permissions, $groups)
       ));
     }
-    
+
     private function getPermissions() {
       $this->app->db->orderBy("name", "asc");
       return $this->app->db->get("permissions");
@@ -76,7 +85,7 @@ class PermissionManagement extends AbstractView {
       }
       return $cells;
     }
-    
+
     private function getCell($group, $permission, $structure=false) {
       if(Group::hasPermission($group, $permission)) {
         return Utils::tableCell($this->action($group, "deny", $permission), "center", $this->cellId($permission, $group), $structure);
@@ -98,7 +107,7 @@ class PermissionManagement extends AbstractView {
           )
       ));
     }
-    
+
     private function cellId($permission, $group) {
       return "perm-".$permission."--gr-".$group;
     }

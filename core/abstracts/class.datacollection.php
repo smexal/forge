@@ -1,5 +1,16 @@
 <?php
 
+namespace Forge\Core\Abstracts;
+
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\CollectionItem;
+use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Logger;
+use \Forge\Core\Interfaces\IDataCollection;
+
+use function \Forge\Core\Classes\i;
+
 abstract class DataCollection implements IDataCollection {
   public $permission = null;
   protected static $instances = array();
@@ -27,9 +38,38 @@ abstract class DataCollection implements IDataCollection {
     return 'overwrite render method with $item';
   }
 
+  public function getSubnavigation() {
+    return false;
+  }
+
+  private function getSubviewName($name) {
+    $ex = explode("-", $name);
+    for ($x = 0; $x < count($ex); $x++) {
+      $ex[$x] = ucfirst($ex[$x]);
+    }
+    return implode("", $ex);
+  }
+
+  public function getSubview($view, $item) {
+    $method = "subview".$this->getSubviewName($view);
+    if (method_exists($this, $method)) {
+      return $this->$method($item);
+    }
+    return 'no subview method found: \"'.$method.'\"';
+  }
+
+  public function getSubviewActions($view, $item) {
+    $method = "subview".$this->getSubviewName($view).'Actions';
+    if (method_exists($this, $method)) {
+      return $this->$method($item);
+    } else {
+      return 'nf';
+    }
+  }
+
   private function init() {
     $this->app = App::instance();
-    if(!is_null($this->permission)) {
+    if (!is_null($this->permission)) {
       Auth::registerPermissions($this->permission);
     }
     $this->preferences = array(
@@ -49,7 +89,7 @@ abstract class DataCollection implements IDataCollection {
 
   public function items($settings = array()) {
     $db = App::instance()->db;
-    if(array_key_exists('order', $settings)) {
+    if (array_key_exists('order', $settings)) {
       $direction = 'asc';
       if(array_key_exists('order_direction', $settings)) {
         $direction = $settings['order_direction'];
@@ -57,21 +97,21 @@ abstract class DataCollection implements IDataCollection {
       $db->orderBy($settings['order'], $direction);
     }
     $limit = false;
-    if(array_key_exists('limit', $settings)) {
+    if (array_key_exists('limit', $settings)) {
       $limit = $settings['limit'];
     }
     $db->where('type', $this->name);
-    if(! $limit) {
+    if (! $limit) {
       $items = $db->get('collections');
     } else {
       $items = $db->get('collections', $limit);
     }
     $item_objects = array();
-    foreach($items as $item) {
+    foreach ($items as $item) {
       $obj = new CollectionItem($item['id']);
-      if(array_key_exists('status', $settings)) {
-        if($settings['status'] == 'published' || $settings['status'] == 'draft') {
-          if( $obj->getMeta('status') != $settings['status'] ) {
+      if (array_key_exists('status', $settings)) {
+        if ($settings['status'] == 'published' || $settings['status'] == 'draft') {
+          if ($obj->getMeta('status') != $settings['status']) {
             continue;
           }
         }
@@ -85,7 +125,7 @@ abstract class DataCollection implements IDataCollection {
 
   public function slug() {
     $slug = $this->getSetting('slug');
-    if(! is_null($slug)) {
+    if (! is_null($slug)) {
       return $slug;
     } else {
       return $this->name;
@@ -93,9 +133,9 @@ abstract class DataCollection implements IDataCollection {
   }
 
   public function getBySlug($slug) {
-    foreach($this->items() as $item) {
+    foreach ($this->items() as $item) {
       $i = new CollectionItem($item->id);
-      if($i->slug() == $slug) {
+      if ($i->slug() == $slug) {
         return $i;
       }
     }
@@ -107,7 +147,7 @@ abstract class DataCollection implements IDataCollection {
   }
 
   public function saveSetting($key, $value, $lang = false) {
-    if($lang === false) {
+    if ($lang === false) {
       $lang = Localization::getCurrentLanguage();
     }
     $db = App::instance()->db;
@@ -116,7 +156,7 @@ abstract class DataCollection implements IDataCollection {
     $db->where('keyy', $key);
     $db->where('lang', $lang);
     $val = $db->getOne('collection_settings');
-    if($val) {
+    if ($val) {
       $db->where('type', $this->name);
       $db->where('keyy', $key);
       $db->where('lang', $lang);
@@ -134,7 +174,7 @@ abstract class DataCollection implements IDataCollection {
   }
 
   public function getSetting($key, $lang=false) {
-    if(!$lang) {
+    if (!$lang) {
       $lang = Localization::getCurrentLanguage();
     }
     $db = App::instance()->db;
@@ -146,25 +186,25 @@ abstract class DataCollection implements IDataCollection {
   }
 
   public function save($data) {
-      if(array_key_exists('itemid', $data)) {
+      if (array_key_exists('itemid', $data)) {
           $item = new CollectionItem($data['itemid']);
-          if(array_key_exists('lang', $data)) {
+          if (array_key_exists('lang', $data)) {
               App::instance()->addMessage(i('Language for saving values for page not set.'));
               return;
           }
 
-          foreach($this->fields() as $field) {
-              if(! array_key_exists($field['key'], $data)) {
+          foreach ($this->fields() as $field) {
+              if (! array_key_exists($field['key'], $data)) {
                   // remove field
                   self::removefield($item, $field['key'], $lang);
                   continue;
               }
-              if($field['multilang'] == false) {
+              if ($field['multilang'] == false) {
                   $lang = false;
               } else {
                   $lang = $data['language'];
               }
-              if(is_array($data[$field['key']])) {
+              if (is_array($data[$field['key']])) {
                 $data[$field['key']] = json_encode($data[$field['key']]);
               }
               self::savefield($item, $field['key'], $data[$field['key']], $lang);
@@ -178,7 +218,7 @@ abstract class DataCollection implements IDataCollection {
       $fields = array(
             array(
                 'key' => 'slug',
-                'label' => i('Slug', 'core'),      // default value is "Label"
+                'label' => i('Slug', 'core'),       // default value is "Label"
                 'multilang' => true,
                 'type' => 'text',                   // default value is text
                 'order' => 1,                       // default value is 1000
@@ -258,31 +298,31 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function addConfiguration($field=array()) {
-        if(! array_key_exists('key', $field)) {
+        if (! array_key_exists('key', $field)) {
             Logger::debug('<key> for field not set: '.implode(", ", $field));
             return;
         }
-        if(! array_key_exists('multilang', $field)) {
+        if (! array_key_exists('multilang', $field)) {
             $field['multilang'] = true;
         }
-        if(! array_key_exists('label', $field)) {
+        if (! array_key_exists('label', $field)) {
             $field['label'] = i('Label');
         }
-        if(! array_key_exists('type', $field)) {
+        if (! array_key_exists('type', $field)) {
             $field['label'] = 'text';
         }
-        if(! array_key_exists('order', $field)) {
+        if (! array_key_exists('order', $field)) {
             $field['order'] = 1000;
         }
-        if(! array_key_exists('hint', $field)) {
+        if (! array_key_exists('hint', $field)) {
             $field['hint'] = false;
         }
         array_push($this->customConfiguration, $field);
     }
 
     public function addFields( $fields=array() ) {
-        foreach($fields as $field) {
-            if(is_array($field)) {
+        foreach ($fields as $field) {
+            if (is_array($field)) {
                 $this->addField($field);
             }
         }
@@ -291,14 +331,14 @@ abstract class DataCollection implements IDataCollection {
     private function getCategoriesForSelection($parent = 0, $level = 0) {
       $returnable = array();
       $cats = $this->getCategories($parent);
-      foreach($cats as $cat) {
+      foreach ($cats as $cat) {
         $meta = $this->getCategoryMeta($cat['id']);
         $indent = str_repeat("&nbsp;&nbsp;", $level);
-        $returnable[] = array(
+        $returnable[] = [
           'value' => $cat['id'],
           'active' => false,
           'text' => $indent.$meta->name
-        );
+        ];
         $returnable = array_merge($returnable, $this->getCategoriesForSelection($cat['id'], $level+1));
       }
       return $returnable;
@@ -313,19 +353,19 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function getCategoryMeta($id, $lang=false) {
-      if(!$lang) {
+      if (!$lang) {
         $lang = Localization::getCurrentLanguage();
       }
       $db = App::instance()->db;
       $db->where('id', $id);
       $cat = $db->getOne('collection_categories');
       $json = json_decode($cat['meta']);
-      if(@$json->$lang) {
+      if (@$json->$lang) {
         return $json->$lang;
       } else {
         // not found in this language. get in other.
-        foreach(Localization::getActiveLanguages() as $lang) {
-          if(@$json->$lang['code']) {
+        foreach (Localization::getActiveLanguages() as $lang) {
+          if (@$json->$lang['code']) {
             return $json->$lang['code'];
           }
         }
@@ -333,10 +373,10 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function addCategory($data) {
-      if(!array_key_exists("name", $data)) {
+      if (!array_key_exists("name", $data)) {
         $data['name'] = "(no name)";
       }
-      if(!array_key_exists("parent", $data)) {
+      if (!array_key_exists("parent", $data)) {
         $data['parent'] = 0;
       }
       $db = App::instance()->db;
@@ -350,18 +390,18 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function saveCategoryMeta($id, $data, $lang=false) {
-      if(! $lang) {
+      if (! $lang) {
         $lang = Localization::getCurrentLanguage();
       }
       $db = App::instance()->db;
       $db->where("id", $id);
       $cat = $db->getOne("collection_categories");
-      if(strlen($cat['meta']) > 0) {
+      if (strlen($cat['meta']) > 0) {
         $meta = json_decode($cat['meta']);
       } else {
         $meta = array();
       }
-      if(is_array($meta) && array_key_exists($lang, $meta)) {
+      if (is_array($meta) && array_key_exists($lang, $meta)) {
         $toSave = array_merge($meta[$lang], $data);
       } else {
         $toSave = array($lang => $data);
@@ -373,26 +413,26 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function addField($field=array()) {
-        if(! array_key_exists('key', $field)) {
+        if (! array_key_exists('key', $field)) {
             Logger::debug('<key> for field not set: '.implode(", ", $field));
             return;
         }
-        if(! array_key_exists('multilang', $field)) {
+        if (! array_key_exists('multilang', $field)) {
             $field['multilang'] = true;
         }
-        if(! array_key_exists('label', $field)) {
+        if (! array_key_exists('label', $field)) {
             $field['label'] = i('Label');
         }
-        if(! array_key_exists('type', $field)) {
+        if (! array_key_exists('type', $field)) {
             $field['label'] = 'text';
         }
-        if(! array_key_exists('order', $field)) {
+        if (! array_key_exists('order', $field)) {
             $field['order'] = 1000;
         }
-        if(! array_key_exists('position', $field)) {
+        if (! array_key_exists('position', $field)) {
             $field['position'] = 'left';
         }
-        if(! array_key_exists('hint', $field)) {
+        if (! array_key_exists('hint', $field)) {
             $field['hint'] = false;
         }
         array_push($this->customFields, $field);
@@ -410,7 +450,7 @@ abstract class DataCollection implements IDataCollection {
 
   static public function instance() {
     $class = get_called_class();
-    if(!array_key_exists($class, static::$instances)) {
+    if (!array_key_exists($class, static::$instances)) {
       static::$instances[$class] = new $class();
       static::$instances[$class]->init();
     }

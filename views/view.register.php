@@ -1,6 +1,18 @@
 <?php
 
-class RegistrationView extends AbstractView {
+namespace Forge\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\Abstracts;
+use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\User;
+use \Forge\Core\Classes\Settings;
+
+use function \Forge\Core\Classes\i;
+
+class RegistrationView extends View {
     public $name = 'registration';
     public $allowNavigation = true;
     public $events = array(
@@ -67,12 +79,12 @@ class RegistrationView extends AbstractView {
     }
 
     public function getRegistrationForm() {
-        if(! Settings::get('allow_registration')) { 
+        if(! Settings::get('allow_registration')) {
             return;
         }
         $return = '';
         $return.= Fields::hidden(array(
-            "name" => "event", 
+            "name" => "event",
             "value" => "onRegistrationSubmit"
         ));
         $return.= Fields::text(array(

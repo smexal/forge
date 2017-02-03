@@ -1,6 +1,15 @@
 <?php
 
-class CollectionManagementCategories extends AbstractView {
+namespace Forge\Core\Views;
+
+use \Forge\Core\Abstracts\View;
+use \Forge\Core\App\App;
+use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\Utils;
+
+use function \Forge\Core\Classes\i;
+
+class CollectionManagementCategories extends View {
     public $parent = 'collections';
     public $name = 'categories';
     public $permission = 'manage.collections.categories';
@@ -61,7 +70,7 @@ class CollectionManagementCategories extends AbstractView {
         }
         if($parent > 0) {
             $items.= '</ul>';
-        }        
+        }
         return $items;
     }
 
