@@ -62,7 +62,7 @@ class Utils {
       return (json_last_error() == JSON_ERROR_NONE);
     }
 
-    public function maybeJSON($value='') {
+    public static function maybeJSON($value='') {
         if (Utils::isJSON($value)) {
             $value = json_decode($value);
         }
