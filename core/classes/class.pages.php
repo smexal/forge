@@ -17,121 +17,127 @@ use function \Forge\Core\Classes\i;
 * @version    0.1
 */
 class Pages {
-  private $app;
-  private $db;
-  private $customFields;
+    private $app;
+    private $db;
+    private $customFields;
 
-  public function __construct() {
-    $this->app = App::instance();
-    $this->db = $this->app->db;
-    $this->customFields = array();
-  }
-
-  public function get($parent="0") {
-    $this->db->orderBy("sequence", "asc");
-    $this->db->where("parent", $parent);
-    return $this->db->get('pages');
-  }
-
-  public static function getAll() {
-    if(! Auth::allowed("manage.builder.pages")) {
-      return array();
+    public function __construct() {
+        $this->app = App::instance();
+        $this->db = $this->app->db;
+        $this->customFields = array();
     }
-    return App::instance()->db->get('pages', null, array("id", "name"));
-  }
 
-  public static function search($term) {
-    if(! Auth::allowed("manage.builder.pages")) {
-      return array();
+    public function get($parent="0") {
+        $this->db->orderBy("sequence", "asc");
+        $this->db->where("parent", $parent);
+        return $this->db->get('pages');
     }
-    App::instance()->db->where("name", $term."%", "LIKE");
-    return App::instance()->db->get('pages', null, array("id", "name"));
-  }
 
-  public static function create($name, $parent) {
-      if(! Auth::allowed("manage.builder.pages.add")) {
-          return;
-      }
-      $nameStatus = self::checkName($name);
-      if($nameStatus !== true) {
-        return $nameStatus;
-      }
-      $app = App::instance();
-
-      $data = array(
-          'name' => $name,
-          'parent' => $parent
-      );
-      $app->db->insert('pages', $data);
-      return false;
-  }
-
-  public static function save($data) {
-      $pages = new Pages();
-      if(array_key_exists('itemid', $data)) {
-          $page = new Page($data['itemid']);
-          if(array_key_exists('lang', $data)) {
-              App::instance()->addMessage(i('Language for saving values for page not set.'));
-              return;
-          }
-
-          foreach($pages->fields() as $field) {
-              if($field['multilang'] == false) {
-                  $lang = false;
-              } else {
-                  $lang = $data['language'];
-              }
-              
-              if($field['type'] == 'checkbox' && ! array_key_exists($field['key'], $data)) {
-                  self::savefield($page, $field['key'], '', $lang);
-              }
-
-              if(! array_key_exists($field['key'], $data)) {
-                  continue;
-              }
-              self::savefield($page, $field['key'], $data[$field['key']], $lang);
-          }
-      } else {
-          App::instance()->addMessage(i('Unable to save page, Page does not exist'));
-      }
-  }
-
-  public static function savefield($page, $key, $value, $lang) {
-      $page->updateMeta($key, $value, $lang);
-  }
-
-  public static function updateOrder($order) {
-      if(! Auth::allowed("manage.builder.pages.edit")) {
-          return;
-      }
-      $db = App::instance()->db;
-      foreach($order as $page) {
-          $db->where('id', $page['id']);
-          $db->update("pages", array(
-              'sequence' => $page['order'],
-              'parent' => $page['parent']
-          ));
-      }
-  }
-
-  private static function checkName($name) {
-    $app = App::instance();
-    if( strlen($name) <= 2 ) {
-      return i('Pagename is too short.');
+    public static function getAll() {
+        if(! Auth::allowed("manage.builder.pages")) {
+            return array();
+        }
+        return App::instance()->db->get('pages', null, array("id", "name"));
     }
-    $app->db->where("name", $name);
-    $app->db->get("pages");
-    if($app->db->count > 0) {
-      return i("A Page with that name already exists.");
-    }
-    return true;
-  }
 
-  /*
-   * This method deletes a page.
-   * really. DELETES.
-   */
-  public function delete($id) {
+    public static function search($term) {
+        if(! Auth::allowed("manage.builder.pages")) {
+            return array();
+        }
+        App::instance()->db->where("name", $term."%", "LIKE");
+        return App::instance()->db->get('pages', null, array("id", "name"));
+    }
+
+    /**
+     * @param  Name for the new page
+     * @param  ID for the parent page.
+     * @return String as status message or false if everything is okay ;-O
+     */
+    public static function create($name, $parent) {
+
+        if(! Auth::allowed("manage.builder.pages.add")) {
+            return;
+        }
+        $nameStatus = self::checkName($name);
+        if($nameStatus !== true) {
+          return $nameStatus;
+        }
+        $app = App::instance();
+
+        $data = array(
+            'name' => $name,
+            'parent' => $parent
+        );
+        $app->db->insert('pages', $data);
+        return false;
+    }
+
+    public static function save($data) {
+        $pages = new Pages();
+        if(array_key_exists('itemid', $data)) {
+            $page = new Page($data['itemid']);
+            if(array_key_exists('lang', $data)) {
+                App::instance()->addMessage(i('Language for saving values for page not set.'));
+                return;
+            }
+
+            foreach($pages->fields() as $field) {
+                if($field['multilang'] == false) {
+                    $lang = false;
+                } else {
+                    $lang = $data['language'];
+                }
+                
+                if($field['type'] == 'checkbox' && ! array_key_exists($field['key'], $data)) {
+                    self::savefield($page, $field['key'], '', $lang);
+                }
+
+                if(! array_key_exists($field['key'], $data)) {
+                    continue;
+                }
+                self::savefield($page, $field['key'], $data[$field['key']], $lang);
+            }
+        } else {
+            App::instance()->addMessage(i('Unable to save page, Page does not exist'));
+        }
+    }
+
+    public static function savefield($page, $key, $value, $lang) {
+        $page->updateMeta($key, $value, $lang);
+    }
+
+    public static function updateOrder($order) {
+        if(! Auth::allowed("manage.builder.pages.edit")) {
+            return;
+        }
+        $db = App::instance()->db;
+        foreach($order as $page) {
+            $db->where('id', $page['id']);
+            $db->update("pages", array(
+                'sequence' => $page['order'],
+                'parent' => $page['parent']
+            ));
+        }
+    }
+
+    private static function checkName($name) {
+        $app = App::instance();
+        if( strlen($name) <= 2 ) {
+            return i('Pagename is too short.');
+        }
+        $app->db->where("name", $name);
+        $app->db->get("pages");
+        if($app->db->count > 0) {
+            return i("A Page with that name already exists.");
+        }
+        return true;
+    }
+
+    /*
+     * This method deletes a page.
+     * really. DELETES.
+     */
+    public function delete($id) {
         // delete a page. gone is gone.
         $app = App::instance();
 
