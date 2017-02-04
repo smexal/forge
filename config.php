@@ -37,4 +37,20 @@ define('SECURE', false);
 
 date_default_timezone_set("Europe/Zurich");
 
+
+define('AUTOLOAD_CONFIG', serialize([
+    'paths' => [
+        '/Forge\\\\Core\\\\/'    => CORE_ROOT//,
+        //'/Forge\\\\Themes\\\\/'  => THM_ROOT,
+        //'/Forge\\\\Modules\\\\/' => MOD_ROOT
+    ],
+
+    'class_mapping' => [
+        '__default__' => ['/^(.*)$/', 'class.$1.php'],
+        'components'  => ['/^(.*)$/', 'class.$1.php'],
+        'interfaces'  => ['/^I(.*)$/', 'interface.$1.php'],
+        'themes'      => ['/^(.*)$/', 'class.$1.php'],
+    ]
+]));
+
 ?>

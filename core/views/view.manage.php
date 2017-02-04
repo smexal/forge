@@ -11,7 +11,7 @@ use \Forge\Core\Classes\Utils;
 
 use function \Forge\Core\Classes\i;
 
-class Manager extends View {
+class ManageView extends View {
     public $allowNavigation = true;
     public $name = 'manage';
     public $permission = 'manage';
