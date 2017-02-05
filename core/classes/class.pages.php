@@ -68,11 +68,13 @@ class Pages {
 
         $data = array(
             'name' => $name,
-            'parent' => $parent,
+            'parent' => intval($parent),
             'sequence' => $sequence,
-            'creator' => App::instance()->user->get('id')
+            'creator' => App::instance()->user->get('id'),
+            'url' => ''
         );
         $app->db->insert('pages', $data);
+        Logger::debug($app->db->getLastError());
         Logger::debug($data);
         return false;
     }
