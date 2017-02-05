@@ -43,4 +43,3 @@ class AddView extends View {
     }
 }
 
-?>

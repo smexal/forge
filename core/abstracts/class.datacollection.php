@@ -461,4 +461,3 @@ abstract class DataCollection implements IDataCollection {
 
 }
 
-?>

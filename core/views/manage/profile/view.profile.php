@@ -228,4 +228,3 @@ class ProfileView extends View {
 
 }
 
-?>

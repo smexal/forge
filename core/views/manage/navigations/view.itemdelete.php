@@ -56,4 +56,3 @@ class ItemDeleteView extends View {
     }
 }
 
-?>

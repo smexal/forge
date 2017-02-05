@@ -69,4 +69,3 @@ class DetailView extends View {
     }
 }
 
-?>

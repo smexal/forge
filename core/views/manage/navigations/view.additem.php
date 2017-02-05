@@ -84,4 +84,3 @@ class AddItemView extends View {
     }
 }
 
-?>

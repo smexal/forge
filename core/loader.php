@@ -251,4 +251,3 @@ class Loader {
     private function __clone(){}
 }
 
-?>

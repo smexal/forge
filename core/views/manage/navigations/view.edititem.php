@@ -101,4 +101,3 @@ class EditItemView extends View {
     }
 }
 
-?>

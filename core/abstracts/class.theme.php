@@ -165,4 +165,3 @@ abstract class Theme implements ITheme {
 
 }
 
-?>

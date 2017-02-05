@@ -332,4 +332,3 @@ class App {
     private function __clone(){}
 }
 
-?>

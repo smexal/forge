@@ -129,4 +129,3 @@ class PermissionView extends View {
     }
 }
 
-?>

@@ -37,4 +37,3 @@ class UpdateView extends View {
     }
 }
 
-?>

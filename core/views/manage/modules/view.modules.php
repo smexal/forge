@@ -76,4 +76,3 @@ class ModulesView extends View {
     }
 }
 
-?>

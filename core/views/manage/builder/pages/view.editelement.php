@@ -67,4 +67,3 @@ class EditElementView extends View {
     }
 }
 
-?>

@@ -200,4 +200,3 @@ abstract class Component implements IComponent {
     }
 }
 
-?>

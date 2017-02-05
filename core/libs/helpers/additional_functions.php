@@ -775,4 +775,3 @@ function human_filesize($bytes, $decimals = 2) {
   return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) ." ". @$sz[$factor]. 'B';
 }
 
-?>

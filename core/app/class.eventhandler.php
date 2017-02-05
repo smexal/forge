@@ -75,4 +75,3 @@ class EventHandler {
     private function __clone(){}
 }
 
-?>

@@ -52,4 +52,3 @@ class TextComponent extends Component {
 
 }
 
-?>

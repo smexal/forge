@@ -59,4 +59,3 @@ class EditView extends View {
     }
 }
 
-?>

@@ -60,4 +60,3 @@ abstract class Module implements IModule {
 
 }
 
-?>

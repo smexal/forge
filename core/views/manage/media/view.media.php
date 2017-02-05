@@ -67,4 +67,3 @@ class MediaManagent extends View {
     }
 }
 
-?>

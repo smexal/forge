@@ -145,4 +145,3 @@ class PagesView extends View {
     }
 }
 
-?>

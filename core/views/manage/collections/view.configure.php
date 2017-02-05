@@ -84,4 +84,3 @@ class ConfigureView extends View {
     }
 }
 
-?>

@@ -121,4 +121,3 @@ class NavigationManagement extends View {
     }
 }
 
-?>

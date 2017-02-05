@@ -95,4 +95,3 @@ class GroupsView extends View {
     }
 }
 
-?>

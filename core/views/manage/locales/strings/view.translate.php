@@ -60,4 +60,3 @@ class TranslateView extends View {
     }
 }
 
-?>

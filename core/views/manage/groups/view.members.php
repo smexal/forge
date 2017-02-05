@@ -107,4 +107,3 @@ class MembersView extends View {
     }
 }
 
-?>

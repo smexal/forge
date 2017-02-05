@@ -26,4 +26,3 @@ class DashboardView extends View {
     }
 }
 
-?>

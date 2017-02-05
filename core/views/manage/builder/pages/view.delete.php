@@ -57,4 +57,3 @@ class DeleteView extends View {
     }
 }
 
-?>

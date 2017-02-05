@@ -5,4 +5,3 @@ namespace Forge\Core\Interfaces;
 interface IDataCollection {
 }
 
-?>

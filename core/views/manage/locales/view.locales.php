@@ -81,4 +81,3 @@ class LocalesView extends View {
     }
 }
 
-?>

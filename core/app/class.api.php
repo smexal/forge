@@ -48,4 +48,3 @@ class API {
     private function __clone(){}
 }
 
-?>

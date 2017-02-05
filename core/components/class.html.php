@@ -41,4 +41,3 @@ class HtmlComponent extends Component {
 
 }
 
-?>

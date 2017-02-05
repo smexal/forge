@@ -157,4 +157,3 @@ class CollectionsView extends View {
     }
 }
 
-?>
