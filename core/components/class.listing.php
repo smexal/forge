@@ -10,19 +10,22 @@ use function \Forge\Core\Classes\i;
 abstract class Listing extends Component {
     public $settings = array();
 
-    public function prefs() {
+    public function __construct() {
         $this->settings = array(
             array(
-                "label" => '',
+                "label" => i('Title'),
                 "hint" => '',
-                "key" => "content",
-                "type" => "wysiwyg"
+                "key" => "title",
+                "type" => "text"
             )
         );
+    }
+
+    public function prefs() {
         return array(
-            'name' => i('Text'),
-            'description' => i('Normal WYSIWYG Text Element'),
-            'id' => 'text',
+            'name' => i('Listing'),
+            'description' => i('Listing for a Collection'),
+            'id' => 'listing',
             'image' => '',
             'level' => 'inner',
             'container' => false
