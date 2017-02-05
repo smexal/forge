@@ -73,28 +73,31 @@ class Loader {
     }
 
     private function __construct(){
-        $this->ressources();
+        $this->libraries();
         $this->loadCoreScripts();
-        $this->loadInterfaces();
-        $this->loadTraits();
-        $this->loadAbstracts();
-        $this->loadClasses();
-        $this->loadModules();
-        $this->loadApp();$this->loadViews();
-        $this->loadComponents();
+        $this->loadSugarFunctions();
+        // $this->loadInterfaces();
+        // $this->loadTraits();
+        // $this->loadAbstracts();
+        // $this->loadClasses();
+        // $this->loadModules();
+        // $this->loadApp();
+        // $this->loadViews();
+        // $this->loadComponents();
 
     }
 
-    private function ressources() {
+    private function libraries() {
       // load external ressources
-      $this->addRessource("raintpl/rain.tpl.class.php");
-      $this->addRessource("helpers/additional_functions.php");
-      $this->addRessource("mysqlidb/mysqlidb.php");
-      $this->addRessource("lessc/lessc.inc.php");
+      $this->addLibrary("raintpl/rain.tpl.class.php");
+      $this->addLibrary("helpers/additional_functions.php");
+      $this->addLibrary("helpers/core_facade.php");
+      $this->addLibrary("mysqlidb/mysqlidb.php");
+      $this->addLibrary("lessc/lessc.inc.php");
     }
 
-    public function addRessource($path) {
-        require_once(CORE_ROOT."ressources/".$path);
+    public function addLibrary($path) {
+        require_once(CORE_ROOT."libs/".$path);
     }
 
     public function addScript($script, $absolute=false) {
@@ -132,7 +135,7 @@ class Loader {
         if (file_exists($less)) {
             $pathinfo = pathinfo($less_path);
             $base_uri = str_replace($pathinfo['basename'], "", $less);
-            $css_file = str_replace(".less", ".css", DOC_ROOT."core/css/compiled/".$pathinfo['basename']);
+            $css_file = str_replace(".less", ".css", DOC_ROOT."core/ressources/css/compiled/".$pathinfo['basename']);
             $run = false;
             if (file_exists($css_file) && filemtime($less_path) > filemtime($css_file))
                 $run = true;
@@ -180,6 +183,7 @@ class Loader {
     }
 
     public function loadViews() {
+
       // load general views
       $this->loadDirectory(DOC_ROOT."views/", true);
 

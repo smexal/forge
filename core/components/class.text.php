@@ -7,7 +7,7 @@ use \Forge\Core\App\App;
 
 use function \Forge\Core\Classes\i;
 
-class ComponentText extends Component {
+class TextComponent extends Component {
     public $settings = array();
 
     public function prefs() {

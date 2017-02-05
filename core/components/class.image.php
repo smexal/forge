@@ -8,7 +8,7 @@ use \Forge\Core\Classes\Media;
 
 use function \Forge\Core\Classes\i;
 
-class ComponentImage extends Component {
+class ImageComponent extends Component {
     public $settings = array();
 
     public function prefs() {

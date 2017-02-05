@@ -7,7 +7,7 @@ use \Forge\Core\App\App;
 
 use function \Forge\Core\Classes\i;
 
-class ComponentHtml extends Component {
+class HtmlComponent extends Component {
     public $settings = array();
 
     public function prefs() {

@@ -377,9 +377,3 @@ class Localization {
         return $xml->saveXML();
     }
 }
-
-function i($stringid, $domain=false, $lang=false) {
-    return Localization::stringTranslation($stringid, $domain, $lang);
-}
-
-?>

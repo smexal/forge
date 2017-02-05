@@ -7,7 +7,7 @@ use \Forge\Core\App\App;
 
 use function \Forge\Core\Classes\i;
 
-abstract class Listing extends Component {
+abstract class ListingComponent extends Component {
     public $settings = array();
 
     public function prefs() {

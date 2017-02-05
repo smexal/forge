@@ -9,7 +9,7 @@ use \Forge\Core\Classes\Utils;
 
 use function \Forge\Core\Classes\i;
 
-class ComponentRow extends Component {
+class RowComponent extends Component {
     public $settings = array();
 
     public function prefs() {

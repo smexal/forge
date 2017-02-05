@@ -11,6 +11,7 @@ if(substr($ext, strlen($ext)-1) != '/') {
 // GETTING PLACES
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].$ext);
 define('MOD_ROOT', DOC_ROOT."modules/");
+define('THM_ROOT', DOC_ROOT."themes/");
 define('WWW_ROOT', $ext);
 define('UPLOAD_WWW', WWW_ROOT."uploads/");
 define('UPLOAD_DIR', DOC_ROOT."uploads/");
@@ -37,20 +38,21 @@ define('SECURE', false);
 
 date_default_timezone_set("Europe/Zurich");
 
-
-define('AUTOLOAD_CONFIG', serialize([
-    'paths' => [
-        '/Forge\\\\Core\\\\/'    => CORE_ROOT//,
-        //'/Forge\\\\Themes\\\\/'  => THM_ROOT,
-        //'/Forge\\\\Modules\\\\/' => MOD_ROOT
-    ],
-
-    'class_mapping' => [
-        '__default__' => ['/^(.*)$/', 'class.$1.php'],
-        'components'  => ['/^(.*)$/', 'class.$1.php'],
-        'interfaces'  => ['/^I(.*)$/', 'interface.$1.php'],
-        'themes'      => ['/^(.*)$/', 'class.$1.php'],
-    ]
+/* SOOO MANY BACKSLASHES! */
+define('AUTOLOAD_PLACES', '(Core\\\\|Theme\\\\[^\\\\]+\\\\|Modules\\\\[^\\\\]+\\\\)');
+define('AUTOLOAD_PATHS', serialize([
+/*  IDENTIFIER      => NAMESPACE_REGEX,        PATH (incl. trailing slash) */
+    'forge_core'    => ['/^Forge\\\\Core.*$/',    CORE_ROOT],
+    'forge_themes'  => ['/^Forge\\\\Themes.*$/',  THM_ROOT],
+    'forge_modules' => ['/^Forge\\\\Modules.*$/', MOD_ROOT]
 ]));
 
-?>
+// Checkout AutoLoader::addMapping();
+define('AUTOLOAD_MAPPING', serialize([
+    'forge_app'        => ['/^Forge\\\\Core\\\\(App\\\\(.*))$/',                                        '$1', '/^(.*)$/',  'class.$1.php'],
+    'forge_components' => ['/^Forge\\\\' . AUTOLOAD_PLACES . 'Components(.*)$/',     '$2', '/^(.*)$/',  'class.$1.php'],
+    'forge_interfaces' => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(Interfaces.*)$/',          '$2', '/^I(.*)$/', 'interface.$1.php'],
+    'forge_traits'     => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(Traits.*+)$/',         '$2', '/^(.*)$/',  'trait.$1.php'],
+    'forge_views'      => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(Views.*+)$/',      '$2', '/^(.*)$/',  'view.$1.php'],
+    'forge_default'    => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(.+)$/', '$2', '/^(.*)$/',  'class.$1.php']
+]));
