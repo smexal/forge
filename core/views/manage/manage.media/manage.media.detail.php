@@ -32,11 +32,10 @@ class MediaManagentDetail extends View {
 
             if(count($uri) > 1 && $uri[1] == 'delete') {
                 $deleted = $this->media->delete();
-                if($deleted) {
-                    App::instance()->redirect(Utils::getUrl(array('manage', 'media')));
-                } else {
+                if(! $deleted) {
                     $this->message = i('There was an error while trying to delete this media.');
                 }
+                App::instance()->redirect(Utils::getUrl(array('manage', 'media')));
             }
 
             return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(

@@ -1,0 +1,8 @@
+<div class="listing">
+    {if="$message"}<p class="message info">{$message}</p>{/if}
+    {if="$items"}
+        {loop="items"}
+            {$value}
+        {/loop}
+    {/if}
+</div>

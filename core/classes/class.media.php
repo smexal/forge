@@ -100,7 +100,11 @@ class Media {
     }
 
     public function getSize() {
-        return human_filesize(filesize($this->abs_path.$this->name), 2);
+        $f = $this->abs_path.$this->name;
+        if(! file_exists($f)) {
+            return 0;
+        }
+        return human_filesize(filesize($f), 2);
     }
 
     public function getMimeType() {
