@@ -54,5 +54,5 @@ cache/*
 
 # Dev files
 phpinfo.php
-
+doxy
 .phpintel
