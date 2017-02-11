@@ -8,8 +8,6 @@ use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class ModuleSettingsView extends View {
     public $parent = 'manage';
     public $name = 'module-settings';

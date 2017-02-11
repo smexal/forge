@@ -11,8 +11,6 @@ use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class SettingsView extends View {
     public $parent = 'manage';
     public $name = 'settings';

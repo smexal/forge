@@ -1,14 +1,12 @@
 <?php
 
-namespace Forge\Core\Views\Manage\Builder;
+namespace Forge\Core\Views\Manage\Builder\Pages;
 
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Page;
 use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\Utils;
-
-use function \Forge\Core\Classes\i;
 
 class DeleteView extends View {
     public $parent = 'pages';

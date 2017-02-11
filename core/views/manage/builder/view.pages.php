@@ -12,8 +12,6 @@ use \Forge\Core\Classes\Page;
 use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class PagesView extends View {
     public $parent = 'manage';
     public $name = 'pages';

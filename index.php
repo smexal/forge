@@ -1,5 +1,4 @@
 <?php
-
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\AutoLoader as AutoLoader;
@@ -20,6 +19,3 @@ $app = App::instance();
 
 // run and output
 $app->run();
-
-
-?>

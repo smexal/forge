@@ -8,7 +8,7 @@ use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
+
 
 /**
  * View for editing and building collections, content and metadata.

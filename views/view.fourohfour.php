@@ -4,9 +4,7 @@ namespace Forge\Views;
 
 use \Forge\Core\Abstracts\View;
 
-use function \Forge\Core\Classes\i;
-
-class FourOhFour extends View {
+class FourohfourView extends View {
     public $name = '404';
 
     public function content() {

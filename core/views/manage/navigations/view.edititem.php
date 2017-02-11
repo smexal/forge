@@ -8,8 +8,6 @@ use \Forge\Core\Classes\ContentNavigation;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class EditItemView extends View {
     public $parent = 'navigation';
     public $permission = 'manage.navigations.add';

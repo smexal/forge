@@ -1,5 +1,4 @@
 <?php
-
 namespace Forge;
 
 use \Forge\Core;
@@ -48,7 +47,7 @@ class AutoLoader {
      * Use in conjunction with addPaths in order to first determine in which package (core / module or theme) the loaded
      * class is in.
      * 
-     * @param Array(assoc) $mappings 
+     * @param AssocArray $mappings 
      * $mappings[IDENTIFIER] => 
      *       NAMESPACE_REGEX_SELECTOR (This is without the class. So Forge\Core\Classes instead of Forge\Core\Classes\User ),
      *       PATH_SELECTOR (based on NAMESPACE_REGEX_SELECTOR. Which part of the NRS is part of the path),
@@ -158,8 +157,6 @@ class AutoLoader {
         if(file_exists($path)) {
             require_once($path);
         }
-
     }
-
 }
-spl_autoload_register(__NAMESPACE__ ."\\Autoloader::loadClass");
+spl_autoload_register(__NAMESPACE__ . "\\Autoloader::loadClass");

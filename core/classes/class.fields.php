@@ -4,8 +4,6 @@ namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
 
-use function \Forge\Core\Classes\i;
-
 class Fields {
 
     public static function build($args, $value='') {

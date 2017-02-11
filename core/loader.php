@@ -5,6 +5,7 @@ namespace Forge;
 use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\App\ViewManager;
 
 /*
     This Class is here to provide loader functionalities
@@ -28,24 +29,24 @@ class Loader {
 
     public function manageStyles() {
       // required styles
-      $this->addStyle("core/css/externals/bootstrap.core.min.css", false, false);
-      $this->addStyle("core/css/externals/bootstrap-datetimepicker.min.css", false, false);
-      $this->addStyle("core/css/externals/tooltipster.bundle.min.css", false, false);
+      $this->addStyle("core/ressources/css/externals/bootstrap.core.min.css", false, false);
+      $this->addStyle("core/ressources/css/externals/bootstrap-datetimepicker.min.css", false, false);
+      $this->addStyle("core/ressources/css/externals/tooltipster.bundle.min.css", false, false);
 
       // admin styles
-      $this->addStyle("core/css/bootstrap.less", false, "manage");
-      $this->addStyle("core/css/tagsinput.less", false, "manage");
-      $this->addStyle("core/css/overlay.less", false, "manage");
-      $this->addStyle("core/css/layout.less", false, "manage");
-      $this->addStyle("core/css/elements.less", false, "manage");
+      $this->addStyle("core/ressources/css/bootstrap.less", false, "manage");
+      $this->addStyle("core/ressources/css/tagsinput.less", false, "manage");
+      $this->addStyle("core/ressources/css/overlay.less", false, "manage");
+      $this->addStyle("core/ressources/css/layout.less", false, "manage");
+      $this->addStyle("core/ressources/css/elements.less", false, "manage");
 
-      $this->addStyle("core/css/modules/builder.less", false, "manage");
-      $this->addStyle("core/css/modules/form.less", false, "manage");
-      $this->addStyle("core/css/modules/dropzone.less", false, "manage");
-      $this->addStyle("core/css/modules/media.less", false, "manage");
+      $this->addStyle("core/ressources/css/modules/builder.less", false, "manage");
+      $this->addStyle("core/ressources/css/modules/form.less", false, "manage");
+      $this->addStyle("core/ressources/css/modules/dropzone.less", false, "manage");
+      $this->addStyle("core/ressources/css/modules/media.less", false, "manage");
 
-      $this->addStyle("core/css/loader.less", false, "manage");
-      $this->addStyle("core/css/fonts.less", false, "manage");
+      $this->addStyle("core/ressources/css/loader.less", false, "manage");
+      $this->addStyle("core/ressources/css/fonts.less", false, "manage");
     }
 
     public function setLessVariables() {
@@ -75,14 +76,13 @@ class Loader {
     private function __construct(){
         $this->libraries();
         $this->loadCoreScripts();
-        $this->loadSugarFunctions();
         // $this->loadInterfaces();
         // $this->loadTraits();
         // $this->loadAbstracts();
         // $this->loadClasses();
-        // $this->loadModules();
+        $this->loadModules();
         // $this->loadApp();
-        // $this->loadViews();
+        $this->loadViews();
         // $this->loadComponents();
 
     }
@@ -150,7 +150,7 @@ class Loader {
                   Logger::error("Problems while compiling less: Cannot write css file.");
                 }
             }
-            return WWW_ROOT."core/css/compiled/".$pathinfo['filename'].".css";
+            return WWW_ROOT."core/ressources/css/compiled/".$pathinfo['filename'].".css";
         }
     }
 
@@ -183,33 +183,29 @@ class Loader {
     }
 
     public function loadViews() {
-
-      // load general views
-      $this->loadDirectory(DOC_ROOT."views/", true);
-
-      // load core views
-      $this->loadDirectory(CORE_ROOT."views/", true, false, Utils::getUriComponents());
+      ViewManager::addClassDirectory('\\Forge\\Views', DOC_ROOT."views");
+      ViewManager::addClassDirectory('\\Forge\\Core\\Views', CORE_ROOT."views");
     }
 
     private function loadCoreScripts() {
-      $this->addScript("core/scripts/externals/jquery.js");
-      $this->addScript("core/scripts/externals/jquery-ui.js");
-      $this->addScript("core/scripts/externals/bootstrap.js");
-      $this->addScript("core/scripts/externals/typeahead.js");
-      $this->addScript("core/scripts/externals/bootstrap-tagsinput.min.js");
-      $this->addScript("core/scripts/externals/tooltipster.bundle.min.js");
-      $this->addScript("core/scripts/externals/tinymce/tinymce.min.js");
-      $this->addScript("core/scripts/externals/moment-with-locales.min.js");
-      $this->addScript("core/scripts/externals/bootstrap-datetimepicker.min.js");
-      $this->addScript("core/scripts/externals/dropzone.js");
-      $this->addScript("core/scripts/dropzone.js");
-      $this->addScript("core/scripts/tinymce.js");
-      $this->addScript("core/scripts/helpers.js");
-      $this->addScript("core/scripts/ajaxlinks.js");
-      $this->addScript("core/scripts/forms.js");
-      $this->addScript("core/scripts/messages.js");
-      $this->addScript("core/scripts/overlay.js");
-      $this->addScript("core/scripts/dragsort.js");
+      $this->addScript("core/ressources/scripts/externals/jquery.js");
+      $this->addScript("core/ressources/scripts/externals/jquery-ui.js");
+      $this->addScript("core/ressources/scripts/externals/bootstrap.js");
+      $this->addScript("core/ressources/scripts/externals/typeahead.js");
+      $this->addScript("core/ressources/scripts/externals/bootstrap-tagsinput.min.js");
+      $this->addScript("core/ressources/scripts/externals/tooltipster.bundle.min.js");
+      $this->addScript("core/ressources/scripts/externals/tinymce/tinymce.min.js");
+      $this->addScript("core/ressources/scripts/externals/moment-with-locales.min.js");
+      $this->addScript("core/ressources/scripts/externals/bootstrap-datetimepicker.min.js");
+      $this->addScript("core/ressources/scripts/externals/dropzone.js");
+      $this->addScript("core/ressources/scripts/dropzone.js");
+      $this->addScript("core/ressources/scripts/tinymce.js");
+      $this->addScript("core/ressources/scripts/helpers.js");
+      $this->addScript("core/ressources/scripts/ajaxlinks.js");
+      $this->addScript("core/ressources/scripts/forms.js");
+      $this->addScript("core/ressources/scripts/messages.js");
+      $this->addScript("core/ressources/scripts/overlay.js");
+      $this->addScript("core/ressources/scripts/dragsort.js");
     }
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {

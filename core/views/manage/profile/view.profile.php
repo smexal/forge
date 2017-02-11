@@ -10,10 +10,6 @@ use \Forge\Core\Classes\User;
 use \Forge\Core\Classes\Utils;
 use \Forge\Core\Classes\Logger;
 
-
-
-use function \Forge\Core\Classes\i;
-
 class ProfileView extends View {
     public $parent = 'manage';
     public $name = 'profile';

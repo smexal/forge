@@ -6,9 +6,9 @@ use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\User;
 
-use function \Forge\Core\Classes\i;
 
-class UserActivationView extends View {
+
+class UseractivationView extends View {
     public $name = 'user-verification';
 
     public function content($parts = array()) {

@@ -4,11 +4,16 @@ namespace Forge\Core\App;
 
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Settings;
+use \Forge\Core\Abstracts\Manager;
+use \Forge\Core\App\Modifier;
 
-class ThemeManager {
+class ThemeManager extends Manager {
     public $active = '';
     public $theme = '';
     public $theme_directory = '';
+
+    protected static $file_pattern = '/(.*)class\.([a-zA-Z][a-zA-Z0-9]*)\.php$/';
+    protected static $class_suffix = 'Themes';
 
     public function __construct() {
         // set current active theme.
@@ -24,17 +29,13 @@ class ThemeManager {
 
     private function instance() {
         $classes = get_declared_classes();
-        $implementsIModule = array();
-        foreach ($classes as $klass) {
-            $reflect = new \ReflectionClass($klass);
-            if ($reflect->implementsInterface('Forge\Core\Interfaces\ITheme')) {
-                if (! $reflect->isAbstract()) {
-                    $this->theme = $klass::instance();
-                    return true;
-                }
-            }
-        }
-        return false;
+        $themes = $this->getThemes();
+        if(count($themes) == 0)
+            return false;
+        $class = ucfirst($themes[array_keys($themes)[0]]);
+        $class = '\\Forge\\Themes\\' . $class .'\\' . $class . 'Theme';
+        $this->theme = $class::instance();
+        return true;
     }
 
     private function loadTheme() {

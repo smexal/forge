@@ -3,10 +3,14 @@
 namespace Forge\Core\App;
 
 use \Forge\Loader;
+use \Forge\Core\Abstracts\Manager;
 
-class ComponentManager {
+class ComponentManager extends Manager {
     private $components = array();
     private $app = null;
+
+    protected static $file_pattern = '/(.*)class\.([a-zA-Z][a-zA-Z0-9]*)\.php$/';
+    protected static $class_suffix = 'Component';
 
     public function __construct() {
         $this->app = App::instance();
@@ -65,16 +69,9 @@ class ComponentManager {
     }
 
     private function getComponents() {
-        $classes = get_declared_classes();
-        $implementsIModule = array();
-        foreach($classes as $klass) {
-            $reflect = new \ReflectionClass($klass);
-            if($reflect->implementsInterface('Forge\Core\Interfaces\IComponent')) {
-                if(! $reflect->isAbstract())
-                    $implementsIModule[] = new $klass();
-            }
-        }
-        return $implementsIModule;
+        App::instance()->eh->fire("onGetComponents");
+        $flush_cache = \triggerModifier('Forge\ComponentManager\FlushCache', MANAGER_CACHE_FLUSH === true);
+        return static::loadClasses($flush_cache);
     }
 
     public function deleteComponent($id) {

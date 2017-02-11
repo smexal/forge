@@ -6,8 +6,6 @@ use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\App\APIKeys;
 
-use function \Forge\Core\Classes\i;
-
 class Localization {
 
     public static function getLanguages() {

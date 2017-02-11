@@ -9,7 +9,7 @@ use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Interfaces\IDataCollection;
 
-use function \Forge\Core\Classes\i;
+
 
 abstract class DataCollection implements IDataCollection {
   public $permission = null;

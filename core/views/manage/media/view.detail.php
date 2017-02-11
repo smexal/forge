@@ -8,8 +8,6 @@ use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Media;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class DetailView extends View {
     public $parent = 'media';
     public $name = 'detail';

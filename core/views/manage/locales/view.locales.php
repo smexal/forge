@@ -7,8 +7,6 @@ use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class LocalesView extends View {
     public $parent = 'manage';
     public $name = 'locales';

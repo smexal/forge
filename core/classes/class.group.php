@@ -5,8 +5,6 @@ namespace Forge\Core\Classes;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 
-use function \Forge\Core\Classes\i;
-
 class Group {
     private $app = null;
     public $id = null;

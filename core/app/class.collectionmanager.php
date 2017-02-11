@@ -1,9 +1,14 @@
 <?php
 
 namespace Forge\Core\App;
+use \Forge\Core\Abstracts\Manager;
+use \Forge\Core\App\Modifier;
 
-class CollectionManager {
+class CollectionManager extends Manager {
   public $collections = null;
+
+  protected static $file_pattern = '/(.*)collection\.([a-zA-Z][a-zA-Z0-9]*)\.php$/';
+  protected static $class_suffix = 'Collection';
 
   public function __construct() {
     $this->getCollections();
@@ -31,21 +36,20 @@ class CollectionManager {
     if(is_array($this->collections)) {
       return $this->collections;
     }
-    $classes = get_declared_classes();
-    $implementsIModule = array();
-    foreach($classes as $klass) {
-      $reflect = new \ReflectionClass($klass);
-      if($reflect->implementsInterface('Forge\Core\Interfaces\IDataCollection')) {
-        if(! $reflect->isAbstract())
-          $implementsIModule[] = $klass;
-      }
-    }
+    
+    $collection_classes = $this->_getCollections();
     $collections = array();
-    foreach($implementsIModule as $collection) {
+    foreach($collection_classes as $collection) {
       $collections[] = $collection::instance();
     }
     $this->collections = $collections;
     return $this->collections;
+  }
+
+  public function _getCollections() {
+      App::instance()->eh->fire("onGetCollections");
+      $flush_cache = \triggerModifier('Forge\CollectionManager\FlushCache', MANAGER_CACHE_FLUSH === true);
+      return static::loadClasses($flush_cache);
   }
 
   public function deleteCollectionItem($id) {

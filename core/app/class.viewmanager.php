@@ -1,13 +1,19 @@
 <?php
 
 namespace Forge\Core\App;
+use \Forge\Core\Abstracts\Manager;
+use \Forge\Core\App\Modifier;
 
-class ViewManager {
+class ViewManager extends Manager {
     public $views = null;
 
+    protected static $file_pattern = '/(.*)view\.([a-zA-Z][a-zA-Z0-9]*)\.php$/';
+    protected static $class_suffix = 'View';
+
     public function __construct() {
-        $this->getViews();
+        $this->views = $this->getViews();
     }
+
 
     public function getViewByName($name) {
         foreach ($this->views as $view) {
@@ -20,17 +26,9 @@ class ViewManager {
     }
 
     public function getViews() {
-        $classes = get_declared_classes();
-        $implementsIModule = array();
-        foreach ($classes as $klass) {
-            $reflect = new \ReflectionClass($klass);
-            if ($reflect->implementsInterface('\Forge\Core\Interfaces\IView')) {
-                if (! $reflect->isAbstract()) {
-                    $implementsIModule[] = $klass;
-                }
-            }
-        }
-        $this->views = $implementsIModule;
+        App::instance()->eh->fire("onGetViews");
+        $flush_cache = ModifyHandler::instance()->trigger('Forge\ViewManager\FlushCache', MANAGER_CACHE_FLUSH === true);
+        return  static::loadClasses($flush_cache);
     }
 
     public function getNavigationViews() {

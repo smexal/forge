@@ -7,8 +7,6 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\ContentNavigation;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class DeleteView extends View {
     public $parent = 'navigation';
     public $permission = 'manage.navigations.delete';

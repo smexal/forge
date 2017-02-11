@@ -8,8 +8,6 @@ use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Group;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class GroupsView extends View {
     public $parent = 'manage';
     public $name = 'groups';

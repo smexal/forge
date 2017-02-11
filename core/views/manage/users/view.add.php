@@ -8,8 +8,6 @@ use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\User;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class AddView extends View {
     public $parent = 'users';
     public $permission = 'manage.users.add';

@@ -82,7 +82,7 @@ class App {
 
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
-
+      
       $base_view = '';
       if (is_array($this->uri_components) && array_key_exists(0, $this->uri_components))
         $base_view = $this->uri_components[0];
@@ -93,6 +93,7 @@ class App {
       Loader::instance()->manageStyles();
 
       $defaultView = false;
+      
       foreach($this->vm->views as $view) {
         $view = $view::instance();
         $this->eh->add($view->events);

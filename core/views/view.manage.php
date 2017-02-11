@@ -9,8 +9,6 @@ use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Navigation;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class ManageView extends View {
     public $allowNavigation = true;
     public $name = 'manage';

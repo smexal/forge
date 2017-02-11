@@ -8,8 +8,6 @@ use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class ConfigureView extends View {
     public $parent = 'collections';
     public $name = 'configure';

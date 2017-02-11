@@ -5,7 +5,7 @@ namespace Forge\Core\Abstracts;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Interfaces\IModule;
 
-use function \Forge\Core\Classes\i;
+
 
 abstract class Module implements IModule {
   protected static $instances = array();

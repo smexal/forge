@@ -1082,7 +1082,8 @@
         return build;
         function build(o) {
             var www, classes;
-            classes = _.mixin({}, defaultClassNames, o);
+
+classes = _.mixin({}, defaultClassNames, o);
             www = {
                 css: buildCss(),
                 classes: classes,

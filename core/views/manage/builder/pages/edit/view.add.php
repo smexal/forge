@@ -1,13 +1,11 @@
 <?php
 
-namespace Forge\Core\Views\Manage\Builder\Edit;
+namespace Forge\Core\Views\Manage\Builder\Pages\Edit;
 
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Page;
 use \Forge\Core\Classes\Utils;
-
-use function \Forge\Core\Classes\i;
 
 class AddView extends View {
     public $parent = 'edit';

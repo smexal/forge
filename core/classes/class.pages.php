@@ -5,7 +5,7 @@ namespace Forge\Core\Classes;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 
-use function \Forge\Core\Classes\i;
+
 
 /**
 * This class is made for the page handling in forge.

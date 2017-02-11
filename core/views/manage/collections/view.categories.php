@@ -7,8 +7,6 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class CategoriesView extends View {
     public $parent = 'collections';
     public $name = 'categories';

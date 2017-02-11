@@ -8,8 +8,6 @@ use \Forge\Core\Classes\Group;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class EditView extends View {
     public $parent = 'groups';
     public $permission = 'manage.groups.edit';

@@ -7,7 +7,7 @@ use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
 use \Forge\Core\Interfaces\IComponent;
 
-use function \Forge\Core\Classes\i;
+
 
 abstract class Component implements IComponent {
     public $id = null;

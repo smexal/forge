@@ -6,9 +6,7 @@ use \Forge\Core\Abstracts\View;
 use \Forge\Core\Classes\Group;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
-class PermissionView extends View {
+class PermissionsView extends View {
     public $parent = 'manage';
     public $name = 'permissions';
     public $permission = 'manage.permissions';

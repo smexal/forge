@@ -10,7 +10,7 @@ use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\User;
 use \Forge\Core\Classes\Settings;
 
-use function \Forge\Core\Classes\i;
+
 
 class RegistrationView extends View {
     public $name = 'registration';

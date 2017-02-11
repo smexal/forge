@@ -5,8 +5,6 @@ namespace Forge\Core\Views\Manage\Modules;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class ModulesView extends View {
     public $parent = 'manage';
     public $name = 'modules';

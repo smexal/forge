@@ -8,8 +8,6 @@ use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Utils;
 
-use function \Forge\Core\Classes\i;
-
 class TranslateView extends View {
     public $parent = 'string-translation';
     public $name = 'translate';

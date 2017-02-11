@@ -6,8 +6,6 @@ use \Forge\Core\Abstracts\Component;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Media;
 
-use function \Forge\Core\Classes\i;
-
 class ImageComponent extends Component {
     public $settings = array();
 

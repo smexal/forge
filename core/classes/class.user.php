@@ -6,8 +6,6 @@ use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Settings;
 
-use function \Forge\Core\Classes\i;
-
 class User {
     private $app;
     private $data = false;

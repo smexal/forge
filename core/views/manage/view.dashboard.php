@@ -5,8 +5,6 @@ namespace Forge\Core\Views\Manage;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 
-use function \Forge\Core\Classes\i;
-
 class DashboardView extends View {
     public $parent = 'manage';
     public $default = true;

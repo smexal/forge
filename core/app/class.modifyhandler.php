@@ -41,8 +41,10 @@ class ModifyHandler {
             // remove modifier name
             array_shift($arg_list);
 
-            call_user_func_array($this->modifiers[$name]['callback'], $arg_list);
+            return call_user_func_array($this->modifiers[$name]['callback'], $arg_list);
         }
+        if(func_num_args() > 1)
+            return func_get_arg(1);
     }
 }
 
