@@ -6,7 +6,7 @@ use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Utils;
 
-class RemoveElementView extends View {
+class RemoveelementView extends View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.edit';
     public $name = 'remove-element';

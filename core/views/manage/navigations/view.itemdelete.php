@@ -7,7 +7,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\ContentNavigation;
 use \Forge\Core\Classes\Utils;
 
-class ItemDeleteView extends View {
+class ItemdeleteView extends View {
     public $parent = 'navigation';
     public $permission = 'manage.navigations.delete';
     public $name = 'itemdelete';

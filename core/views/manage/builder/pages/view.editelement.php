@@ -7,7 +7,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\Utils;
 
-class EditElementView extends View {
+class EditelementView extends View {
     public $parent = 'pages';
     public $permission = 'manage.builder.pages.edit';
     public $name = 'edit-element';

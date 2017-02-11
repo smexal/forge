@@ -114,7 +114,7 @@ class RegistrationView extends View {
         ));
         $return.= Fields::button(i('Complete Registration'));
 
-        $return = App::instance()->render(CORE_ROOT."templates/assets/", "form", array(
+        $return = App::instance()->render(CORE_ROOT."ressources/templates/assets/", "form", array(
                 "method" => 'post',
                 "action" => '',
                 "ajax" => false,

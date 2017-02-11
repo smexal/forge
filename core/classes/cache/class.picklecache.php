@@ -6,9 +6,9 @@ abstract class PickleCache extends Cache {
     public static function readCache($key){
       $data = parent::readCache($key);
       if(!is_null($data)) {
-        return $data;
+        return unserialize($data);
       }
-      return unserialize($data);
+      return null;
     }
 
     public static function writeCache($key, $data) {

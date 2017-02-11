@@ -8,7 +8,7 @@ use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Utils;
 
-class ModuleSettingsView extends View {
+class ModulesettingsView extends View {
     public $parent = 'manage';
     public $name = 'module-settings';
     public $permission = 'manage.modules';

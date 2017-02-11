@@ -2,6 +2,7 @@
 
 namespace Forge;
 
+require_once('classes/class.utils.php');
 require_once('classes/class.logger.php');
 require_once('classes/cache/class.cache.php');
 require_once('classes/cache/class.picklecache.php');
@@ -24,20 +25,21 @@ class SuperLoader {
 
     public static $BASE_DIR = null;
     public static $EXCLUDED_FILES = [];
-    public static $HEAD_LINES = 20;
+    public static $HEAD_LINES = 50;
 
-    private static $instance;
+    private static $instance = null;
 
     private $paths = array();
     private $mappings = array();
 
+    private function __construct() {}
 
     public static function instance() {
-        if (null === self::$instance) {
-            self::$instance = new self;
-            self::$instance->loadClasses();
+        if(is_null(static::$instance)) {
+            static::$instance = new SuperLoader();
+            static::$instance->loadClasses();
         }
-        return self::$instance;
+        return static::$instance;
     }
 
     protected function loadClasses() {
@@ -108,9 +110,9 @@ class SuperLoader {
 
     public function getClassMappings($files) {
       $mappings = [];
+
       foreach($files as $file) {
         $head = $this->readHead($file, static::$HEAD_LINES);
-
         if(!preg_match('/namespace\s+(.*)\;/', $head, $ns_match)) {
           error_log("Cant find namespace for $file");
           continue;
@@ -147,6 +149,6 @@ class SuperLoader {
         }
         echo "<pre>";
         var_dump($ns_cls);
-        die(var_dump($this->mappings));
+        var_dump($this->mappings);
     }
 }

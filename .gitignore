@@ -49,6 +49,8 @@ config.php
 themes/*
 modules/*
 core/css/compiled/*
+doxy
+cache/*
 
 # Dev files
 phpinfo.php
