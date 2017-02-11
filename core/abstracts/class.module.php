@@ -6,7 +6,6 @@ use \Forge\Core\Classes\Logger;
 use \Forge\Core\Interfaces\IModule;
 
 
-
 abstract class Module implements IModule {
   protected static $instances = array();
   abstract protected function setup();

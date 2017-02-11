@@ -38,6 +38,7 @@ define('DB_NAME', "butterlan");
 // SEGURIDDY
 define('SECURE', false);
 define('CACHE_SALT', 'aöpu2¨0 56p-!?\'3zn\\5hap0o h');
+define('AUTOLOADER_CLASS_FLUSH', false);
 define('MANAGER_CACHE_FLUSH', true);
 
 date_default_timezone_set("Europe/Zurich");

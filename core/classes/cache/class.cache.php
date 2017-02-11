@@ -1,6 +1,6 @@
 <?php
 
-namespace Forge\Core\Classes;
+namespace Forge\Core\Classes\Cache;
 
 abstract class Cache {
     public static function readCache($key){

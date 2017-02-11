@@ -3,7 +3,7 @@
 namespace Forge\Core\Abstracts;
 
 use \Forge\Core\Interfaces\IManager;
-use \Forge\Core\Classes\Cache;
+use \Forge\Core\Classes\Cache\Cache;
 
 abstract class Manager implements IManager {
     protected static $class_dirs = [];

@@ -1,15 +1,17 @@
 <?php
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
-use \Forge\AutoLoader as AutoLoader;
+use \Forge\SuperLoader as SuperLoader;
 
 include("config.php");
-include("core/autoloader.php");
+include("core/superloader.php");
 include("core/loader.php");
 
-// AutoLoader::$DEBUG = AutoLoader::DEBUG_PAGE;
-AutoLoader::addPaths(unserialize(AUTOLOAD_PATHS));
-AutoLoader::addMapping(unserialize(AUTOLOAD_MAPPING));
+// SuperLoader::$DEBUG = SuperLoader::DEBUG_PAGE;
+SuperLoader::$BASE_DIR = DOC_ROOT;
+SuperLoader::$FLUSH = AUTOLOADER_CLASS_FLUSH === true || isset($_GET['flushac']);
+spl_autoload_register(array(SuperLoader::instance(), "autoloadClass"));
+
 
 $loader = \Forge\Loader::instance();
 

@@ -10,10 +10,10 @@ class Logger {
         return microtime(true);
     }
 
-    public static function stop($start) {
+    public static function stop($start, $level="DEBUG") {
         $time_post = microtime(true);
         $exec_time = round(($time_post - $start) * 1000);
-        self::debug("Execution Time: ".$exec_time." ms");
+        self::log("Execution Time: ".$exec_time." ms", $level);
     }
 
     public static function log($text, $level=null, $trace=false) {
