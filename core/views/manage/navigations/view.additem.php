@@ -9,7 +9,7 @@ use \Forge\Core\Classes\ContentNavigation;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Utils;
 
-class AddItemView extends View {
+class AdditemView extends View {
     public $parent = 'navigation';
     public $permission = 'manage.navigations.add';
     public $name = 'add-item';

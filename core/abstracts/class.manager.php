@@ -12,6 +12,10 @@ abstract class Manager implements IManager {
     protected static $file_pattern_replace = '$1$2';
     protected static $class_suffix = "";
 
+    public function __construct() {
+        static::$classes[get_called_class()] = null;
+    }
+
     /**
      * Adds a class_dir directory which is then loaded by loadClasses()
      * 
@@ -27,11 +31,13 @@ abstract class Manager implements IManager {
         if(!is_dir($dir)) {
             throw new Error("Could not find directory $dir for class managing");
         }
-        $namespace .= !preg_match('/^.*\\\\$/', $namespace) ? '\\' : '';
         
+        $namespace .= !preg_match('/^.*\\\\$/', $namespace) ? '\\' : '';
+
         $cc_key = get_called_class();
-        if(!array_key_exists($cc_key, static::$class_dirs))
+        if(!array_key_exists($cc_key, static::$class_dirs)) {
             static::$class_dirs[$cc_key] = [];
+        }
         static::$class_dirs[$cc_key][] = [$namespace, $dir];
     }
 
@@ -84,7 +90,7 @@ abstract class Manager implements IManager {
         }
         
         if(!array_key_exists($cc_key, static::$class_dirs))
-            return array();
+            return [];
 
         $classes = [];
         foreach(static::$class_dirs[$cc_key] as $value) {
@@ -92,9 +98,11 @@ abstract class Manager implements IManager {
             $dir = $value[1];
 
             $files = static::getFilesRecursively($dir);
+            foreach($files as &$file) {
+                $file = str_replace($dir, '', $file);
+            }
             $classes = array_merge($classes, static::filePathsToClassNs($files, $ns));
         }
-  
         static::$classes[$cc_key] = \triggerModifier('Forge\\ClassManager\\AvailableClasses\\' . $cc_key, $classes);
         static::writeCache(static::$classes[$cc_key]);
         return static::$classes[$cc_key];
@@ -116,7 +124,7 @@ abstract class Manager implements IManager {
             } else if($fileInfo->isDir()) {
                 $files = array_merge($files, static::getFilesRecursively($fileInfo->getPathname()));
             } else if($fileInfo->isFile() && preg_match($pattern, $fileInfo->getPathname())) {
-                $files[] = str_replace($dir, '', $fileInfo->getPathname());
+                $files[] = $fileInfo->getPathname();
             }
         }
         return $files;

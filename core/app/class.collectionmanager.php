@@ -11,6 +11,7 @@ class CollectionManager extends Manager {
   protected static $class_suffix = 'Collection';
 
   public function __construct() {
+    parent::__construct();
     $this->getCollections();
   }
 

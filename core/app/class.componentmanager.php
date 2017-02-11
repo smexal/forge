@@ -9,10 +9,11 @@ class ComponentManager extends Manager {
     private $components = array();
     private $app = null;
 
-    protected static $file_pattern = '/(.*)class\.([a-zA-Z][a-zA-Z0-9]*)\.php$/';
+    protected static $file_pattern = '/(.*)component\.([a-zA-Z][a-zA-Z0-9]*)\.php$/';
     protected static $class_suffix = 'Component';
 
     public function __construct() {
+        parent::__construct();
         $this->app = App::instance();
         $this->loadThemeComponents();
         $this->components = $this->getComponents();
@@ -58,6 +59,7 @@ class ComponentManager extends Manager {
             $elm = $this->app->db->getOne('page_elements');
             $type = $elm['elementid'];
         }
+
         foreach($this->components as $component) {
             if($component->getPref('id') == $type) {
                 $instance_obj = get_class($component);
@@ -71,7 +73,13 @@ class ComponentManager extends Manager {
     private function getComponents() {
         App::instance()->eh->fire("onGetComponents");
         $flush_cache = \triggerModifier('Forge\ComponentManager\FlushCache', MANAGER_CACHE_FLUSH === true);
-        return static::loadClasses($flush_cache);
+        $cls_components = static::loadClasses($flush_cache);
+        $components = [];
+        foreach($cls_components as $cls) {
+            if(!(new \ReflectionClass($cls))->isAbstract())
+                $components[] = new $cls;
+        }
+        return $components;
     }
 
     public function deleteComponent($id) {

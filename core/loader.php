@@ -82,7 +82,7 @@ class Loader {
         // $this->loadClasses();
         $this->loadModules();
         // $this->loadApp();
-        $this->loadViews();
+        //  $this->loadViews();
         // $this->loadComponents();
 
     }
@@ -183,8 +183,7 @@ class Loader {
     }
 
     public function loadViews() {
-      ViewManager::addClassDirectory('\\Forge\\Views', DOC_ROOT."views");
-      ViewManager::addClassDirectory('\\Forge\\Core\\Views', CORE_ROOT."views");
+
     }
 
     private function loadCoreScripts() {

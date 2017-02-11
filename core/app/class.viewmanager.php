@@ -11,6 +11,7 @@ class ViewManager extends Manager {
     protected static $class_suffix = 'View';
 
     public function __construct() {
+        parent::__construct();
         $this->views = $this->getViews();
     }
 
