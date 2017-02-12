@@ -8,16 +8,20 @@ use \Forge\Core\App\App;
 
 class TextComponent extends Component {
     public $settings = array();
-    protected $collection = null;
-
-    public function __construct() {
-    }
 
     public function prefs() {
+        $this->settings = array(
+            array(
+                "label" => '',
+                "hint" => '',
+                "key" => "content",
+                "type" => "wysiwyg"
+            )
+        );
         return array(
-            'name' => i('Listing'),
-            'description' => i('Listing for a Collection'),
-            'id' => 'listing',
+            'name' => i('Text'),
+            'description' => i('Normal WYSIWYG Text Element'),
+            'id' => 'text',
             'image' => '',
             'level' => 'inner',
             'container' => false
@@ -25,29 +29,8 @@ class TextComponent extends Component {
     }
 
     public function content() {
-        $message = false;
-        if(is_null($this->collection)) {
-           $message = i('No Collection defined for listing, contact your administrator.', 'core'); 
-           $items = false;
-        } else {
-            $collection = App::instance()->cm->getCollection($this->collection);
-            $items = [];
-            foreach($collection->items([
-                'status' => 'published'
-            ]) as $item) {
-                array_push($items, $this->renderItem($item));
-            }
-        }
-        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", array(
-            'message' => $message,
-            'items' => $items
-        ));
-    }
-
-    public function renderItem($item) {
-        return App::instance()->render(CORE_TEMPLATE_DIR.'components/parts/', 'listing-item', array(
-                    'title' => $item->getMeta('title'),
-                    'description' => $item->getMeta('description')
+        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "text", array(
+            'content' => $this->getField('content')
         ));
     }
 
