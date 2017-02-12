@@ -4,6 +4,7 @@ namespace Forge\Core\App;
 
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\App\Autoregister;
 use \Forge\Loader;
 
 class App {
@@ -52,8 +53,11 @@ class App {
       }
 
       if(is_null($this->tm)) {
-          $this->tm = new ThemeManager();
+        $this->tm = new ThemeManager();
       }
+
+      // Has to be called after module and theme manager instantiiated
+      Autoregister::autoregister();
 
       // start all active modules
       $this->mm->start();
@@ -82,7 +86,7 @@ class App {
 
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
-
+      
       $base_view = '';
       if (is_array($this->uri_components) && array_key_exists(0, $this->uri_components))
         $base_view = $this->uri_components[0];
@@ -93,6 +97,7 @@ class App {
       Loader::instance()->manageStyles();
 
       $defaultView = false;
+
       foreach($this->vm->views as $view) {
         $view = $view::instance();
         $this->eh->add($view->events);
@@ -332,4 +337,3 @@ class App {
     private function __clone(){}
 }
 
-?>

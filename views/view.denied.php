@@ -4,9 +4,8 @@ namespace Forge\Views;
 
 use \Forge\Core\Abstracts\View;
 
-use function \Forge\Core\Classes\i;
 
-class PermissionDenied extends View {
+class DeniedView extends View {
     public $name = 'denied';
 
     public function content() {

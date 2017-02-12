@@ -7,7 +7,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Utils;
 
-class Logout extends View {
+class LogoutView extends View {
     public $name = 'logout';
     public $allowNavigation = true;
 

@@ -4,8 +4,10 @@ namespace Forge\Core\App;
 
 use \Forge\Core\Classes\Logger;
 
-use function \Forge\Core\Classes\i;
-
+/**
+ * Because we do not want to force the module name to be PSR-4 compliant
+ * we do not use the parent class Manager to be inherited
+ */
 class ModuleManager {
     private $app = null;
     public $modules = array();
@@ -90,4 +92,3 @@ class ModuleManager {
     }
 }
 
-?>
