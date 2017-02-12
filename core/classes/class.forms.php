@@ -4,7 +4,6 @@ namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
 
-
 class Form {
     private $content = array();
     private $app = null;
@@ -131,4 +130,3 @@ class Form {
 
 }
 
-?>

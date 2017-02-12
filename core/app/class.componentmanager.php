@@ -3,12 +3,17 @@
 namespace Forge\Core\App;
 
 use \Forge\Loader;
+use \Forge\Core\Abstracts\Manager;
 
-class ComponentManager {
+class ComponentManager extends Manager {
     private $components = array();
     private $app = null;
 
+    protected static $file_pattern = '/(.*)component\.([a-zA-Z][a-zA-Z0-9]*)\.php$/';
+    protected static $class_suffix = 'Component';
+
     public function __construct() {
+        parent::__construct();
         $this->app = App::instance();
         $this->loadThemeComponents();
         $this->components = $this->getComponents();
@@ -54,6 +59,7 @@ class ComponentManager {
             $elm = $this->app->db->getOne('page_elements');
             $type = $elm['elementid'];
         }
+
         foreach($this->components as $component) {
             if($component->getPref('id') == $type) {
                 $instance_obj = get_class($component);
@@ -65,16 +71,15 @@ class ComponentManager {
     }
 
     private function getComponents() {
-        $classes = get_declared_classes();
-        $implementsIModule = array();
-        foreach($classes as $klass) {
-            $reflect = new \ReflectionClass($klass);
-            if($reflect->implementsInterface('Forge\Core\Interfaces\IComponent')) {
-                if(! $reflect->isAbstract())
-                    $implementsIModule[] = new $klass();
-            }
+        App::instance()->eh->fire("onGetComponents");
+        $flush_cache = \triggerModifier('Forge\ComponentManager\FlushCache', MANAGER_CACHE_FLUSH === true);
+        $cls_components = static::loadClasses($flush_cache);
+        $components = [];
+        foreach($cls_components as $cls) {
+            if(!(new \ReflectionClass($cls))->isAbstract())
+                $components[] = new $cls;
         }
-        return $implementsIModule;
+        return $components;
     }
 
     public function deleteComponent($id) {
@@ -92,4 +97,3 @@ class ComponentManager {
 
 }
 
-?>

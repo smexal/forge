@@ -6,4 +6,3 @@ interface ITheme {
     public function header();
 }
 
-?>

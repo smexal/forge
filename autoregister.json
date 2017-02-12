@@ -1,0 +1,5 @@
+{
+  "namespace": "\\Forge",
+  "nsfromtype": true,
+  "disabled" : ["components", "collections"]
+}

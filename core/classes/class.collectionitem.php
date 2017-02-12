@@ -4,8 +4,6 @@ namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
 
-use function \Forge\Core\Classes\i;
-
 class CollectionItem {
     public $id = null;
 
@@ -155,4 +153,3 @@ class CollectionItem {
   }
 }
 
-?>

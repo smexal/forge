@@ -30,7 +30,7 @@ namespace Forge\Modules\<YourNamespace>;
 
 use \Forge\Core\Abstracts\Module as AbstractModule;
 
-use function \Forge\Core\Classes\i;
+
 
 class Module extends AbstractModule {
 
