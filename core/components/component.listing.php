@@ -5,8 +5,6 @@ namespace Forge\Core\Components;
 use \Forge\Core\Abstracts\Component;
 use \Forge\Core\App\App;
 
-
-
 abstract class ListingComponent extends Component {
     public $settings = array();
 
