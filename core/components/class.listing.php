@@ -12,14 +12,6 @@ abstract class Listing extends Component {
     protected $collection = null;
 
     public function __construct() {
-        $this->settings = array(
-            array(
-                "label" => i('Title'),
-                "hint" => '',
-                "key" => "title",
-                "type" => "text"
-            )
-        );
     }
 
     public function prefs() {
