@@ -54,5 +54,6 @@ cache/*
 
 # Dev files
 phpinfo.php
+config-env.php
 doxy
 .phpintel

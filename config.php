@@ -8,6 +8,10 @@ if(substr($ext, strlen($ext)-1) != '/') {
   $ext.="/";
 }
 
+if(file_exists('config-env.php')) {
+    require_once('config-env.php');
+}
+
 // GETTING PLACES
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].$ext);
 define('MOD_ROOT', DOC_ROOT."modules/");
@@ -30,10 +34,10 @@ define('DEFAULT_LANGUAGE', 'de');
 define('AVAILABLE_LANGUAGES', 'de,en');
 
 // DATABAZZE
-define('DB_HOST', "localhost");
-define('DB_USER', "root");
-define('DB_PASSWORD', "");
-define('DB_NAME', "butterlan");
+@define('DB_HOST', "localhost");
+@define('DB_USER', "root");
+@define('DB_PASSWORD', "");
+@define('DB_NAME', "butterlan");
 
 // SEGURIDDY
 define('SECURE', false);
