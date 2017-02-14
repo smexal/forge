@@ -9,7 +9,7 @@ namespace Forge\Core\App;
  * inside the base directory of the theme / root
  * 
  * Following are the possible configuration-properties for the autoregister.json:
- * TYPE: is eather views, components or collections
+ * TYPE: is either views, components or collections
  * {
  *  "namespace": "\\My\\Namespace", // (required) The base namespace for the module
  *  "nsfromtype": true, // Adds the matching TYPE as a sub-package E.g: \My\Namespace\TYPE

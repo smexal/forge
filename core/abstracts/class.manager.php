@@ -5,6 +5,10 @@ namespace Forge\Core\Abstracts;
 use \Forge\Core\Interfaces\IManager;
 use \Forge\Core\Classes\Cache\Cache;
 
+/**
+ * Provides the possibility to let modules and themes register Entities like
+ * components, views or collections to be registered by the forge core
+ */
 abstract class Manager implements IManager {
     protected static $class_dirs = [];
     protected static $classes = [];

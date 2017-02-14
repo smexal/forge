@@ -42,6 +42,12 @@ class SuperLoader {
         return static::$instance;
     }
 
+    /**
+     * Loads Classes based on the provided Class directories
+     * 
+     * The class-mappings are automatically cached
+     * 
+     */
     protected function loadClasses() {
       $mappings = $this->maybeGetCache(static::$FLUSH);
       if(!is_null($mappings)) {
@@ -55,7 +61,7 @@ class SuperLoader {
       $files = $this->getFilesRecursively(static::$BASE_DIR);
       $this->mappings = $this->getClassMappings($files);
       PickleCache::writeCache(get_called_class(), $this->mappings);
-      Logger::stop($start, "ERROR");
+      Logger::stop($start, "INFO");
     }
 
     /**
@@ -108,15 +114,26 @@ class SuperLoader {
         return $files;
     } 
 
+    /**
+     * Returns the corresponding classes (fully qualified) based on provided filepaths (absolute)
+     * 
+     * It does this by searching the namespaces and class / interface / trait names via regex.
+     * 
+     * @param Array<String> $files Array with absolute php-file-paths
+     */
     public function getClassMappings($files) {
       $mappings = [];
 
       foreach($files as $file) {
         $head = $this->readHead($file, static::$HEAD_LINES);
+
+        // Get Namespace
         if(!preg_match('/namespace\s+(.*)\;/', $head, $ns_match)) {
           error_log("Cant find namespace for $file");
           continue;
         }
+        
+        // Get Class / Interface / Trait name
         if(!preg_match('/\\n((abstract\s+)?class|interface|trait)\s+([a-zA-Z][a-zA-Z0-9_]+)/', $head, $cls_match)) {
           error_log("Can't find class for file $file");
           continue;
@@ -128,6 +145,12 @@ class SuperLoader {
       return $mappings;
     }
 
+    /**
+     * Reads $lines inside of a file and returns the result
+     * 
+     * @param String $file Path to a existing file
+     * @param Integer $lines How Many Lines
+     */
     public function readHead($file, $lines) {
       $handle = @fopen($file, "r");
       $header = '';
@@ -142,6 +165,11 @@ class SuperLoader {
       return $header;
     }
 
+    /**
+     * Method has to be registered by spl_autoload_register and is used to load an inexistent class
+     * 
+     * @param String $ns_class Class inclusive namespace
+     */
     public function autoloadClass($ns_cls) {
         if(array_key_exists($ns_cls, $this->mappings)) {
             require_once($this->mappings[$ns_cls]);

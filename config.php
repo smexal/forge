@@ -42,29 +42,7 @@ define('AVAILABLE_LANGUAGES', 'de,en');
 // SEGURIDDY
 define('SECURE', false);
 define('CACHE_SALT', 'aöpu2¨0 56p-!?\'3zn\\5hap0o h');
-define('AUTOLOADER_CLASS_FLUSH', false);
-define('MANAGER_CACHE_FLUSH', true);
+define('AUTOLOADER_CLASS_FLUSH', false || isset($_GET['flushac']));
+define('MANAGER_CACHE_FLUSH', true || isset($_GET['flushmc']));
 
 date_default_timezone_set("Europe/Zurich");
-
-/* SOOO MANY BACKSLASHES! */
-define('AUTOLOAD_PLACES', '(Core\\\\|Theme\\\\[^\\\\]+\\\\|Modules\\\\[^\\\\]+\\\\)');
-/* Checkout AutoLoader::AddPaths() */
-define('AUTOLOAD_PATHS', serialize([
-    'forge_doc_views' => ['/^Forge\\\\Views.*$/',   DOC_ROOT],
-    'forge_core'      => ['/^Forge\\\\Core.*$/',    CORE_ROOT],
-    'forge_themes'    => ['/^Forge\\\\Themes.*$/',  THM_ROOT],
-    'forge_modules'   => ['/^Forge\\\\Modules.*$/', MOD_ROOT]
-]));
-
-// Checkout AutoLoader::addMapping();
-define('AUTOLOAD_MAPPING', serialize([
-    'forge_app'        => ['/^Forge\\\\Core\\\\(App\\\\(.*))$/',                  '$1', '/^(.*)$/',  'class.$1.php'],
-    'forge_components' => ['/^Forge\\\\' . AUTOLOAD_PLACES . 'Components(.*)$/',  '$2', '/^(.*)$/',  'class.$1.php'],
-    'forge_interfaces' => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(Interfaces.*)$/',  '$2', '/^I(.*)$/', 'interface.$1.php'],
-    'forge_traits'     => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(Traits.*+)$/',     '$2', '/^(.*)$/',  'trait.$1.php'],
-    'forge_views'      => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(Views.*+)$/',      '$2', '/^(.*)View$/',  'view.$1.php'],
-    //'forge_temes'      => ['/^Forge\\\\Themes(Views.*+)$/',      '$2', '/^(.*)View$/',  'view.$1.php'],
-    'forge_base_views' => ['/^Forge\\\\(Views\\\\.*+)$/',                         '$1', '/^(.*)View$/',  'view.$1.php'],
-    'forge_default'    => ['/^Forge\\\\' . AUTOLOAD_PLACES . '(.+)$/',            '$2', '/^(.*)$/',  'class.$1.php']
-]));
