@@ -1,0 +1,123 @@
+@slightlyVisible: #333;
+@nearlyHidden: #222;
+@visible: #999;
+@flashy: #d6d6d6;
+@hidden: #262626;
+body {
+    background-color: @hidden;
+    color: @visible;
+}
+.head-panel {
+    border-bottom: 1px solid #2b2b2b;
+    box-shadow: 0px 0px 0px 2px #1c1c1c;
+}
+
+hr {
+    border-top-color: @slightlyVisible;
+}
+
+.form-control, .bootstrap-tagsinput, .boxed, .form-group.imageselection,
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: @nearlyHidden;
+    border: 1px solid @slightlyVisible;
+    box-shadow: none;
+    color: @visible;
+}
+.form-control:focus, .bootstrap-tagsinput:focus {
+    box-shadow: none;
+    background-color: @slightlyVisible;
+    border-color: #444;
+}
+
+.table > tbody tr th {
+    color: @flashy;
+}
+.table > tbody tr td {
+    border-top-color: @slightlyVisible;
+}
+.table >tbody>tr:hover {
+    background-color: @nearlyHidden;
+}
+
+.btn-default {
+    background-color: @nearlyHidden;
+    border-color: @slightlyVisible;
+    color: @visible;
+}
+
+.dragsort .items .item {
+    border-color: @slightlyVisible;
+    background-color: @nearlyHidden;
+    color: @flashy;
+}
+.dragsort .items .item {
+    p, p > a {
+        color: @flashy;
+    }
+}
+.dragsort .items .item:hover {
+    background-color: @slightlyVisible;
+    border-color: @slightlyVisible;
+}
+
+.overlay-container .overlay-right {
+    background-color: @hidden;
+    border-left-color: @slightlyVisible;
+
+    h2 {
+        color: @flashy;
+    }
+}
+.overlay-container .overlay-right .close {
+    background: transparent;
+    color: @visible;
+    text-shadow: none;
+}
+.linklist ul li a {
+    color: @primary_color;
+}
+
+.builder .container {
+    background-color: @hidden;
+    border-color: @hidden;
+
+    .elements .element {
+        border-color: @slightlyVisible;
+        background-color: @nearlyHidden;
+    }
+
+    a.add .glyphicon {
+        color: @flashy;
+    }
+    a.add .glyphicon:hover {
+        color: @primary_color;
+    }
+}
+
+.components .comp {
+    background-color: @hidden;
+    border-color: @slightlyVisible;
+    p {
+        color: @visible;
+    }
+
+    &:hover {
+        background-color: @slightlyVisible;
+    }
+}
+
+.grid .block.active {
+    background-color: @slightlyVisible;
+    border-color: @hidden;
+
+    .img {
+        background-color: @slightlyVisible;
+    }
+}
+.grid .block {
+    border-color: @hidden;
+
+    .img {
+        background-color: @hidden;
+    }
+}

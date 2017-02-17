@@ -58,7 +58,7 @@
   color: #FFF;
   border-radius: 0px;
   border-bottom: 2px solid #1c1c1c;
-  color: #4FC3F7;
+  color: #039BE5;
 }
 .head-panel .actions .form-group button.btn.btn-primary {
   padding-right: 0;
@@ -112,13 +112,13 @@
   background-color: transparent;
   font-weight: normal;
   text-transform: none;
-  color: #4FC3F7;
+  color: #039BE5;
   line-height: 80px;
   padding: 0 50px 0 0;
 }
 .head-panel .heading-row > div .actions > a:hover,
 .head-panel .heading-row > div .actions button:hover {
-  color: #98dcfa;
+  color: #38bcfc;
 }
 .head-panel .heading-row > div h1 {
   line-height: 80px;

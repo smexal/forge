@@ -38,6 +38,7 @@ class SettingsView extends View {
             'PRIMARY_COLOR' => 'primary_color',
             'THEME' => 'active_theme',
             'TITLE' => 'title_'.Localization::getCurrentLanguage(),
+            'NIGHTMODE' => 'nightmode',
             'ALLOW_REGISTRATION' => 'allow_registration',
             'DEFAULT_USER_GROUP' => 'default_usergroup'
         );
@@ -52,6 +53,7 @@ class SettingsView extends View {
         Settings::set($this->keys['PRIMARY_COLOR'], $_POST[$this->keys['PRIMARY_COLOR']]);
         Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
         Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
+        Settings::set($this->keys['NIGHTMODE'], $_POST[$this->keys['NIGHTMODE']]);
 
         foreach($this->settings->fields as $name => $tab) {
             // skip if it's a modules settings fields...
@@ -151,6 +153,7 @@ class SettingsView extends View {
             $return .= $this->getTitleInput();
             $return .= '<hr />';
             $return .= $this->getBackendThemeColor();
+            $return .= $this->getNightModeCheckbox();
             $return .= '<hr />';
         }
         if(array_key_exists($tab_id, $this->settings->fields)
@@ -161,6 +164,14 @@ class SettingsView extends View {
             }
         }
         return $return;
+    }
+
+    private function getNightModeCheckbox() {
+        return Fields::checkbox(array(
+            'key' => $this->keys['NIGHTMODE'],
+            'label' => i('Active Nightmode'),
+            'hint' => i('Remove the the shiny whites in the backend.'),
+        ), Settings::get($this->keys['NIGHTMODE']));
     }
 
     private function getAllowRegistration() {
