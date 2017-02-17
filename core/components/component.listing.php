@@ -7,20 +7,24 @@ use \Forge\Core\App\App;
 
 abstract class ListingComponent extends Component {
     public $settings = array();
+    protected $collection = null;
 
-    public function prefs() {
+    public function __construct() {
         $this->settings = array(
             array(
-                "label" => '',
+                "label" => i('Title'),
                 "hint" => '',
-                "key" => "content",
-                "type" => "wysiwyg"
+                "key" => "title",
+                "type" => "text"
             )
         );
+    }
+
+    public function prefs() {
         return array(
-            'name' => i('Text'),
-            'description' => i('Normal WYSIWYG Text Element'),
-            'id' => 'text',
+            'name' => i('Listing'),
+            'description' => i('Listing for a Collection'),
+            'id' => 'listing',
             'image' => '',
             'level' => 'inner',
             'container' => false
@@ -28,8 +32,29 @@ abstract class ListingComponent extends Component {
     }
 
     public function content() {
-        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "text", array(
-            'content' => $this->getField('content')
+        $message = false;
+        if(is_null($this->collection)) {
+           $message = i('No Collection defined for listing, contact your administrator.', 'core'); 
+           $items = false;
+        } else {
+            $collection = App::instance()->cm->getCollection($this->collection);
+            $items = [];
+            foreach($collection->items([
+                'status' => 'published'
+            ]) as $item) {
+                array_push($items, $this->renderItem($item));
+            }
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", array(
+            'message' => $message,
+            'items' => $items
+        ));
+    }
+
+    public function renderItem($item) {
+        return App::instance()->render(CORE_TEMPLATE_DIR.'components/parts/', 'listing-item', array(
+            'title' => $item->getMeta('title'),
+            'description' => $item->getMeta('description')
         ));
     }
 
