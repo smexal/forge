@@ -86,7 +86,7 @@ class Page {
     }
 
   /**
-   * This is the shit
+   * Returns the author of a page as user object.
    *
    * @return User Object
    */
@@ -129,6 +129,7 @@ class Page {
   public function deleteMeta($key, $language) {
       $this->db->where('keyy', $key);
       $this->db->where('lang', $language);
+      $this->db->where('page', $this->id);
       $this->db->delete('page_meta');
   }
 
