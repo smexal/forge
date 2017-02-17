@@ -34,7 +34,7 @@ class Autoregister {
 
     public static function autoregister() {
         $modules = App::instance()->mm->getActiveModules();
-        $theme   = DOC_ROOT."themes/" . App::instance()->tm->active;
+        $theme   = DOC_ROOT."themes/" . App::instance()->tm->active.'/';
 
         $modules = array_map(function($val) {
             return DOC_ROOT."modules/" . $val .'/';
@@ -100,7 +100,7 @@ class Autoregister {
         $path = func_get_args();
         array_shift($path);
         array_shift($path);
-        
+
         $ref = $array;
         foreach($path as $fragment) {
             if(!isset($ref[$fragment]))
