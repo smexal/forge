@@ -1,4 +1,4 @@
-<div class="panel-group" id="{$id}" role="tablist" aria-multiselectable="true">
+<div class="panel-group {if="$ajax"}ajax{/if}" data-ajax={$ajax} id="{$id}" role="tablist" aria-multiselectable="true">
     {loop="panels"}
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="heading-{$value.id}">

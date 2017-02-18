@@ -362,4 +362,9 @@ code.fullwidth {
   font-size: 14px;
   font-weight: 600;
   color: #666;
+  line-height: 24px;
+}
+.panel-group .panel-heading h4 small {
+  line-height: 24px;
+  float: right;
 }

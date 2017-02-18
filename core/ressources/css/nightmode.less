@@ -121,3 +121,23 @@ hr {
         background-color: @hidden;
     }
 }
+
+.panel-group {
+    .panel {
+        border-color: @slightlyVisible;
+        background-color: @hidden;
+    }
+    .panel-heading {
+        background-color: @slightlyVisible;
+        h4 {
+            color: @flashy;
+        }
+    }
+}
+.panel-body {
+    background-color: @hidden;
+    border-color: @slightlyVisible;
+}
+.panel-default>.panel-heading+.panel-collapse>.panel-body {
+    border-color: @slightlyVisible;
+}

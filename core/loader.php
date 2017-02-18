@@ -47,6 +47,10 @@ class Loader {
 
       $this->addStyle("core/ressources/css/loader.less", false, "manage");
       $this->addStyle("core/ressources/css/fonts.less", false, "manage");
+
+      if((array_key_exists('night', $_GET) || Settings::get('nightmode')) && ! array_key_exists('day', $_GET)) {
+          $this->addStyle("core/ressources/css/nightmode.less", false, "manage");
+      }
     }
 
     public function setLessVariables() {
@@ -205,6 +209,7 @@ class Loader {
       $this->addScript("core/ressources/scripts/messages.js");
       $this->addScript("core/ressources/scripts/overlay.js");
       $this->addScript("core/ressources/scripts/dragsort.js");
+      $this->addScript("core/ressources/scripts/accordion.js");
     }
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {

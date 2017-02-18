@@ -106,3 +106,20 @@ fieldset[disabled] .form-control {
 .grid .block .img {
   background-color: #262626;
 }
+.panel-group .panel {
+  border-color: #333;
+  background-color: #262626;
+}
+.panel-group .panel-heading {
+  background-color: #333;
+}
+.panel-group .panel-heading h4 {
+  color: #d6d6d6;
+}
+.panel-body {
+  background-color: #262626;
+  border-color: #333;
+}
+.panel-default>.panel-heading+.panel-collapse>.panel-body {
+  border-color: #333;
+}
