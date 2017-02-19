@@ -14,3 +14,11 @@ function triggerModifier() {
 function fireEvent() {
     return call_user_func_array(array(\Forge\Core\App\EventHandler::instance(), 'fire'), func_get_args());
 }
+
+function registerModifier() {
+    return call_user_func_array(array(\Forge\Core\App\ModifyHandler::instance(), 'add'), func_get_args());
+}
+
+function registerEvent() {
+    return call_user_func_array(array(\Forge\Core\App\EventHandler::instance(), 'register'), func_get_args());
+}

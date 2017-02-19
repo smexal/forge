@@ -43,6 +43,6 @@ define('AVAILABLE_LANGUAGES', 'de,en');
 define('SECURE', false);
 define('CACHE_SALT', 'aöpu2¨0 56p-!?\'3zn\\5hap0o h');
 define('AUTOLOADER_CLASS_FLUSH', false || isset($_GET['flushac']));
-define('MANAGER_CACHE_FLUSH', true || isset($_GET['flushmc']));
+define('MANAGER_CACHE_FLUSH', false || isset($_GET['flushmc']));
 
 date_default_timezone_set("Europe/Zurich");

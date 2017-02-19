@@ -175,8 +175,8 @@ class SuperLoader {
             require_once($this->mappings[$ns_cls]);
             return;
         }
-        echo "<pre>";
-        var_dump($ns_cls);
-        var_dump($this->mappings);
+        error_log("SuperLoader could not find $ns_cls");
+        //error_log("SupoerLoader has following Mapping:");
+        //error_log(print_r($this->mappings, 1));
     }
 }
