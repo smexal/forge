@@ -48,8 +48,8 @@ a {
 }
 .btn-primary {
   color: #FFF;
-  background-color: @primary_color;
-  border: 1px solid darken(@primary_color, 5%);
+  background-color: darken(@primary_color, 10%);
+  border: 1px solid darken(@primary_color, 20%);
 }
 .btn-default {
   box-shadow: none;
@@ -377,4 +377,26 @@ code {
 
 .input-group {
   width: 100%;
+}
+
+.panel-group {
+  .panel {
+    border-color: #EAEAEA;
+    margin-bottom: 20px;
+    border-radius: 0;
+  }
+  .panel-heading {
+    padding: 0;
+    background-color: #F2F2F2;
+    a {
+      display: block;
+      padding: 15px;
+    }
+    h4 {
+      text-transform: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+    }
+  }
 }
