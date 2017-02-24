@@ -17,11 +17,12 @@ class ApiView extends View {
     public $standalone = true;
 
     public function content($query=array()) {
+
         $key = false;
-        if(array_key_exists('format', $_GET) && $_GET['format'] == 'xml') {
+        if((array_key_exists('format', $_GET) && $_GET['format'] == 'xml') && ! $headerSet) {
             header('Content-Type: text/xml');
             $format = 'xml';
-        } else {
+        } else if(!strstr($_SERVER['HTTP_ACCEPT'], 'text/html')) {
             header('Content-Type: application/json');
             $format = 'json';
         }
@@ -74,7 +75,7 @@ class ApiView extends View {
             return json_encode(Pages::search($query[1]));
         }
         if($query[0] == 'update-order') {
-            return Pages::updateOrder($_POST['pageset']);
+            return Pages::updateOrder($_POST['itemset']);
         }
       }
     }

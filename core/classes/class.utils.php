@@ -240,6 +240,11 @@ class Utils {
       $currency = 'CHF';
       return sprintf(i('%1$s %2$s', 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
     }
+
+    public static function methodName($string) {
+      $string = ucwords($string, "-");
+      return str_replace("-", "", $string);
+    }
 }
 
 

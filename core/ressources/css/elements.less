@@ -275,3 +275,18 @@ a.ajax {
     border-radius: 2px;
     padding: 20px;
 }
+
+
+.forge-placeholder {
+    background-color: #F2F2F2;
+    margin-bottom: 10px;
+    animation-name: pulsateOpacity;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulsateOpacity {
+    0%      { opacity: 1.0; }
+    50%     { opacity: 0.3; }
+    100%    { opacity: 1.0; }
+}

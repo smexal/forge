@@ -2,6 +2,7 @@
 
 namespace Forge\Core\Views\Manage\Navigations;
 
+use \Forge\Core\Classes\Placeholder;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
@@ -44,7 +45,14 @@ class NavigationsView extends View {
         $return = '';
         $panels = [];
         $first = true;
+
         foreach(ContentNavigation::getNavigations() as $nav) {
+            $placeholder = new Placeholder();
+            for ($index=0; $index < ContentNavigation::getNavigationCount($nav['id']); $index++) { 
+                $placeholder->addBlock('100%', '30px');
+            }
+            $plRender = $placeholder->render();
+
             $default = false;
             if($first) {
                 $first = false;
@@ -53,15 +61,16 @@ class NavigationsView extends View {
             $panels[] = [
                 'default' => $default,
                 'id' => 'tab-panel-'.$nav['id'],
+                'dataId' => $nav['id'],
                 'title' => $nav['name'].' <small>'.$nav['position'].'</small>',
-                'body' => "body"
+                'body' => $plRender
             ];
         }
         return $this->app->render(CORE_TEMPLATE_DIR."assets/", "accordion", 
             [
                 'id' => 'navigations-accordion',
                 'panels' => $panels,
-                'ajax' => Utils::getUrl(["manage", "navigation", "expand"])
+                'ajax' => Utils::getUrl(["api", "navigation", "get-items"])
             ]
         );
     }

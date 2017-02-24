@@ -161,7 +161,14 @@ class ContentNavigation {
         return $return;
     }
 
-    public static function getNavigationItems($navigation, $lang=false, $parent=0, $flat=false, $list = false) {
+    public static function getNavigationCount($navigation, $lang=false) {
+        $db = App::instance()->db;
+        $db->where('navigation_id', $navigation);
+        $db->where('lang', $lang);
+        return $db->getValue("navigation_items", "count(id)");
+    }
+
+    public static function getNavigationItems($navigation, $lang=false, $parent=0, $flat=false, $list=false) {
         if(!$list) {
             $items = array();
         } else {
@@ -176,6 +183,9 @@ class ContentNavigation {
         if(!$flat) {
             $db->where('parent', $parent);
         }
+        $db->orderBy('navigation_items.order', 'asc');
+        $vm = App::instance()->vm;
+
         foreach($db->get('navigation_items') as $item) {
             if(!$flat && ! $list) {
                 $item['items'] = self::getNavigationItems($navigation, $lang, $item['id']);
@@ -187,7 +197,6 @@ class ContentNavigation {
                     $page = new Page($item['item_id']);
                     $link = $page->getUrl();
                 } else if($item['item_type'] == 'view') {
-                    $vm = App::instance()->vm;
                     $parts = explode("/", $item['item_id']);
                     $view = $vm->getViewByName($parts[0]);
                     if($view) {
@@ -222,6 +231,17 @@ class ContentNavigation {
         } else {
             $list.='</ul>';
             return $list;
+        }
+    }
+
+    public static function updateOrder($orderedItems) {
+        $db = App::instance()->db;
+        foreach($orderedItems as $item) {
+            $db->where('id', $item['id']);
+            $db->update('navigation_items', [
+                "order" => $item['order'],
+                "parent" => $item['parent']
+            ]);
         }
     }
 

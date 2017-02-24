@@ -26,16 +26,16 @@ var ajaxlinks = {
                 }
                 container.html(data);
 
-// done
-if (xhr.readyState == XMLHttpRequest.DONE) {
-    container.addClass("done");
-    window.clearTimeout(timer);
-    var target = container.data('finished-target');
-    if(typeof target !== 'undefined') {
-        redirect(target);
-    }
-}
-}, 500);
+                // done
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    container.addClass("done");
+                    window.clearTimeout(timer);
+                    var target = container.data('finished-target');
+                    if(typeof target !== 'undefined') {
+                        redirect(target);
+                    }
+                }
+            }, 500);
         });
     },
 

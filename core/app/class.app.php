@@ -13,6 +13,7 @@ class App {
     public $vm = null;
     public $cm = null;
     public $mm = null;
+    public $nm = null;
     public $tm = null;
     public $com = null;
     public $user = null;
@@ -54,6 +55,10 @@ class App {
 
       if(is_null($this->tm)) {
         $this->tm = new ThemeManager();
+      }
+
+      if(is_null($this->nm)) {
+        $this->nm = new NavigationManager();
       }
 
       // Has to be called after module and theme manager instantiiated

@@ -35,7 +35,7 @@ a.ajax {
   margin: 20px auto;
 }
 .builder a.add:hover {
-  color: #039BE5;
+  color: #80CBC4;
   text-shadow: 0px 0px 2px rgba(0,0,0,0.3);
 }
 .builder a.add .glyphicon {
@@ -47,7 +47,7 @@ a.ajax {
   color: #262626;
 }
 .builder a.add .glyphicon:hover {
-  color: #039BE5;
+  color: #80CBC4;
 }
 .builder .container {
   background-color: #f2f2f2;
@@ -224,7 +224,7 @@ a.ajax {
   background: none;
 }
 .list-content a.btn:hover span:before {
-  color: #039BE5;
+  color: #80CBC4;
 }
 .list-content a.btn span:before {
   transition: 300ms;
@@ -236,4 +236,22 @@ a.ajax {
   border: 1px solid #f0f0f0;
   border-radius: 2px;
   padding: 20px;
+}
+.forge-placeholder {
+  background-color: #F2F2F2;
+  margin-bottom: 10px;
+  animation-name: pulsateOpacity;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+@keyframes pulsateOpacity {
+  0% {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1.0;
+  }
 }

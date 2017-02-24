@@ -1,4 +1,5 @@
 <?php
+
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;

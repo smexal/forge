@@ -52,9 +52,9 @@ var forge_dragsort = {
                 $.ajax({
                     method: 'POST',
                     url: ui.item.closest(".ui-sortable").data('callback'),
-                    data : {pageset : dataset}
+                    data : {itemset : dataset}
                 }).done(function(data) {
-                    console.log(data);
+                    //console.log(data);
                 });
             },
             sort: function(event, ui) {
