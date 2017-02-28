@@ -179,7 +179,8 @@ class SuperLoader {
             return;
         }
         error_log("SuperLoader could not find $ns_cls");
-        //error_log("SupoerLoader has following Mapping:");
-        //error_log(print_r($this->mappings, 1));
+       /* echo "<pre>";
+        echo "SuperLoader has following Mapping:";
+        echo print_r($this->mappings, 1);*/
     }
 }

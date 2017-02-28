@@ -38,6 +38,9 @@ class Fields {
             case 'file':
                 return self::file($args, $value);
                 break;
+            case 'virtual':
+                return '';
+                break;
         }
     }
 
