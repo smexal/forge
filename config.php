@@ -20,7 +20,7 @@ define('WWW_ROOT', $ext);
 define('UPLOAD_WWW', WWW_ROOT."uploads/");
 define('UPLOAD_DIR', DOC_ROOT."uploads/");
 define('CORE_ROOT', DOC_ROOT."core/");
-define('CORE_WWW_ROOT', $ext."core/");
+define('CORE_WWW_ROOT', WWW_ROOT."core/");
 define('CORE_TEMPLATE_DIR', CORE_ROOT."ressources/templates/");
 define('FOOTPRINT_SIZE', 10);
 
