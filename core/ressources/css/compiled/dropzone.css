@@ -12,9 +12,9 @@
   cursor: pointer;
 }
 .dropzone.dz-drag-hover {
-  border-color: #039BE5;
+  border-color: #303F9F;
   border-radius: 8px;
-  color: #039BE5;
+  color: #303F9F;
 }
 .dropzone .dz-preview {
   float: left;

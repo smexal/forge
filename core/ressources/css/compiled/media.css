@@ -15,7 +15,7 @@
   border: 3px solid #FFF;
 }
 .media-library > a.active {
-  border-color: #039BE5;
+  border-color: #303F9F;
 }
 .media-library > a img {
   width: 180px;
