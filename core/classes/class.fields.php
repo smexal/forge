@@ -13,7 +13,7 @@ class Fields {
                 break;
             case 'number':
                 return self::number($args, $value);
-                break;                
+                break;
             case 'select':
                 return self::select($args, $value);
                 break;
@@ -217,6 +217,15 @@ class Fields {
             'selected_image' => $media->title,
             'no_file' => i('No file selected'),
             'value' => $value
+        ));
+    }
+
+    public static function fileStandart($args, $value='') {
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'fileselectionstandard', array(
+            'label' => $args['label'],
+            'name' => $args['key'],
+            'change_text' => i('Choose file'),
+            'no_file' => i('No file selected')
         ));
     }
 
