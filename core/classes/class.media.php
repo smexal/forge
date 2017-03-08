@@ -54,18 +54,14 @@ class Media {
     }
 
     public function create($file) {
-        $failure = false;
         $this->title = $file["name"];
         $ext = end((explode(".", $this->title)));
         $this->name = md5(microtime()).".".$ext;
         $this->rel_path = $this->getSubdirectory();
         $this->abs_path = UPLOAD_DIR.$this->getSubdirectory();
-        if(! move_uploaded_file($file['tmp_name'], UPLOAD_DIR.$this->rel_path.$this->name)) {
-            $failure = true;
-        }
-        if(!$failure) {
+        if (move_uploaded_file($file['tmp_name'], UPLOAD_DIR.$this->rel_path.$this->name)) {
             $db = App::instance()->db;
-            $db->insert('media', array(
+            $this->id = $db->insert('media', array(
                 'name' => $this->name,
                 'mime'=> $this->getMimeType(),
                 'autor' => App::instance()->user->get('id'),
@@ -77,12 +73,13 @@ class Media {
         }
     }
 
-    public function isImage() {
-        if(strstr($this->mime, "image/")) {
-            return true;
-        } else {
-            return false;
+    public function isImage($_mime=false) {
+        $mime = $this->mime;
+        if ($_mime) {
+            $mime = $_mime;
         }
+
+        return strstr($mime, "image/");
     }
 
     public function delete() {
@@ -91,20 +88,21 @@ class Media {
         }
         App::instance()->db->where('id', $this->id);
         App::instance()->db->delete('media');
-        if(unlink($this->abs_path.$this->name)) {
-            return true;
-        } else {
-            return false;
-        }
 
+        return unlink($this->abs_path.$this->name);
     }
 
-    public function getSize() {
+    public function getSize($readable=true) {
         $f = $this->abs_path.$this->name;
         if(! file_exists($f)) {
             return 0;
         }
-        return human_filesize(filesize($f), 2);
+        $size = filesize($f);
+        if ($readable) {
+            $size = human_filesize($size, 2);
+        }
+
+        return $size;
     }
 
     public function getMimeType() {
