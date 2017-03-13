@@ -45,6 +45,10 @@ class CollectionItem {
         }
     }
 
+    public function getSlug() {
+        return $this->slug();
+    }
+
     public function getName() {
         return $this->base_data['name'];
     }
