@@ -7,12 +7,9 @@ use \Forge\Core\Classes\Utils;
 
 class Auth {
     public static function any() {
-        if (isset($_SESSION['auth']) && is_numeric($_SESSION['auth'])) {
-            return true;
-        } else {
-            return false;
-        }
+        return (isset($_SESSION['auth']) && is_numeric($_SESSION['auth']));
     }
+
     public static function setSessionUser() {
         if (Auth::any()) {
             App::instance()->user = new User($_SESSION['auth']);
