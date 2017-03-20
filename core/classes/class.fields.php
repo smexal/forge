@@ -7,44 +7,7 @@ use \Forge\Core\App\App;
 class Fields {
 
     public static function build($args, $value='') {
-        switch($args['type']) {
-            case 'text':
-                return self::text($args, $value);
-                break;
-            case 'number':
-                return self::number($args, $value);
-                break;
-            case 'select':
-                return self::select($args, $value);
-                break;
-            case 'multiselect':
-                return self::multiselect($args, $value);
-                break;
-            case 'textarea':
-                return self::textarea($args, $value);
-                break;
-            case 'wysiwyg':
-                return self::wysiwyg($args, $value);
-                break;
-            case 'checkbox':
-                return self::checkbox($args, $value);
-                break;
-            case 'linklist':
-                return self::linklist($args);
-                break;
-            case 'image':
-                return self::image($args, $value);
-                break;
-            case 'file':
-                return self::file($args, $value);
-                break;
-            case 'hidden':
-                return self::hidden($args, $value);
-                break;
-            case 'virtual':
-                return '';
-                break;
-        }
+        return self::{$args['type']}($args, $value);
     }
 
     public static function linklist($args, $value = '') {
