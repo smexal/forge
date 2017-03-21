@@ -296,7 +296,7 @@ abstract class DataCollection implements IDataCollection {
         }
         if (! array_key_exists('type', $field)) {
             $field['label'] = 'text';
-        } 
+        }
         if (! array_key_exists('order', $field)) {
             $field['order'] = 1000;
         }
@@ -410,7 +410,7 @@ abstract class DataCollection implements IDataCollection {
             $field['label'] = i('Label');
         }
         if (! array_key_exists('type', $field)) {
-            $field['label'] = 'text';
+            $field['type'] = 'text';
         }
         if (! array_key_exists('order', $field)) {
             $field['order'] = 1000;
@@ -430,6 +430,7 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function fields() {
+      error_log(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
       $fields = array_merge($this->defaultFields(), $this->customFields);
       return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
     }
