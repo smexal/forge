@@ -1,8 +1,8 @@
 <li {if="$active"}class="active"{/if}>
-    <a class="{if="$icon"}icon{/if} {if="$classes"}{$classes}{/if} {if="$image"}image{/if} {if="$children"}dropdown-toggle{/if}" href="{$url}" title="{$name}"
+    <a class="{if="$classes"}{$classes}{/if} {if="$image"}image{/if} {if="$children"}dropdown-toggle{/if}" href="{$url}" title="{$name}"
     {if="$children"} data-toggle="dropdown" role="button" aria-expanded="false"{/if}>
     {if="$icon"}
-    <span class="glyphicon glyphicon-{$icon}" aria-hidden="true"></span>
+    <i class="material-icons">{$icon}</i>
     {else}
         {if="$image"}
             <img src="{$image}" alt="{$name}" />
@@ -10,13 +10,16 @@
             {$name}
         {/if}
     {/if}
-    {if="$children"}
-    <span class="caret"></span>
-    {/if}
     </a>
     {if="$children"}
-    <ul class="dropdown-menu" role="menu">
-        {$children}
-    </ul>
+    <div class="dropdown-menu children" role="menu">
+        <div class="root">
+            <h4>{$name}</h4>
+            <a class="small" href="{$url}">{$manage}</a>
+        </div>
+        <ul>
+            {$children}
+        </ul>
+    </div>
     {/if}
 </li>

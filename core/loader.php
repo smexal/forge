@@ -29,42 +29,42 @@ class Loader {
 
     public function manageStyles() {
       // required styles
-      $this->addStyle("core/ressources/css/externals/bootstrap.core.min.css", false, false);
-      $this->addStyle("core/ressources/css/externals/bootstrap-datetimepicker.min.css", false, false);
-      $this->addStyle("core/ressources/css/externals/tooltipster.bundle.min.css", false, false);
+      $this->addStyle('core/ressources/css/externals/bootstrap.core.min.css', false, false);
+      $this->addStyle('core/ressources/css/externals/bootstrap-datetimepicker.min.css', false, false);
+      $this->addStyle('core/ressources/css/externals/tooltipster.bundle.min.css', false, false);
+      $this->addStyle('core/ressources/css/externals/material-icons.css', false, false);
 
-      // admin styles
-      $this->addStyle("core/ressources/css/bootstrap.less", false, "manage");
-      $this->addStyle("core/ressources/css/tagsinput.less", false, "manage");
-      $this->addStyle("core/ressources/css/overlay.less", false, "manage");
-      $this->addStyle("core/ressources/css/layout.less", false, "manage");
-      $this->addStyle("core/ressources/css/elements.less", false, "manage");
+      // google icons & google's roboto font
+      $this->addStyle('//fonts.googleapis.com/css?family=Roboto:400,400i,500,700', true, false);
 
-      $this->addStyle("core/ressources/css/modules/builder.less", false, "manage");
-      $this->addStyle("core/ressources/css/modules/form.less", false, "manage");
-      $this->addStyle("core/ressources/css/modules/dropzone.less", false, "manage");
-      $this->addStyle("core/ressources/css/modules/media.less", false, "manage");
+      // base
+      $this->addStyle('core/ressources/css/base/main.less', false, false);
+      $this->addStyle('core/ressources/css/base/nav.less', false, false);
 
-      $this->addStyle("core/ressources/css/loader.less", false, "manage");
-      $this->addStyle("core/ressources/css/fonts.less", false, "manage");
+      // blocks
+      $this->addStyle('core/ressources/css/blocks/page-header.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/buttons.less', false, false);
 
       if((array_key_exists('night', $_GET) || Settings::get('nightmode')) && ! array_key_exists('day', $_GET)) {
-          $this->addStyle("core/ressources/css/nightmode.less", false, "manage");
+          $this->addStyle('core/ressources/css/nightmode.less', false, 'manage');
       }
     }
 
     public function setLessVariables() {
       if (!$this->lessVariablesSet) {
-        $prim = '#4194e1';
+        $prim = '#B2FF59';
         $set = Settings::get('primary_color');
         if ($set) {
           $prim = $set;
         }
         $this->lessc->setVariables(array(
-          "primary_color" => $prim,
-          "accent_color" => "#4194e1",
-          "dark_grey" => "#262626",
-          "light_grey" => "#f0f0f0"
+          "color-primary" => "#B2FF59",
+          "color-accent" => "#4194e1",
+          "color-gray-dark" => "#212121",
+          "color-gray" => "#343434",
+          "color-gray-middle" => "#ABABAB",
+          "color-gray-lighter" => "#E0E0E0",
+          "color-gray-light" => "#f0f0f0"
         ));
       }
       $this->lessVariablesSet = true;
@@ -139,7 +139,7 @@ class Loader {
         if (file_exists($less)) {
             $pathinfo = pathinfo($less_path);
             $base_uri = str_replace($pathinfo['basename'], "", $less);
-            $css_file = str_replace(".less", ".css", DOC_ROOT."core/ressources/css/compiled/".$pathinfo['basename']);
+            $css_file = str_replace(".less", ".css", DOC_ROOT."core/ressources/css/__compiled/".$pathinfo['basename']);
             $run = false;
             if (file_exists($css_file) && filemtime($less_path) > filemtime($css_file))
                 $run = true;
@@ -154,7 +154,7 @@ class Loader {
                   Logger::error("Problems while compiling less: Cannot write css file.");
                 }
             }
-            return WWW_ROOT."core/ressources/css/compiled/".$pathinfo['filename'].".css";
+            return WWW_ROOT."core/ressources/css/__compiled/".$pathinfo['filename'].".css";
         }
     }
 

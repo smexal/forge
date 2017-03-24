@@ -17,6 +17,17 @@ var helpers = {
             }
         }
       });
+
+      helpers.subnavigationPosition();
+    },
+
+    subnavigationPosition : function() {
+        $(".navbar.navbar-default ul li a").on("click", function() {
+            console.log($(this).offset().top+10)
+            $(this).next().css({
+                paddingTop: $(this).offset().top+10
+            });
+        });
     }
 };
 

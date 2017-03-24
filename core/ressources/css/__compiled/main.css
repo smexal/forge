@@ -1,0 +1,29 @@
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  color: rgba(0,0,0,0.7);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+body .content {
+  padding-left: 170px;
+  padding-right: 60px;
+}
+h4 {
+  font-size: 20px;
+}
+h1 {
+  font-size: 24px;
+  display: inline-block;
+  width: auto;
+}
+a.small {
+  font-size: 13px;
+  color: #ABABAB;
+  transition: 300ms;
+}
+a.small:hover {
+  color: white;
+  text-decoration: none;
+}

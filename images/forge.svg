@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 960 560" style="enable-background:new 0 0 960 560;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFFF;}
-</style>
-<g>
-	<polygon class="st0" points="477.5,135.1 38.8,343.7 68,405.2 477.6,210.5 891.1,405.3 920.2,343.7 	"/>
-	<polygon class="st0" points="477.1,86.5 581.3,135.7 610.4,74.2 477,11.1 344.7,74.2 374,135.6 	"/>
-	<polygon class="st0" points="180.7,403 210,464.4 479.9,335.9 752.1,463.9 781.1,402.3 479.7,260.5 	"/>
-	<polygon class="st0" points="296.9,487.1 326.2,548.6 483.4,473.7 641.9,548.2 670.9,486.6 483.2,398.4 	"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="883px" height="538px" viewBox="0 0 883 538" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="forge" fill-rule="nonzero" fill="#B2FF59">
+            <g id="Group">
+                <polygon id="Shape" points="439.5 124.1 0.8 332.7 30 394.2 439.6 199.5 853.1 394.3 882.2 332.7"></polygon>
+                <polygon id="Shape" points="439.1 75.5 543.3 124.7 572.4 63.2 439 0.1 306.7 63.2 336 124.6"></polygon>
+                <polygon id="Shape" points="142.7 392 172 453.4 441.9 324.9 714.1 452.9 743.1 391.3 441.7 249.5"></polygon>
+                <polygon id="Shape" points="258.9 476.1 288.2 537.6 445.4 462.7 603.9 537.2 632.9 475.6 445.2 387.4"></polygon>
+            </g>
+        </g>
+    </g>
 </svg>

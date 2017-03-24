@@ -1,8 +1,7 @@
 <nav class="navbar navbar-default {if="$sticky"}navbar-fixed-top{/if}">
-    <div class="{if="$maxed"}maxed{/if}">
     {loop="$panels"}
     <ul class="nav navbar-nav {if="$value.position=='right'"}navbar-right{/if}">
         {$value.content}
     </ul>
-    {/loop}</div>
+    {/loop}
 </nav>

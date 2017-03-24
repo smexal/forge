@@ -47,12 +47,12 @@ class ManageView extends View {
         $panelLeft = $this->navigation->addPanel();
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2]) && count($this->app->cm->collections) > 0) {
-          $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft);
+          $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft, 'collections');
           $this->collectionSubmenu($panelLeft);
         }
 
         if(Auth::allowed($this->permissions[3])) {
-          $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft);
+          $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft, 'build');
           if(Auth::allowed($this->permissions[7])) {
             $this->navigation->add('Pages', i('Pages'), Utils::getUrl(array('manage', 'pages')), $panelLeft, false, 'builder');
           }
@@ -62,16 +62,14 @@ class ManageView extends View {
         }
 
         if(Auth::allowed($this->permissions[4])) {
-          $this->navigation->add('modules', i('Modules'), Utils::getUrl(array('manage', 'modules')), $panelLeft);
+          $this->navigation->add('modules', i('Modules'), Utils::getUrl(array('manage', 'modules')), $panelLeft, 'view_module');
         }
 
         if(Auth::allowed($this->permissions[9])) {
-          $this->navigation->add('media', i('Media'), Utils::getUrl(array('manage', 'media')), $panelLeft);
+          $this->navigation->add('media', i('Media'), Utils::getUrl(array('manage', 'media')), $panelLeft, 'perm_media');
         }
 
         if(Auth::allowed($this->permissions[4])) {
-          $this->navigation->add('module_prefs_container', i('Module Preferences'), false, $panelLeft, 'cog');
-
           // display menu points for active modules
           $mm = App::instance()->mm;
           foreach($mm->getActiveModules() as $mod) {
@@ -82,47 +80,44 @@ class ManageView extends View {
               Utils::getUrl(array('manage', 'module-settings', $mod)),
               $panelLeft,
               false,
-              'module_prefs_container'
+              'modules'
             );
           }
         }
 
         $panelRight = $this->navigation->addPanel('right');
 
-        $this->navigation->add('language', strtoupper(Localization::getCurrentLanguage()), '', $panelRight);
+        $this->navigation->add('language', strtoupper(Localization::getCurrentLanguage()), '', $panelLeft, 'language');
         // add other languages as submenu
         $languages = Localization::getLanguages();
         foreach($languages as $lang) {
-          if($lang['code'] != Localization::getCurrentLanguage()) {
-            $this->navigation->add(
-              'lang-'.$lang['code'],
-              $lang['name'],
-              Utils::getCurrentUrl().'?lang='.$lang['code'],
-              $panelRight,
-              false,
-              'language');
-          }
+          $this->navigation->add(
+            'lang-'.$lang['code'],
+            $lang['name'],
+            Utils::getCurrentUrl().'?lang='.$lang['code'],
+            $panelLeft,
+            false,
+            'language');
         }
 
 
 
         if(Auth::allowed($this->permissions[5])) {
-          $this->navigation->add('locales_container', i('Localization'), false, $panelRight, 'globe');
-          $this->navigation->add('locales', i('Language Configuration'), Utils::getUrl(array('manage', 'locales')), $panelRight, false, 'locales_container');
-          $this->navigation->add('string-translation', i('String Translations'), Utils::getUrl(array('manage', 'string-translation')), $panelRight, false, 'locales_container');
+          $this->navigation->add('locales', i('Language Configuration'), Utils::getUrl(array('manage', 'locales')), $panelLeft, false, 'language');
+          $this->navigation->add('string-translation', i('String Translations'), Utils::getUrl(array('manage', 'string-translation')), $panelLeft, false, 'language');
         }
         if(Auth::allowed($this->permissions[1])) {
-            $this->navigation->add('users_container', i('Users'), false, $panelRight, 'user');
-            $this->navigation->add('users', i('Users'), Utils::getUrl(array('manage', 'users')), $panelRight, false, 'users_container');
-            $this->navigation->add('groups', i('Groups'), Utils::getUrl(array('manage', 'groups')), $panelRight, false, 'users_container');
-            $this->navigation->add('permissions', i('Permissions'), Utils::getUrl(array('manage', 'permissions')), $panelRight, false, 'users_container');
+            $this->navigation->add('users_container', i('Users'), false, $panelLeft, 'person_add');
+            $this->navigation->add('users', i('Users'), Utils::getUrl(array('manage', 'users')), $panelLeft, false, 'users_container');
+            $this->navigation->add('groups', i('Groups'), Utils::getUrl(array('manage', 'groups')), $panelLeft, false, 'users_container');
+            $this->navigation->add('permissions', i('Permissions'), Utils::getUrl(array('manage', 'permissions')), $panelLeft, false, 'users_container');
         }
-        $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelRight);
-        $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', 'profile')), $panelRight, false, 'usermenu');
+        $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelLeft, 'settings');
+        $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', 'profile')), $panelLeft, false, 'usermenu');
         if(Auth::allowed($this->permissions[1])) {
-          $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelRight, false, 'usermenu');
-          $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelRight, false, 'usermenu');
+          $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
         }
+        $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelRight, 'power_settings_new');
 
 
 

@@ -1,0 +1,167 @@
+@header-width: 90px;
+@children-width: 300px;
+
+nav.navbar-default {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 50;
+    width: @header-width;
+    background-color: @color-gray-dark;
+    border-right: 2px solid @color-gray;
+    border-bottom: none;
+    margin-bottom: 0;
+
+    .navbar-nav {
+
+        &.navbar-right {
+            position: fixed;
+            bottom: 0;
+            width: @header-width;
+
+            li:first-child {
+                margin-bottom: 0;
+            }
+        }
+
+        li {
+            display: block;
+            width: 100%;
+            height: 80px;
+            width: @header-width;
+
+            &:first-child {
+                margin-bottom: 30px;
+
+                a:hover, &.active a {
+                    background-color: lighten(@color-gray-dark, 5%);
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+
+            a {
+                text-align: center;
+                transition: 300ms;
+                display: block;
+                height: 100%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 200ms;
+
+                &:hover {
+                    background-color: @color-gray;
+                }
+
+                i {
+                    color: @color-gray-lighter;
+                }
+
+                &.logo img {
+                    width: 40px;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    margin-top: -12px;
+                    margin-left: -20px;
+                }
+            }
+
+            &.active, &.open {
+                > a {
+                    background-color: @color-gray-dark;
+                    position: relative;
+
+                    &:before {
+                        position: absolute;
+                        right: 0;
+                        height: 100%;
+                        content: '';
+                        background-color: @color-primary;
+                        width: 2px;
+                    }
+
+                    i {
+                        color: @color-primary;
+                    }
+                    &:hover, &:focus {
+                        background-color: @color-gray-dark;
+                    }
+                }
+            }
+        }
+
+        li.open .children.dropdown-menu {
+            animation-name: navigationIn;
+            animation-duration: 300ms;
+            animation-fill-mode:forwards;
+        }
+
+        .children.dropdown-menu {
+            transition: 300ms;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            z-index: 5;
+            width: @children-width;
+            left: @header-width;
+            background-color: @color-gray-dark;
+            border: none;
+            border-radius: 0;
+            padding-left: 40px;
+
+            > .root {
+                margin-bottom: 35px;
+
+                h4 {
+                    color: white;
+                    margin-bottom: 0;
+                }
+                a {
+                    display: inline;
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+
+            > ul {
+                padding-left: 0;
+                li {
+                    height: auto;
+                    width: 100%;
+
+                    &:first-child {
+                        margin-bottom: 0;
+                    }
+
+                    a {
+                        justify-content: flex-start;
+                        height: auto;
+                        line-height: 40px;
+                        display: block;
+                        color: white;
+                        font-weight: 500;
+                        text-align: left;
+                        font-size: 15px;
+
+                        &:hover {
+                            color: @color-primary;
+                            background-color: transparent;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes navigationIn {
+    0%      {opacity: 0}
+    100%    {opacity: 1}
+}

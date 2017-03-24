@@ -1,0 +1,149 @@
+nav.navbar-default {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  width: 90px;
+  background-color: #212121;
+  border-right: 2px solid #343434;
+  border-bottom: none;
+  margin-bottom: 0;
+}
+nav.navbar-default .navbar-nav.navbar-right {
+  position: fixed;
+  bottom: 0;
+  width: 90px;
+}
+nav.navbar-default .navbar-nav.navbar-right li:first-child {
+  margin-bottom: 0;
+}
+nav.navbar-default .navbar-nav li {
+  display: block;
+  width: 100%;
+  height: 80px;
+  width: 90px;
+}
+nav.navbar-default .navbar-nav li:first-child {
+  margin-bottom: 30px;
+}
+nav.navbar-default .navbar-nav li:first-child a:hover,
+nav.navbar-default .navbar-nav li:first-child.active a {
+  background-color: #2e2e2e;
+}
+nav.navbar-default .navbar-nav li:first-child a:hover:before,
+nav.navbar-default .navbar-nav li:first-child.active a:before {
+  display: none;
+}
+nav.navbar-default .navbar-nav li a {
+  text-align: center;
+  transition: 300ms;
+  display: block;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 200ms;
+}
+nav.navbar-default .navbar-nav li a:hover {
+  background-color: #343434;
+}
+nav.navbar-default .navbar-nav li a i {
+  color: #E0E0E0;
+}
+nav.navbar-default .navbar-nav li a.logo img {
+  width: 40px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -12px;
+  margin-left: -20px;
+}
+nav.navbar-default .navbar-nav li.active > a,
+nav.navbar-default .navbar-nav li.open > a {
+  background-color: #212121;
+  position: relative;
+}
+nav.navbar-default .navbar-nav li.active > a:before,
+nav.navbar-default .navbar-nav li.open > a:before {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  content: '';
+  background-color: #B2FF59;
+  width: 2px;
+}
+nav.navbar-default .navbar-nav li.active > a i,
+nav.navbar-default .navbar-nav li.open > a i {
+  color: #B2FF59;
+}
+nav.navbar-default .navbar-nav li.active > a:hover,
+nav.navbar-default .navbar-nav li.active > a:focus,
+nav.navbar-default .navbar-nav li.open > a:hover,
+nav.navbar-default .navbar-nav li.open > a:focus {
+  background-color: #212121;
+}
+nav.navbar-default .navbar-nav li.open .children.dropdown-menu {
+  animation-name: navigationIn;
+  animation-duration: 300ms;
+  animation-fill-mode: forwards;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu {
+  transition: 300ms;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 300px;
+  left: 90px;
+  background-color: #212121;
+  border: none;
+  border-radius: 0;
+  padding-left: 40px;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > .root {
+  margin-bottom: 35px;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > .root h4 {
+  color: white;
+  margin-bottom: 0;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > .root a {
+  display: inline;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > .root a:hover {
+  background-color: transparent;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > ul {
+  padding-left: 0;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > ul li {
+  height: auto;
+  width: 100%;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > ul li:first-child {
+  margin-bottom: 0;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > ul li a {
+  justify-content: flex-start;
+  height: auto;
+  line-height: 40px;
+  display: block;
+  color: white;
+  font-weight: 500;
+  text-align: left;
+  font-size: 15px;
+}
+nav.navbar-default .navbar-nav .children.dropdown-menu > ul li a:hover {
+  color: #B2FF59;
+  background-color: transparent;
+  text-decoration: none;
+}
+@keyframes navigationIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
