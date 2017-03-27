@@ -109,7 +109,10 @@ class App {
         }
         if($load_main && $view->default || $base_view == $view->name()) {
           $requiredView = $view;
-          break;
+          // TODO: This break breaks all events on any views
+          // thus making backend saving impossible
+          // See: Forge\Core\Views\Manage\Builder\Pages\EditelementView event onUpdateContentElement
+          //break;
         }
       }
       if(!$requiredView) {
