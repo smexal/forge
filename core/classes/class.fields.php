@@ -7,6 +7,9 @@ use \Forge\Core\App\App;
 class Fields {
 
     public static function build($args, $value='') {
+        if (! method_exists(get_class(), $args['type'])) {
+            return call_user_func($args['type'], $args, $value);
+        }
         return self::{$args['type']}($args, $value);
     }
 

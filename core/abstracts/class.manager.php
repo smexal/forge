@@ -22,12 +22,12 @@ abstract class Manager implements IManager {
 
     /**
      * Adds a class_dir directory which is then loaded by loadClasses()
-     * 
+     *
      * The directories, files and classes has to be PSR-4 conform. Although it is possible
      * to define a custom Class-Suffix in the inheriting Manager Class via $file_pattern.
      * Additionally it is possible to define a regex-replacement rules for the file-names by defining
-     * $file_pattern and $file_pattern_Replace 
-     * 
+     * $file_pattern and $file_pattern_Replace
+     *
      * @param String $namespace The Namespace prefix for the classes inside the $dir
      * @param String $dir The absolute directory which contains the classes
      */
@@ -35,7 +35,7 @@ abstract class Manager implements IManager {
         if(!is_dir($dir)) {
             throw new Error("Could not find directory $dir for class managing");
         }
-        
+
         $namespace .= !preg_match('/^.*\\\\$/', $namespace) ? '\\' : '';
 
         $cc_key = get_called_class();
@@ -47,7 +47,7 @@ abstract class Manager implements IManager {
 
     /**
      * Gets the loaded Classes from the cache if they are available
-     * 
+     *
      * @param boolean $flush Ignores the cache (as if none found)
      */
     protected static function maybeGetCache($flush){
@@ -81,9 +81,9 @@ abstract class Manager implements IManager {
 
     /**
      * Loads the classes based on the defined static::$class_dirs
-     * 
+     *
      * If the classes are available inside the cache they are returned from it.
-     * 
+     *
      * @param boolean $flush If the cache shall be flushed. If true, this ignores saved cache values
      */
     protected static function loadClasses($flush) {
@@ -92,7 +92,7 @@ abstract class Manager implements IManager {
         if(is_array(static::$classes[$cc_key])) {
             return static::$classes[$cc_key];
         }
-        
+
         if(!array_key_exists($cc_key, static::$class_dirs))
             return [];
 
@@ -114,7 +114,7 @@ abstract class Manager implements IManager {
 
     /**
      * Gets all php-Files inside a directory and returns their relative paths
-     * 
+     *
      * @param String $dir The base directory
      */
     protected static function getFilesRecursively($dir) {
@@ -123,7 +123,6 @@ abstract class Manager implements IManager {
         $iterator = new \DirectoryIterator($dir);
         foreach($iterator as $fileInfo) {
             if($fileInfo->isDot()) {
-                $fileInfo->next();
                 continue;
             } else if($fileInfo->isDir()) {
                 $files = array_merge($files, static::getFilesRecursively($fileInfo->getPathname()));
@@ -132,11 +131,11 @@ abstract class Manager implements IManager {
             }
         }
         return $files;
-    } 
+    }
 
     /**
      * Rewrites the relative file paths to namespaces.
-     * 
+     *
      * @param array<Stirng> $files Array with files
      * @param String $ns Namespace which prefixes the generated namespace
      */
@@ -163,7 +162,7 @@ abstract class Manager implements IManager {
 
     /**
      * Rewrites a singel path to a namespace
-     * 
+     *
      * Additionally corrects the $path to represent the class and not the file name
      * @param String $path The relative file path
      */
