@@ -35,6 +35,8 @@ class SuperLoader {
     private $paths = array();
     private $mappings = array();
 
+    private $ignores = array();
+
     private function __construct() {}
 
     public static function instance() {
@@ -106,7 +108,6 @@ class SuperLoader {
         $iterator = new \DirectoryIterator($dir);
         foreach($iterator as $fileInfo) {
             if($fileInfo->isDot()) {
-                $fileInfo->next();
                 continue;
             } else if($fileInfo->isDir()) {
                 $files = array_merge($files, $this->getFilesRecursively($fileInfo->getPathname()));
@@ -168,18 +169,26 @@ class SuperLoader {
       return $header;
     }
 
+    public function addIgnore($ignore) {
+      $this->ignores[] = $ignore;
+    }
+
     /**
      * Method has to be registered by spl_autoload_register and is used to load an inexistent class
      *
      * @param String $ns_class Class inclusive namespace
      */
     public function autoloadClass($ns_cls) {
+        if(in_array($ns_cls, $this->ignores))
+          return;
+
         if(array_key_exists($ns_cls, $this->mappings)) {
             require_once($this->mappings[$ns_cls]);
             return;
         }
-        echo "<pre>";
-        var_dump($ns_cls);
-        var_dump($this->mappings);
+        error_log("SuperLoader could not find $ns_cls");
+        /* echo "<pre>";
+        echo "SuperLoader has following Mapping:";
+        echo print_r($this->mappings, 1);*/
     }
 }

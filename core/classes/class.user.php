@@ -220,7 +220,7 @@ class User {
 
     public static function getAll() {
         $app = App::instance();
-        if (! Auth::allowed("manage.users")) {
+        if (! Auth::allowed("manage.users", true)) {
             return array();
         }
         return $app->db->get('users', null, array("id", "username", "email"));

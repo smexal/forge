@@ -122,11 +122,14 @@ var forms = {
                 e.preventDefault();
                 var target = $(this).closest($(this).data('target'));
                 setLoading(target);
-                var form_data = $(this).serialize();
+                var form_data = new FormData(this);
                 $.ajax({
                     method: 'POST',
                     data: form_data,
                     url: $(this).attr("action"),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
                     error: function (jqXHR, exception) {
                         var msg = '';
                         if (jqXHR.status === 0) {

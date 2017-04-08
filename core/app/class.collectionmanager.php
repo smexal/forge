@@ -17,7 +17,7 @@ class CollectionManager extends Manager {
 
   public function add($args) {
     $db = App::instance()->db;
-    $db->insert('collections', array(
+    return $db->insert('collections', array(
       'sequence' => 0,
       'name' => $args['name'],
       'type' => $args['type'],
@@ -37,7 +37,7 @@ class CollectionManager extends Manager {
     if(is_array($this->collections)) {
       return $this->collections;
     }
-    
+
     $collection_classes = $this->_getCollections();
     $collections = array();
     foreach($collection_classes as $collection) {

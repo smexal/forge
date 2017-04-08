@@ -57,3 +57,4 @@ phpinfo.php
 config-env.php
 doxy
 .phpintel
+composer.lock

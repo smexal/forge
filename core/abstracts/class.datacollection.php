@@ -9,7 +9,7 @@ use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Interfaces\IDataCollection;
 
-
+use \Forge\Core\Classes\FieldSaver;
 
 abstract class DataCollection implements IDataCollection {
   public $permission = null;
@@ -26,13 +26,7 @@ abstract class DataCollection implements IDataCollection {
     return $this->preferences[$name];
   }
 
-  public static function savefield($item, $key, $value, $lang) {
-      $item->updateMeta($key, $value, $lang);
-  }
 
-  public static function removefield($item, $key, $lang) {
-    $item->updateMeta($key, '', $lang);
-  }
 
   public function render($item) {
     return 'overwrite render method with $item';
@@ -194,20 +188,12 @@ abstract class DataCollection implements IDataCollection {
           }
 
           foreach ($this->fields() as $field) {
-              if (! array_key_exists($field['key'], $data)) {
+              if (!array_key_exists($field['key'], $data)) {
                   // remove field
-                  self::removefield($item, $field['key'], $lang);
+                  FieldSaver::remove($item, $field, isset($data['lang']) ? $data['lang'] : 0);
                   continue;
               }
-              if ($field['multilang'] == false) {
-                  $lang = false;
-              } else {
-                  $lang = $data['language'];
-              }
-              if (is_array($data[$field['key']])) {
-                $data[$field['key']] = json_encode($data[$field['key']]);
-              }
-              self::savefield($item, $field['key'], $data[$field['key']], $lang);
+              FieldSaver::save($item, $field, $data);
           }
       } else {
           App::instance()->addMessage(i('Unable to save item, Item does not exist'));
@@ -424,7 +410,7 @@ abstract class DataCollection implements IDataCollection {
             $field['label'] = i('Label');
         }
         if (! array_key_exists('type', $field)) {
-            $field['label'] = 'text';
+            $field['type'] = 'text';
         }
         if (! array_key_exists('order', $field)) {
             $field['order'] = 1000;

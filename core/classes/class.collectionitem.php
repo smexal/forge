@@ -45,6 +45,10 @@ class CollectionItem {
         }
     }
 
+    public function getSlug() {
+        return $this->slug();
+    }
+
     public function getName() {
         return $this->base_data['name'];
     }
@@ -138,7 +142,7 @@ class CollectionItem {
         // run theme methods..
         $app->tm->theme->styles();
 
-        if($this->isPublished()) {
+        if($this->isPublished() || $this->getAuthor() == App::instance()->user->get('id')) {
             return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
                     'bodyclass' => '',

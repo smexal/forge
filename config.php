@@ -20,7 +20,7 @@ define('WWW_ROOT', $ext);
 define('UPLOAD_WWW', WWW_ROOT."uploads/");
 define('UPLOAD_DIR', DOC_ROOT."uploads/");
 define('CORE_ROOT', DOC_ROOT."core/");
-define('CORE_WWW_ROOT', $ext."core/");
+define('CORE_WWW_ROOT', WWW_ROOT."core/");
 define('CORE_TEMPLATE_DIR', CORE_ROOT."ressources/templates/");
 define('FOOTPRINT_SIZE', 10);
 
@@ -43,6 +43,6 @@ define('AVAILABLE_LANGUAGES', 'de,en');
 define('SECURE', false);
 define('CACHE_SALT', 'aöpu2¨0 56p-!?\'3zn\\5hap0o h');
 define('AUTOLOADER_CLASS_FLUSH', false || isset($_GET['flushac']));
-define('MANAGER_CACHE_FLUSH', true || isset($_GET['flushmc']));
+define('MANAGER_CACHE_FLUSH', false || isset($_GET['flushmc']));
 
 date_default_timezone_set("Europe/Zurich");

@@ -76,7 +76,7 @@ class MainView extends View {
             if($pageToDisplay->id == Settings::get('home_page')) {
                 // this is the home page.. redirect to home...
                 $current = Localization::getCurrentLanguage();
-                $this->app->redirect(array($locale));
+                $this->app->redirect(array($current));
             }
             App::instance()->page = $pageToDisplay;
             return $pageToDisplay->render();

@@ -5,6 +5,7 @@ namespace Forge\Core\Views\Manage\Collections;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\FieldBuilder;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Utils;
 
@@ -100,7 +101,7 @@ class EditView extends View {
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'left') {
-                $return.= Fields::build($field, $this->item->getMeta($field['key']), $this->isMultiLang($field));
+                $return.= FieldBuilder::build($this->item, $field);
             }
         }
         return $return;
@@ -112,19 +113,10 @@ class EditView extends View {
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'right') {
-                $return.= Fields::build($field, $this->item->getMeta($field['key'], $this->isMultiLang($field)));
+                $return.= FieldBuilder::build($this->item, $field);
             }
         }
         return $return;
-    }
-
-    private function isMultiLang($field) {
-        if($field['multilang'] == false) {
-            $lang = 0;
-        } else {
-            $lang = $this->lang;
-        }
-        return $lang;
     }
 
     private function getLanguageLinks() {

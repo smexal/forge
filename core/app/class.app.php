@@ -91,7 +91,7 @@ class App {
 
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
-      
+
       $base_view = '';
       if (is_array($this->uri_components) && array_key_exists(0, $this->uri_components))
         $base_view = $this->uri_components[0];
@@ -114,7 +114,10 @@ class App {
         }
         if($load_main && $view->default || $base_view == $view->name()) {
           $requiredView = $view;
-          break;
+          // TODO: This break breaks all events on any views
+          // thus making backend saving impossible
+          // See: Forge\Core\Views\Manage\Builder\Pages\EditelementView event onUpdateContentElement
+          //break;
         }
       }
       if(!$requiredView) {
@@ -212,6 +215,7 @@ class App {
       if(!class_exists('RainTPL')) {
         Logger::error("RainTPL library not loaded.");
       }
+      $template_dir .= substr($template_dir, -1) != '/' ? '/' : '';
       $config = array(
         "tpl_dir"       => $template_dir,
         "cache_dir"     => $template_dir."cache/",

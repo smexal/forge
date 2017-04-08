@@ -17,6 +17,10 @@ class Localization {
         return self::getLanguages();
     }
 
+    public static function languageIsActive($lang) {
+        return in_array($lang, static::getActiveLanguages());
+    }
+
     public static function getLanguageSelection() {
         $return = '<nav class="lang-sel"><ul>';
         foreach (Localization::getActiveLanguages() as $lang) {

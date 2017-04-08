@@ -7,38 +7,10 @@ use \Forge\Core\App\App;
 class Fields {
 
     public static function build($args, $value='') {
-        switch($args['type']) {
-            case 'text':
-                return self::text($args, $value);
-                break;
-            case 'number':
-                return self::number($args, $value);
-                break;                
-            case 'select':
-                return self::select($args, $value);
-                break;
-            case 'multiselect':
-                return self::multiselect($args, $value);
-                break;
-            case 'textarea':
-                return self::textarea($args, $value);
-                break;
-            case 'wysiwyg':
-                return self::wysiwyg($args, $value);
-                break;
-            case 'checkbox':
-                return self::checkbox($args, $value);
-                break;
-            case 'linklist':
-                return self::linklist($args);
-                break;
-            case 'image':
-                return self::image($args, $value);
-                break;
-            case 'file':
-                return self::file($args, $value);
-                break;
+        if (! method_exists(get_class(), $args['type'])) {
+            return call_user_func($args['type'], $args, $value);
         }
+        return self::{$args['type']}($args, $value);
     }
 
     public static function linklist($args, $value = '') {
@@ -214,6 +186,15 @@ class Fields {
         ));
     }
 
+    public static function fileStandart($args, $value='') {
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'fileselectionstandard', array(
+            'label' => $args['label'],
+            'name' => $args['key'],
+            'change_text' => i('Choose file'),
+            'no_file' => i('No file selected')
+        ));
+    }
+
     public static function select($args, $value='') {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
@@ -285,13 +266,22 @@ class Fields {
         ));
     }
 
-    public static function hidden($args) {
+    public static function hidden($args, $value='') {
+        $value = static::getRelevantValue($args, $value);
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "hidden", array(
-            'name' => $args['name'],
-            'value' => $args['value']
+            'name' => empty($args['key']) ? $args['name'] : $args['key'],
+            'value' => $value
         ));
     }
 
+
+    private static function getRelevantValue($args, $value) {
+        if (array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        } else if (empty($value) && array_key_exists('value', $args)) {
+            $value = $args['value'];
+        }
+        return $value;
+    }
+
 }
-
-
