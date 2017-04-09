@@ -19,13 +19,16 @@ body .content {
     padding-right: 60px;
 }
 
-h4 {
-    font-size: 20px;
-}
 h1 {
     font-size: 24px;
     display: inline-block;
     width: auto;
+}
+h2 {
+    font-size: 20px;
+}
+h3, h4 {
+    font-size: 16px;
 }
 a.small {
     font-size: 13px;
@@ -35,5 +38,37 @@ a.small {
     &:hover {
         color: white;
         text-decoration: none;
+    }
+}
+
+a {
+    color: @color-gray-dark;
+    transition: 300ms;
+
+    &:hover {
+        color: lighten(@color-gray-dark, 5%);
+        text-decoration: underline;
+    }
+}
+
+span.huge {
+    font-size: 36px;
+    line-height: 50px;
+    font-weight: 100;
+    padding: 30px;
+    display: inline-block;
+
+    strong {
+        font-weight: 700;
+        background-color: @color-primary;
+        padding: 0 7px;
+        margin: 7px 0;
+        display: inline-block;
+    }
+
+    + a {
+        padding: 0 30px;
+        font-size: 11px;
+        text-transform: uppercase;
     }
 }
