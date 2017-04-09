@@ -1,0 +1,10 @@
+<div id="dashboard">
+    {loop="widgets"}
+    <div class="card widget {$value.width} {$value.height}" id="{$value.id}">
+        {if="$value.title"}<h3>{$value.title}</h3>{/if}
+        <div class="content">
+            {$value.content}
+        </div>
+    </div>
+    {/loop}
+</div>
