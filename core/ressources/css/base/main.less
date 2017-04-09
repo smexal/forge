@@ -55,7 +55,6 @@ span.huge {
     font-size: 36px;
     line-height: 50px;
     font-weight: 100;
-    padding: 30px;
     display: inline-block;
 
     strong {
@@ -67,8 +66,26 @@ span.huge {
     }
 
     + a {
-        padding: 0 30px;
+        padding: 0;
         font-size: 11px;
         text-transform: uppercase;
+    }
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+
+    &.content-listing {
+        li {
+            line-height: 24px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid @color-gray-light;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
     }
 }
