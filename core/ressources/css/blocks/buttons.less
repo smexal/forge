@@ -1,22 +1,33 @@
-a.btn {
+a.btn, button.btn {
     font-size: 12px;
     font-weight: bold;
     line-height: 14px;
     text-transform: uppercase;
-    color: #FFFFFF;
     padding: 13px 26px;
+
+    &.btn-icon-container {
+        padding: 0;
+        i {
+            opacity: 0.6;
+            transition: 300ms;
+        }
+        &:hover i {
+            opacity: 1;
+        }
+    }
 
     &.btn-primary {
         text-align: center;
-        background-color: #212121;
+        background-color: @color-gray-dark;
         box-shadow: 0 2px 4px 0 rgba(0,0,0,0.15);
-        border: 1px solid #212121;
+        border: 1px solid @color-gray-dark;
         border-radius: 3px;
         transition: 300ms;
+        color: #FFFFFF;
 
         &:hover {
             box-shadow: 0 2px 7px 0 rgba(0,0,0,0.25);
-            background-color: lighten(#212121, 10%);
+            background-color: lighten(@color-gray-dark, 10%);
         }
 
     }

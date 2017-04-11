@@ -1,11 +1,11 @@
 <div class="actions">
     {loop="$actions"}
         {if="$value.icon"}
-            <a class="btn {if="$value.ajax"}ajax{/if} {if="$value.confirm"}confirm{/if} btn-default btn-xs" href="{$value.url}" title="{$value.name}">
-                <span class="glyphicon glyphicon-{$value.icon}" aria-hidden="true"></span>
+            <a class="btn btn-icon-container{if="$value.ajax"} ajax{/if} {if="$value.confirm"}confirm{/if}" href="{$value.url}" title="{$value.name}">
+                <i class="material-icons">{$value.icon}</i>
             </a>
         {else}
-            <a class="btn {if="$value.ajax"}ajax{/if} {if="$value.confirm"}confirm{/if} btn-default btn-xs"  href="{$value.url}">{$value.name}</a>
+            <a class="btn btn-icon-container{if="$value.ajax"} ajax{/if} {if="$value.confirm"}confirm{/if}"  href="{$value.url}">{$value.name}</a>
         {/if}
     {/loop}
 </div>

@@ -1,18 +1,22 @@
-<table class="table table-striped table-hover" {if="$id"}id="{$id}"{/if}>
-<tr>
-{loop="$th"}
-     <th {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
-       {$value.content}
-     </th>
-{/loop}
-</tr>
-{loop="$td"}
-<tr>
-{loop="$value"}
-     <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
-       {$value.content}
-     </td>
-{/loop}
-</tr>
-{/loop}
+<table class="default" {if="$id"}id="{$id}"{/if}>
+    <thead>
+        <tr>
+        {loop="$th"}
+             <th {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
+               {$value.content}
+             </th>
+        {/loop}
+        </tr>
+    </thead>
+    <tbody>
+        {loop="$td"}
+        <tr>
+        {loop="$value"}
+             <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
+               {$value.content}
+             </td>
+        {/loop}
+        </tr>
+        {/loop}
+    </tbody>
 </table>

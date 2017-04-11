@@ -134,7 +134,7 @@ class CollectionsView extends View {
       $actions = array(
         array(
             "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
-            "icon" => "pencil",
+            "icon" => "mode_edit",
             "name" => sprintf(i('edit %s'), $this->collection->getPref('single-item')),
             "ajax" => false,
             "confirm" => false
@@ -143,7 +143,7 @@ class CollectionsView extends View {
       if (Auth::allowed($this->permissions["delete"])) {
         array_push($actions, array(
             "url" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'delete', $item->id)),
-            "icon" => "remove",
+            "icon" => "delete_forever",
             "name" => sprintf(i('delete %s'), $this->collection->getPref('single-item')),
             "ajax" => true,
             "confirm" => true
@@ -154,4 +154,3 @@ class CollectionsView extends View {
       ));
     }
 }
-
