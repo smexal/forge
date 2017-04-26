@@ -1,0 +1,32 @@
+table.default {
+  width: 100%;
+}
+table.default thead {
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.05);
+  background-color: #FAFAFA;
+}
+table.default tr th {
+  line-height: 30px;
+  padding: 10px 20px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #212121;
+  text-transform: uppercase;
+}
+table.default tr th:not(:last-child) {
+  border-right: none;
+}
+table.default tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+table.default tbody tr td {
+  padding: 10px 20px;
+  line-height: 40px;
+}
+table.default tbody tr td:first-child {
+  font-weight: 400;
+}
+table.default tbody tr td div.actions a.btn-icon-container {
+  margin-right: 5px;
+}

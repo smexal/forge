@@ -1,0 +1,69 @@
+.form-group {
+    margin-bottom: 30px;
+    position: relative;
+    margin-top: 30px;
+
+    input[type="text"] {
+        background-color: transparent;
+        box-shadow: none;
+        border-radius: 0px;
+        border:none;
+        border-bottom: 1px solid rgba(0,0,0,0.12);
+        padding: 5px 0;
+        font-size: 13px;
+
+        &:focus, &:hover {
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+    label {
+        transition: 300ms;
+        color: @color-gray;
+        font-weight: normal;
+        position: absolute;
+        top: 8px;
+        font-size: 13px;
+    }
+    input[type="checkbox"] {
+        width: 16px;
+        position: absolute;
+        top: -3px;
+        right: 0;
+
+        &:focus, &:hover {
+            box-shadow: none;
+        }
+
+        + small {
+            position: relative;
+            top: 30px;
+        }
+    }
+
+    select {
+        border-radius: 0px;
+        position: relative;
+        top: 30px;
+
+        &:focus {
+            box-shadow: none;
+            border-color: inherit;
+            background-color: @color-gray-light;
+        }
+    }
+
+    &.focus {
+        label {
+            color: @color-gray-middle;
+            font-size: 11px;
+            top: -10px;
+        }
+    }
+
+    small {
+        color: @color-gray-middle;
+        font-size: 80%;
+        font-style: italic;
+    }
+}

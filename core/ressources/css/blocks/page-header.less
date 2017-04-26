@@ -2,14 +2,52 @@
     border-bottom: 0;
     margin-bottom: 50px;
 
+    a.back {
+        color: @color-gray-middle;
+        position: absolute;
+        top: -15px;
+        font-size: 80%;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
     > div {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
+        .actions .form-group {
+            margin-bottom: 0;
+        }
+
         h1 {
             margin: 0;
             color: @color-gray-dark;
+        }
+
+        position: relative;
+        .subnavigation {
+            position: absolute;
+            left: 15px;
+            bottom: -30px;
+
+            a {
+                font-size: 14px;
+                padding: 8px 10px;
+                border-radius: 5px;
+                color: #686868;
+                font-weight: 500;
+                margin-right: 20px;
+
+                &:hover, &:focus {
+                    text-decoration: none;
+                    background-color: rgba(0,0,0,0.06);
+                }
+
+                &.active {
+                    background-color: rgba(0,0,0,0.04);
+                }
+            }
         }
     }
 }

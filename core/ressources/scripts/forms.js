@@ -5,6 +5,7 @@ var forms = {
         forms.helperlinks();
         forms.readOnlyInput();
         forms.additionalNavigationForm();
+        forms.focusToggle();
     },
 
     tags : function() {
@@ -17,6 +18,24 @@ var forms = {
             forms.tagsInputByGetter($(this));
         }
       });
+    },
+
+    focusToggle : function() {
+        $("input[type='text'], input[type='password'], input[type='input'], textarea").each(function() {
+            if($(this).val().length > 0) {
+                $(this).parent().addClass('focus');
+            }
+
+            $(this).on('focus', function() {
+                if(! $(this).parent().hasClass('focus')) {
+                    $(this).parent().addClass('focus');
+                }
+            }).on('blur', function() {
+                if($(this).val().length == 0) {
+                    $(this).parent().removeClass('focus');
+                }
+            })
+        })
     },
 
     additionalNavigationForm : function() {

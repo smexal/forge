@@ -1,0 +1,54 @@
+.dragsort {
+    max-width: 100%;
+    overflow: hidden;
+
+    .items {
+        padding-left: 0;
+        .item {
+            list-style: none;
+            border-radius: 3px;
+            border: 1px solid #ededed;
+            box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.05);
+            display: block;
+            padding: 10px 30px;
+            background-color: #FFF;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: box-shadow 300ms ease,
+                        background-color 300ms ease,
+                        border-color 300ms ease;
+
+            &.level-1 {
+                margin-left: 30px;
+            }
+            &.level-2 {
+                margin-left: 60px;
+            }
+            &.level-3 {
+                margin-left: 90px;
+            }
+
+            &:hover {
+                background-color: #fafafa;
+                border: 1px solid #e2e2e2;
+                box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.1);
+            }
+        }
+        .placeholder {
+            border: 1px dashed #ededed;
+            min-height: 60px;
+            margin-bottom: 20px;
+            list-style: none;
+
+            &.level-1 {
+                margin-left: 30px;
+            }
+            &.level-2 {
+                margin-left: 60px;
+            }
+            &.level-3 {
+                margin-left: 90px;
+            }
+        }
+    }
+}

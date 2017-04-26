@@ -2,12 +2,45 @@
   border-bottom: 0;
   margin-bottom: 50px;
 }
+.page-header a.back {
+  color: #ABABAB;
+  position: absolute;
+  top: -15px;
+  font-size: 80%;
+  text-transform: uppercase;
+  font-weight: 500;
+}
 .page-header > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+}
+.page-header > div .actions .form-group {
+  margin-bottom: 0;
 }
 .page-header > div h1 {
   margin: 0;
   color: #212121;
+}
+.page-header > div .subnavigation {
+  position: absolute;
+  left: 15px;
+  bottom: -30px;
+}
+.page-header > div .subnavigation a {
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  color: #686868;
+  font-weight: 500;
+  margin-right: 20px;
+}
+.page-header > div .subnavigation a:hover,
+.page-header > div .subnavigation a:focus {
+  text-decoration: none;
+  background-color: rgba(0,0,0,0.06);
+}
+.page-header > div .subnavigation a.active {
+  background-color: rgba(0,0,0,0.04);
 }

@@ -44,11 +44,10 @@ class AddView extends View {
         $form->ajax(".content");
         $form->disableAuto();
         $form->hidden("event", $this->events[0]);
-        $form->input("new_name", "new_name", i('Username'), 'input', $this->new_name);
-        $form->input("new_email", "new_email", i('E-Mail'), 'input', $this->new_email);
+        $form->input("new_name", "new_name", i('Username'), 'text', $this->new_name);
+        $form->input("new_email", "new_email", i('E-Mail'), 'email', $this->new_email);
         $form->input("new_password", "new_password", i('Password'), 'password');
         $form->submit(i('Create'));
         return $form->render();
     }
 }
-

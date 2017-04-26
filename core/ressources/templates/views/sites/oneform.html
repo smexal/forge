@@ -14,9 +14,9 @@
                             {$value.title}
                             </a>
                         {/loop}
-                        <div class="subactions">
-                            {$subview_actions}
-                        </div>
+                    </div>
+                    <div class="subactions">
+                        {$subview_actions}
                     </div>
                     {/if}
                     {if="$tabs"}
@@ -49,18 +49,20 @@
         {else}
           <div class="maxed">
               <div class="row{if="$tabs"} tab-content{/if}">
-              {loop="tab_content"}
-                  <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        {$value.left}
-                      </div>
-                      <div class="col-lg-6">
-                        {$value.right}
-                      </div>
-                    </div>
+                  <div class="col-lg-12">
+                      {loop="tab_content"}
+                          <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
+                            <div class="row">
+                              <div class="col-lg-6">
+                                {$value.left}
+                              </div>
+                              <div class="col-lg-6">
+                                {$value.right}
+                              </div>
+                            </div>
+                          </div>
+                      {/if}
                   </div>
-              {/if}
               </div>
           </div>
         {/if}

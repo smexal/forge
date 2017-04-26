@@ -1,7 +1,7 @@
 <div class="dragsort">
     <ul class="items" data-callback="{$callback}">
         {loop="$items"}
-            <li class="item level-{$value.level}" data-id="{$value.id}" data-level="{$value.level}">{$value.content}</li>
+            <li class="item level-{$value.level} card" data-id="{$value.id}" data-level="{$value.level}">{$value.content}</li>
         {/loop}
     </ul>
 </div>

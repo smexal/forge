@@ -1,0 +1,39 @@
+.list-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 7px 0;
+
+    > div:not(:last-child) {
+        min-width: 120px;
+        margin-right: 30px;
+    }
+
+    small {
+        text-transform: uppercase;
+        color: #b2b2b2;
+    }
+    p, p > a {
+        margin-bottom: 0;
+    }
+
+    .actions {
+        margin-top: 10px;
+    }
+    a.btn {
+        border: none;
+        background: none;
+        &:hover {
+            span:before {
+                color: @primary_color;
+            }
+        }
+        span {
+            &:before {
+                transition: 300ms;
+                color: #666;
+                font-size: 17px;
+            }
+        }
+    }
+}

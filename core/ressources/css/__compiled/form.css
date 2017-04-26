@@ -1,0 +1,61 @@
+.form-group {
+  margin-bottom: 30px;
+  position: relative;
+  margin-top: 30px;
+}
+.form-group input[type="text"] {
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0px;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  padding: 5px 0;
+  font-size: 13px;
+}
+.form-group input[type="text"]:focus,
+.form-group input[type="text"]:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+.form-group label {
+  transition: 300ms;
+  color: #343434;
+  font-weight: normal;
+  position: absolute;
+  top: 8px;
+  font-size: 13px;
+}
+.form-group input[type="checkbox"] {
+  width: 16px;
+  position: absolute;
+  top: -3px;
+  right: 0;
+}
+.form-group input[type="checkbox"]:focus,
+.form-group input[type="checkbox"]:hover {
+  box-shadow: none;
+}
+.form-group input[type="checkbox"] + small {
+  position: relative;
+  top: 30px;
+}
+.form-group select {
+  border-radius: 0px;
+  position: relative;
+  top: 30px;
+}
+.form-group select:focus {
+  box-shadow: none;
+  border-color: inherit;
+  background-color: #f0f0f0;
+}
+.form-group.focus label {
+  color: #ABABAB;
+  font-size: 11px;
+  top: -10px;
+}
+.form-group small {
+  color: #ABABAB;
+  font-size: 80%;
+  font-style: italic;
+}

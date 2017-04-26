@@ -1,12 +1,21 @@
-a.btn, button.btn {
+a.btn, button.btn, .subactions a {
     font-size: 12px;
     font-weight: bold;
     line-height: 14px;
     text-transform: uppercase;
     padding: 13px 26px;
+    background-color: rgba(0,0,0,0.05);
+
+    &:hover {
+        background-color: rgba(0,0,0,0.07);
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+    }
+
 
     &.btn-icon-container {
         padding: 0;
+        background: transparent;
+
         i {
             opacity: 0.6;
             transition: 300ms;

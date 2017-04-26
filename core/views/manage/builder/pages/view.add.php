@@ -48,7 +48,7 @@ class AddView extends View {
         $form->ajax(".content");
         $form->disableAuto();
         $form->hidden("event", $this->events[0]);
-        $form->input("new_name", "new_name", i('Page Name'), 'input', $this->new_name);
+        $form->input("new_name", "new_name", i('Page Name'), 'text', $this->new_name);
         $form->tags("parent", "parent", i('Define a parent page'), false, array(
             "value" => "id",
             "name" => "name",
@@ -58,4 +58,3 @@ class AddView extends View {
         return $form->render();
     }
 }
-

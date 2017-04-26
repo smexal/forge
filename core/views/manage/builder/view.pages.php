@@ -122,7 +122,7 @@ class PagesView extends View {
       $actions = array(
         array(
             "url" => Utils::getUrl(array("manage", "pages", "edit", $id)),
-            "icon" => "pencil",
+            "icon" => "edit",
             "name" => i('edit page'),
             "ajax" => false,
             "confirm" => false
@@ -131,7 +131,7 @@ class PagesView extends View {
       if (Auth::allowed($this->permissions[0])) {
         array_push($actions, array(
             "url" => Utils::getUrl(array("manage", "pages", "delete", $id)),
-            "icon" => "remove",
+            "icon" => "delete",
             "name" => i('delete page'),
             "ajax" => true,
             "confirm" => true
@@ -142,4 +142,3 @@ class PagesView extends View {
       ));
     }
 }
-

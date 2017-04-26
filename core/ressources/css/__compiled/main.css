@@ -6,6 +6,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'liga';
 }
+::selection {
+  background: #212121;
+  color: white;
+}
+::-moz-selection {
+  background: #212121;
+  color: white;
+}
+body {
+  font-size: 13px;
+}
 body .content {
   padding-left: 170px;
   padding-right: 60px;

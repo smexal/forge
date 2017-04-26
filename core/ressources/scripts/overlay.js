@@ -54,7 +54,7 @@ var overlay = {
         } else {
             the_overlay = $(
                 "<div class='overlay-container'><div class='cover'></div><div class='overlay-right'>"+
-                    "<span class='close glyphicon glyphicon-menu-right' aria-hidden='true'></span>"+
+                    "<i class='material-icons close'>close</i>"+
                     "<div class='content'></div>"+
                 "</div></div>").appendTo("body");
         }

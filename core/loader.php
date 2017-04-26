@@ -47,6 +47,10 @@ class Loader {
       $this->addStyle('core/ressources/css/blocks/card.less', false, false);
       $this->addStyle('core/ressources/css/blocks/table.less', false, false);
       $this->addStyle('core/ressources/css/blocks/overlay.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/form.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/dragsort.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/list-content.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/tagsinput.less', false, false);
 
       /* TODO nightmode css not yet implemented in redesign-42
       if((array_key_exists('night', $_GET) || Settings::get('nightmode')) && ! array_key_exists('day', $_GET)) {

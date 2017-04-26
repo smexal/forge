@@ -1,0 +1,33 @@
+.list-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 7px 0;
+}
+.list-content > div:not(:last-child) {
+  min-width: 120px;
+  margin-right: 30px;
+}
+.list-content small {
+  text-transform: uppercase;
+  color: #b2b2b2;
+}
+.list-content p,
+.list-content p > a {
+  margin-bottom: 0;
+}
+.list-content .actions {
+  margin-top: 10px;
+}
+.list-content a.btn {
+  border: none;
+  background: none;
+}
+.list-content a.btn:hover span:before {
+  color: ;
+}
+.list-content a.btn span:before {
+  transition: 300ms;
+  color: #666;
+  font-size: 17px;
+}
