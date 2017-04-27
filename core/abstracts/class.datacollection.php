@@ -26,8 +26,6 @@ abstract class DataCollection implements IDataCollection {
     return $this->preferences[$name];
   }
 
-
-
   public function render($item) {
     return 'overwrite render method with $item';
   }
@@ -66,6 +64,7 @@ abstract class DataCollection implements IDataCollection {
     if (!is_null($this->permission)) {
       Auth::registerPermissions($this->permission);
     }
+
     $this->preferences = array(
       'name' => strtolower(get_class($this)),
       'title' => i('Data'),

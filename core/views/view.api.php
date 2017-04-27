@@ -33,18 +33,24 @@ class ApiView extends View {
         switch($part) {
             case 'localization':
                 return Localization::apiQuery($query, $format, $key);
+            break;
             case 'users':
                 return $this->users($query);
+            break;
             case 'pages':
                 return $this->pages($query);
+            break;
             case 'media':
                 return $this->media($query);
+            break;
             case 'navigation-items':
                 return ContentNavigation::getPossibleItems();
+            break;
             case 'edit-navigation-item-additional-form':
                 return $this->additionalNavigationItemForm($query);
+            break;
             default:
-                $return = API::instance()->run($part, $query, $_POST);
+                $return = API::instance()->run($part, $query);
                 if($return) {
                     return $return;
                 } else {
@@ -64,6 +70,7 @@ class ApiView extends View {
             $mediamanager->create($_FILES['file']);
         }
     }
+
 
     private function pages($query) {
         if(count($query) == 0) {
@@ -90,5 +97,3 @@ class ApiView extends View {
         }
     }
 }
-
-

@@ -95,6 +95,15 @@ class Auth {
         }
     }
 
+    public static function getPermissionID($permission_name) { 
+        App::instance()->db->where('name', $permission_name);
+        $dbPerm = App::instance()->db->get('permissions');
+        if (count($dbPerm) == 0) {
+            return null;
+        }
+        return $dbPerm[0]['id'];
+    }
+
     public static function session() {
         // session has already been started
         if (session_status() !== PHP_SESSION_NONE)

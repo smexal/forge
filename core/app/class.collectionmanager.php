@@ -50,7 +50,9 @@ class CollectionManager extends Manager {
   public function _getCollections() {
       App::instance()->eh->fire("onGetCollections");
       $flush_cache = \triggerModifier('Forge\CollectionManager\FlushCache', MANAGER_CACHE_FLUSH === true);
-      return static::loadClasses($flush_cache);
+      $classes = static::loadClasses($flush_cache);
+      App::instance()->eh->fire("onLoadedCollections", $classes);
+      return $classes;
   }
 
   public function deleteCollectionItem($id) {

@@ -4,7 +4,10 @@ namespace Forge\Core\App;
 
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\App\Api\Collection as CollectionAPI;
+
 use \Forge\Core\App\Autoregister;
+
 use \Forge\Loader;
 
 class App {
@@ -39,6 +42,9 @@ class App {
     }
 
     private function managers() {
+      /* API */
+      CollectionAPI::instance()->register();
+      
       if(is_null($this->db)) {
         $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
@@ -79,6 +85,7 @@ class App {
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();
       }
+
     }
 
     public function run() {
