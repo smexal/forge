@@ -61,13 +61,27 @@ var forms = {
     },
 
     tagsInputByGetter : function(element) {
+        var geturl = element.data('getter'); 
+        geturl += (geturl.indexOf("%QUERY") == -1 ) ? '/search/%QUERY' : '';
+        var getterconvert = element.data('getterconvert');
+
+        var remote = {
+            url: geturl,
+            wildcard : '%QUERY'
+          };
+        if(getterconvert) {
+          try {
+            var func = eval(getterconvert);
+            remote.transform = func;
+          } catch (e) {
+            
+          }
+        }
+
         var engine = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.whitespace,
           queryTokenizer: Bloodhound.tokenizers.whitespace,
-          remote: {
-            url: element.data('getter') + "/search/%QUERY",
-            wildcard : '%QUERY'
-          }
+          remote: remote
         });
         engine.initialize();
 

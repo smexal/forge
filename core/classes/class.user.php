@@ -103,8 +103,14 @@ class User {
         }
         $this->app->db->where('name', $permission);
         $permission = $this->app->db->getOne('permissions');
+        
+        // There does not exist a permission with the provided name
+        if(!$permission)
+            return false;
+
         $this->app->db->where('permissionid', $permission['id']);
         $groupsWithPermission = $this->app->db->get('permissions_groups');
+        
         foreach ($this->data['groups'] as $user_group) {
             foreach ($groupsWithPermission as $db_group) {
                 if ($user_group['groupid'] == $db_group['groupid']) {

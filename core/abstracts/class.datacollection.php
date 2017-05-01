@@ -94,6 +94,11 @@ abstract class DataCollection implements IDataCollection {
       $limit = $settings['limit'];
     }
     $db->where('type', $this->name);
+
+    if(array_key_exists('query', $settings)) {
+      $db->where('name', $db->escape($settings['query']), 'LIKE');
+    }
+
     if (! $limit) {
       $items = $db->get('collections');
     } else {

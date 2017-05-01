@@ -8,6 +8,12 @@ use \Forge\Core\App\CollectionManager;
 use \Forge\Core\Abstracts\APIFacade;
 use \Forge\Core\Classes\Utils;
 
+/**
+ * This class allows reading out collections in a crud manner via an APIFacade.
+ * 
+ * In order to allow access to a new collection the permissians have to be registered
+ * via the Permissions / Authentication classes of the forge core.
+ */
 class Collection extends APIFacade {
   const PERM_C = 'c';
   const PERM_R = 'r';
@@ -153,9 +159,6 @@ class Collection extends APIFacade {
   private function actionAllowed($name, $perm_key=Collection::PERM_R) {
     $permission = str_replace('%name%', $name, static::$permissions[$perm_key]);
 
-    // BAAAD FOR forge-quest-trees
-    var_dump($permission);
-    die(var_dump(App::instance()->user->allowed($permission)));
     if(!App::instance()->user->allowed($permission)) {
       return false;
     }
@@ -181,6 +184,9 @@ class Collection extends APIFacade {
 
     if($data['s'] != 'all') {
       $query['status'] = $data['s'];
+    }
+    if($data['q'] != 'all') {
+      $query['query'] = $data['q'];
     }
     return $query;
   }
