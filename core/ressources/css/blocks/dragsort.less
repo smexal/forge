@@ -33,6 +33,23 @@
                 border: 1px solid #e2e2e2;
                 box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.1);
             }
+
+            .actions {
+                float: right;
+                a {
+                    &:hover {
+                        i {
+                            color: @color-gray;
+                        }
+                    }
+                    i {
+                        transition: 200ms;
+                        font-size: 18px;
+                        margin-right: 5px;
+                        color: @color-gray-middle;
+                    }
+                }
+            }
         }
         .placeholder {
             border: 1px dashed #ededed;

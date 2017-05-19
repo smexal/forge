@@ -149,6 +149,9 @@ var forms = {
                     cache: false,
                     contentType: false,
                     processData: false,
+                    complete: function() {
+                        button.removeClass('loading');
+                    },
                     error: function (jqXHR, exception) {
                         var msg = '';
                         if (jqXHR.status === 0) {
@@ -213,9 +216,7 @@ var forms = {
                           }, 30);
                       }
                   });
-                }).complete(function() {
-                    button.removeClass('loading');
-                });
+              });
             });
         });
     },

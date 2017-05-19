@@ -1,0 +1,94 @@
+.builder {
+    margin-bottom: 120px;
+
+    .actions {
+        float: right;
+        a {
+            text-transform: uppercase;
+            font-size: 11px;
+            color: @color-gray-middle;
+            &:hover {
+                color: @color-gray;
+                text-decoration: none;
+            }
+        }
+    }
+    a {
+        &.add:hover {
+            i {
+                transform:rotate(90deg);
+            }
+        }
+
+
+        i {
+            color: @color-gray-middle;
+            transition: 300ms;
+            font-size: 22px;
+            &:hover {
+                color:@color-gray;
+            }
+        }
+    }
+
+    .elements {
+        .element {
+            .self {
+                border-bottom: 1px solid @color-gray-lighter;
+                margin-bottom: 10px;
+
+                h4 {
+                    display: inline-block;
+                }
+                .actions {
+                    display: inline-block;
+                }
+            }
+        }
+        .comp-default {
+            margin-bottom: 30px;
+            background-color:  white;
+            padding: 10px;
+            border-radius: 3px;
+            transition: 300ms;
+            box-shadow: 0 0 2px 0 rgba(0,0,0,0.06), 0 2px 2px 0 rgba(0,0,0,0.12);
+
+            &:hover {
+                box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+            }
+
+            &:hover .actions {
+                opacity: 1;
+            }
+            .actions {
+                transition: 300ms;
+                opacity: 0;
+
+            }
+
+            h5, .actions {
+                display: inline-block;
+            }
+        }
+    }
+
+}
+
+.components {
+    .card {
+        width: 45%;
+        float: left;
+        margin-right: 20px;
+        transition: 200ms;
+
+        &:hover {
+            background-color: white;
+        }
+
+        a {
+            &:hover, &:focus {
+                text-decoration: none;
+            }
+        }
+    }
+}

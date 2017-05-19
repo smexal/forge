@@ -13,10 +13,6 @@ table.default {
             font-weight: 500;
             color: @color-gray-dark;
             text-transform: uppercase;
-
-            &:not(:last-child) {
-                border-right: none;
-            }
         }
     }
 
@@ -34,6 +30,11 @@ table.default {
 
                 div.actions a.btn-icon-container {
                     margin-right: 5px;
+                }
+
+                i {
+                    display: block;
+                    color: @color-gray-middle;
                 }
             }
         }

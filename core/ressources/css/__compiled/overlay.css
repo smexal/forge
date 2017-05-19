@@ -7,7 +7,7 @@
   z-index: 1031;
 }
 .overlay-container .content {
-  padding: 0 120px;
+  padding: 0 40px 0 100px;
 }
 .overlay-container.show {
   left: 0;

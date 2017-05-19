@@ -31,6 +31,11 @@ class ApiView extends View {
         }
 
         $part = array_shift($query);
+
+        /**
+          * TODO Move the hardcoded api registrations to the corresponding class and handle
+          * everything through the api adapter trait.
+          **/
         switch($part) {
             case 'localization':
                 return Localization::apiQuery($query, $format, $key);
@@ -91,5 +96,3 @@ class ApiView extends View {
         }
     }
 }
-
-

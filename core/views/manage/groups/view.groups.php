@@ -69,21 +69,21 @@ class GroupsView extends View {
             'actions' => array(
                 array(
                     "url" => Utils::getUrl(array("manage", "groups", "edit", $group->id)),
-                    "icon" => "pencil",
+                    "icon" => "mode_edit",
                     "name" => i('edit group'),
                     "ajax" => true,
                     "confirm" => true
                 ),
                 array(
                     "url" => Utils::getUrl(array("manage", "groups", "delete", $group->id)),
-                    "icon" => "remove",
+                    "icon" => "delete",
                     "name" => i('delete group'),
                     "ajax" => true,
                     "confirm" => true
                 ),
                 array(
                     "url" => Utils::getUrl(array("manage", "groups", "members", $group->id)),
-                    "icon" => "user",
+                    "icon" => "people",
                     "name" => i('manage members'),
                     "ajax" => true,
                     "confirm" => true
@@ -92,4 +92,3 @@ class GroupsView extends View {
         ));
     }
 }
-

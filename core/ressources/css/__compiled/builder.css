@@ -1,0 +1,71 @@
+.builder {
+  margin-bottom: 120px;
+}
+.builder .actions {
+  float: right;
+}
+.builder .actions a {
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #ABABAB;
+}
+.builder .actions a:hover {
+  color: #343434;
+  text-decoration: none;
+}
+.builder a.add:hover i {
+  transform: rotate(90deg);
+}
+.builder a i {
+  color: #ABABAB;
+  transition: 300ms;
+  font-size: 22px;
+}
+.builder a i:hover {
+  color: #343434;
+}
+.builder .elements .element .self {
+  border-bottom: 1px solid #E0E0E0;
+  margin-bottom: 10px;
+}
+.builder .elements .element .self h4 {
+  display: inline-block;
+}
+.builder .elements .element .self .actions {
+  display: inline-block;
+}
+.builder .elements .comp-default {
+  margin-bottom: 30px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 3px;
+  transition: 300ms;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.06), 0 2px 2px 0 rgba(0,0,0,0.12);
+}
+.builder .elements .comp-default:hover {
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+.builder .elements .comp-default:hover .actions {
+  opacity: 1;
+}
+.builder .elements .comp-default .actions {
+  transition: 300ms;
+  opacity: 0;
+}
+.builder .elements .comp-default h5,
+.builder .elements .comp-default .actions {
+  display: inline-block;
+}
+.components .card {
+  width: 45%;
+  float: left;
+  margin-right: 20px;
+  transition: 200ms;
+}
+.components .card:hover {
+  background-color: white;
+}
+.components .card a:hover,
+.components .card a:focus {
+  text-decoration: none;
+}

@@ -2,8 +2,9 @@
     margin-bottom: 30px;
     position: relative;
     margin-top: 30px;
+    padding-top: 10px;
 
-    input[type="text"] {
+    input[type="text"], input[type="input"], input[type="password"] {
         background-color: transparent;
         box-shadow: none;
         border-radius: 0px;
@@ -22,7 +23,7 @@
         color: @color-gray;
         font-weight: normal;
         position: absolute;
-        top: 8px;
+        top: 18px;
         font-size: 13px;
     }
     input[type="checkbox"] {
@@ -41,10 +42,24 @@
         }
     }
 
+    label + textarea {
+        margin-top: 10px;
+        height: 240px;
+        border-radius: 0px;
+        box-shadow: none;
+
+        &:focus {
+            box-shadow: none;
+            border-color: @color-gray;
+        }
+    }
+
+
     select {
         border-radius: 0px;
         position: relative;
         top: 30px;
+        margin-bottom: 50px;
 
         &:focus {
             box-shadow: none;
@@ -57,7 +72,7 @@
         label {
             color: @color-gray-middle;
             font-size: 11px;
-            top: -10px;
+            top: 0px;
         }
     }
 

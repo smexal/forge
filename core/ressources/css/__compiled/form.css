@@ -2,8 +2,11 @@
   margin-bottom: 30px;
   position: relative;
   margin-top: 30px;
+  padding-top: 10px;
 }
-.form-group input[type="text"] {
+.form-group input[type="text"],
+.form-group input[type="input"],
+.form-group input[type="password"] {
   background-color: transparent;
   box-shadow: none;
   border-radius: 0px;
@@ -13,7 +16,11 @@
   font-size: 13px;
 }
 .form-group input[type="text"]:focus,
-.form-group input[type="text"]:hover {
+.form-group input[type="text"]:hover,
+.form-group input[type="input"]:focus,
+.form-group input[type="input"]:hover,
+.form-group input[type="password"]:focus,
+.form-group input[type="password"]:hover {
   background-color: transparent;
   box-shadow: none;
 }
@@ -22,7 +29,7 @@
   color: #343434;
   font-weight: normal;
   position: absolute;
-  top: 8px;
+  top: 18px;
   font-size: 13px;
 }
 .form-group input[type="checkbox"] {
@@ -39,10 +46,21 @@
   position: relative;
   top: 30px;
 }
+.form-group label + textarea {
+  margin-top: 10px;
+  height: 240px;
+  border-radius: 0px;
+  box-shadow: none;
+}
+.form-group label + textarea:focus {
+  box-shadow: none;
+  border-color: #343434;
+}
 .form-group select {
   border-radius: 0px;
   position: relative;
   top: 30px;
+  margin-bottom: 50px;
 }
 .form-group select:focus {
   box-shadow: none;
@@ -52,7 +70,7 @@
 .form-group.focus label {
   color: #ABABAB;
   font-size: 11px;
-  top: -10px;
+  top: 0px;
 }
 .form-group small {
   color: #ABABAB;

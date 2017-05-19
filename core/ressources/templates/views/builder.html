@@ -54,8 +54,8 @@
                                             <div class="self">
                                                 <h4>{$value.name}</h4>
                                                 <div class="actions">
-                                                    <a href="{$value.edit.link}" class="ajax slidein">{$value.edit.name}</a>
-                                                    <a href="{$value.remove.link}" class="ajax slidein">{$value.remove.name}</a>
+                                                    <a href="{$value.edit.link}" class="ajax slidein"><i class="material-icons">mode_edit</i></a>
+                                                    <a href="{$value.remove.link}" class="ajax slidein"><i class="material-icons">delete</i></a>
                                                 </div>
                                             </div>
                                             {if="$value.container"}
@@ -69,7 +69,7 @@
                                     {/if}
                                     <!-- add new item button -->
                                     <a href="{$new_url}" class="add ajax slidein">
-                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <i class="material-icons">add_circle_outline</i>
                                     </a>
                                 </div>
                                 {/if}

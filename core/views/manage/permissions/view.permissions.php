@@ -97,7 +97,7 @@ class PermissionsView extends View {
           'actions' => array(
               array(
                   "url" => Utils::getUrl(array("manage", "permissions", $type, $groupid, $permission)),
-                  "icon" => $type == "grant" ? "unchecked" : "ok",
+                  "icon" => $type == "grant" ? "panorama_fish_eye" : "check_circle",
                   "name" => $type == "grant" ? i('Add Permission') : i('Remove Permission'),
                   "ajax" => true,
                   "confirm" => false
@@ -126,4 +126,3 @@ class PermissionsView extends View {
       return $names;
     }
 }
-

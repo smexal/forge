@@ -95,7 +95,7 @@ class MembersView extends View {
         'actions' => array(
           array(
             "url" => Utils::getUrl(array("manage", "groups", "members", $this->group->get('id'), "remove", $id)),
-            "icon" => "remove",
+            "icon" => "delete",
             "name" => i('remove user'),
             "ajax" => true,
             "confirm" => false
@@ -104,4 +104,3 @@ class MembersView extends View {
       ));
     }
 }
-

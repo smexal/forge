@@ -54,7 +54,6 @@ var forge_dragsort = {
                     url: ui.item.closest(".ui-sortable").data('callback'),
                     data : {itemset : dataset}
                 }).done(function(data) {
-                    //console.log(data);
                 });
             },
             sort: function(event, ui) {

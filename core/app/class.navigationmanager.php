@@ -14,20 +14,38 @@ class NavigationManager extends Manager {
     private $apiMainListener = 'navigation';
 
     public function getItems($navigationId, $data) {
-        $navigationId = $navigationId[0];
-        $items = ContentNavigation::getNavigationItems($navigationId, false, 0, true);
-        $dragItems = [];
-        foreach($items as $item) {
-            $dragItems[] = [
-                'level' => '0',
-                'id' => $item['id'],
-                'content' => $item['name']
-            ];
+        if(! Auth::allowed("manage.navigations")) {
+            return;
         }
+        $navigationId = $navigationId[0];
+
+        $dragItems = $this->getDragItems($navigationId);
+
         return App::instance()->render(CORE_TEMPLATE_DIR."views/parts/", "dragsort", array(
             'callback' => Utils::getUrl(['api', 'navigation', 'update-order']),
             'items' => $dragItems
         ));
+    }
+
+    private function getDragItems($navigationId, $parent = 0, $level = 0) {
+        $items = ContentNavigation::getNavigationItems($navigationId, false, $parent);
+        $dragItems = [];
+        foreach($items as $item) {
+            $dragItems[] = [
+                'level' => $level,
+                'id' => $item['id'],
+                'content' => $item['name'].'<span class="actions">'.$this->getNavigationItemActions($item['id']).'</span>'
+            ];
+            $dragItems = array_merge($dragItems, $this->getDragItems($navigationId, $item['id'], $level+1));
+        }
+        return $dragItems;
+    }
+
+    private function getNavigationItemActions($id) {
+        $return = '';
+        $return.= Utils::iconAction('mode_edit', 'sidebar', Utils::getUrl(["manage", "navigation", "itemedit", $id]));
+        $return.= Utils::iconAction('delete', 'sidebar', Utils::getUrl(["manage", "navigation", "itemdelete", $id]));
+        return $return;
     }
 
     public function updateOrder($not_used, $data) {
@@ -35,4 +53,3 @@ class NavigationManager extends Manager {
         ContentNavigation::updateOrder($newOrder);
     }
 }
-

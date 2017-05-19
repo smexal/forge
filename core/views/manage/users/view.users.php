@@ -62,14 +62,14 @@ class UsersView extends View {
             'actions' => array(
                 array(
                     "url" => Utils::getUrl(array("manage", "users", "delete", $id)),
-                    "icon" => "remove",
+                    "icon" => "delete",
                     "name" => i('delete user'),
                     "ajax" => true,
                     "confirm" => true
                 ),
                 array(
                     "url" => Utils::getUrl(array("manage", "users", "edit", $id)),
-                    "icon" => "pencil",
+                    "icon" => "mode_edit",
                     "name" => i('edit user'),
                     "ajax" => true,
                     "confirm" => true
@@ -78,4 +78,3 @@ class UsersView extends View {
         ));
     }
 }
-

@@ -87,7 +87,7 @@ class StringsView extends View {
 
     private function stringInUse($string) {
       return Utils::tableCell(
-          $string['used'] == 1 ? Utils::icon("ok-sign") : Utils::icon("question-sign"),
+          $string['used'] == 1 ? Utils::icon("check") : Utils::icon("error_outline"),
           "center"
       );
     }
@@ -97,7 +97,7 @@ class StringsView extends View {
           'actions' => array(
               array(
                   "url" => Utils::getUrl(array("manage", "string-translation", "translate", $string['id'])),
-                  "icon" => "pencil",
+                  "icon" => "mode_edit",
                   "name" => i('Translate'),
                   "ajax" => true,
                   "confirm" => true
@@ -111,12 +111,11 @@ class StringsView extends View {
       foreach(Localization::getLanguages() as $language) {
         $translated = Localization::stringTranslationState($string['string'], $string['domain'], $language['code']);
         if(! $translated) {
-          array_push($cells, Utils::tableCell(Utils::icon("remove"), "center"));
+          array_push($cells, Utils::tableCell(Utils::icon("hourglass_empty"), "center"));
         } else {
-          array_push($cells, Utils::tableCell(Utils::icon("ok"), "center"));
+          array_push($cells, Utils::tableCell(Utils::icon("done"), "center"));
         }
       }
       return $cells;
     }
 }
-

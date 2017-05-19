@@ -1,0 +1,28 @@
+.dropzone {
+    width: 100%;
+    border: 3px #f0f0f0 dashed;
+    transition: 300ms;
+    padding: 30px 100px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-style: italic;
+    color: #d0d0d0;
+    border-radius: 5px;
+    float: left;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+    &.dz-drag-hover {
+        border-color: @primary_color;
+        border-radius: 8px;
+        color: @primary_color;
+    }
+    .dz-preview {
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+    .dz-success-mark, .dz-error-mark, .dz-details {
+        display: none;
+    }
+}

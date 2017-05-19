@@ -51,6 +51,11 @@ class Loader {
       $this->addStyle('core/ressources/css/blocks/dragsort.less', false, false);
       $this->addStyle('core/ressources/css/blocks/list-content.less', false, false);
       $this->addStyle('core/ressources/css/blocks/tagsinput.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/builder.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/accordion.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/dropzone.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/media-library.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/grid.less', false, false);
 
       /* TODO nightmode css not yet implemented in redesign-42
       if((array_key_exists('night', $_GET) || Settings::get('nightmode')) && ! array_key_exists('day', $_GET)) {
@@ -72,7 +77,8 @@ class Loader {
           "color-gray" => "#343434",
           "color-gray-middle" => "#ABABAB",
           "color-gray-lighter" => "#E0E0E0",
-          "color-gray-light" => "#f0f0f0"
+          "color-gray-light" => "#f0f0f0",
+          "color-danger" => "#d9534f"
         ));
       }
       $this->lessVariablesSet = true;

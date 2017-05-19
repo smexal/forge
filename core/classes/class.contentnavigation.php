@@ -236,6 +236,7 @@ class ContentNavigation {
 
     public static function updateOrder($orderedItems) {
         $db = App::instance()->db;
+        var_dump($orderedItems);
         foreach($orderedItems as $item) {
             $db->where('id', $item['id']);
             $db->update('navigation_items', [
@@ -271,4 +272,3 @@ class ContentNavigation {
     private function __clone(){}
 
 }
-

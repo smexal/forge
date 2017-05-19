@@ -72,6 +72,13 @@ class Utils {
       return $user->get('username');
     }
 
+    public static function iconAction($icon, $type, $url) {
+        switch($type) {
+            default:
+                return '<a class="ajax confirm" href="'.$url.'"><i class="material-icons">'.$icon.'</i></a>';
+        }
+    }
+
     public static function getUrl($params = array(), $addGET=false, $additionalGET = array(), $language = false) {
         $query = '';
         if($addGET) {
@@ -228,7 +235,7 @@ class Utils {
     }
 
     public static function icon($name) {
-      return '<span class="glyphicon glyphicon-'.$name.'" aria-hidden="true"></span>';
+      return '<i class="material-icons">'.$name.'</i>';
     }
 
     public static function error($error) {
@@ -246,5 +253,3 @@ class Utils {
       return str_replace("-", "", $string);
     }
 }
-
-

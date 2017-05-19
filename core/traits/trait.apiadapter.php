@@ -8,7 +8,7 @@ use \Forge\Core\Classes\Logger;
 
 /**
  * An API Adapter trait.
- * Using this trait will allow a class to register Api Methods, which get called with a certain structure. 
+ * Using this trait will allow a class to register Api Methods, which get called with a certain structure.
  * Check "navigationmanager" for example usage.
  */
 trait ApiAdapter {

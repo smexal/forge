@@ -69,7 +69,7 @@ class LocalesView extends View {
           'actions' => array(
               array(
                   "url" => Utils::getUrl(array("manage", "locales", "set-default", $id)),
-                  "icon" => $isDefault === 0 ? "unchecked" : "ok",
+                  "icon" => $isDefault === 0 ? "star_border" : "star",
                   "name" => i('Set Default'),
                   "ajax" => true,
                   "confirm" => false
@@ -78,4 +78,3 @@ class LocalesView extends View {
       ));
     }
 }
-
