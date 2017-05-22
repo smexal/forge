@@ -37,6 +37,18 @@ class RowComponent extends Component {
                 "type" => "text"
             ),
             array(
+                "label" => i("Background Color"),
+                "hint" => i("Type a hex or rgba background color."),
+                "key" => "row-bg-color",
+                "type" => "text"
+            ),
+            array(
+                "label" => i("Adjust Padding"),
+                "hint" => i("Adjust padding sizes, you should know, what you're doing..."),
+                "key" => "row-padding",
+                "type" => "text"
+            ),
+            array(
                 "key" => "row-display-type",
                 "label" => i('Display Type'),
                 "hint" => "Stretch the row to full content or wrap it.",
@@ -121,7 +133,9 @@ class RowComponent extends Component {
             'backgroundimage' => $bg,
             'css' => $prefs['row-extra-css'],
             'bgstyle' => $this->getField('background-style'),
-            'bgpos' => $this->getField('background-position')
+            'bgpos' => $this->getField('background-position'),
+            'bgcolor' => $this->getField('row-bg-color'),
+            'padding' => $this->getField('row-padding')
         ));
     }
 
@@ -157,4 +171,3 @@ class RowComponent extends Component {
     }
 
 }
-

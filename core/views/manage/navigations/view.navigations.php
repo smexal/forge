@@ -48,7 +48,7 @@ class NavigationsView extends View {
 
         foreach(ContentNavigation::getNavigations() as $nav) {
             $placeholder = new Placeholder();
-            for ($index=0; $index < ContentNavigation::getNavigationCount($nav['id']); $index++) { 
+            for ($index=0; $index < ContentNavigation::getNavigationCount($nav['id']); $index++) {
                 $placeholder->addBlock('100%', '30px');
             }
             $plRender = $placeholder->render();
@@ -63,10 +63,11 @@ class NavigationsView extends View {
                 'id' => 'tab-panel-'.$nav['id'],
                 'dataId' => $nav['id'],
                 'title' => $nav['name'].' <small>'.$nav['position'].'</small>',
+                'actions' => '<a href="javascript://" data-open="/manage/navigation/add-item/'.$nav['id'].'" class="open-overlay">'.i('Add navigation item', 'core').'</a>',
                 'body' => $plRender
             ];
         }
-        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "accordion", 
+        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "accordion",
             [
                 'id' => 'navigations-accordion',
                 'panels' => $panels,
@@ -75,4 +76,3 @@ class NavigationsView extends View {
         );
     }
 }
-

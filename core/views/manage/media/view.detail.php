@@ -61,8 +61,8 @@ class DetailView extends View {
         $form->input("modify_title", "modify_title", i('Title'), 'input', $this->media->title);
         $form->submit(i('Update details'));
         $form = $form->render();
-        $delete = '<a href="'.Utils::getUrl(array('manage', 'media', 'detail', $this->media->id, 'delete')).'" class="ajax">'.i('Delete media').'</a>';
-        return $form.$delete;
+        $form.= Utils::iconAction("find_replace", "ajax", Utils::getUrl(['manage', 'media', 'replace', $this->media->id]));
+        $form.= Utils::iconAction("delete_forever", "noOverlay", Utils::getUrl(['manage', 'media', 'detail', $this->media->id, 'delete']));
+        return $form;
     }
 }
-

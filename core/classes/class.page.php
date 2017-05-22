@@ -75,7 +75,7 @@ class Page {
             $p = $this;
         }
         $slug = $p->getMeta('slug');
-        
+
         if($slug) {
             $part = $slug;
         } else {
@@ -165,6 +165,7 @@ class Page {
       $this->db->where('parent', $parent);
       $this->db->where('lang', $lang);
       $this->db->where('pageid', $this->id);
+      $this->db->orderBy('position', 'ASC');
       $elements = array();
       foreach($this->db->get('page_elements') as $element) {
           $element = App::instance()->com->instance($element['id'], $element['elementid']);
@@ -219,7 +220,7 @@ class Page {
       $db->orderBy("sequence", "asc");
       $ps = $db->get('pages');
       $return = '';
-      
+
       foreach($ps as $p) {
           $page = new Page($p['id']);
           if(! $page->isPublished()) {
@@ -235,7 +236,7 @@ class Page {
               'children' => $this->children($page)
           ]);
       }
-      
+
       return $return;
   }
 
@@ -292,7 +293,7 @@ class Page {
       $content = '';
 
       // show subnavigation
-      
+
       if($this->getMeta('subnavigation') === false) {
           $content.= App::instance()->render(CORE_TEMPLATE_DIR."assets/", "subnavigation", array(
               'items' => $this->getSubnavigationItems()
@@ -307,4 +308,3 @@ class Page {
   }
 
 }
-

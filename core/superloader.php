@@ -133,7 +133,9 @@ class SuperLoader {
 
         // Get Namespace
         if(!preg_match('/namespace\s+(.*)\;/', $head, $ns_match)) {
-          error_log("Cant find namespace for $file");
+            if(! strstr($file, '.rtpl.php')) {
+                error_log("Cant find namespace for $file");
+            }
           continue;
         }
 
@@ -187,7 +189,7 @@ class SuperLoader {
             return;
         }
         error_log("SuperLoader could not find $ns_cls");
-        /* echo "<pre>";
+        /*echo "<pre>";
         echo "SuperLoader has following Mapping:";
         echo print_r($this->mappings, 1);*/
     }

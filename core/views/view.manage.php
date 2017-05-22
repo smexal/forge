@@ -47,7 +47,7 @@ class ManageView extends View {
         $panelLeft = $this->navigation->addPanel();
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2]) && count($this->app->cm->collections) > 0) {
-          $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft, 'collections');
+          $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft, 'dns');
           $this->collectionSubmenu($panelLeft);
         }
 
@@ -142,5 +142,3 @@ class ManageView extends View {
     }
 
 }
-
-

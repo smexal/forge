@@ -1,12 +1,16 @@
 {if="$displaytype=='normal'"}
     <div class="wrapped">
 {/if}
-<div class="row {$css}{if="$bgstyle"} {$bgstyle}{/if}{if="$bgpos"} {$bgpos}{/if}" {if="$backgroundimage"}style="background-image:url('{$backgroundimage}')"{/if}>
+<div class="row {$css}{if="$bgstyle"} {$bgstyle}{/if}{if="$bgpos"} {$bgpos}{/if}"
+    style="{if="$backgroundimage"}background-image:url('{$backgroundimage}');{/if}
+    {if="$bgcolor"}background-color:{$bgcolor};{/if}
+    {if="$padding"}padding:{$padding}{/if}"
+>
     {if="$displaytype=='semi'"}
         <div class="wrapped">
     {/if}
     {loop="$rows"}
-        <div class="col-lg-{$value.width}">
+        <div class="col-lg-{$value.width} col-md-{$value.width} col-sm-{$value.width}">
             {$value.content}
         </div>
     {/loop}

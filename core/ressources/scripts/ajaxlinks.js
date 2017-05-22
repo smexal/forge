@@ -47,8 +47,16 @@ var ajaxlinks = {
                 if($(this).hasClass("slidein") || $(this).hasClass("confirm")) {
                     // load sidebar with confirm dialog
                     $(this).data("open", $(this).attr('href'));
+                    var button = $(this);
+                    // because if it's a link in a overlay replacing its content,
+                    // we have to save the required button data to a new object.
+                    var fakeButton = $("<button>");
+                    fakeButton.data('open', $(this).attr('href'));
+                    if($(this).hasClass('big-overlay')) {
+                        fakeButton.addClass('big-overlay');
+                    }
                     var the_overlay = overlay.prepare();
-                    overlay.open($(this), the_overlay);
+                    overlay.open(fakeButton, the_overlay);
                 } else {
                     var formdata = {};
                     if($(this).hasClass('form')) {

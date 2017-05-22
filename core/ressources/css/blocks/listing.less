@@ -1,0 +1,21 @@
+.listing {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .listing-item {
+        width: 32%;
+        margin-bottom: 30px;
+
+        @media only screen and (max-width: 768px) {
+            width: 48%;
+        }
+        @media only screen and (max-width: 450px) {
+            width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    }
+}

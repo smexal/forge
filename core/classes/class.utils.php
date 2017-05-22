@@ -74,6 +74,8 @@ class Utils {
 
     public static function iconAction($icon, $type, $url) {
         switch($type) {
+            case 'noOverlay':
+                return '<a class="ajax" href="'.$url.'"><i class="material-icons">'.$icon.'</i></a>';
             default:
                 return '<a class="ajax confirm" href="'.$url.'"><i class="material-icons">'.$icon.'</i></a>';
         }

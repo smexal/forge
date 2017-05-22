@@ -4,3 +4,11 @@
 .panel-group .panel-body {
   padding: 15px 0 0 0;
 }
+.panel-group .panel {
+  position: relative;
+}
+.panel-group .panel > div > .actions {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}

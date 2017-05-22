@@ -71,6 +71,7 @@ var overlay = {
         if(button.hasClass("big-overlay")) {
             the_overlay.find(".overlay-right").addClass("big");
         }
+        console.log(button.data('open'));
         $.ajax({
           url: button.data('open'),
           context: the_overlay.find(".content")

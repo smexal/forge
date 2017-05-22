@@ -6,7 +6,9 @@
 }
 .form-group input[type="text"],
 .form-group input[type="input"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="number"],
+.form-group input[type="datetime"] {
   background-color: transparent;
   box-shadow: none;
   border-radius: 0px;
@@ -20,7 +22,11 @@
 .form-group input[type="input"]:focus,
 .form-group input[type="input"]:hover,
 .form-group input[type="password"]:focus,
-.form-group input[type="password"]:hover {
+.form-group input[type="password"]:hover,
+.form-group input[type="number"]:focus,
+.form-group input[type="number"]:hover,
+.form-group input[type="datetime"]:focus,
+.form-group input[type="datetime"]:hover {
   background-color: transparent;
   box-shadow: none;
 }
@@ -48,7 +54,7 @@
 }
 .form-group label + textarea {
   margin-top: 10px;
-  height: 240px;
+  height: 200px;
   border-radius: 0px;
   box-shadow: none;
 }
