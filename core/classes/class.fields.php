@@ -51,38 +51,29 @@ class Fields {
             'group_class' => '',
             'input_class' => '',
             'getter' => false,
-            'getterconvert' => false,
+            'getter_value_key' => false,
+            'getter_label_key' => false,
+            'getter' => false,
+            'getter_convert' => false,
             'loadingcontext' => false,
             'error' => false,
-            'autocomplete' => true
+            'autocomplete' => true,
+            'hor' => false
         ];
 
         $args = array_merge($defaults, $args);
 
         $args['noautocomplete'] = !$args['autocomplete'];
+        $args['name'] = $args['name'] ?? $args['key'];
 
         if (array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         } else if (empty($value) && array_key_exists('value', $args)) {
             $value = $args['value'];
         }
+        $args['value'] = $value;
 
-        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
-            'name' => $args['key'],
-            'id' => $args['key'],
-            'label' => $args['label'],
-            'type' => $args['type'],
-            'input_class' => $args['input_class'],
-            'group_class' => $args['group_class'],
-            'hor' => false,
-            'noautocomplete' => $args['noautocomplete'],
-            'getter' => $args['getter'],
-            'getterconvert' => $args['getterconvert'],
-            'loadingcontext' => $args['loadingcontext'],
-            'value' => $value,
-            'hint' => $args['hint'],
-            'error' => $args['error']
-        ));
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", $args);
     }
 
     public static function tags($args, $value='') {
@@ -90,9 +81,12 @@ class Fields {
             'state' => 'all',
             'loadingcontext' => '.form-group'
         ];
+        
         $args = array_merge($defaults, $args);
         $args['autocomplete'] = false;
         $args['input_class'] = 'tags';
+        $args['getter'] = is_string($args['getter']) ? ['url' => $args['getter']] : $args['getter'];
+
         return static::text($args, $value);
     }
 
@@ -100,11 +94,17 @@ class Fields {
         static $defaults = [
             'state' => 'all'
         ];
+
         $args = array_merge($defaults, $args);
         $url = API::getAPIURL();
         $url .= '/collections/' . $args['collection'] . '?s=' . $args['state'] .'&q=%%QUERY%';
-        $args['getter'] = $url;
-        $args['getterconvert'] = 'forge_api.collections.ressourceToList';
+        
+        $args['getter'] = [
+            'url' => $url,
+            'convert' => 'forge_api.collections.onlyItems',
+            'value_key' => 'id',
+            'label_key' => 'name'
+        ];
 
         unset($args['collection']);
         return static::tags($args, $value);

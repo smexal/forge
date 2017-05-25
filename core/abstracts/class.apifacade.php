@@ -26,7 +26,7 @@ abstract class APIFacade implements ICallableAPI {
 
   /**
    * @description: The interface for the \Forge\Core\App\Api is inconsistent
-   * and does not call the registered methods always with an array but somtimes
+   * and does not call the registered methods always with an array but sometimes
    * only with the first path fragment. This is corrected here.
    */
   public function call_fix($request) {

@@ -114,6 +114,7 @@ class Collection extends APIFacade {
 
   private function representSingle($item, $data) {
     $single = [
+      'id' => $item->id,
       'url' => $item->url(),
       'ressource' => $this->getAPIRessourceURI($item),
       'slug' => $item->getSlug(),

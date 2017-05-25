@@ -65,6 +65,7 @@ class Form {
     }
 
     public function input($name, $id, $label, $type="text", $value=false, $hint=false) {
+      var_dump($name, $id, $label);
       array_push($this->content, $this->app->render(CORE_TEMPLATE_DIR."assets/", "input", array(
         'name' => $name,
         'id' => $id,
@@ -72,6 +73,8 @@ class Form {
         'type' => $type,
         'hor' => $this->horizontal,
         'noautocomplete' => $this->noAutocomplete,
+        'group_class' => '',
+        'input_class' => '',
         'value' => $value,
         'hint' => $hint,
         'error' => ''

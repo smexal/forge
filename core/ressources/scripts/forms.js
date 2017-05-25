@@ -73,10 +73,10 @@ var forms = {
         var self = this;
         var geturl = element.data('getter'); 
         geturl += (geturl.indexOf("%QUERY") == -1 ) ? '/search/%QUERY' : '';
-        var getterconvert = element.data('getterconvert');
+        var getter_convert = element.data('getter-convert');
         var loadingcontext = element.data('loadingcontext');
         var context = element;
-
+        
         if(loadingcontext) {
           context = $(element).parent(loadingcontext);
           if(!context) {
@@ -84,13 +84,14 @@ var forms = {
           }
         }
 
+        // is overwritten if defined via getter_convert
         var transform = function(data) {
           return data; 
         }
 
-        if(getterconvert) {
+        if(getter_convert) {
           try {
-            var func = eval(getterconvert);
+            var func = eval(getter_convert);
             transform = function() {
               context.removeClass("loading");
               var args = [];
@@ -107,9 +108,9 @@ var forms = {
 
         var remote = {
             url: geturl,
-            wildcard : '%QUERY',
             prepare : function(query, settings) {
               context.addClass('loading');
+              settings.url = settings.url.replace('%QUERY', query);
               return settings;
             },
             transform : transform
@@ -139,6 +140,9 @@ var forms = {
               source: engine.ttAdapter()
             }
         });
+
+        
+
       },
 
     tagsInputByValues : function(element, values) {
