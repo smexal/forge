@@ -52,6 +52,7 @@ class Fields {
             'input_class' => '',
             'getter' => false,
             'getterconvert' => false,
+            'loadingcontext' => false,
             'error' => false,
             'autocomplete' => true
         ];
@@ -77,6 +78,7 @@ class Fields {
             'noautocomplete' => $args['noautocomplete'],
             'getter' => $args['getter'],
             'getterconvert' => $args['getterconvert'],
+            'loadingcontext' => $args['loadingcontext'],
             'value' => $value,
             'hint' => $args['hint'],
             'error' => $args['error']
@@ -84,6 +86,11 @@ class Fields {
     }
 
     public static function tags($args, $value='') {
+        static $defaults = [
+            'state' => 'all',
+            'loadingcontext' => '.form-group'
+        ];
+        $args = array_merge($defaults, $args);
         $args['autocomplete'] = false;
         $args['input_class'] = 'tags';
         return static::text($args, $value);

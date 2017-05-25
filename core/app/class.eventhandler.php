@@ -16,20 +16,19 @@ class EventHandler {
         return self::$instance;
     }
 
-    public function register($trigger, $callable) {
-        if(array_key_exists($trigger, $this->callables)) {
-            array_push($this->callables[$trigger], $callable);
-        } else {
-            $this->callables[$trigger] = array($callable);
+    public function register($trigger, $callable, $params=null) {
+        if(!array_key_exists($trigger, $this->callables)) {
+            $this->callables[$trigger] = [];
         }
+        array_push($this->callables[$trigger], ['fn' => $callable, 'params' => $params]);
     }
 
     public function fire($event) {
         $return = null;
         if(array_key_exists($event, $this->callables)) {
             foreach($this->callables[$event] as $callable) {
-                $returnable = call_user_func_array($callable, array());
-                if(! is_null($returnable)) {
+                $returnable = call_user_func_array($callable['fn'], [$callable['params']]);
+                if(!is_null($returnable)) {
                     if(is_null($return)) {
                         $return = '';
                     }

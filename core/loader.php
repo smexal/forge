@@ -76,14 +76,7 @@ class Loader {
     private function __construct(){
         $this->libraries();
         $this->loadCoreScripts();
-        // $this->loadInterfaces();
-        // $this->loadTraits();
-        // $this->loadAbstracts();
-        // $this->loadClasses();
         $this->loadModules();
-        // $this->loadApp();
-        //  $this->loadViews();
-        // $this->loadComponents();
 
     }
 

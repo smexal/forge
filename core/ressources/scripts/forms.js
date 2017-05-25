@@ -8,15 +8,24 @@ var forms = {
     },
 
     tags : function() {
+      var self = this;
       $("input.tags").each(function() {
-        var values = $(this).data('values');
-        var getter = $(this).data('getter');
-        if( Object.prototype.toString.call( values ) === '[object Array]') {
-            forms.tagsInputByValues($(this), values);
-        } else if (typeof getter === "string") {
-            forms.tagsInputByGetter($(this));
-        }
+        self.init_tag(this);
       });
+    },
+
+    init_tag : function(element) {
+      if($(element).data('tagsinited') == '1') {
+        return;
+      }
+      var values = $(element).data('values');
+      var getter = $(element).data('getter');
+      if( Object.prototype.toString.call( values ) === '[object Array]') {
+          forms.tagsInputByValues($(element), values);
+      } else if (typeof getter === "string") {
+          forms.tagsInputByGetter($(element));
+      }
+      $(element).data('tagsinited', 1);
     },
 
     additionalNavigationForm : function() {
@@ -61,22 +70,50 @@ var forms = {
     },
 
     tagsInputByGetter : function(element) {
+        var self = this;
         var geturl = element.data('getter'); 
         geturl += (geturl.indexOf("%QUERY") == -1 ) ? '/search/%QUERY' : '';
         var getterconvert = element.data('getterconvert');
+        var loadingcontext = element.data('loadingcontext');
+        var context = element;
 
-        var remote = {
-            url: geturl,
-            wildcard : '%QUERY'
-          };
+        if(loadingcontext) {
+          context = $(element).parent(loadingcontext);
+          if(!context) {
+            context = element;
+          }
+        }
+
+        var transform = function(data) {
+          return data; 
+        }
+
         if(getterconvert) {
           try {
             var func = eval(getterconvert);
-            remote.transform = func;
+            transform = function() {
+              context.removeClass("loading");
+              var args = [];
+              for(var i = 0; i < arguments.length; i++) {
+                args.push(arguments[i]);
+              }
+              args.push(self);
+              return func.apply(this, args);
+            };
           } catch (e) {
             
           }
         }
+
+        var remote = {
+            url: geturl,
+            wildcard : '%QUERY',
+            prepare : function(query, settings) {
+              context.addClass('loading');
+              return settings;
+            },
+            transform : transform
+          };
 
         var engine = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.whitespace,

@@ -86,9 +86,11 @@ class App {
         $this->cm = new CollectionManager();
       }
 
+      \fireEvent('onManagersLoaded');
     }
 
     public function run() {
+      \fireEvent('onAppRun');
       $this->managers();
 
       $this->uri_components = Utils::getUriComponents();
@@ -129,6 +131,7 @@ class App {
         $this->eh->trigger($_POST['event'], $_POST);
       }
       $this->displayView($requiredView);
+      \fireEvent('onFinishRun');
     }
 
     public function displayView($view) {

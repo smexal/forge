@@ -13,7 +13,8 @@
         {if="$noautocomplete"} readonly onfocus="this.removeAttribute('readonly');"{/if}
         {if="$value"}value="{$value}"{/if}
         {if="$getter"}data-getter="{$getter}"{/if}
-        {if="$getterconvert"}data-getterconvert="{$getterconvert}"{/if} >
+        {if="$getterconvert"}data-getterconvert="{$getterconvert}"{/if}
+        {if="$loadingcontext"}data-loadingcontext="{$loadingcontext}"{/if} >
         {if="$error"}<small class="clearfix error-message">{$error}</small>{/if}
     {if="$hint"}<small class="clearfix">{$hint}</small>{/if}
 {if="$hor"}
