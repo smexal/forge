@@ -19,6 +19,14 @@ class MediaManager {
         $media->create($file);
     }
 
+    public function replace($file, $id) {
+        if (! Auth::allowed("manage.media")) {
+            return false;
+        }
+        $media = new Media($id);
+        $media->replace($file);
+    }
+
     public function getAll($filter=false) {
         $db = App::instance()->db;
         $db->orderBy('date', 'desc');
@@ -37,4 +45,3 @@ class MediaManager {
         return $this->getAll($filter);
     }
 }
-

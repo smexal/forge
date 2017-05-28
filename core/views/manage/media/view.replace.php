@@ -20,6 +20,23 @@ class ReplaceView extends View {
     );
 
     public function content($uri=array()) {
-        return 'replace...';
+        $this->media = new Media($uri[0]);
+        return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
+            'title' => sprintf(i('Replace Media "%s"', 'core'), $this->media->title),
+            'message' => '',
+            'form' => $this->mediaReplace().$this->cancelLink()
+        ));
+    }
+
+    private function mediaReplace() {
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "media-upload", array(
+            'upload_handler_url' => Utils::getUrl(array('api', 'media', 'replace', $this->media->id)),
+            'redirect_url' => Utils::getUrl(array('manage', 'media', 'detail', $this->media->id)),
+            'inOverlay' => 'true'
+        ));
+    }
+
+    private function cancelLink() {
+        return Utils::overlayButton(Utils::getUrl(['manage', 'media', 'detail', $this->media->id]), i('Cancel', 'core'));
     }
 }

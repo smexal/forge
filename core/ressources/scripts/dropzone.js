@@ -6,7 +6,9 @@ Dropzone.options.forgedropzone = {
     init: function () {
         this.on("complete", function (file) {
             if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                redirect($("#forgedropzone").attr('data-redirect'));
+                var inOverlay = $(this).attr('data-overlay');
+                console.log(inOverlay);
+                redirect($(this).attr('data-redirect'), inOverlay);
             }
         });
     }
@@ -14,6 +16,13 @@ Dropzone.options.forgedropzone = {
 
 var forge_dropzone = {
     init : function() {
+        if($('.overlay-container').length > 0) {
+            $('.overlay-container').find(".dropzone").each(function() {
+                try {
+                    $(this).dropzone();
+                } catch(e) { /* ignore this error... */ }
+            });
+        }
         try {
             $("#forgedropzone").dropzone();
         } catch(e) { /* not important error, that it is already initiated. */ }

@@ -59,5 +59,3 @@ class CollectionManager extends Manager {
     $db->delete('collections');
   }
 }
-
-

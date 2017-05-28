@@ -69,6 +69,9 @@ class ApiView extends View {
         if($query[0] == 'upload') {
             $mediamanager->create($_FILES['file']);
         }
+        if($query[0] == 'replace') {
+            $mediamanager->replace($_FILES['file'], $query[1]);
+        }
     }
 
     private function pages($query) {

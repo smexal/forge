@@ -188,9 +188,10 @@ class SuperLoader {
             require_once($this->mappings[$ns_cls]);
             return;
         }
-        error_log("SuperLoader could not find $ns_cls");
-        /*echo "<pre>";
+        /*error_log("SuperLoader could not find $ns_cls");
+        echo "<pre>";
         echo "SuperLoader has following Mapping:";
-        echo print_r($this->mappings, 1);*/
+        echo print_r($this->mappings, 1);
+        exit();*/
     }
 }

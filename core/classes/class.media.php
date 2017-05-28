@@ -59,8 +59,8 @@ class Media {
         $this->name = md5(microtime()).".".$ext;
         $this->rel_path = $this->getSubdirectory();
         $this->abs_path = UPLOAD_DIR.$this->getSubdirectory();
-        if (move_uploaded_file($file['tmp_name'], UPLOAD_DIR.$this->rel_path.$this->name)) {
             $db = App::instance()->db;
+            if (move_uploaded_file($file['tmp_name'], UPLOAD_DIR.$this->rel_path.$this->name)) {
             $this->id = $db->insert('media', array(
                 'name' => $this->name,
                 'mime'=> $this->getMimeType(),
@@ -70,6 +70,14 @@ class Media {
             ));
         } else {
             Logger::error('There was an error, uploading the file: `'.UPLOAD_DIR.$this->rel_path.$this->name.'` with title `'.$this->title.'`');
+        }
+    }
+
+    public function replace($file) {
+        if (move_uploaded_file($file['tmp_name'], UPLOAD_DIR.$this->rel_path.$this->name)) {
+            // done
+        } else {
+            // TODO: Error message?
         }
     }
 
@@ -131,4 +139,3 @@ class Media {
         return $dir;
     }
 }
-
