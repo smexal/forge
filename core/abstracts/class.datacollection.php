@@ -144,6 +144,14 @@ abstract class DataCollection implements IDataCollection {
     return new CollectionItem($id);
   }
 
+  public function getItems($items) {
+    $list = [];
+    foreach($items as $id)
+      $list[$id] = new CollectionItem($id);
+
+    return $list;
+  }
+
   public function saveSetting($key, $value, $lang = false) {
     if ($lang === false) {
       $lang = Localization::getCurrentLanguage();

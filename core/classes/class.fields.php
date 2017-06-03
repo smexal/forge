@@ -51,10 +51,6 @@ class Fields {
             'group_class' => '',
             'input_class' => '',
             'getter' => false,
-            'getter_value_key' => false,
-            'getter_label_key' => false,
-            'getter' => false,
-            'getter_convert' => false,
             'loadingcontext' => false,
             'error' => false,
             'autocomplete' => true,
@@ -99,8 +95,16 @@ class Fields {
         $url = API::getAPIURL();
         $url .= '/collections/' . $args['collection'] . '?s=' . $args['state'] .'&q=%%QUERY%';
         
+        $c_ids = explode(',', $value);
+        $c_items = App::instance()->cm->getCollection($args['collection'])->getItems($c_ids); 
+
+        $c_items = array_map(function($item) {
+            return $item->getName();
+        }, $c_items);
+
         $args['getter'] = [
             'url' => $url,
+            'labels' => htmlspecialchars(json_encode($c_items)),
             'convert' => 'forge_api.collections.onlyItems',
             'value_key' => 'id',
             'label_key' => 'name'

@@ -84,7 +84,7 @@ var forms = {
           }
         }
 
-        // is overwritten if defined via getter_convert
+        // is overwritten if defined via getter-convert
         var transform = function(data) {
           return data; 
         }
@@ -123,8 +123,7 @@ var forms = {
         });
         engine.initialize();
 
-        console.log(element.data('getter-name'), element.data('getter-value'));
-        element.tagsinput({
+        var typeahead = element.tagsinput({
             allowDuplicates: false,
             freeInput: false,
             itemValue: element.data('getter-value'),
@@ -139,9 +138,16 @@ var forms = {
               displayKey: element.data('getter-name'),
               source: engine.ttAdapter()
             }
-        });
+        })[0];
 
-        
+        var labels = element.data('tag-labels');
+        if(!labels)
+          return;
+      
+        var values = element.val().split(",");
+        for(var i = 0; i < values.length; i++) {
+          typeahead.add({id: values[i], name: labels[values[i]]})
+        }
 
       },
 
