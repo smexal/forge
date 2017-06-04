@@ -19,11 +19,11 @@ use \Forge\Core\Classes\Cache\PickleCache;
 *  provide script or style tags
 */
 class SuperLoader {
-    const DEBUG_NONE = false;
-    const DEBUG_LOG  = true;
-    const DEBUG_PAGE = 'page';
+    const DEBUG_NONE = 0;
+    const DEBUG_LOG  = 1;
+    const DEBUG_PAGE = 2;
 
-    public static $DEBUG = false;
+    public static $DEBUG = true;
     public static $FLUSH = false;
 
     public static $BASE_DIR = null;
@@ -72,14 +72,16 @@ class SuperLoader {
     /**
      * Gets the loaded Classes from the cache if they are available
      *
-     * @param boolean $flush Ignores the cache (as if none found)
+     * @param boolean $flush Clears the cache
      */
     protected static function maybeGetCache($flush){
-        if($flush)
-            return null;
+        $cache_key = get_called_class();
+        if($flush) {
+          PickleCache::flush();
+          return null;
+        }
 
         $mapppings = null;
-        $cache_key = get_called_class();
         if(PickleCache::cacheExists($cache_key)) {
             try {
                 $mapppings = PickleCache::readCache($cache_key);
@@ -89,6 +91,10 @@ class SuperLoader {
             }
         }
         return $mapppings;
+    }
+
+    public static function flushCache() {
+      PickleCache::flushCache(get_called_class());
     }
 
     /**
@@ -182,14 +188,16 @@ class SuperLoader {
         if(in_array($ns_cls, $this->ignores))
           return;
 
+        if(!preg_match('/Forge\.*/', $ns_cls))
+          return;
+
         if(array_key_exists($ns_cls, $this->mappings)) {
             require_once($this->mappings[$ns_cls]);
             return;
         }
 
-        var_dump(\stacktrace(20));
         print_r($this->mappings);
-
+        var_dump(\stacktrace(20));
         error_log("SuperLoader could not find $ns_cls");
         /* echo "<pre>";
         echo "SuperLoader has following Mapping:";

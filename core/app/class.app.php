@@ -21,11 +21,13 @@ class App {
     public $user = null;
     public $stream = false;
     public $sticky = false;
-    private $uri_components = false;
     public $page = false;
+    
+    private $prepared = false;
+    private $uri_components = false;
 
     static private $instance = null;
-
+    
     static public function instance() {
         if (null === self::$instance) {
             self::$instance = new self;
@@ -89,9 +91,23 @@ class App {
       \fireEvent('onManagersLoaded');
     }
 
+    /**
+     * Allow the the instantiations of the managers
+     * inside a PhpUnit-Test and prevent multiple callings
+     * of the method
+     */
+    public function prepare() {
+      if($this->prepared)
+        return;
+      
+      $this->managers();
+
+      $this->prepared = true;
+    }
+
     public function run() {
       \fireEvent('onAppRun');
-      $this->managers();
+      $this->prepare();
 
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
