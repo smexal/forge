@@ -16,7 +16,8 @@ class EventHandler {
         return self::$instance;
     }
 
-    public function register($trigger, $callable, $params=null) {
+    public function register($trigger, $callable, $params=[]) {
+        $params = is_array($params) ? $params : [$params];
         if(!array_key_exists($trigger, $this->callables)) {
             $this->callables[$trigger] = [];
         }
@@ -25,14 +26,23 @@ class EventHandler {
 
     public function fire($event) {
         $return = null;
+
+        $arg_list = func_get_args();
+        // remove event name
+        array_shift($arg_list);
+
         if(array_key_exists($event, $this->callables)) {
             foreach($this->callables[$event] as $callable) {
-                $returnable = call_user_func_array($callable['fn'], [$callable['params']]);
+
+                array_push($arg_list, $callable['params']);
+                $returnable = call_user_func_array($callable['fn'], $arg_list);
+                array_pop($arg_list);
+                
                 if(!is_null($returnable)) {
                     if(is_null($return)) {
                         $return = '';
                     }
-                    $return.= $returnable;
+                    $return .= $returnable;
                 }
             }
         }
@@ -47,7 +57,7 @@ class EventHandler {
         }
     }
 
-    public function trigger($event, $data=array()) {
+    public function trigger($event, $data=[]) {
         if(in_array($event, $this->events)) {
             $vm = new ViewManager();
             foreach($vm->views as $view) {

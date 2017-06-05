@@ -77,7 +77,7 @@ class SuperLoader {
     protected static function maybeGetCache($flush){
         $cache_key = get_called_class();
         if($flush) {
-          PickleCache::flush();
+          PickleCache::flushCache($cache_key);
           return null;
         }
 
