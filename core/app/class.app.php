@@ -363,6 +363,14 @@ class App {
       }
     }
 
+    public function getUser() {
+      return $this->user;
+    }
+
+    public function setUser($user) {
+      $this->user = $user
+    }
+
     private function __construct(){}
     private function __clone(){}
 }
