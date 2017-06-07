@@ -10,6 +10,12 @@ class Auth {
         return (isset($_SESSION['auth']) && is_numeric($_SESSION['auth']));
     }
 
+    public static function getSessionUserID() {
+        if(static::any()) 
+            return $_SESSION['auth'];
+        return null;
+    }
+
     public static function setSessionUser() {
         if (Auth::any()) {
             App::instance()->user = new User($_SESSION['auth']);
