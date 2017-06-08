@@ -368,7 +368,7 @@ class App {
     }
 
     public function setUser($user) {
-      $this->user = $user
+      $this->user = $user;
     }
 
     private function __construct(){}
