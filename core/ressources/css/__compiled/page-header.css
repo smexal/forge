@@ -2,6 +2,10 @@
   border-bottom: 0;
   margin-bottom: 50px;
 }
+.page-header > .col-lg-12 {
+  min-height: 50px;
+  align-items: center;
+}
 .page-header a.back {
   color: #ABABAB;
   position: absolute;
@@ -18,6 +22,8 @@
 }
 .page-header > div .actions .form-group {
   margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 0;
 }
 .page-header > div h1 {
   margin: 0;

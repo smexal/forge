@@ -85,8 +85,6 @@ class ManageView extends View {
           }
         }
 
-        $panelRight = $this->navigation->addPanel('right');
-
         $this->navigation->add('language', strtoupper(Localization::getCurrentLanguage()), '', $panelLeft, 'language');
         // add other languages as submenu
         $languages = Localization::getLanguages();
@@ -117,7 +115,9 @@ class ManageView extends View {
         if(Auth::allowed($this->permissions[1])) {
           $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
         }
-        $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelRight, 'power_settings_new');
+
+        $panelBottom = $this->navigation->addPanel('right');
+        $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelBottom, 'power_settings_new');
 
 
 
