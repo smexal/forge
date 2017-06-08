@@ -45,6 +45,7 @@ class Utils {
     }
 
     public static function password($raw) {
+        /** ATTENTION WHEN CHANGING; THIS IS ALSO USED IN THE INSTALLER */
         return password_hash($raw, PASSWORD_BCRYPT);
     }
     public static function passwordCheck($password, $hash) {

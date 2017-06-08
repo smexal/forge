@@ -30,14 +30,14 @@ define('LOG_LEVEL', 'DEBUG');
 define('LOG_TRACE_LINES', 10);
 
 // LANGUAGE DEFINTIONS
-define('DEFAULT_LANGUAGE', 'de');
-define('AVAILABLE_LANGUAGES', 'de,en');
+define('DEFAULT_LANGUAGE', 'it');
+define('AVAILABLE_LANGUAGES', 'it,de,en');
 
 // DATABAZZE
 @define('DB_HOST', "localhost");
 @define('DB_USER', "root");
 @define('DB_PASSWORD', "root");
-@define('DB_NAME', "butterlan");
+@define('DB_NAME', "robertodonetto-web");
 
 // SEGURIDDY
 define('SECURE', false);
