@@ -80,6 +80,11 @@ abstract class DataCollection implements IDataCollection {
     return false;
   }
 
+  /**
+   * Fetch collectionitems based on the provided filter params
+   * 
+   * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
+   */
   public function items($settings = array()) {
     $db = App::instance()->db;
     if (array_key_exists('order', $settings)) {
@@ -99,11 +104,27 @@ abstract class DataCollection implements IDataCollection {
       $db->where('name', $db->escape($settings['query']), 'LIKE');
     }
 
-    if (! $limit) {
+
+    // TODO: Solve this for multiple meta_query-pairs
+    // This currently only works for one meta_key-meta_value-PAIR, because each meta_data result is independently
+    // from the other meta_data entries
+    // This could be solved by creating one subquery for each entry in $settings['meta_query']
+    if(array_key_exists('meta_query', $settings)) {
+      $db->join('collection_meta', 'collections.id = collection_meta.item', 'RIGHT');
+      foreach($settings['meta_query'] as $key => $value) {
+        $db->where('collection_meta.keyy', $key);
+        $db->where('collection_meta.value', $value);
+      }
+    }
+
+
+
+    if (!$limit) {
       $items = $db->get('collections');
     } else {
       $items = $db->get('collections', $limit);
     }
+
     $item_objects = array();
     foreach ($items as $item) {
       $obj = new CollectionItem($item['id']);
