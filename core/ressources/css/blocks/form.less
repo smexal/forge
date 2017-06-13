@@ -59,25 +59,49 @@
     }
 
 
+    &.select {
+        max-width: 500px;
+        &:after {
+            content: 'arrow_drop_down';
+            position: absolute;
+            right: 0;
+            font-size: 18px;
+            bottom: -25px;
+            font-family: 'Material Icons';
+        }
+    }
+
     select {
         border-radius: 0px;
         position: relative;
         top: 30px;
         margin-bottom: 50px;
+        padding-left: 0;
+        border-top: none;
+        box-shadow: none;
+        border-left: 0;
+        border-right: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        max-width: 500px;
+        background-color: transparent;
 
         &:focus {
             box-shadow: none;
             border-color: inherit;
-            background-color: @color-gray-light;
         }
     }
 
+    &.select,
     &.focus {
         label {
             color: @color-gray-middle;
             font-size: 11px;
             top: 0px;
         }
+    }
+    &.select label {
+        top: 30px;
     }
 
     small {
