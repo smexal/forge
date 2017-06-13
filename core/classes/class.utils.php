@@ -82,6 +82,10 @@ class Utils {
         }
     }
 
+    public static function url($params = array(), $addGET=false, $additionalGET = array(), $language = false) {
+        return self::getUrl($params, $addGET, $additionalGET, $language);
+    }
+
     public static function getUrl($params = array(), $addGET=false, $additionalGET = array(), $language = false) {
         $query = '';
         if($addGET) {

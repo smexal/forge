@@ -7,6 +7,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\App\ModifyHandler;
 
 class ModulesettingsView extends View {
     public $parent = 'manage';
@@ -19,6 +20,7 @@ class ModulesettingsView extends View {
     );
 
     public function content($uri=array()) {
+
         $module = $uri[0];
         $this->module = App::instance()->mm->getModuleObject($module);
 
@@ -55,21 +57,32 @@ class ModulesettingsView extends View {
             }
         }
 
-        // there are settings available. render the form.
-        return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "oneform", array(
-            'action' => Utils::getCurrentUrl(),
-            'event' => $this->events[0],
-            'title' => $title,
-            'tabs' => false,
-            'tab_content' => $fields,
-            'global_actions' => Fields::button(i('Save changes')),
-            'subnavigation' => $this->getSubnavigation(),
-            'subnavigation_root' => Utils::getUrl(["manage", 'module-settings', $this->module->id]),
-            'general_name' => i('General', 'core'),
-            'subview_name' => $subviewName,
-            'subview_actions' => $subviewActions,
-            'subview' => $subview
-        ));
+        $templateDir = ModifyHandler::instance()->trigger(
+            'modify_module_settings_template_directory',
+            CORE_TEMPLATE_DIR."views/sites/"
+        );
+        $templateName = ModifyHandler::instance()->trigger(
+            'modify_module_settings_template_name',
+            'oneform'
+        );
+        $renderArgs = ModifyHandler::instance()->trigger(
+            'modify_module_settings_render_args',
+            [
+                'action' => Utils::getCurrentUrl(),
+                'event' => $this->events[0],
+                'title' => $title,
+                'tabs' => false,
+                'tab_content' => $fields,
+                'global_actions' => Fields::button(i('Save changes')),
+                'subnavigation' => $this->getSubnavigation(),
+                'subnavigation_root' => Utils::getUrl(["manage", 'module-settings', $this->module->id]),
+                'general_name' => i('General', 'core'),
+                'subview_name' => $subviewName,
+                'subview_actions' => $subviewActions,
+                'subview' => $subview
+            ]
+        );
+        return $this->app->render($templateDir, $templateName, $renderArgs);
     }
 
     public function getSubnavigation() {
