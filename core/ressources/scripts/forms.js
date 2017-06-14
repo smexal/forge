@@ -79,7 +79,7 @@ var forms = {
     },
 
     readOnlyInput : function() {
-      $("label.readOnlyInput").each(function() {
+      $("label").each(function() {
         $(this).on('click', function() {
           var target = $('input#' + $(this).attr('for'));
           target.removeAttr('readonly');
@@ -98,8 +98,6 @@ var forms = {
           }
         });
         engine.initialize();
-
-        console.log(element.data('getter-name'), element.data('getter-value'));
         element.tagsinput({
             allowDuplicates: false,
             freeInput: false,

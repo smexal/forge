@@ -93,7 +93,7 @@ class ModulesettingsView extends View {
         $this->settings = Settings::instance();
 
         foreach($this->settings->fields as $name => $tab) {
-            if($_POST['current-module'] == $name) {
+            if(array_key_exists('current-module', $_POST) && $_POST['current-module'] == $name) {
                 if(array_key_exists("right", $tab)) {
                     foreach($tab['right'] as $key => $ignored) {
                         Settings::set($key, $_POST[$key]);
@@ -106,9 +106,10 @@ class ModulesettingsView extends View {
                 }
             }
         }
-
-        App::instance()->addMessage(sprintf(i('Changes saved')), "success");
-        App::instance()->redirect(Utils::getUrl(array('manage', 'module-settings', $_POST['current-module'])));
+        if( array_key_exists('current-module', $_POST) ) {
+            App::instance()->addMessage(sprintf(i('Changes saved')), "success");
+            App::instance()->redirect(Utils::getUrl(array('manage', 'module-settings', $_POST['current-module'])));
+        }
     }
 
     private function currentContent() {

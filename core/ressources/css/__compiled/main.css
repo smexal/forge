@@ -46,6 +46,12 @@ a {
   color: #212121;
   transition: 300ms;
 }
+a.ajax.confirm:hover {
+  text-decoration: none;
+}
+a.ajax.confirm i:hover {
+  color: #141414;
+}
 a:hover {
   color: #2e2e2e;
   text-decoration: underline;

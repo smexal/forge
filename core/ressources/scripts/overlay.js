@@ -71,7 +71,6 @@ var overlay = {
         if(button.hasClass("big-overlay")) {
             the_overlay.find(".overlay-right").addClass("big");
         }
-        console.log(button.data('open'));
         $.ajax({
           url: button.data('open'),
           context: the_overlay.find(".content")
@@ -83,7 +82,7 @@ var overlay = {
                 }
             } catch(e) {
                 overlay.setContent($(data), the_overlay);
-            }
+            } 
         });
         // bind "escape" key to close the overlay
         $(document).keyup(function(e) {

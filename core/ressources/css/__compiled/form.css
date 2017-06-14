@@ -1,7 +1,7 @@
 .form-group {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   position: relative;
-  margin-top: 30px;
+  margin-top: 20px;
   padding-top: 10px;
 }
 .form-group input[type="text"],
@@ -69,14 +69,15 @@
   content: 'arrow_drop_down';
   position: absolute;
   right: 0;
-  bottom: -20px;
+  font-size: 18px;
+  bottom: -25px;
   font-family: 'Material Icons';
 }
 .form-group select {
   border-radius: 0px;
   position: relative;
   top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   padding-left: 0;
   border-top: none;
   box-shadow: none;

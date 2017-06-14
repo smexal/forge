@@ -57,6 +57,15 @@ a {
     color: @color-gray-dark;
     transition: 300ms;
 
+    &.ajax.confirm {
+        &:hover {
+            text-decoration: none;
+        }
+        i:hover {
+            color: darken(@color-gray-dark, 5%);
+        }
+    }
+
     &:hover {
         color: lighten(@color-gray-dark, 5%);
         text-decoration: underline;
