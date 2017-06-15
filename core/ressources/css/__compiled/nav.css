@@ -21,11 +21,11 @@ nav.navbar-default .navbar-nav.navbar-right li:first-child {
 nav.navbar-default .navbar-nav li {
   display: block;
   width: 100%;
-  height: 80px;
+  height: 65px;
   width: 90px;
 }
 nav.navbar-default .navbar-nav li:first-child {
-  margin-bottom: 30px;
+  height: 80px;
 }
 nav.navbar-default .navbar-nav li:first-child a:hover,
 nav.navbar-default .navbar-nav li:first-child.active a {

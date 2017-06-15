@@ -8,6 +8,9 @@ use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Navigation;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\App\ModifyHandler;
+
+
 
 class ManageView extends View {
     public $allowNavigation = true;
@@ -44,7 +47,7 @@ class ManageView extends View {
     private function navigation() {
         $this->navigation = new Navigation($this->activeSubview);
         $this->navigation->setMaxWidth();
-        $panelLeft = $this->navigation->addPanel();
+        $panelLeft = $this->navigation->addPanel('left', 'leftPanel');
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2]) && count($this->app->cm->collections) > 0) {
           $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft, 'dns');
@@ -122,6 +125,12 @@ class ManageView extends View {
 
 
         $this->navigation->setSticky();
+
+        $this->navigation = ModifyHandler::instance()->trigger(
+            'modify_manage_navigation',
+            $this->navigation
+        );
+
         return $this->navigation->render();
     }
 

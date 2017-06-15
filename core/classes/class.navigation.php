@@ -20,8 +20,10 @@ class Navigation {
         $this->sticky = true;
     }
 
-    public function addPanel($position='left') {
-        $name = uniqid();
+    public function addPanel($position='left', $name = false) {
+        if(!$name) {
+            $name = uniqid();
+        }
         $this->panels[$name] = array('position' => $position, 'items' => array());
         return $name;
     }
@@ -38,6 +40,10 @@ class Navigation {
         } else {
             $this->items[$parent]['children'][] = $id;
         }
+    }
+
+    public function reorder($panel, $id, $newposition) {
+        array_move($this->panels[$panel]['items'], array_search($id, $this->panels[$panel]['items']), $newposition);
     }
 
     public function setMaxWidth() {

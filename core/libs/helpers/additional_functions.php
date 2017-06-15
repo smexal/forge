@@ -9,6 +9,12 @@ function endsWith($haystack, $needle) {
     return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
 }
 
+// https://stackoverflow.com/questions/9212312/moving-up-down-an-item-in-the-array-by-its-value
+function array_move(&$a, $oldpos, $newpos) {
+    if ($oldpos==$newpos) {return;}
+    array_splice($a,max($newpos,0),0,array_splice($a,max($oldpos,0),1));
+}
+
 // https://gist.github.com/bshaffer/483357
 function array_msort($array, $cols) {
     // clean cols
