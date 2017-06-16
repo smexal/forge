@@ -57,6 +57,7 @@ class Loader {
       $this->addStyle('core/ressources/css/blocks/media-library.less', false, false);
       $this->addStyle('core/ressources/css/blocks/grid.less', false, false);
       $this->addStyle('core/ressources/css/blocks/tableeditbar.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/spinner.less', false, false);
 
       /* TODO nightmode css not yet implemented in redesign-42
       if((array_key_exists('night', $_GET) || Settings::get('nightmode')) && ! array_key_exists('day', $_GET)) {

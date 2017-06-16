@@ -223,10 +223,10 @@ class Utils {
       return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function overlayButton($url, $label, $target='') {
+    public static function overlayButton($url, $label, $target='', $classes = '') {
         $t = $target !== '' ? 'data-target="'.$target.'"' : '';
         $overlay = $t == '' ? 'open-overlay' : 'close-overlay';
-      return '<a href="javascript://" data-open="'.$url.'" '.$t.' class="btn btn-primary '.$overlay.' btn-sm">'.$label.'</a>';
+      return '<a href="javascript://" data-open="'.$url.'" '.$t.' class="btn btn-primary '.$overlay.' '.$classes.'">'.$label.'</a>';
     }
 
     public static function tableCell($content, $class=false, $id=false, $structure=false) {

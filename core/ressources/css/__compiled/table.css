@@ -27,6 +27,14 @@ table.default tbody tr td:first-child {
 table.default tbody tr td div.actions a.btn-icon-container {
   margin-right: 5px;
 }
+table.default tbody tr td.actions a {
+  display: inline-block;
+  padding-top: 12px;
+  margin-right: 3px;
+}
+table.default tbody tr td.actions a i {
+  font-size: 20px;
+}
 table.default tbody tr td i {
   display: block;
   color: #ABABAB;
