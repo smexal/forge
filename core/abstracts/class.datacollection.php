@@ -26,8 +26,6 @@ abstract class DataCollection implements IDataCollection {
     return $this->preferences[$name];
   }
 
-
-
   public function render($item) {
     return 'overwrite render method with $item';
   }
@@ -66,6 +64,7 @@ abstract class DataCollection implements IDataCollection {
     if (!is_null($this->permission)) {
       Auth::registerPermissions($this->permission);
     }
+
     $this->preferences = array(
       'name' => strtolower(get_class($this)),
       'title' => i('Data'),
@@ -81,6 +80,11 @@ abstract class DataCollection implements IDataCollection {
     return false;
   }
 
+  /**
+   * Fetch collectionitems based on the provided filter params
+   * 
+   * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
+   */
   public function items($settings = array()) {
     $db = App::instance()->db;
     if (array_key_exists('order', $settings)) {
@@ -95,11 +99,29 @@ abstract class DataCollection implements IDataCollection {
       $limit = $settings['limit'];
     }
     $db->where('type', $this->name);
-    if (! $limit) {
+
+    if(array_key_exists('query', $settings)) {
+      $db->where('name', $db->escape($settings['query']), 'LIKE');
+    }
+
+    if(array_key_exists('meta_query', $settings)) {
+      $idx = -1;
+      foreach($settings['meta_query'] as $key => $value) {
+        $idx++;
+        $as_key = "cm_{$idx}";
+        $db->join("collection_meta $as_key", "collections.id = {$as_key}.item", 'RIGHT');
+        $db->where("{$as_key}.keyy", $key);
+        $db->where("{$as_key}.value", $value);
+      }
+    }
+
+
+    if (!$limit) {
       $items = $db->get('collections');
     } else {
       $items = $db->get('collections', $limit);
     }
+
     $item_objects = array();
     foreach ($items as $item) {
       $obj = new CollectionItem($item['id']);
@@ -110,7 +132,6 @@ abstract class DataCollection implements IDataCollection {
           }
         }
       }
-
       array_push($item_objects, $obj);
     }
 
@@ -138,6 +159,14 @@ abstract class DataCollection implements IDataCollection {
 
   public function getItem($id) {
     return new CollectionItem($id);
+  }
+
+  public function getItems($items) {
+    $list = [];
+    foreach($items as $id)
+      $list[$id] = new CollectionItem($id);
+
+    return $list;
   }
 
   public function saveSetting($key, $value, $lang = false) {

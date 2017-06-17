@@ -72,6 +72,8 @@ class Form {
         'type' => $type,
         'hor' => $this->horizontal,
         'noautocomplete' => $this->noAutocomplete,
+        'group_class' => '',
+        'input_class' => '',
         'value' => $value,
         'hint' => $hint,
         'error' => ''

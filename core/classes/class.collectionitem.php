@@ -26,6 +26,10 @@ class CollectionItem {
         return App::instance()->cm->getCollection($this->base_data['type']);
     }
 
+    public function getType() {
+        return $this->base_data['type'];
+    }
+
     public function url() {
         $parent = App::instance()->cm->getCollection($this->base_data['type']);
         return Utils::getUrl(array($parent->slug(), $this->slug()));

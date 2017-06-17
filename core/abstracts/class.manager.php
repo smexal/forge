@@ -107,7 +107,7 @@ abstract class Manager implements IManager {
             }
             $classes = array_merge($classes, static::filePathsToClassNs($files, $ns));
         }
-        static::$classes[$cc_key] = \triggerModifier('Forge\\ClassManager\\AvailableClasses\\' . $cc_key, $classes);
+        static::$classes[$cc_key] = \triggerModifier('Forge/ClassManager/AvailableClasses/' . $cc_key, $classes);
         static::writeCache(static::$classes[$cc_key]);
         return static::$classes[$cc_key];
     }

@@ -9,12 +9,12 @@ class ModifyHandler {
 
     private $modifiers = [];
 
-    public function add($name, $callback, $priority=10, $args=1) {
+    public function add($name, $callback, $priority=10, $params=[]) {
         if (!array_key_exists($name, $this->modifiers)) {
             $this->modifiers[$name] = [];
         }
 
-        $modifier = ['priority' => $priority, 'callback' => $callback, 'args' => $args];
+        $modifier = ['priority' => $priority, 'callback' => $callback, 'params' => $params];
         array_push($this->modifiers[$name], $modifier);
     }
 
@@ -42,7 +42,15 @@ class ModifyHandler {
             array_shift($arg_list);
 
             foreach($priority as $sorted_key => $priority) {
+                if(!is_null($this->modifiers[$name][$sorted_key]['params'])) {
+                    $params = $this->modifiers[$name][$sorted_key]['params'];
+                } else {
+                    $params = [];
+                }
+                
+                array_push($arg_list, $params);
                 $arg_list[0] = call_user_func_array($this->modifiers[$name][$sorted_key]['callback'], $arg_list);
+                array_pop($arg_list);
             }
                 
             return $arg_list[0];

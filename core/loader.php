@@ -96,14 +96,7 @@ class Loader {
     private function __construct(){
         $this->libraries();
         $this->loadCoreScripts();
-        // $this->loadInterfaces();
-        // $this->loadTraits();
-        // $this->loadAbstracts();
-        // $this->loadClasses();
         $this->loadModules();
-        // $this->loadApp();
-        //  $this->loadViews();
-        // $this->loadComponents();
 
     }
 
@@ -217,6 +210,7 @@ class Loader {
       $this->addScript("core/ressources/scripts/externals/moment-with-locales.min.js");
       $this->addScript("core/ressources/scripts/externals/bootstrap-datetimepicker.min.js");
       $this->addScript("core/ressources/scripts/externals/dropzone.js");
+      $this->addScript("core/ressources/scripts/api.js");
       $this->addScript("core/ressources/scripts/dropzone.js");
       $this->addScript("core/ressources/scripts/tinymce.js");
       $this->addScript("core/ressources/scripts/helpers.js");

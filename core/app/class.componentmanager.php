@@ -72,7 +72,7 @@ class ComponentManager extends Manager {
 
     private function getComponents() {
         App::instance()->eh->fire("onGetComponents");
-        $flush_cache = \triggerModifier('Forge\ComponentManager\FlushCache', MANAGER_CACHE_FLUSH === true);
+        $flush_cache = \triggerModifier('Forge/ComponentManager/FlushCache', MANAGER_CACHE_FLUSH === true);
         $cls_components = static::loadClasses($flush_cache);
         $components = [];
         foreach($cls_components as $cls) {

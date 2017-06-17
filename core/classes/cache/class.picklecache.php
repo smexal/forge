@@ -18,4 +18,5 @@ abstract class PickleCache extends Cache {
     public static function appendCache($key, $data){
         throw new Error("This is not supported in PickleCache");
     }
+
 }
