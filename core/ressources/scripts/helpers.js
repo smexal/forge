@@ -1,6 +1,6 @@
 var helpers = {
     init : function() {
-      $('.tipster', '.tooltip').tooltipster({
+      $('.tipster, .tooltip').tooltipster({
         debug : false
       });
 

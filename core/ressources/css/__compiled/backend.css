@@ -1,0 +1,68 @@
+.form-grouping {
+  margin-top: 30px;
+}
+.form-grouping .form-group {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.form-grouping .form-group.select {
+  min-width: 500px;
+}
+.form-grouping .form-group.select:after {
+  bottom: 0;
+}
+.form-grouping .form-group.select label {
+  display: none;
+}
+.form-grouping .form-group select {
+  margin-bottom: 5px;
+  position: static;
+}
+.form-grouping .add-select-button,
+.form-grouping .remove-before {
+  display: inline-block;
+  margin-top: 10px;
+  color: #e0e0e0;
+  transition: 300ms;
+  transform-origin: center center;
+}
+.form-grouping .add-select-button:not(.remove-before):hover,
+.form-grouping .remove-before:not(.remove-before):hover {
+  transform: rotate(90deg);
+  color: #333;
+}
+.form-grouping .remove-before {
+  opacity: 0;
+}
+.form-grouping .remove-before i {
+  font-size: 16px;
+  margin-top: 12px;
+  margin-left: 15px;
+}
+.form-grouping .remove-before:hover {
+  color: #d9534f;
+}
+.form-grouping .add-group {
+  display: flex;
+}
+.form-grouping .add-group:hover .remove-before {
+  opacity: 1;
+}
+.form-grouping .add-group select {
+  margin-bottom: 0;
+  top: 0;
+}
+.form-group + .form-grouping {
+  margin-top: 50px;
+}
+.overlay-right img.the_image {
+  position: fixed;
+  right: 60%;
+  top: 10%;
+  bottom: 10%;
+  max-height: 80%;
+}
+.adb-thumb {
+  max-width: 50px;
+  max-height: 50px;
+}

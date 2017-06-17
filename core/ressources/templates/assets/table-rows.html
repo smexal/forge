@@ -1,0 +1,9 @@
+{loop="$td"}
+<tr>
+{loop="$value"}
+     <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
+       {$value.content}
+     </td>
+{/loop}
+</tr>
+{/loop}
