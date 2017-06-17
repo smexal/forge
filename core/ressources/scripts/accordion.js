@@ -1,8 +1,6 @@
 var accordion = {
     init : function(context) {
-        if(typeof(context) === 'function') {
-            var context = $(document);
-        }
+        var context = $(document);
         
         context.find('.panel-group.ajax').each(function() {
             var ajaxurl = $(this).data('ajax');
@@ -39,5 +37,5 @@ var accordion = {
 
 $(document).ready(accordion.init);
 $(document).on("ajaxReload", function(evt, context) {
-    accordion.init($(context));
+    accordion.init();
 });

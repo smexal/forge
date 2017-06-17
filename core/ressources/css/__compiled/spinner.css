@@ -5,6 +5,9 @@
   text-align: center;
   font-size: 10px;
 }
+.ajax-reload-container .spinner {
+  margin-top: 60px;
+}
 .spinner > div {
   background-color: #212121;
   height: 100%;
