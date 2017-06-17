@@ -101,7 +101,11 @@ class ModulesettingsView extends View {
                 }
                 if(array_key_exists("left", $tab)) {
                     foreach($tab['left'] as $key => $ignored) {
-                        Settings::set($key, $_POST[$key]);
+                        if(array_key_exists($key, $_POST)) {
+                            Settings::set($key, $_POST[$key]);
+                        } else {
+                            Settings::set($key, '');
+                        }
                     }
                 }
             }
