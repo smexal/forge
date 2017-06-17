@@ -104,19 +104,16 @@ abstract class DataCollection implements IDataCollection {
       $db->where('name', $db->escape($settings['query']), 'LIKE');
     }
 
-
-    // TODO: Solve this for multiple meta_query-pairs
-    // This currently only works for one meta_key-meta_value-PAIR, because each meta_data result is independently
-    // from the other meta_data entries
-    // This could be solved by creating one subquery for each entry in $settings['meta_query']
     if(array_key_exists('meta_query', $settings)) {
-      $db->join('collection_meta', 'collections.id = collection_meta.item', 'RIGHT');
+      $idx = -1;
       foreach($settings['meta_query'] as $key => $value) {
-        $db->where('collection_meta.keyy', $key);
-        $db->where('collection_meta.value', $value);
+        $idx++;
+        $as_key = "cm_{$idx}";
+        $db->join("collection_meta $as_key", "collections.id = {$as_key}.item", 'RIGHT');
+        $db->where("{$as_key}.keyy", $key);
+        $db->where("{$as_key}.value", $value);
       }
     }
-
 
 
     if (!$limit) {
@@ -135,7 +132,6 @@ abstract class DataCollection implements IDataCollection {
           }
         }
       }
-
       array_push($item_objects, $obj);
     }
 

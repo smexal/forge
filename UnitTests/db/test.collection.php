@@ -1,7 +1,5 @@
 <?php
 
-
-
 use PHPUnit\Framework\TestCase;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
@@ -29,11 +27,11 @@ class TestCollection extends TestCase {
             ]
         ])));
 
-        static::$c_ids = static::$c_ids + static::generateCollections(3, [
+        static::$c_ids = array_merge(static::$c_ids, static::generateCollections(3, [
             'beta_key_1' => 'beta_value_1',
             'beta_key_2' => 'beta_value_2',
             'beta_key_3' => 'beta_value_3'
-        ]);
+        ]));
 
         $this->assertEquals(3, count($collection->items([
             'meta_query' => [
@@ -41,17 +39,17 @@ class TestCollection extends TestCase {
             ]
         ])));
 
-        static::$c_ids = static::$c_ids + static::generateCollections(5, [
+        static::$c_ids = array_merge(static::$c_ids, static::generateCollections(5, [
             'gamma_key_1' => 'gamma_key_1',
             'gamma_key_2' => 'gamma_key_2',
             'gamma_key_3' => 'gamma_key_3'
-        ]);
+        ]));
 
-        static::$c_ids = static::$c_ids + static::generateCollections(5, [
+        static::$c_ids = array_merge(static::$c_ids, static::generateCollections(5, [
             'alpha_key_1' => 'alpha_value_1',
             'beta_key_1' => 'beta_value_1',
             'gamma_key_1' => 'gamma_key_1'
-        ]);
+        ]));
 
 
         $this->assertEquals(8, count($collection->items([
@@ -76,6 +74,23 @@ class TestCollection extends TestCase {
                 'beta_key_1' => 'beta_value_1'
             ]
         ])));
+
+
+        static::$c_ids = array_merge(static::$c_ids, static::generateCollections(3, [
+            'alpha_key_1' => 'alpha_value_1',
+            'beta_key_1' => 'beta_value_1',
+            'gamma_key_1' => 'gamma_key_1',
+            'delta_key_1' => 'delta_key_1'
+        ]));
+        $this->assertEquals(3, count($collection->items([
+            'meta_query' => [
+                'alpha_key_1' => 'alpha_value_1',
+                'beta_key_1' => 'beta_value_1',
+                'gamma_key_1' => 'gamma_key_1',
+                'delta_key_1' => 'delta_key_1'
+            ]
+        ])));
+
         static::removeCollections(static::$c_ids);
         static::$c_ids = [];
     }
@@ -131,15 +146,13 @@ class TestCollection extends TestCase {
 
         $loader = \Forge\Loader::instance();
 
-
         $mock_path = static::$origin . DIRECTORY_SEPARATOR . 'mocks' . DIRECTORY_SEPARATOR . 'collections' . DIRECTORY_SEPARATOR;
         require_once($mock_path . 'class.testdatacollection.php');
-
 
         @session_start();
         Auth::session();
         App::instance()->prepare();
-    }
+    }   
 
     public static function tearDownAfterClass() {
         static::removeCollections(static::$c_ids);
