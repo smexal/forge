@@ -48,6 +48,8 @@ Temporary Items
 config.php
 modules/*
 core/css/compiled/*
+core/ressources/css/__compiled/*
+core/ressources/css/__compiled/*.css
 doxy
 cache/*
 

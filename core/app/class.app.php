@@ -45,20 +45,14 @@ class App {
     }
 
     private function managers() {
-<<<<<<< HEAD
+        /* API */
+        CollectionAPI::instance()->register();
+        
         if(is_null($this->db)) {
-            $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+          $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         }
         Auth::setSessionUser();
-=======
-      /* API */
-      CollectionAPI::instance()->register();
-      
-      if(is_null($this->db)) {
-        $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-      }
-      Auth::setSessionUser();
->>>>>>> api-changes
+
 
         if(is_null($this->eh)){
             $this->eh = EventHandler::instance();
@@ -86,7 +80,6 @@ class App {
             $this->vm = new ViewManager();
         }
 
-<<<<<<< HEAD
         // init theme
         if($this->tm->theme !== '') {
             $this->tm->theme->start();
@@ -94,13 +87,6 @@ class App {
             Logger::debug('No Theme set.');
         }
 
-        if(is_null($this->com)) {
-            $this->com = new ComponentManager();
-        }
-        if(is_null($this->cm)) {
-            $this->cm = new CollectionManager();
-        }
-=======
       if(is_null($this->com)) {
           $this->com = new ComponentManager();
       }
@@ -109,7 +95,7 @@ class App {
       }
 
       \fireEvent('onManagersLoaded');
->>>>>>> api-changes
+
     }
 
     /**
