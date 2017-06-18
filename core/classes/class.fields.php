@@ -78,6 +78,8 @@ class Fields {
             'loadingcontext' => '.form-group'
         ];
         
+        $args['type'] = 'text';
+
         $args = array_merge($defaults, $args);
         $args['autocomplete'] = false;
         $args['input_class'] = 'tags';
@@ -96,11 +98,15 @@ class Fields {
         $url .= '/collections/' . $args['collection'] . '?s=' . $args['state'] .'&q=%%QUERY%';
         
         $c_ids = explode(',', $value);
-        $c_items = App::instance()->cm->getCollection($args['collection'])->getItems($c_ids); 
+        if($value && count($c_ids)) {
+            $c_items = App::instance()->cm->getCollection($args['collection'])->getItems($c_ids); 
 
-        $c_items = array_map(function($item) {
-            return $item->getName();
-        }, $c_items);
+            $c_items = array_map(function($item) {
+                return $item->getName();
+            }, $c_items);
+        } else {
+            $c_items = [];
+        }
 
         $args['getter'] = [
             'url' => $url,
