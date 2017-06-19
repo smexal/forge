@@ -9,14 +9,9 @@ var forms = {
     },
 
     tags : function() {
+      var self = this;
       $("input.tags").each(function() {
-        var values = $(this).data('values');
-        var getter = $(this).data('getter');
-        if( Object.prototype.toString.call( values ) === '[object Array]') {
-            forms.tagsInputByValues($(this), values);
-        } else if (typeof getter === "string") {
-            forms.tagsInputByGetter($(this));
-        }
+        self.init_tag(this);
       });
     },
 
@@ -44,7 +39,22 @@ var forms = {
                     }
                 }
             })
-        })
+        });
+    },
+
+    init_tag : function(element) {
+      if($(element).data('tagsinited') == '1') {
+        return;
+      }
+      var values = $(element).data('values');
+      var getter = $(element).data('getter');
+      if( Object.prototype.toString.call( values ) === '[object Array]') {
+          forms.tagsInputByValues($(element), values);
+      } else if (typeof getter === "string") {
+          forms.tagsInputByGetter($(element));
+      }
+      $(element).data('tagsinited', 1);
+
     },
 
     additionalNavigationForm : function() {
@@ -89,16 +99,60 @@ var forms = {
     },
 
     tagsInputByGetter : function(element) {
+        var self = this;
+        var geturl = element.data('getter'); 
+        geturl += (geturl.indexOf("%QUERY") == -1 ) ? '/search/%QUERY' : '';
+        var getter_convert = element.data('getter-convert');
+        var loadingcontext = element.data('loadingcontext');
+        var context = element;
+        
+        if(loadingcontext) {
+          context = $(element).parent(loadingcontext);
+          if(!context) {
+            context = element;
+          }
+        }
+
+        // is overwritten if defined via getter-convert
+        var transform = function(data) {
+          return data; 
+        }
+
+        if(getter_convert) {
+          try {
+            var func = eval(getter_convert);
+            transform = function() {
+              context.removeClass("loading");
+              var args = [];
+              for(var i = 0; i < arguments.length; i++) {
+                args.push(arguments[i]);
+              }
+              args.push(self);
+              return func.apply(this, args);
+            };
+          } catch (e) {
+            
+          }
+        }
+
+        var remote = {
+            url: geturl,
+            prepare : function(query, settings) {
+              context.addClass('loading');
+              settings.url = settings.url.replace('%QUERY', query);
+              return settings;
+            },
+            transform : transform
+          };
+
         var engine = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.whitespace,
           queryTokenizer: Bloodhound.tokenizers.whitespace,
-          remote: {
-            url: element.data('getter') + "/search/%QUERY",
-            wildcard : '%QUERY'
-          }
+          remote: remote
         });
         engine.initialize();
-        element.tagsinput({
+
+        var typeahead = element.tagsinput({
             allowDuplicates: false,
             freeInput: false,
             itemValue: element.data('getter-value'),
@@ -113,7 +167,17 @@ var forms = {
               displayKey: element.data('getter-name'),
               source: engine.ttAdapter()
             }
-        });
+        })[0];
+
+        var labels = element.data('tag-labels');
+        if(!labels)
+          return;
+      
+        var values = element.val().split(",");
+        for(var i = 0; i < values.length; i++) {
+          typeahead.add({id: values[i], name: labels[values[i]]})
+        }
+
       },
 
     tagsInputByValues : function(element, values) {

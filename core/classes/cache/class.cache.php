@@ -25,6 +25,11 @@ abstract class Cache {
         return true;
     }
 
+    public static function flushCache($key) {
+      if(static::cacheExists($key))
+        unlink(static::getCachePath($key));
+    }
+
     public static function getCachePath($key) {
         $c_key = static::generateKey($key);
         return DOC_ROOT . "cache/" . $c_key;

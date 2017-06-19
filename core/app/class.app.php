@@ -4,7 +4,10 @@ namespace Forge\Core\App;
 
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\App\Api\Collection as CollectionAPI;
+
 use \Forge\Core\App\Autoregister;
+
 use \Forge\Loader;
 
 class App {
@@ -19,11 +22,13 @@ class App {
     public $user = null;
     public $stream = false;
     public $sticky = false;
-    private $uri_components = false;
     public $page = false;
+    
+    private $prepared = false;
+    private $uri_components = false;
 
     static private $instance = null;
-
+    
     static public function instance() {
         if (null === self::$instance) {
             self::$instance = new self;
@@ -40,10 +45,14 @@ class App {
     }
 
     private function managers() {
+        /* API */
+        CollectionAPI::instance()->register();
+        
         if(is_null($this->db)) {
-            $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+          $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         }
         Auth::setSessionUser();
+
 
         if(is_null($this->eh)){
             $this->eh = EventHandler::instance();
@@ -78,16 +87,34 @@ class App {
             Logger::debug('No Theme set.');
         }
 
-        if(is_null($this->com)) {
-            $this->com = new ComponentManager();
-        }
-        if(is_null($this->cm)) {
-            $this->cm = new CollectionManager();
-        }
+      if(is_null($this->com)) {
+          $this->com = new ComponentManager();
+      }
+      if(is_null($this->cm)) {
+        $this->cm = new CollectionManager();
+      }
+
+      \fireEvent('onManagersLoaded');
+
+    }
+
+    /**
+     * Allow the the instantiations of the managers
+     * inside a PhpUnit-Test and prevent multiple callings
+     * of the method
+     */
+    public function prepare() {
+      if($this->prepared)
+        return;
+      
+      $this->managers();
+
+      $this->prepared = true;
     }
 
     public function run() {
-      $this->managers();
+      \fireEvent('onAppRun');
+      $this->prepare();
 
       $this->uri_components = Utils::getUriComponents();
       $this->addFootprint($this->uri_components);
@@ -127,6 +154,7 @@ class App {
           $this->eh->trigger($_POST['event'], $_POST);
       }
       $this->displayView($requiredView);
+      \fireEvent('onFinishRun');
     }
 
     public function displayView($view) {
@@ -173,7 +201,6 @@ class App {
         if($this->tm->theme !== '') {
             $globals = $this->tm->theme->globals();
         }
-
         return $this->render($this->tm->getTemplateDirectory(), "layout", array_merge(
             array(
                 'head' => $head,
@@ -339,6 +366,14 @@ class App {
         } else {
             return '';
         }
+    }
+
+    public function getUser() {
+      return $this->user;
+    }
+
+    public function setUser($user) {
+      $this->user = $user;
     }
 
     private function __construct(){}

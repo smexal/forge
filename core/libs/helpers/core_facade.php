@@ -22,3 +22,7 @@ function registerModifier() {
 function registerEvent() {
     return call_user_func_array(array(\Forge\Core\App\EventHandler::instance(), 'register'), func_get_args());
 }
+
+function stacktrace() {
+    return call_user_func_array("\Forge\Core\Classes\Utils::stacktrace", func_get_args());
+}

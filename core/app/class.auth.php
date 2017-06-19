@@ -10,6 +10,12 @@ class Auth {
         return (isset($_SESSION['auth']) && is_numeric($_SESSION['auth']));
     }
 
+    public static function getSessionUserID() {
+        if(static::any()) 
+            return $_SESSION['auth'];
+        return null;
+    }
+
     public static function setSessionUser() {
         if (Auth::any()) {
             App::instance()->user = new User($_SESSION['auth']);
@@ -93,6 +99,15 @@ class Auth {
                 }
             }
         }
+    }
+
+    public static function getPermissionID($permission_name) { 
+        App::instance()->db->where('name', $permission_name);
+        $dbPerm = App::instance()->db->get('permissions');
+        if (count($dbPerm) == 0) {
+            return null;
+        }
+        return $dbPerm[0]['id'];
     }
 
     public static function session() {

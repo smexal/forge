@@ -29,25 +29,25 @@ class PagesView extends View {
       if (count($uri) > 0 ) {
         switch ($uri[0]) {
           case 'add':
-            if (Auth::allowed($this->permissions[0])) {
-              return $this->getSubview($uri, $this);
-            }
-            break;
-          case 'delete':
             if (Auth::allowed($this->permissions[1])) {
               return $this->getSubview($uri, $this);
             }
             break;
+          case 'delete':
+            if (Auth::allowed($this->permissions[0])) {
+              return $this->getSubview($uri, $this);
+            }
+            break;
           case 'edit':
-            if (Auth::allowed($this->permission[2])) {
+            if (Auth::allowed($this->permissions[2])) {
               return $this->getSubview($uri, $this);
             }
           case 'edit-element':
-              if (Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permissions[2])) {
                 return $this->getSubview($uri, $this);
               }
           case 'remove-element':
-              if (Auth::allowed($this->permission[2])) {
+              if (Auth::allowed($this->permissions[2])) {
                 return $this->getSubview($uri, $this);
               }
           default:

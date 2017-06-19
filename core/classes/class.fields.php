@@ -3,6 +3,7 @@
 namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
+use \Forge\Core\App\API;
 
 class Fields {
 
@@ -44,37 +45,73 @@ class Fields {
     }
 
     public static function text($args, $value='') {
+        static $defaults = [
+            'hint' => '',
+            'type' => 'text',
+            'group_class' => '',
+            'input_class' => '',
+            'getter' => false,
+            'loadingcontext' => false,
+            'error' => false,
+            'autocomplete' => true,
+            'hor' => false
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        $args['noautocomplete'] = !$args['autocomplete'];
+        $args['name'] = $args['name'] ?? $args['key'];
+
         if (array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         } else if (empty($value) && array_key_exists('value', $args)) {
             $value = $args['value'];
         }
+        $args['value'] = $value;
 
-        if(! array_key_exists('hint', $args)) {
-            $args['hint'] = '';
-        }
-        if(!array_key_exists('type',$args)) {
-            $args['type'] = 'text';
-        }
-        if(! array_key_exists('autocomplete', $args)) {
-            $args['autocomplete'] = false;
-        } else {
-            $args['autocomplete'] = ! $args['autocomplete'];
-        }
-        if(! array_key_exists('error', $args)) {
-            $args['error'] = false;
-        }
-        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
-            'name' => $args['key'],
-            'id' => $args['key'],
-            'label' => $args['label'],
-            'type' => $args['type'],
-            'hor' => false,
-            'noautocomplete' => $args['autocomplete'],
-            'value' => $value,
-            'hint' => $args['hint'],
-            'error' => $args['error']
-        ));
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", $args);
+    }
+
+    public static function tags($args, $value='') {
+        static $defaults = [
+            'state' => 'all',
+            'loadingcontext' => '.form-group'
+        ];
+        
+        $args = array_merge($defaults, $args);
+        $args['autocomplete'] = false;
+        $args['input_class'] = 'tags';
+        $args['getter'] = is_string($args['getter']) ? ['url' => $args['getter']] : $args['getter'];
+
+        return static::text($args, $value);
+    }
+
+    public static function collection($args, $value='') {
+        static $defaults = [
+            'state' => 'all'
+        ];
+
+        $args = array_merge($defaults, $args);
+        $url = API::getAPIURL();
+        $url .= '/collections/' . $args['collection'] . '?s=' . $args['state'] .'&q=%%QUERY%';
+        
+        $c_ids = explode(',', $value);
+        $c_items = App::instance()->cm->getCollection($args['collection'])->getItems($c_ids); 
+
+        $c_items = array_map(function($item) {
+            return $item->getName();
+        }, $c_items);
+
+        $args['getter'] = [
+            'url' => $url,
+            'labels' => htmlspecialchars(json_encode($c_items)),
+            'convert' => 'forge_api.collections.onlyItems',
+            'value_key' => 'id',
+            'label_key' => 'name'
+        ];
+
+        unset($args['collection']);
+        return static::tags($args, $value);
     }
 
     public static function email($args, $value='') {

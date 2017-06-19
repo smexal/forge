@@ -92,7 +92,7 @@ class Group {
     }
 
     public function grant($permission) {
-      if (! self::hasPermission($this->id, $permission)) {
+      if (!self::hasPermission($this->id, $permission)) {
         $this->app->db->insert('permissions_groups', array(
             "groupid" => $this->id,
             "permissionid" => $permission
@@ -138,6 +138,16 @@ class Group {
 
     public static function getAll() {
       return App::instance()->db->get('groups');
+    }
+
+    public static function getByName($name) {
+      $app = App::instance();
+      $app->db->where('name', $name);
+      $groups = $app->db->get('groups');
+      if(count($groups) == 0)
+        return null;
+
+      return new Group($groups[0]['id']);
     }
 
     /**

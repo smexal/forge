@@ -255,8 +255,61 @@ class Utils {
       return sprintf(i('%1$s %2$s', 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
     }
 
+    public static function extractParams($defaults, $params) {
+      $values = [];
+      
+      $ctr = -1;
+      foreach($defaults as $key => $default) {
+          $ctr++;
+          $values[$key] = isset($params[$ctr]) ? $params[$ctr] : $defaults[$key];
+      }
+      
+      $more = [];
+      while($ctr < count($params) -1) {
+          $more[] = $params;
+      } 
+      $values['_more_'] = $more;
+
+      return $values;
+    }
+
     public static function methodName($string) {
       $string = ucwords($string, "-");
       return str_replace("-", "", $string);
     }
+
+    /**
+     * DEVELOPMENT UTILS
+     */
+    public static function stacktrace($max=5, $cut_left=0, $dbt=false, $output=false, $include_args=false) {
+        $dbt_false = $dbt;
+        $dbt = !$dbt ? debug_backtrace() : $dbt;
+
+        $echo = 'Stack-size: ' . count($dbt) . "<br>\n";
+        $i=0;
+        foreach($dbt as $frame) {
+            $i++;
+            if(!array_key_exists('line', $frame)) {
+                $args = array_map(function($e) {
+                    return substr(print_r($e, 1), 0, 100) . "##\n";
+                }, $frame['args']);
+
+                $more = $include_args ? '' : '(' . implode(',' , $args) . ')';
+                $echo .= htmlspecialchars($frame['function'] . $more). "<br>\n";
+            } else  {
+                $echo .= substr($frame['file'], $cut_left) . '::'. $frame['line'] . "<br>\n";
+            }
+            if($i == $max) {
+                $echo .= "----- CUTTING REST (" . (count($dbt) - $i). ") -----\n";
+                break;
+            }
+        }
+
+        if($output)
+          echo $echo;
+        else
+          return $echo;
+    }
+
+
 }

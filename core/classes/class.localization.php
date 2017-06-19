@@ -58,7 +58,7 @@ class Localization {
         if (array_key_exists('lang', $_SESSION) && in_array($_SESSION['lang'], $avail)) {
             return $_SESSION['lang'];
         }
-        if (!($list = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']))) {
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) || !($list = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']))) {
             return DEFAULT_LANGUAGE;
         }
         if (preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/', $list, $list)) {

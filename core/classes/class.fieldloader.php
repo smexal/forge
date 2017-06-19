@@ -16,7 +16,7 @@ class FieldLoader {
         
     }
 
-    private function getFieldLanguage($field, $lang=null) {
+    private static function getFieldLanguage($field, $lang=null) {
         if($field['multilang'] == false) {
             return 0;
         }
