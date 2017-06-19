@@ -32,7 +32,8 @@ class ThemeManager extends Manager {
         $themes = $this->getThemes();
         if(count($themes) == 0)
             return false;
-        $class = ucfirst($themes[array_keys($themes)[0]]);
+        $key = $this->active;
+        $class = ucfirst($key);
         $class = '\\Forge\\Themes\\' . $class .'\\' . $class . 'Theme';
         $this->theme = $class::instance();
         return true;
