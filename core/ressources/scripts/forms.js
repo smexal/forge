@@ -170,7 +170,7 @@ var forms = {
         })[0];
 
         var labels = element.data('tag-labels');
-        if(!labels)
+        if(!labels || labels.length == 0)
           return;
       
         var values = element.val().split(",");
