@@ -18,8 +18,7 @@ body {
   font-size: 13px;
 }
 body .content {
-  padding-left: 170px;
-  padding-right: 60px;
+  padding: 0 60px 60px 170px;
 }
 h1 {
   font-size: 24px;
