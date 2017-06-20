@@ -6,6 +6,7 @@
   margin-bottom: 0;
 }
 .form-grouping .form-group.select {
+  margin-bottom: 5px;
   min-width: 500px;
 }
 .form-grouping .form-group.select:after {
@@ -13,10 +14,6 @@
 }
 .form-grouping .form-group.select label {
   display: none;
-}
-.form-grouping .form-group select {
-  margin-bottom: 5px;
-  position: static;
 }
 .form-grouping .add-select-button,
 .form-grouping .remove-before {
