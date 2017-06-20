@@ -5,8 +5,11 @@ var accordion = {
         context.find('.panel-group.ajax').each(function() {
             var ajaxurl = $(this).data('ajax');
 
-            // initial open panel
-            accordion.ajaxLoad($(this), ajaxurl);
+            // initial open 
+            // TODO: need to find a resolution for initial & ajax reload, currently infinte loading...
+            /*if($(this).find(".forge-placeholder").length > 0) {
+                accordion.ajaxLoad($(this), ajaxurl);
+            }*/
 
             // on open new panels
             $(this).on('shown.bs.collapse', function () {

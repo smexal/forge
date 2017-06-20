@@ -14,7 +14,8 @@ var forge_tinymce = {
         tinymce.init({
             selector:'textarea.tinymce',
             toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright alignjustify',
-            plugins: "autoresize link",
+            plugins: "link",
+            height : "480",
             menu: {
               edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
               format: {title: 'Format', items: 'bold italic link | formats | removeformat'},

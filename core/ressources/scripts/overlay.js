@@ -41,6 +41,16 @@ var overlay = {
                 }).done(function(data) {
                     ov.find(".content").html(data);
                     $(document).trigger("ajaxReload");
+
+                    // bind "escape" key to close the overlay
+                    $(document).keyup(function(e) {
+                        if(e.keyCode == 27) {
+                            overlay.hide();
+                        }
+                    });
+                    ov.find(".cover").on('click', function() {
+                        overlay.hide();
+                    });
                 });
 
             });
@@ -89,6 +99,9 @@ var overlay = {
             if(e.keyCode == 27) {
                 overlay.hide();
             }
+        });
+        the_overlay.find(".cover").on('click', function() {
+            overlay.hide();
         });
     },
 

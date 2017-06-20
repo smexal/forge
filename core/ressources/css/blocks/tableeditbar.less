@@ -6,4 +6,24 @@
     display: flex;
     justify-content:space-between;
     padding: 5px 20px;
+
+    .form-group {
+        margin: 0;
+        padding: 0;
+        min-width: 240px;
+
+        &.focus label {
+            top: -2px;          
+        }
+
+        label {
+            top: 9px;          
+        }
+
+        input {
+            border-bottom: none;
+            border-right: 1px solid rgba(0,0,0,0.12);
+            padding: 0;
+        }
+    }
 }

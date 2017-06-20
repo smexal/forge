@@ -106,3 +106,10 @@
   font-size: 80%;
   font-style: italic;
 }
+.img-select {
+  margin-top: 30px;
+}
+.img-select > .form-group {
+  padding: 0;
+  margin: 0;
+}
