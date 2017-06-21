@@ -25,11 +25,16 @@ class Localization {
         $return = '<nav class="lang-sel"><ul>';
         foreach (Localization::getActiveLanguages() as $lang) {
             if ($lang['code'] != Localization::getCurrentLanguage()) {
-                $return.='<li><a href="'.Utils::getUrl(array($lang['code'])).'">'.$lang['name'].'</a></li>';
+                $return.='<li><a href="'.Utils::getUrl([$lang['code']]).'">'.$lang['name'].'</a></li>';
             }
         }
         $return.= '</ul></nav>';
         return $return;
+    }
+
+    public static function getLanguageInformation($code) {
+        App::instance()->db->where('code', $code);
+        return App::instance()->db->getOne('languages');
     }
 
     public static function setLang($lang_code) {
@@ -189,8 +194,8 @@ class Localization {
         } else {
             $db->insert($table, array_merge(
                 $data,
-                array("stringid" => $stringid
-            )));
+                ["stringid" => $stringid]
+            ));
         }
     }
 

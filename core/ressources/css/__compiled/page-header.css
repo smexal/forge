@@ -5,6 +5,7 @@
 .page-header {
   border-bottom: 0;
   margin-bottom: 50px;
+  margin-top: 65px;
 }
 .page-header > .col-lg-12 {
   min-height: 50px;
@@ -13,7 +14,7 @@
 .page-header a.back {
   color: #ABABAB;
   position: absolute;
-  top: -15px;
+  top: -5px;
   font-size: 80%;
   text-transform: uppercase;
   font-weight: 500;

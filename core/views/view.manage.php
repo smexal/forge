@@ -32,11 +32,10 @@ class ManageView extends View {
     public function content($uri=array()) {
         if(Auth::allowed($this->permissions[0])) {
             if(count($uri) == 0) {
-              array_push($uri, "dashboard");
+                array_push($uri, "dashboard");
             }
-            $content = $this->getSubview($uri, $this);
             if(! Utils::isAjax()) {
-                $content = $this->navigation() . $content;
+                $content = $this->navigation() . $this->getSubview($uri, $this) . $this->getLanguageSelection();
             }
         } else {
             $this->app->redirect("denied");
@@ -50,62 +49,49 @@ class ManageView extends View {
         $panelLeft = $this->navigation->addPanel('left', 'leftPanel');
         $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
         if(Auth::allowed($this->permissions[2]) && count($this->app->cm->collections) > 0) {
-          $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft, 'dns');
-          $this->collectionSubmenu($panelLeft);
+            $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft, 'dns');
+            $this->collectionSubmenu($panelLeft);
         }
 
         if(Auth::allowed($this->permissions[3])) {
-          $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft, 'build');
-          if(Auth::allowed($this->permissions[7])) {
-            $this->navigation->add('Pages', i('Pages'), Utils::getUrl(array('manage', 'pages')), $panelLeft, false, 'builder');
-          }
-          if(Auth::allowed($this->permissions[8])) {
-            $this->navigation->add('Navigations', i('Navigations'), Utils::getUrl(array('manage', 'navigation')), $panelLeft, false, 'builder');
-          }
+            $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft, 'build');
+            if(Auth::allowed($this->permissions[7])) {
+                $this->navigation->add('Pages', i('Pages'), Utils::getUrl(array('manage', 'pages')), $panelLeft, false, 'builder');
+            }
+            if(Auth::allowed($this->permissions[8])) {
+                $this->navigation->add('Navigations', i('Navigations'), Utils::getUrl(array('manage', 'navigation')), $panelLeft, false, 'builder');
+            }
         }
 
         if(Auth::allowed($this->permissions[4])) {
-          $this->navigation->add('modules', i('Modules'), Utils::getUrl(array('manage', 'modules')), $panelLeft, 'view_module');
+            $this->navigation->add('modules', i('Modules'), Utils::getUrl(array('manage', 'modules')), $panelLeft, 'view_module');
         }
 
         if(Auth::allowed($this->permissions[9])) {
-          $this->navigation->add('media', i('Media'), Utils::getUrl(array('manage', 'media')), $panelLeft, 'perm_media');
+            $this->navigation->add('media', i('Media'), Utils::getUrl(array('manage', 'media')), $panelLeft, 'perm_media');
         }
 
         if(Auth::allowed($this->permissions[4])) {
           // display menu points for active modules
           $mm = App::instance()->mm;
           foreach($mm->getActiveModules() as $mod) {
-            $modObject = $mm->getModuleObject($mod);
-            $this->navigation->add(
-              "pref_".$mod,
-              $modObject->name,
-              Utils::getUrl(array('manage', 'module-settings', $mod)),
-              $panelLeft,
-              false,
-              'modules'
-            );
-          }
-        }
-
-        $this->navigation->add('language', strtoupper(Localization::getCurrentLanguage()), '', $panelLeft, 'language');
-        // add other languages as submenu
-        $languages = Localization::getLanguages();
-        foreach($languages as $lang) {
-          $this->navigation->add(
-            'lang-'.$lang['code'],
-            $lang['name'],
-            Utils::getCurrentUrl().'?lang='.$lang['code'],
-            $panelLeft,
-            false,
-            'language');
+              $modObject = $mm->getModuleObject($mod);
+              $this->navigation->add(
+                  "pref_".$mod,
+                  $modObject->name,
+                  Utils::getUrl(array('manage', 'module-settings', $mod)),
+                  $panelLeft,
+                  false,
+                  'modules'
+              );
+            }
         }
 
 
 
         if(Auth::allowed($this->permissions[5])) {
-          $this->navigation->add('locales', i('Language Configuration'), Utils::getUrl(array('manage', 'locales')), $panelLeft, false, 'language');
-          $this->navigation->add('string-translation', i('String Translations'), Utils::getUrl(array('manage', 'string-translation')), $panelLeft, false, 'language');
+            $this->navigation->add('language', i('Language & Translations', 'core'), Utils::getUrl(['manage', 'locales']), $panelLeft, 'language');
+            $this->navigation->add('string-translation', i('String Translations'), Utils::getUrl(array('manage', 'string-translation')), $panelLeft, false, 'language');
         }
         if(Auth::allowed($this->permissions[1])) {
             $this->navigation->add('users_container', i('Users'), false, $panelLeft, 'person_add');
@@ -116,7 +102,7 @@ class ManageView extends View {
         $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelLeft, 'settings');
         $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', 'profile')), $panelLeft, false, 'usermenu');
         if(Auth::allowed($this->permissions[1])) {
-          $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
+            $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
         }
 
         $panelBottom = $this->navigation->addPanel('right');
@@ -132,6 +118,38 @@ class ManageView extends View {
         );
 
         return $this->navigation->render();
+    }
+
+    private function getLanguageSelection() {
+        // add other languages as submenu
+        $languages = Localization::getLanguages();
+        if(count($languages) == 1) {
+            return '';
+        }
+
+        $language = Localization::getLanguageInformation(Localization::getCurrentLanguage());
+        $available = [];
+        foreach($languages as $lang) {
+            $available[] = [
+                'name' => $lang['name'],
+                'link' => Utils::getCurrentUrl().'?lang='.$lang['code']
+            ];
+        }
+
+        return App::instance()->render(CORE_TEMPLATE_DIR.'assets/', "languageselection", [
+            'currentName' => $language['name'],
+            'available' => $available
+        ]);
+
+        /*foreach($languages as $lang) {
+          $this->navigation->add(
+            'lang-'.$lang['code'],
+            $lang['name'],
+            Utils::getCurrentUrl().'?lang='.$lang['code'],
+            $panelLeft,
+            false,
+            'language');
+        }*/
     }
 
     private function collectionSubmenu($panelLeft) {

@@ -1,0 +1,57 @@
+#language-selection {
+    position: fixed;
+    top: 0;
+    left: 170px;
+    background-color: @color-gray-light;
+    padding: 0 20px;
+    color: @color-gray-dark;
+
+    &:hover {
+        ul {
+            top: 30px;
+        }
+    }
+
+    span.current {
+        display: inline-block;
+        line-height: 30px;
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 100;
+        background-color: @color-gray-light;
+    }
+
+    > ul {
+        background-color: @color-gray-light;
+        padding: 10px 20px;
+        position: absolute;
+        z-index: 99;
+        top: -200%;
+        left: 0;
+        transition: 300ms;
+        background-color: @color-gray-light;
+
+        li {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            line-height: 24px;
+            border-bottom: 1px solid @color-gray-middle;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            a {
+                color: @color-gray-middle;
+
+                &:hover, &:focus, &:active {
+                    text-decoration: none;
+                    color: @color-gray-dark;
+                }
+            }
+        }
+    }
+}
