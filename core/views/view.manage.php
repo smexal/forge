@@ -34,8 +34,9 @@ class ManageView extends View {
             if(count($uri) == 0) {
                 array_push($uri, "dashboard");
             }
+            $content = $this->getSubview($uri, $this);
             if(! Utils::isAjax()) {
-                $content = $this->navigation() . $this->getSubview($uri, $this) . $this->getLanguageSelection();
+                $content = $this->navigation() . $content . $this->getLanguageSelection();
             }
         } else {
             $this->app->redirect("denied");
@@ -126,7 +127,7 @@ class ManageView extends View {
         if(count($languages) == 1) {
             return '';
         }
-        
+
         $language = Localization::getLanguageInformation(Localization::getCurrentLanguage());
         $available = [];
         foreach($languages as $lang) {
