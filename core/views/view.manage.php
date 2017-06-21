@@ -126,7 +126,6 @@ class ManageView extends View {
         if(count($languages) == 1) {
             return '';
         }
-
         $language = Localization::getLanguageInformation(Localization::getCurrentLanguage());
         $available = [];
         foreach($languages as $lang) {
