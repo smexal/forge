@@ -42,7 +42,7 @@ if(file_exists('config-env.php')) {
 // SEGURIDDY
 @define('SECURE', false);
 @define('CACHE_SALT', 'aöpu2¨0 56p-!?\'3zn\\5hap0o h');
-@define('AUTOLOADER_CLASS_FLUSH', false || isset($_GET['flushac']));
-@define('MANAGER_CACHE_FLUSH', false || isset($_GET['flushmc']));
+@define('AUTOLOADER_CLASS_FLUSH', false || isset($_GET['flushac']) || isset($_GET['flushall']));
+@define('MANAGER_CACHE_FLUSH', false || isset($_GET['flushmc']) || isset($_GET['flushall']));
 
 date_default_timezone_set("Europe/Zurich");

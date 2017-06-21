@@ -25,7 +25,9 @@ class Autoregister {
     static $mapping = [
         'views'       => 'ViewManager',
         'components'  => 'ComponentManager',
-        'collections' => 'CollectionManager'
+        'collections' => 'CollectionManager',
+        'relations'   => 'RelationManager',
+        'migrations'   => 'MigrationManager'
     ];
 
     static $required = [

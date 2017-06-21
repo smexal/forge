@@ -18,6 +18,7 @@ class App {
     public $mm = null;
     public $nm = null;
     public $tm = null;
+    public $mim = null;
     public $com = null;
     public $user = null;
     public $stream = false;
@@ -47,12 +48,6 @@ class App {
     private function managers() {
         /* API */
         CollectionAPI::instance()->register();
-        
-        if(is_null($this->db)) {
-          $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-        }
-        Auth::setSessionUser();
-
 
         if(is_null($this->eh)){
             $this->eh = EventHandler::instance();
@@ -60,6 +55,10 @@ class App {
 
         if(is_null($this->mm)) {
             $this->mm = new ModuleManager();
+        }
+
+        if(is_null($this->mim)){
+            $this->mim = new MigrationManager();
         }
 
         if(is_null($this->tm)) {
@@ -72,6 +71,8 @@ class App {
 
         // Has to be called after module and theme manager instantiiated
         Autoregister::autoregister();
+
+        $this->mim->start();
 
         // start all active modules
         $this->mm->start();
@@ -107,7 +108,13 @@ class App {
       if($this->prepared)
         return;
       
+      if(is_null($this->db)) {
+        $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+      }
+
       $this->managers();
+
+      Auth::setSessionUser();
 
       $this->prepared = true;
     }
