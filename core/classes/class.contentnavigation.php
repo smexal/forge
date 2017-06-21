@@ -261,6 +261,24 @@ class ContentNavigation {
         return $inst->positions;
     }
 
+    public static function parseHashUrl($hashUrl) {
+        $urlArray = explode("##", $hashUrl);
+        if(count($urlArray) < 2) {
+            return $hashUrl;
+        }
+        switch($urlArray[0]) {
+            case 'page' : 
+                $page = new Page($urlArray[1]);
+                return $page->getUrl();
+            case 'view' :
+                $v = App::instance()->vm->getViewByName($urlArray[1]);
+                return $v->buildURL();
+            // TODO collection
+            default:
+                return $hashUrl;
+        }
+    }
+
     static public function instance() {
         if (null === self::$instance) {
             self::$instance = new self;
