@@ -140,16 +140,6 @@ class ManageView extends View {
             'currentName' => $language['name'],
             'available' => $available
         ]);
-
-        /*foreach($languages as $lang) {
-          $this->navigation->add(
-            'lang-'.$lang['code'],
-            $lang['name'],
-            Utils::getCurrentUrl().'?lang='.$lang['code'],
-            $panelLeft,
-            false,
-            'language');
-        }*/
     }
 
     private function collectionSubmenu($panelLeft) {
