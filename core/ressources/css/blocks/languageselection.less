@@ -5,6 +5,7 @@
     background-color: @color-gray-light;
     padding: 0 20px;
     color: @color-gray-dark;
+    width: 160px;
 
     &:hover {
         ul {
@@ -21,6 +22,7 @@
         position: relative;
         z-index: 100;
         background-color: @color-gray-light;
+        cursor: pointer;
     }
 
     > ul {
@@ -32,13 +34,14 @@
         left: 0;
         transition: 300ms;
         background-color: @color-gray-light;
+        width: 100%;
 
         li {
             font-size: 11px;
             font-weight: 500;
             text-transform: uppercase;
             line-height: 24px;
-            border-bottom: 1px solid @color-gray-middle;
+            border-bottom: 1px solid @color-gray-light;
 
             &:last-child {
                 border-bottom: none;
