@@ -54,7 +54,7 @@
 }
 .form-group label + textarea {
   margin-top: 10px;
-  height: 200px;
+  height: 80px;
   border-radius: 0px;
   box-shadow: none;
 }
