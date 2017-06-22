@@ -29,7 +29,7 @@ class EditelementView extends View {
 
     public function content($parts = array()) {
         if(!is_numeric($parts[0])) {
-            return i('Unknown object with id `'.$parts[0].'`.');
+            return sprintf(i('Unknown object with id `%1$s`.', 'core'), $parts[0]);
         }
         $element = $this->app->com->instance($parts[0]);
         $fields = array();

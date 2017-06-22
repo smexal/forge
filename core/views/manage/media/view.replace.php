@@ -22,7 +22,7 @@ class ReplaceView extends View {
     public function content($uri=array()) {
         $this->media = new Media($uri[0]);
         return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
-            'title' => sprintf(i('Replace Media "%s"', 'core'), $this->media->title),
+            'title' => sprintf(i('Replace Media `%s`', 'core'), $this->media->title),
             'message' => '',
             'form' => $this->mediaReplace().$this->cancelLink()
         ));

@@ -219,7 +219,7 @@ class ProfileView extends View {
                 'create-key' => "true"
             ]
         );
-        return '<a class="btn btn-xs" href="'.$keyUrl.'">'.i('Create key', 'forge-events').'</a>';        
+        return '<a class="btn btn-xs" href="'.$keyUrl.'">'.i('Create key', 'core').'</a>';        
     }
 
 }

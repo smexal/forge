@@ -9,14 +9,18 @@
         </tr>
     </thead>
     <tbody>
-        {loop="$td"}
-        <tr>
-        {loop="$value"}
-             <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
-               {$value.content}
-             </td>
-        {/loop}
-        </tr>
-        {/loop}
+        {if="! is_string($td)"}
+            {loop="$td"}
+            <tr>
+            {loop="$value"}
+                 <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
+                   {$value.content}
+                 </td>
+            {/loop}
+            </tr>
+            {/loop}
+        {else}
+            {$td}
+        {/if}
     </tbody>
 </table>

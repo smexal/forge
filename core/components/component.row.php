@@ -27,7 +27,7 @@ class RowComponent extends Component {
             ),
             array(
                 "label" => i("Custom format"),
-                "hint" => i("Type a custom format like '4,4,4' always resulting in 12 columns"),
+                "hint" => i("Type a custom format like `4,4,4` always resulting in 12 columns"),
                 "key" => "row-format-custom",
                 "type" => "text"
             ),
@@ -45,7 +45,7 @@ class RowComponent extends Component {
             ),
             array(
                 "label" => i("Adjust Padding"),
-                "hint" => i("Adjust padding sizes, you should know, what you're doing..."),
+                "hint" => i("Adjust padding sizes, you should know, what you\'re doing..."),
                 "key" => "row-padding",
                 "type" => "text"
             ),

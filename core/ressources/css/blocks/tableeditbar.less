@@ -7,13 +7,28 @@
     justify-content:space-between;
     padding: 5px 20px;
 
+    .left, .right {
+        display: flex;
+    }
+
+    .left .form-group {
+        input, &.select {
+            border-right: 1px solid rgba(0,0,0,0.12);
+        }
+    }
+    .right .form-group {
+        input, &.select {
+            border-left: 1px solid rgba(0,0,0,0.12);
+        }
+    }
+
     .form-group {
         margin: 0;
         padding: 0;
         min-width: 240px;
 
         &.focus label {
-            top: -2px;          
+            top: 0;          
         }
 
         label {
@@ -22,8 +37,23 @@
 
         input {
             border-bottom: none;
-            border-right: 1px solid rgba(0,0,0,0.12);
-            padding: 0;
+            padding-bottom: 0;
+            padding-top: 12px;
+        }
+
+        &.select {
+            padding: 0 10px;
+            &:after {
+                top: 4px;
+            }
+            label {
+                top: 0;
+            }
+            select {
+                border-bottom: 0;
+                padding-bottom: 0;
+                padding-top: 12px;
+            }
         }
     }
 }

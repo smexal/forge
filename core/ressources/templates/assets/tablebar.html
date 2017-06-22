@@ -1,4 +1,4 @@
-<div class="table-editbar">
+<div class="table-editbar" {if="isset($api)"} data-api="{$api}"{/if} {if="isset($target)"} data-target="{$target}"{/if}>
     <div class="left">
         {$contentleft}
     </div>

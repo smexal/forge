@@ -221,6 +221,7 @@ class Loader {
       $this->addScript("core/ressources/scripts/overlay.js");
       $this->addScript("core/ressources/scripts/dragsort.js");
       $this->addScript("core/ressources/scripts/accordion.js");
+      $this->addScript("core/ressources/scripts/tablebar.js");
     }
 
     public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {

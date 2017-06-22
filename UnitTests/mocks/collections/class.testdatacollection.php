@@ -15,10 +15,10 @@ class TestCollection extends DataCollection {
 
     protected function setup() {
         $this->preferences['name'] = 'testcollection';
-        $this->preferences['title'] = i('Test Collections', 'forge-quests');
-        $this->preferences['all-title'] = i('Manage Test Collections', 'forge-quests');
-        $this->preferences['add-label'] = i('Add Test Collection', 'forge-quests');
-        $this->preferences['single-item'] = i('Test Collection', 'forge-quests');
+        $this->preferences['title'] = i('Test Collections', 'core');
+        $this->preferences['all-title'] = i('Manage Test Collections', 'core');
+        $this->preferences['add-label'] = i('Add Test Collection', 'core');
+        $this->preferences['single-item'] = i('Test Collection', 'core');
 
 
         $this->custom_fields();

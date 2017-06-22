@@ -323,13 +323,53 @@ class Localization {
         }
     }
 
-    public static function getAllStrings($sort=false) {
+    public static function getAllStrings($sort=false, $args = []) {
         $db = App::instance()->db;
+
+        if(array_key_exists('search', $args)) {
+            $db->where('string', '%'.$args['search'].'%', 'LIKE');
+        }
+
+        if(array_key_exists('where', $args) && is_array($args['where'])) {
+            foreach($args['where'] as $field => $value) {
+                if($field == 'status') {
+                    continue;
+                }
+                $db->where($field, $value);
+            }
+        }
+
         if ($sort && is_array($sort)) {
             $db->orderBy($sort[0], $sort[1]);
         }
         $db->orderBy("string", "asc");
-        return $db->get("language_strings");
+        $strings = $db->get("language_strings");
+        if(array_key_exists('where', $args) && is_array($args['where']) && array_key_exists('status', $args['where'])) {
+            // return only translated fields
+            foreach($strings as $key => $string) {
+                if($args['where']['status'] == 'translated') {
+                    if( ! self::stringTranslationState($string['string'], $string['domain']) ) {
+                        unset($strings[$key]);
+                    }
+                }
+                if($args['where']['status'] == 'translation_missing') {
+                    // return strings with missing translations
+                    if( self::stringTranslationState($string['string'], $string['domain']) ) {
+                        unset($strings[$key]);
+                    }
+                }
+            }
+        }
+        return $strings;
+    }
+
+    public static function getTextDomains() {
+        $results = App::instance()->db->get('language_strings', null, ['DISTINCT domain']);
+        $domains = [];
+        foreach($results as $result) {
+            $domains[] = $result['domain'];
+        }
+        return $domains;
     }
 
     private static function scanDirectory($directory, $recursive) {

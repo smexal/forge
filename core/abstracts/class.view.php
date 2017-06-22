@@ -124,7 +124,7 @@ abstract class View implements IView {
         static::$instances[$class]->init();
         return static::$instances[$class];
     }
-    private function __construct() {}
+    protected function __construct() {}
     private function __clone() {}
 
 }

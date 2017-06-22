@@ -45,7 +45,7 @@ class AddView extends View {
         }
       }
       if (! is_object($this->collection)) {
-        $this->app->addMessage(sprintf(i('Collection "%1$s" has not been found.'), $uri[0]), "warning");
+        $this->app->addMessage(sprintf(i('Collection `%1$s` has not been found.'), $uri[0]), "warning");
         return '';
       }
 

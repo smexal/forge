@@ -61,7 +61,7 @@ class DashboardView extends View {
         $cm = App::instance()->cm;
         foreach($cm->collections as $collection) {
             $items = count($collection->items());
-            $return.= '<li>'.sprintf(i('%1$s %2$s'), $items, $collection->getPref('title')).'</li>';
+            $return.= '<li>'.sprintf(i('%1$s %2$s', 'core'), $items, $collection->getPref('title')).'</li>';
         }
 
         // users

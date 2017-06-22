@@ -81,16 +81,16 @@ class Collection extends APIFacade {
     $c_name = $query['collection'];
 
     if(!$this->actionAllowed($c_name)) {
-      API::error(401, sprintf(i('User is not allowed to read the collection %s', $c_name), 'forge'));
+      API::error(401, sprintf(i('User is not allowed to read the collection %s', 'core'), $c_name));
     }
 
     if($data['s'] != 'published' && !$this->unpublishedStatusAllowed($c_name, $data['s'])) {
-      API::error(401, sprintf(i('User is not allowed to read the collection for the provided status %s', $c_name), 'forge'));
+      API::error(401, sprintf(i('User is not allowed to read the collection for the provided status %s', 'core'), $c_name));
     }
 
     $dc_object = App::instance()->cm->getCollection($c_name);
     if(!$dc_object) {
-      API::error(404, sprintf(i('Undefined collection type: %s', $c_name), 'forge'));
+      API::error(404, sprintf(i('Undefined collection type: %s', 'forge'), $c_name));
     }
 
     $collection = null;
