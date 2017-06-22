@@ -9,6 +9,7 @@ use \Forge\Core\App\APIKeys;
 class Localization {
 
     public static function getLanguages() {
+        App::instance()->db->orderBy('languages.default', "DESC");
         return App::instance()->db->get('languages');
     }
 
