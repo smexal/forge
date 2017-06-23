@@ -1,0 +1,15 @@
+<div class="grid" {if="$id"}id="{$id}"{/if}>
+    {if="! is_string($td)"}
+        {loop="$td"}
+        <div class="grid-element">
+        {loop="$value"}
+             <div {if="$value.id"}id="{$value.id}"{/if} class="grid-content{if="$value.class"} {$value.class}{/if}">
+               {$value.content}
+             </div>
+        {/loop}
+        </div>
+        {/loop}
+    {else}
+        {$td}
+    {/if}
+</table>

@@ -1,0 +1,9 @@
+{loop="$td"}
+<div class="grid-element">
+{loop="$value"}
+     <div {if="$value.id"}id="{$value.id}"{/if} class="grid-content{if="$value.class"} {$value.class}{/if}">
+       {$value.content}
+     </div>
+{/loop}
+</div>
+{/loop}
