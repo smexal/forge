@@ -10,6 +10,7 @@ class CollectionItem {
     private $db = null;
     private $base_data = null;
     private $meta = null;
+    public $bodyclass = 'collection';
 
     public function __construct($id) {
         $this->id = $id;
@@ -20,6 +21,8 @@ class CollectionItem {
 
         $this->db->where('id', $this->id);
         $this->base_data = $this->db->getOne('collections');
+
+        $this->bodyclass.= ' '.$this->base_data['type'];
     }
 
     public function getCollection() {
@@ -149,7 +152,7 @@ class CollectionItem {
         if($this->isPublished() || $this->getAuthor() == App::instance()->user->get('id')) {
             return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
-                    'bodyclass' => '',
+                    'bodyclass' => $this->bodyclass,
                     'head' => $app->tm->theme->header(),
                     'body' => $app->cm->getCollection($this->base_data['type'])->render($this),
                     'messages' => App::instance()->displayMessages()

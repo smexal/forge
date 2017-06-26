@@ -83,7 +83,7 @@ class ModuleManager {
     }
 
     public function isActive($moduleName) {
-        $this->app->db->where('name', $moduleName);
+        $this->app->db->where('module', $moduleName);
         $modules = $this->app->db->get('modules');
         if ($this->app->db->count > 0) {
             return true;

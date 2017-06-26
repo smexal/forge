@@ -11,6 +11,10 @@
   min-height: 50px;
   align-items: center;
 }
+.page-header > .col-lg-12 .actions {
+  position: absolute;
+  right: 0;
+}
 .page-header a.back {
   color: #ABABAB;
   position: absolute;

@@ -193,7 +193,8 @@ class Fields {
             'noautocomplete' => false,
             'value' => $value,
             'hint' => $args['hint'],
-            'error' => ''
+            'error' => '',
+            'group_class' => 'checkbox'
         ));
     }
 

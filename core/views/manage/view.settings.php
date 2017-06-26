@@ -40,7 +40,8 @@ class SettingsView extends View {
             'TITLE' => 'title_'.Localization::getCurrentLanguage(),
             'NIGHTMODE' => 'nightmode',
             'ALLOW_REGISTRATION' => 'allow_registration',
-            'DEFAULT_USER_GROUP' => 'default_usergroup'
+            'DEFAULT_USER_GROUP' => 'default_usergroup',
+            'GOOGLE_API_KEY' => 'google_api_key'
         );
     }
 
@@ -54,6 +55,7 @@ class SettingsView extends View {
         Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
         Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
         Settings::set($this->keys['NIGHTMODE'], $_POST[$this->keys['NIGHTMODE']]);
+        Settings::set($this->keys['GOOGLE_API_KEY'], $_POST[$this->keys['GOOGLE_API_KEY']]);
 
         foreach($this->settings->fields as $name => $tab) {
             // skip if it's a modules settings fields...
@@ -154,6 +156,7 @@ class SettingsView extends View {
             $return .= '<hr />';
             $return .= $this->getBackendThemeColor();
             $return .= $this->getNightModeCheckbox();
+            $return .= $this->getGoogleApiKeyField();
             $return .= '<hr />';
         }
         if(array_key_exists($tab_id, $this->settings->fields)
@@ -164,6 +167,14 @@ class SettingsView extends View {
             }
         }
         return $return;
+    }
+
+    private function getGoogleApiKeyField() {
+        return Fields::text(array(
+            'key' => $this->keys['GOOGLE_API_KEY'],
+            'label' => i('Google API Key'),
+            'hint' => ''
+        ), Settings::get($this->keys['GOOGLE_API_KEY']));
     }
 
     private function getNightModeCheckbox() {

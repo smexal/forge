@@ -137,3 +137,7 @@
 .add-user form .form-group:first-child {
   width: 70%;
 }
+#map_canvas {
+  width: 100%;
+  min-height: 480px;
+}

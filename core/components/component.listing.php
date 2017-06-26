@@ -2,11 +2,14 @@
 
 namespace Forge\Core\Components;
 
+use \Forge\Core\App\ModifyHandler;
 use \Forge\Core\Abstracts\Component;
 use \Forge\Core\App\App;
 
 abstract class ListingComponent extends Component {
     public $settings = array();
+    protected $order = 'id';
+    protected $orderDirection = 'DESC';
     protected $collection = null;
 
     public function __construct() {
@@ -38,10 +41,17 @@ abstract class ListingComponent extends Component {
            $items = false;
         } else {
             $collection = App::instance()->cm->getCollection($this->collection);
+            $collectionItems = $collection->items([
+                'status' => 'published',
+                'order' => $this->order,
+                'order_direction' => $this->orderDirection
+            ]);
             $items = [];
-            foreach($collection->items([
-                'status' => 'published'
-            ]) as $item) {
+            $collectionItems = ModifyHandler::instance()->trigger(
+                'modify_collection_listing_items',
+                $collectionItems
+            );
+            foreach($collectionItems as $item) {
                 array_push($items, $this->renderItem($item));
             }
         }
