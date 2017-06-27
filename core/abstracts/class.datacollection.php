@@ -375,13 +375,13 @@ abstract class DataCollection implements IDataCollection {
         $db->where('id', $id);
         $cat = $db->getOne('collection_categories');
         $json = json_decode($cat['meta']);
-        if (@$json->$lang) {
+        if (! @is_null($json->$lang)) {
             return $json->$lang;
         } else {
             // not found in this language. get in other.
-            foreach (Localization::getActiveLanguages() as $lang) {
-                if (@$json->$lang['code']) {
-                    return $json->$lang['code'];
+            foreach (Localization::getActiveLanguages() as $al) {
+                if (!is_null($json->{$al['code']})) {
+                    return $json->{$al['code']};
                 }
             }
         }
