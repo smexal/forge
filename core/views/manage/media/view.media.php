@@ -52,7 +52,7 @@ class MediaView extends View {
         $all = $mediamanager->getAll();
         $media_array = array();
         foreach($all as $media) {
-            $image = strstr($media->mime, "image/") ? $media->getUrl() : false;
+            $image = strstr($media->mime, "image/") ? $media->getSizedImage(294, 174) : false;
             array_push($media_array, array(
                 'id' => $media->id,
                 'detail' => Utils::getUrl(array("manage", "media", "detail", $media->id)),

@@ -5,11 +5,10 @@ namespace Forge\Core\Abstracts;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\CollectionItem;
+use \Forge\Core\Classes\FieldSaver;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Interfaces\IDataCollection;
-
-use \Forge\Core\Classes\FieldSaver;
 
 abstract class DataCollection implements IDataCollection {
     public $permission = null;

@@ -13,7 +13,6 @@ class FieldLoader {
         $value = isset($field['process:load']) ? call_user_func($field['process:load'], $value, $lang) : $value;
 
         return $value;
-        
     }
 
     private static function getFieldLanguage($field, $lang=null) {
