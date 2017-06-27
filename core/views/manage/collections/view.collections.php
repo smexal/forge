@@ -99,7 +99,7 @@ class CollectionsView extends View {
       $headings = ModifyHandler::instance()->trigger('ForgeCore_CollectionManagement_HeaderList', $headings);
 
       $table = [
-          'id' => "pagesTable",
+          'id' => "collectionTable",
           'th' => $headings,
           'td' => $this->getPageRows()
       ];
@@ -121,7 +121,7 @@ class CollectionsView extends View {
           Utils::tableCell($user->get('username')),
           Utils::tableCell(Utils::dateFormat($item->getCreationDate())),
           Utils::tableCell(i($item->getMeta('status'))),
-          Utils::tableCell($this->actions($item))
+          Utils::tableCell($this->actions($item), false, false, false, Utils::url(["manage", "collections", $this->collection->getPref('name'), 'edit', $item->id]))
         ));
       }
 

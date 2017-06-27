@@ -6,12 +6,11 @@
 }
 .grid .block {
   display: flex;
-  height: 120px;
   width: 380px;
   padding: 20px;
   position: relative;
   margin-left: 20px;
-  margin-top: 60px;
+  margin-bottom: 30px;
 }
 .grid .block.active .img {
   background-color: #FFF;
@@ -30,6 +29,7 @@
 .grid .block .content p {
   max-height: 40px;
   overflow: hidden;
+  margin-bottom: 0;
 }
 .grid .block .button {
   position: absolute;
@@ -43,18 +43,13 @@
 }
 .grid .block .img {
   background-color: #fafafa;
-  width: 78px;
-  min-width: 78px;
-  height: 78px;
+  width: 60px;
+  min-width: 60px;
+  height: 60px;
   text-align: center;
   white-space: nowrap;
   margin-right: 20px;
   border-radius: 3px;
-}
-.grid .block .img .helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
 }
 .grid .block .img img {
   width: 60px;

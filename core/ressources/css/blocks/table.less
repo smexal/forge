@@ -20,9 +20,20 @@ table.default {
         tr {
             border-bottom: 1px solid rgba(0,0,0,0.06);
 
+            &.hasAction {
+                cursor: pointer;
+            }
+
+            &:hover {
+                td {
+                    background-color: rgba(0,0,0,0.02);
+                }
+            }
+
             td {
                 padding: 3px 20px;
                 line-height: 40px;
+                transition: 300ms;
 
                 &:first-child {
                     font-weight: 400;

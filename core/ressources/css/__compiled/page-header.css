@@ -41,15 +41,19 @@
 .page-header > div .subnavigation {
   position: absolute;
   left: 15px;
-  bottom: -30px;
+  top: 50px;
 }
 .page-header > div .subnavigation a {
-  font-size: 14px;
+  font-size: 13px;
   padding: 8px 10px;
   border-radius: 5px;
   color: #686868;
   font-weight: 500;
-  margin-right: 20px;
+  margin-right: 10px;
+  line-height: 25px;
+}
+.page-header > div .subnavigation a:first-child {
+  margin-left: -10px;
 }
 .page-header > div .subnavigation a:hover,
 .page-header > div .subnavigation a:focus {

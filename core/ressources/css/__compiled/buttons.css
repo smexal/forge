@@ -26,6 +26,11 @@ button.btn.btn-icon-container,
   padding: 0;
   background: transparent;
 }
+a.btn.btn-icon-container.red i,
+button.btn.btn-icon-container.red i,
+.subactions a.btn-icon-container.red i {
+  color: red;
+}
 a.btn.btn-icon-container i,
 button.btn.btn-icon-container i,
 .subactions a.btn-icon-container i {

@@ -248,10 +248,14 @@ class Fields {
         } else {
             $values = $args['values'];
         }
+        if(! array_key_exists('chosen', $args)) {
+            $args['chosen'] = false;
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "select", array(
             'name' => $args['key'],
             'id' => $args['key'],
             'label' => $args['label'],
+            'chosen' => $args['chosen'],
             'values' => $values,
             'selected' => $value,
             'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)

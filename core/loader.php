@@ -33,6 +33,7 @@ class Loader {
       $this->addStyle('core/ressources/css/externals/bootstrap-datetimepicker.min.css', false, false);
       $this->addStyle('core/ressources/css/externals/tooltipster.bundle.min.css', false, false);
       $this->addStyle('core/ressources/css/externals/material-icons.css', false, false);
+      $this->addStyle('core/ressources/css/externals/chosen.css', false, false);
 
       // google icons & google's roboto font
       $this->addStyle('//fonts.googleapis.com/css?family=Roboto:100,400,400i,500,700', true, false);
@@ -211,8 +212,9 @@ class Loader {
       $this->addScript("core/ressources/scripts/externals/moment-with-locales.min.js");
       $this->addScript("core/ressources/scripts/externals/bootstrap-datetimepicker.min.js");
       $this->addScript("core/ressources/scripts/externals/dropzone.js");
+      $this->addScript("core/ressources/scripts/externals/chosen.jquery.min.js");
       $this->addScript("core/ressources/scripts/api.js");
-      $this->addScript("core/ressources/scripts/dropzone.js");
+      $this->addScript("core/ressources/scripts/chosen.js");
       $this->addScript("core/ressources/scripts/tinymce.js");
       $this->addScript("core/ressources/scripts/helpers.js");
       $this->addScript("core/ressources/scripts/ajaxlinks.js");
@@ -221,6 +223,7 @@ class Loader {
       $this->addScript("core/ressources/scripts/overlay.js");
       $this->addScript("core/ressources/scripts/dragsort.js");
       $this->addScript("core/ressources/scripts/accordion.js");
+      $this->addScript("core/ressources/scripts/table.js");
       $this->addScript("core/ressources/scripts/tablebar.js");
     }
 
