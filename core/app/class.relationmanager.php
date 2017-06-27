@@ -18,10 +18,9 @@ class RelationManager extends Manager {
   public function add($args) {
     $db = App::instance()->db;
     return $db->insert('relations', array(
-      'sequence' => 0,
-      'name' => $args['name'],
-      'type' => $args['type'],
-      'author' => App::instance()->user->get('id')
+      'item_left' => $args['item_left'],
+      'item_right' => $args['item_right'],
+      'direction' => $args['direction']
     ));
   }
 
@@ -48,7 +47,7 @@ class RelationManager extends Manager {
   }
 
   public function _getRelations() {
-      App::instance()->eh->fire("ongetRelations");
+      App::instance()->eh->fire("onGetRelations");
       $flush_cache = \triggerModifier('Forge/RelationManager/FlushCache', MANAGER_CACHE_FLUSH === true);
       $classes = static::loadClasses($flush_cache);
       App::instance()->eh->fire("onLoadedRelations", $classes);
@@ -60,4 +59,11 @@ class RelationManager extends Manager {
     $db->where('id', $id);
     $db->delete('relations');
   }
+
+    public function deleteRelationItem($left_id, $right_id) {
+      $db = App::instance()->db;
+      $db->where('left_id', $left_id);
+      $db->where('right_id', $right_id);
+      $db->delete('relations');
+    }
 }

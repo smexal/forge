@@ -27,7 +27,7 @@ class Autoregister {
         'components'  => 'ComponentManager',
         'collections' => 'CollectionManager',
         'relations'   => 'RelationManager',
-        'migrations'   => 'MigrationManager'
+        'migrations'  => 'MigrationManager'
     ];
 
     static $required = [

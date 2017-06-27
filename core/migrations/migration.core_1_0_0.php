@@ -31,11 +31,12 @@ class Core_1_0_0Migration implements IMigration {
             App::instance()->db->startTransaction();
             App::instance()->db->query(
                 'CREATE TABLE `relations` (
-                    `id` int(11) NOT NULL,
+                    `id` int(11) NOT NULL AUTO INCREMENT,
                     `item_left` int(11) NOT NULL,
                     `item_right` int(11) NOT NULL,
                     `direction` int(2) NOT NULL DEFAULT 3,
                     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (`id`),
                     FOREIGN KEY (`item_left`) 
                         REFERENCES `collections` (id)
                         ON DELETE CASCADE,
