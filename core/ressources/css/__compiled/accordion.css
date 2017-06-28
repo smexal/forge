@@ -12,3 +12,9 @@
   right: 20px;
   top: 20px;
 }
+.panel-group .panel h4 a:hover,
+.panel-group .panel h4 a:active,
+.panel-group .panel h4 a:focus {
+  text-decoration: none;
+  color: #343434;
+}

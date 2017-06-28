@@ -73,7 +73,12 @@ class CollectionItem {
             $lang = Localization::getCurrentLanguage();
         }
         foreach ($this->meta as $meta) {
-            if ($meta['keyy'] == $key && $meta['lang'] == $lang) {
+            // return the value, if the meta value is language independent
+            if($meta['keyy'] == $key && $meta['lang'] == 0) {
+                return Utils::maybeJSON($meta['value']);
+            }
+            // return the value, if the language and the key are the same.
+            if($meta['keyy'] == $key && $meta['lang'] == $lang) {
                 return Utils::maybeJSON($meta['value']);
             }
         }

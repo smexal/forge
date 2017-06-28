@@ -31,3 +31,6 @@
   color: #666;
   font-size: 17px;
 }
+.dragsort .list-content {
+  padding: 0;
+}

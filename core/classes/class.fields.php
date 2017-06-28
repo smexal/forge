@@ -183,6 +183,8 @@ class Fields {
         } else if (empty($value) && array_key_exists('value', $args)) {
             $value = $args['value'];
         }
+        if(! array_key_exists('hint', $args))
+            $args['hint'] = false;
 
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
             'name' => $args['key'],

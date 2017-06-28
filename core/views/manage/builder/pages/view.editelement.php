@@ -19,9 +19,11 @@ class EditelementView extends View {
     public function onUpdateContentElement($data) {
         $element = App::instance()->com->instance($data['id']);
         $ignored_fields = array("event", "id");
-        foreach($data as $key => $value) {
-            if(!in_array($key, $ignored_fields)) {
-                $element->savePref($key, $value);
+        foreach($element->settings() as $settings) {
+            if(array_key_exists($settings['key'], $data)) {
+                $element->savePref($settings['key'], $data[$settings['key']]);
+            } else {
+                $element->savePref($settings['key'], '');
             }
         }
         $this->message = i('Changes saved');
