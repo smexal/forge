@@ -24,12 +24,11 @@ class CollectionsView extends View {
     public function content($uri=array()) {
         // find out which collection we are editing
         foreach ($this->app->cm->collections as $collection) {
-          if ($collection->getPref('name') == $uri[0]) {
-            $this->collection = $collection;
-            break;
-          }
+            if ($collection->getPref('name') == $uri[0]) {
+                $this->collection = $collection;
+                break;
+            }
         }
-
         // check if user has permission
         if ($collection && Auth::allowed($collection->permission)) {
 
