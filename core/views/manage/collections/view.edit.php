@@ -62,7 +62,8 @@ class EditView extends View {
             'title' => sprintf(
                 i('Edit %1$s %2$s'),
                 $this->collection->preferences['single-item'],
-                '<span class="highlight">'.$this->item->getName()).'</span>',
+                '<span class="highlight">'.$this->item->getName()
+            ).'</span>',
             'backurl' => Utils::getUrl(array('manage', 'collections', $this->collection->name)),
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),

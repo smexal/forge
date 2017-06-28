@@ -8,7 +8,6 @@ use \Forge\Core\Classes\Localization;
 class FieldLoader {
     public static function load($item, $field, $lang=null) {
         $lang = static::getFieldLanguage($field, $lang);
-
         $value = $item->getMeta($field['key'], $lang);
         $value = isset($field['process:load']) ? call_user_func($field['process:load'], $value, $lang) : $value;
 
@@ -24,6 +23,6 @@ class FieldLoader {
             return $lang;
         }
 
-        return Localization::currentLang();
+        return Localization::getCurrentLanguage();
     }
 }

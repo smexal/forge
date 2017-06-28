@@ -31,7 +31,6 @@ class CollectionsView extends View {
         }
         // check if user has permission
         if ($collection && Auth::allowed($collection->permission)) {
-
             // render subview
             if (count($uri) > 1) {
                 return $this->subviews($uri);

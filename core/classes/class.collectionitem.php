@@ -69,18 +69,12 @@ class CollectionItem {
     }
 
     public function getMeta($key, $lang = false) {
-        if(!$lang && $lang !== 0) {
+        if($lang === false) { // if lang is exactly '0', language independent field is requested.
             $lang = Localization::getCurrentLanguage();
         }
         foreach ($this->meta as $meta) {
-            if ($meta['keyy'] == $key) {
-                if ($meta['lang'] != 0) {
-                    if ($lang !== false ? $lang === $meta['lang'] : $meta['lang'] == Localization::getCurrentLanguage()) {
-                        return Utils::maybeJSON($meta['value']);
-                    }
-                } else {
-                    return Utils::maybeJSON($meta['value']);
-                }
+            if ($meta['keyy'] == $key && $meta['lang'] == $lang) {
+                return Utils::maybeJSON($meta['value']);
             }
         }
         return false;
