@@ -63,7 +63,7 @@ class NavigationsView extends View {
                 'id' => 'tab-panel-'.$nav['id'],
                 'dataId' => $nav['id'],
                 'title' => $nav['name'].' <small>'.$nav['position'].'</small>',
-                'actions' => '<a href="javascript://" data-open="/manage/navigation/add-item/'.$nav['id'].'" class="open-overlay">'.i('Add navigation item', 'core').'</a>',
+                'actions' => '<a href="javascript://" data-open="'.Utils::url(['manage', 'navigation', 'add-item', $nav['id']]).'" class="open-overlay">'.i('Add navigation item', 'core').'</a>',
                 'body' => $plRender
             ];
         }
