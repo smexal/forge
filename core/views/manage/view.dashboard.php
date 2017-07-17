@@ -59,9 +59,16 @@ class DashboardView extends View {
 
         // collections
         $cm = App::instance()->cm;
+        $count = 1;
+        $max = 4;
         foreach($cm->collections as $collection) {
             $items = count($collection->items());
             $return.= '<li>'.sprintf(i('%1$s %2$s', 'core'), $items, $collection->getPref('title')).'</li>';
+
+            $count++;
+            if($count == $max) {
+                break;
+            }
         }
 
         // users
