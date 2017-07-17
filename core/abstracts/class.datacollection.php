@@ -5,210 +5,209 @@ namespace Forge\Core\Abstracts;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\CollectionItem;
+use \Forge\Core\Classes\FieldSaver;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Interfaces\IDataCollection;
 
-use \Forge\Core\Classes\FieldSaver;
-
 abstract class DataCollection implements IDataCollection {
-  public $permission = null;
-  protected static $instances = array();
-  protected $app;
-  public $preferences = array();
-  public $name = false;
-  private $customFields = array();
-  private $customConfiguration = array();
+    public $permission = null;
+    protected static $instances = array();
+    protected $app;
+    public $preferences = array();
+    public $name = false;
+    private $customFields = array();
+    private $customConfiguration = array();
 
-  abstract protected function setup();
+    abstract protected function setup();
 
-  public function getPref($name) {
-    return $this->preferences[$name];
-  }
-
-  public function render($item) {
-    return 'overwrite render method with $item';
-  }
-
-  public function getSubnavigation() {
-    return false;
-  }
-
-  private function getSubviewName($name) {
-    $ex = explode("-", $name);
-    for ($x = 0; $x < count($ex); $x++) {
-      $ex[$x] = ucfirst($ex[$x]);
-    }
-    return implode("", $ex);
-  }
-
-  public function getSubview($view, $item) {
-    $method = "subview".$this->getSubviewName($view);
-    if (method_exists($this, $method)) {
-      return $this->$method($item);
-    }
-    return 'no subview method found: \"'.$method.'\"';
-  }
-
-  public function getSubviewActions($view, $item) {
-    $method = "subview".$this->getSubviewName($view).'Actions';
-    if (method_exists($this, $method)) {
-      return $this->$method($item);
-    } else {
-      return 'nf';
-    }
-  }
-
-  private function init() {
-    $this->app = App::instance();
-    if (!is_null($this->permission)) {
-      Auth::registerPermissions($this->permission);
+    public function getPref($name) {
+        return $this->preferences[$name];
     }
 
-    $this->preferences = array(
-      'name' => strtolower(get_class($this)),
-      'title' => i('Data'),
-      'all-title' => i('All Collection Items'),
-      'add-label' => i('Add item'),
-      'single-item' => i('item')
-    );
-    $this->setup();
-    $this->name = $this->getPref('name');
-  }
-
-  public function customEditContent($id) {
-    return false;
-  }
-
-  /**
-   * Fetch collectionitems based on the provided filter params
-   * 
-   * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
-   */
-  public function items($settings = array()) {
-    $db = App::instance()->db;
-    if (array_key_exists('order', $settings)) {
-      $direction = 'asc';
-      if(array_key_exists('order_direction', $settings)) {
-        $direction = $settings['order_direction'];
-      }
-      $db->orderBy($settings['order'], $direction);
-    }
-    $limit = false;
-    if (array_key_exists('limit', $settings)) {
-      $limit = $settings['limit'];
-    }
-    $db->where('type', $this->name);
-
-    if(array_key_exists('query', $settings)) {
-      $db->where('name', $db->escape($settings['query']), 'LIKE');
+    public function render($item) {
+        return 'overwrite render method with $item';
     }
 
-    if(array_key_exists('meta_query', $settings)) {
-      $idx = -1;
-      foreach($settings['meta_query'] as $key => $value) {
-        $idx++;
-        $as_key = "cm_{$idx}";
-        $db->join("collection_meta $as_key", "collections.id = {$as_key}.item", 'RIGHT');
-        $db->where("{$as_key}.keyy", $key);
-        $db->where("{$as_key}.value", $value);
-      }
+    public function getSubnavigation() {
+        return false;
     }
 
-
-    if (!$limit) {
-      $items = $db->get('collections');
-    } else {
-      $items = $db->get('collections', $limit);
-    }
-
-    $item_objects = array();
-    foreach ($items as $item) {
-      $obj = new CollectionItem($item['id']);
-      if (array_key_exists('status', $settings)) {
-        if ($settings['status'] == 'published' || $settings['status'] == 'draft') {
-          if ($obj->getMeta('status') != $settings['status']) {
-            continue;
-          }
+    private function getSubviewName($name) {
+        $ex = explode("-", $name);
+        for ($x = 0; $x < count($ex); $x++) {
+            $ex[$x] = ucfirst($ex[$x]);
         }
-      }
-      array_push($item_objects, $obj);
+        return implode("", $ex);
     }
 
-    return $item_objects;
-  }
-
-  public function slug() {
-    $slug = $this->getSetting('slug');
-    if (! is_null($slug)) {
-      return $slug;
-    } else {
-      return $this->name;
+    public function getSubview($view, $item) {
+        $method = "subview".$this->getSubviewName($view);
+        if (method_exists($this, $method)) {
+            return $this->$method($item);
+        }
+        return 'no subview method found: \"'.$method.'\"';
     }
-  }
 
-  public function getBySlug($slug) {
-    foreach ($this->items() as $item) {
-      $i = new CollectionItem($item->id);
-      if ($i->slug() == $slug) {
-        return $i;
-      }
+    public function getSubviewActions($view, $item) {
+        $method = "subview".$this->getSubviewName($view).'Actions';
+        if (method_exists($this, $method)) {
+            return $this->$method($item);
+        } else {
+            return 'nf';
+        }
     }
-    return null;
-  }
 
-  public function getItem($id) {
-    return new CollectionItem($id);
-  }
+    private function init() {
+        $this->app = App::instance();
+        if (!is_null($this->permission)) {
+            Auth::registerPermissions($this->permission);
+        }
 
-  public function getItems($items) {
-    $list = [];
-    foreach($items as $id)
-      $list[$id] = new CollectionItem($id);
-
-    return $list;
-  }
-
-  public function saveSetting($key, $value, $lang = false) {
-    if ($lang === false) {
-      $lang = Localization::getCurrentLanguage();
+        $this->preferences = array(
+            'name' => strtolower(get_class($this)),
+            'title' => i('Data'),
+            'all-title' => i('All Collection Items'),
+            'add-label' => i('Add item'),
+            'single-item' => i('item')
+        );
+        $this->setup();
+        $this->name = $this->getPref('name');
     }
-    $db = App::instance()->db;
 
-    $db->where('type', $this->name);
-    $db->where('keyy', $key);
-    $db->where('lang', $lang);
-    $val = $db->getOne('collection_settings');
-    if ($val) {
-      $db->where('type', $this->name);
-      $db->where('keyy', $key);
-      $db->where('lang', $lang);
-      $db->update('collection_settings', array(
-        'value' => $value
-      ));
-    } else {
-      $db->insert('collection_settings', array(
-        'keyy' => $key,
-        'value' => $value,
-        'lang' => $lang,
-        'type' => $this->name
-      ));
+    public function customEditContent($id) {
+        return false;
     }
-  }
 
-  public function getSetting($key, $lang=false) {
-    if (!$lang) {
-      $lang = Localization::getCurrentLanguage();
+    /**
+     * Fetch collectionitems based on the provided filter params
+     * 
+     * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
+     */
+    public function items($settings = array()) {
+        $db = App::instance()->db;
+        if (array_key_exists('order', $settings)) {
+            $direction = 'asc';
+            if(array_key_exists('order_direction', $settings)) {
+                $direction = $settings['order_direction'];
+            }
+            $db->orderBy($settings['order'], $direction);
+        }
+        $limit = false;
+        if (array_key_exists('limit', $settings)) {
+            $limit = $settings['limit'];
+        }
+        $db->where('type', $this->name);
+
+        if(array_key_exists('query', $settings)) {
+            $db->where('name', $db->escape($settings['query']), 'LIKE');
+        }
+
+        if(array_key_exists('meta_query', $settings)) {
+            $idx = -1;
+            foreach($settings['meta_query'] as $key => $value) {
+                $idx++;
+                $as_key = "cm_{$idx}";
+                $db->join("collection_meta $as_key", "collections.id = {$as_key}.item", 'RIGHT');
+                $db->where("{$as_key}.keyy", $key);
+                $db->where("{$as_key}.value", $value);
+            }
+        }
+
+        if (!$limit) {
+            $items = $db->get('collections');
+        } else {
+            $items = $db->get('collections', $limit);
+        }
+
+        $item_objects = array();
+        foreach ($items as $item) {
+            $obj = new CollectionItem($item['id']);
+            if (array_key_exists('status', $settings)) {
+                if ($settings['status'] == 'published' || $settings['status'] == 'draft') {
+                    if ($obj->getMeta('status') != $settings['status']) {
+                        continue;
+                    }
+                }
+            } 
+            array_push($item_objects, $obj);
+        }
+
+        return $item_objects;
     }
-    $db = App::instance()->db;
-    $db->where('type', $this->name);
-    $db->where('keyy', $key);
-    $db->where('lang', $lang);
-    $setting = $db->getOne('collection_settings');
-    return $setting['value'];
-  }
 
-  public function save($data) {
+    public function slug() {
+        $slug = $this->getSetting('slug');
+        if (! is_null($slug)) {
+            return $slug;
+        } else {
+            return $this->name;
+        }
+    }
+
+    public function getBySlug($slug) {
+        foreach ($this->items() as $item) {
+            $i = new CollectionItem($item->id);
+            if ($i->slug() == $slug) {
+                return $i;
+            }
+        }
+        return null;
+    }
+
+    public function getItem($id) {
+        return new CollectionItem($id);
+    }
+
+    public function getItems($items) {
+        $list = [];
+        foreach($items as $id) {
+            $list[$id] = new CollectionItem($id);
+        }
+
+        return $list;
+    }
+
+    public function saveSetting($key, $value, $lang = false) {
+        if ($lang === false) {
+            $lang = Localization::getCurrentLanguage();
+        }
+        $db = App::instance()->db;
+
+        $db->where('type', $this->name);
+        $db->where('keyy', $key);
+        $db->where('lang', $lang);
+        $val = $db->getOne('collection_settings');
+        if ($val) {
+            $db->where('type', $this->name);
+            $db->where('keyy', $key);
+            $db->where('lang', $lang);
+            $db->update('collection_settings', array(
+              'value' => $value
+            ));
+        } else {
+            $db->insert('collection_settings', array(
+                'keyy' => $key,
+                'value' => $value,
+                'lang' => $lang,
+                'type' => $this->name
+            ));
+        }
+    }
+
+    public function getSetting($key, $lang=false) {
+        if (!$lang) {
+            $lang = Localization::getCurrentLanguage();
+        }
+        $db = App::instance()->db;
+        $db->where('type', $this->name);
+        $db->where('keyy', $key);
+        $db->where('lang', $lang);
+        $setting = $db->getOne('collection_settings');
+        return $setting['value'];
+    }
+
+    public function save($data) {
       if (array_key_exists('itemid', $data)) {
           $item = new CollectionItem($data['itemid']);
           if (array_key_exists('lang', $data)) {
@@ -227,7 +226,7 @@ abstract class DataCollection implements IDataCollection {
       } else {
           App::instance()->addMessage(i('Unable to save item, Item does not exist'));
       }
-  }
+    }
 
     private function defaultConfiguration() {
       $fields = array(
@@ -344,88 +343,88 @@ abstract class DataCollection implements IDataCollection {
     }
 
     private function getCategoriesForSelection($parent = 0, $level = 0) {
-      $returnable = array();
-      $cats = $this->getCategories($parent);
-      foreach ($cats as $cat) {
-        $meta = $this->getCategoryMeta($cat['id']);
-        $indent = str_repeat("&nbsp;&nbsp;", $level);
-        $returnable[] = [
-          'value' => $cat['id'],
-          'active' => false,
-          'text' => $indent.$meta->name
-        ];
-        $returnable = array_merge($returnable, $this->getCategoriesForSelection($cat['id'], $level+1));
-      }
-      return $returnable;
+        $returnable = array();
+        $cats = $this->getCategories($parent);
+        foreach ($cats as $cat) {
+            $meta = $this->getCategoryMeta($cat['id']);
+            $indent = str_repeat("&nbsp;&nbsp;", $level);
+            $returnable[] = [
+                'value' => $cat['id'],
+                'active' => false,
+                'text' => $indent.$meta->name
+            ];
+            $returnable = array_merge($returnable, $this->getCategoriesForSelection($cat['id'], $level+1));
+        }
+        return $returnable;
     }
 
     public function getCategories($parent = 0) {
-      $db = App::instance()->db;
-      $db->where('collection', $this->name);
-      $db->where('parent', $parent);
-      $cats = $db->get('collection_categories');
-      return $cats;
+        $db = App::instance()->db;
+        $db->where('collection', $this->name);
+        $db->where('parent', $parent);
+        $cats = $db->get('collection_categories');
+        return $cats;
     }
 
     public function getCategoryMeta($id, $lang=false) {
-      if (!$lang) {
-        $lang = Localization::getCurrentLanguage();
-      }
-      $db = App::instance()->db;
-      $db->where('id', $id);
-      $cat = $db->getOne('collection_categories');
-      $json = json_decode($cat['meta']);
-      if (@$json->$lang) {
-        return $json->$lang;
-      } else {
-        // not found in this language. get in other.
-        foreach (Localization::getActiveLanguages() as $lang) {
-          if (@$json->$lang['code']) {
-            return $json->$lang['code'];
-          }
+        if (!$lang) {
+            $lang = Localization::getCurrentLanguage();
         }
-      }
+        $db = App::instance()->db;
+        $db->where('id', $id);
+        $cat = $db->getOne('collection_categories');
+        $json = json_decode($cat['meta']);
+        if (! @is_null($json->$lang)) {
+            return $json->$lang;
+        } else {
+            // not found in this language. get in other.
+            foreach (Localization::getActiveLanguages() as $al) {
+                if (!is_null($json->{$al['code']})) {
+                    return $json->{$al['code']};
+                }
+            }
+        }
     }
 
     public function addCategory($data) {
-      if (!array_key_exists("name", $data)) {
-        $data['name'] = "(no name)";
-      }
-      if (!array_key_exists("parent", $data)) {
-        $data['parent'] = 0;
-      }
-      $db = App::instance()->db;
-      $category = $db->insert("collection_categories", array(
-        "collection" => $this->name,
-        "meta" => '',
-        "parent" => $data['parent'],
-        "sequence" => 0
-      ));
-      $this->saveCategoryMeta($category, array('name' => $data['name']));
+        if (!array_key_exists("name", $data)) {
+            $data['name'] = "(no name)";
+        }
+        if (!array_key_exists("parent", $data)) {
+            $data['parent'] = 0;
+        }
+        $db = App::instance()->db;
+        $category = $db->insert("collection_categories", array(
+            "collection" => $this->name,
+            "meta" => '',
+            "parent" => $data['parent'],
+            "sequence" => 0
+        ));
+        $this->saveCategoryMeta($category, array('name' => $data['name']));
     }
 
-    public function saveCategoryMeta($id, $data, $lang=false) {
-      if (! $lang) {
-        $lang = Localization::getCurrentLanguage();
+      public function saveCategoryMeta($id, $data, $lang=false) {
+          if (! $lang) {
+              $lang = Localization::getCurrentLanguage();
+          }
+          $db = App::instance()->db;
+          $db->where("id", $id);
+          $cat = $db->getOne("collection_categories");
+          if (strlen($cat['meta']) > 0) {
+              $meta = json_decode($cat['meta']);
+          } else {
+              $meta = array();
+          }
+          if (is_array($meta) && array_key_exists($lang, $meta)) {
+              $toSave = array_merge($meta[$lang], $data);
+          } else {
+              $toSave = array($lang => $data);
+          }
+          $db->where("id", $id);
+          $db->update("collection_categories", array(
+              "meta" => json_encode($toSave)
+          ));
       }
-      $db = App::instance()->db;
-      $db->where("id", $id);
-      $cat = $db->getOne("collection_categories");
-      if (strlen($cat['meta']) > 0) {
-        $meta = json_decode($cat['meta']);
-      } else {
-        $meta = array();
-      }
-      if (is_array($meta) && array_key_exists($lang, $meta)) {
-        $toSave = array_merge($meta[$lang], $data);
-      } else {
-        $toSave = array($lang => $data);
-      }
-      $db->where("id", $id);
-      $db->update("collection_categories", array(
-        "meta" => json_encode($toSave)
-      ));
-    }
 
     public function addField($field=array()) {
         if (! array_key_exists('key', $field)) {
@@ -453,26 +452,26 @@ abstract class DataCollection implements IDataCollection {
         array_push($this->customFields, $field);
     }
 
-    public function configuration() {
-      $fields = array_merge($this->defaultConfiguration(), $this->customConfiguration);
-      return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
-    }
+      public function configuration() {
+          $fields = array_merge($this->defaultConfiguration(), $this->customConfiguration);
+          return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+      }
 
-    public function fields() {
-      $fields = array_merge($this->defaultFields(), $this->customFields);
-      return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
-    }
+      public function fields() {
+          $fields = array_merge($this->defaultFields(), $this->customFields);
+          return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+      }
 
-  static public function instance() {
-    $class = get_called_class();
-    if (!array_key_exists($class, static::$instances)) {
-      static::$instances[$class] = new $class();
-      static::$instances[$class]->init();
+    static public function instance() {
+        $class = get_called_class();
+        if (!array_key_exists($class, static::$instances)) {
+            static::$instances[$class] = new $class();
+            static::$instances[$class]->init();
+        }
+        return static::$instances[$class];
     }
-    return static::$instances[$class];
-  }
-  private function __construct() {}
-  private function __clone() {}
+    private function __construct() {}
+    private function __clone() {}
 
 }
 

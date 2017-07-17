@@ -17,9 +17,16 @@ table.default tr th {
 table.default tbody tr {
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
+table.default tbody tr.hasAction {
+  cursor: pointer;
+}
+table.default tbody tr:hover td {
+  background-color: rgba(0,0,0,0.02);
+}
 table.default tbody tr td {
   padding: 3px 20px;
   line-height: 40px;
+  transition: 300ms;
 }
 table.default tbody tr td:first-child {
   font-weight: 400;

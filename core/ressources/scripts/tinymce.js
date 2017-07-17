@@ -13,8 +13,8 @@ var forge_tinymce = {
         tinymce.remove();
         tinymce.init({
             selector:'textarea.tinymce',
-            toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright alignjustify',
-            plugins: "link",
+            toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright alignjustify | numlist bullist',
+            plugins: "link lists",
             height : "480",
             menu: {
               edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},

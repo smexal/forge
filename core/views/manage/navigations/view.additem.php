@@ -57,7 +57,8 @@ class AdditemView extends View {
         $form->select(array(
             "key" => 'item',
             "label" => i('Select item'),
-            "values" => ContentNavigation::getPossibleItems()
+            "values" => ContentNavigation::getPossibleItems(),
+            'chosen' => true
         ), '');
 
         $items = $this->getNavigationItems($this->navigation);

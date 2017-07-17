@@ -43,13 +43,17 @@ class Form {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         }
+        if(!array_key_exists('chosen', $args)) {
+            $args['chosen'] = false;
+        }
         array_push($this->content, $this->app->render(CORE_TEMPLATE_DIR."assets/", "select", array(
             'name' => $args['key'],
             'id' => $args['key'],
             'label' => $args['label'],
             'values' => $args['values'],
             'selected' => $value,
-            'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
+            'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false),
+            'chosen' => $args['chosen']
         )));
     }
 

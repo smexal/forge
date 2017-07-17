@@ -13,7 +13,7 @@
             {loop="$td"}
             <tr>
             {loop="$value"}
-                 <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if}>
+                 <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if} {if="isset($value.rowAction)"}data-main-action="{$value.rowAction}"{/if}>
                    {$value.content}
                  </td>
             {/loop}

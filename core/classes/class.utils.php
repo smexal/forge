@@ -229,11 +229,12 @@ class Utils {
       return '<a href="javascript://" data-open="'.$url.'" '.$t.' class="btn btn-primary '.$overlay.' '.$classes.'">'.$label.'</a>';
     }
 
-    public static function tableCell($content, $class=false, $id=false, $structure=false) {
+    public static function tableCell($content, $class=false, $id=false, $structure=false, $action=false) {
       $data = array(
           'content' => $content,
           'class' => $class,
-          'id' => $id
+          'id' => $id,
+          'rowAction' => $action
       );
       if($structure) {
         return App::instance()->render(CORE_TEMPLATE_DIR."/assets/", "table.cell", $data);

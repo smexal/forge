@@ -79,7 +79,7 @@
 .form-group.select {
   margin-bottom: 30px;
 }
-.form-group.select:after {
+.form-group.select:not(.contains-chosen):after {
   content: 'arrow_drop_down';
   position: absolute;
   right: 0;
@@ -91,6 +91,9 @@
 .form-group.select select {
   position: relative;
   z-index: 2;
+}
+.form-group.select label ~ .chosen-container {
+  margin-top: 10px;
 }
 .form-group select {
   border-radius: 0px;

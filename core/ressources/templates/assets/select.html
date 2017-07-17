@@ -1,6 +1,6 @@
-<div class="form-group select">
+<div class="form-group select {if="$chosen"}contains-chosen{/if}">
     <label class="control-label" for="{$id}">{$label}</label>
-    <select class="form-control" name="{$name}" id="{$id}">
+    <select class="form-control{if="$chosen"} chosen-select{/if}" name="{$name}" id="{$id}">
         {loop="$values"}
             <option value="{$key}" {if="$key==$selected"}selected{/if}>{$value}</option>
         {/loop}

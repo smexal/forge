@@ -51,7 +51,7 @@ class UsersView extends View {
                 Utils::tableCell($user['id']),
                 Utils::tableCell($user['username']),
                 Utils::tableCell($user['email']),
-                Utils::tableCell($this->actions($user['id']))
+                Utils::tableCell($this->actions($user['id']), false, false, false, Utils::url(["manage", "users", "edit", $user['id']]))
             ));
         }
         return $user_enriched;

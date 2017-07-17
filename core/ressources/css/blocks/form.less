@@ -76,7 +76,7 @@
     &.select {
         margin-bottom: 30px;
 
-        &:after {
+        &:not(.contains-chosen):after {
             content: 'arrow_drop_down';
             position: absolute;
             right: 0;
@@ -88,6 +88,10 @@
         select {
             position: relative;
             z-index: 2;
+        }
+
+        label ~ .chosen-container {
+            margin-top: 10px;
         }
     }
 

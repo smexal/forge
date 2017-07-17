@@ -62,7 +62,8 @@ class EditView extends View {
             'title' => sprintf(
                 i('Edit %1$s %2$s'),
                 $this->collection->preferences['single-item'],
-                '<span class="highlight">'.$this->item->getName()).'</span>',
+                '<span class="highlight">'.$this->item->getName()
+            ).'</span>',
             'backurl' => Utils::getUrl(array('manage', 'collections', $this->collection->name)),
             'backname' => i('back to overview'),
             'panel_left' => $this->leftFields(),
@@ -87,16 +88,6 @@ class EditView extends View {
 
     // displays the left form fields for the edit mask
     private function leftFields() {
-        $this->collection->addField(array(
-            'key' => 'language-switch',
-            'label' => i('Change to other language', 'core'),
-            'type' => 'linklist',
-            'links' => $this->getLanguageLinks(),
-            'boxed' => true,
-            'order' => 1,
-            'position' => 'right',
-            'hint' => false
-        ));
         $fields = $this->collection->fields();
         $return = '';
         foreach($fields as $field) {
@@ -109,6 +100,16 @@ class EditView extends View {
 
     // displays the right form fields for the edit mask
     private function rightFields() {
+        $this->collection->addField(array(
+            'key' => 'language-switch',
+            'label' => i('Change to other language', 'core'),
+            'type' => 'linklist',
+            'links' => $this->getLanguageLinks(),
+            'boxed' => true,
+            'order' => 1,
+            'position' => 'right',
+            'hint' => false
+        ));
         $fields = $this->collection->fields();
         $return = '';
         foreach($fields as $field) {
@@ -132,4 +133,3 @@ class EditView extends View {
     }
 
 }
-

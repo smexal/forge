@@ -46,6 +46,60 @@ class Media {
         }
     }
 
+    public function getSizedImage($width, $height) {
+        if(is_null($this->name)) {
+            return '';
+        }
+        $parts = pathinfo($this->name);
+        $type = $parts['extension'];
+        $thumbName = $parts['filename'].'__'.$width.'x'.$height.'.'.$type;
+
+        // if thumb already exists return the existing one.
+        if(file_exists(UPLOAD_DIR.$this->rel_path.$thumbName)) {
+            return $this->url.$thumbName;
+        }
+
+        $original = UPLOAD_DIR.$this->rel_path.$this->name;
+        list($w, $h) = getimagesize($original);
+
+        if($type == 'jpeg') $type = 'jpg';
+        switch($type){
+            case 'bmp': $originalImage = imagecreatefromwbmp($original); break;
+            case 'gif': $originalImage = imagecreatefromgif($original); break;
+            case 'jpg': $originalImage = imagecreatefromjpeg($original); break;
+            case 'png': $originalImage = imagecreatefrompng($original); break;
+            default : return $this->getUrl();
+        }
+
+        // calculating the part of the image to use for thumbnail
+        if($w < $width or $h < $height) {
+            return $this->getUrl();
+        }
+        $ratio = max($width/$w, $height/$h);
+        $h = $height / $ratio;
+        $x = ($w - $width / $ratio) / 2;
+        $w = $width / $ratio;
+
+        $new = imagecreatetruecolor($width, $height);
+        // preserve transparency
+        if($type == "gif" or $type == "png"){
+            imagecolortransparent($new, imagecolorallocatealpha($new, 0, 0, 0, 127));
+            imagealphablending($new, false);
+            imagesavealpha($new, true);
+        }
+
+        imagecopyresampled($new, $originalImage, 0, 0, $x, 0, $width, $height, $w, $h);
+
+        $dst = UPLOAD_DIR.$this->rel_path.$thumbName;
+        switch($type){
+            case 'bmp': imagewbmp($new, $dst); break;
+            case 'gif': imagegif($new, $dst); break;
+            case 'jpg': imagejpeg($new, $dst); break;
+            case 'png': imagepng($new, $dst); break;
+        }
+        return $this->url.$thumbName;
+    }
+
     public function getUrl($abs = false) {
         if($abs) {
             return Utils::getAbsoluteUrlRoot().$this->url.$this->name;

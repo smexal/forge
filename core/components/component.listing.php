@@ -57,7 +57,8 @@ abstract class ListingComponent extends Component {
         }
         return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", array(
             'message' => $message,
-            'items' => $items
+            'items' => $items,
+            'type' => $this->collection
         ));
     }
 

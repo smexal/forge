@@ -56,7 +56,8 @@ class EdititemView extends View {
         $form->select(array(
             "key" => 'item',
             "label" => i('Select item'),
-            "values" => $this->getItems()
+            "values" => $this->getItems(),
+            'chosen' => true
         ), $this->item['item_type'].'##'.$this->item['item_id']);
 
         $items = $this->getNavigationItems($this->navigation);

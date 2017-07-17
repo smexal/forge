@@ -10,6 +10,5 @@ class FieldBuilder {
         $value = FieldLoader::load($item, $field, $lang);
         $value = isset($field['process:build']) ? call_user_func($field['process:build'], $value) : $value;
         return Fields::build($field, $value);
-        
     }
 }
