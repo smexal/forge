@@ -47,6 +47,14 @@ class CollectionManager extends Manager {
     return $this->collections;
   }
 
+  public function addCollection($collection) {
+    $col = $collection::instance();
+    if($this->getCollection($col->name)) {
+      throw new Exception("Collection is already registered");
+    }
+    $this->collections[] = $col;
+  }
+
   public function _getCollections() {
       App::instance()->eh->fire("onGetCollections");
       $flush_cache = \triggerModifier('Forge/CollectionManager/FlushCache', MANAGER_CACHE_FLUSH === true);
