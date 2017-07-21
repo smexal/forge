@@ -26,28 +26,21 @@ class Core_1_0_0Migration implements IMigration {
     }
 
     public static function execute() {
-        $stmts = [];
         try {
             App::instance()->db->startTransaction();
             App::instance()->db->query(
                 'CREATE TABLE `relations` (
                     `id` int(11) NOT NULL AUTO INCREMENT,
-                    `name` VARCHAR(32) NOT NULL AUTO INCREMENT,
+                    `name` VARCHAR(32) NOT NULL,
                     `item_left` int(11) NOT NULL,
                     `item_right` int(11) NOT NULL,
                     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    PRIMARY KEY (`id`),
-                    FOREIGN KEY (`item_left`) 
-                        REFERENCES `collections` (id)
-                        ON DELETE CASCADE,
-                    FOREIGN KEY (`item_right`) 
-                        REFERENCES `collections` (id)
-                        ON DELETE CASCADE
+                    PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;'
             );
             App::instance()->db->commit();
         } catch (Exception $e) {
-                App::instance()->db->rollback();
+            App::instance()->db->rollback();
         }
 
     }

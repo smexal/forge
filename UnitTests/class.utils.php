@@ -8,6 +8,35 @@ class UtilsTests {
     private static $app;
     private static $origin;
 
+
+    public static function removeCollections($ids) {
+        $db = App::instance()->db;
+        foreach($ids as $c_id) {
+            $db->query('DELETE FROM `collections` WHERE `collections`.`id` = ' . $c_id);
+            $db->query('DELETE FROM `collection_meta` WHERE `collection_meta`.`item` = ' . $c_id);
+        }
+    }
+
+    public static function generateCollections($num, $metas=array(), $collection='\Forge\Core\Tests\TestCollection') {
+        $db = App::instance()->db;
+        $collection = $collection::instance();
+        $ids = [];
+        for($i = 0; $i < $num; $i++) {
+            $ids[] = $c_id = $db->insert('collections', array(
+              'sequence' => 0,
+              'name' => 'TEST NAME' . $i,
+              'type' => 'testcollection',
+              'author' => 0
+            ));
+
+            $item = $collection->getItem($c_id);
+            foreach($metas as $key => $value) {
+                $item->updateMeta($key, $value, false);
+            }
+        }
+        return $ids;
+    }
+
     public static function prepare() {
         static $prepared;
         static::$origin = getcwd();
