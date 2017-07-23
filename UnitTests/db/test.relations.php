@@ -15,8 +15,8 @@ class TestRelations extends TestCase {
         $c_ids_a = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollection');
         $c_ids_b = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollectionTwo');
 
-        $relationBD = new Relation('test-BIBIBIDIRECT', 'testcollection', 'testcollectiontwo', Relation::DIR_BIDIRECT);
-        $relationUD = new Relation('test-____DIRECT', 'testcollection', 'testcollectiontwo', Relation::DIR_DIRECTED);
+        $relationBD = new Relation('test-BIBIBIDIRECT', Relation::DIR_BIDIRECT);
+        $relationUD = new Relation('test-____DIRECT', Relation::DIR_DIRECTED);
 
         static::$c_ids = array_merge($c_ids_a, $c_ids_b);
 
@@ -57,7 +57,47 @@ class TestRelations extends TestCase {
 
         \UtilsTests::removeCollections(static::$c_ids);
     }
+/*
+    public function testPurgeCollectionRelations() {
+        $collection = \Forge\Core\Tests\TestCollection::instance();
+        $collectiontwo = \Forge\Core\Tests\TestCollectionTwo::instance();
 
+        $c_ids_a = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollection');
+        $c_ids_b = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollectionTwo');
+
+        $relationUD = new Relation('test-____DIRECT', 'testcollection', 'testcollectiontwo', Relation::DIR_DIRECTED);
+
+        static::$c_ids = array_merge($c_ids_a, $c_ids_b);
+
+        $links = [];
+        $links_reversed = [];
+
+        foreach($c_ids_a as $key => $left) {
+            $links[$left] = [];
+            foreach($c_ids_b as $key2 => $right) {
+                $links[$left][] = $right;
+                $links_merged[$left][] = $right;
+                $relationUD->add($left, $right);
+            }
+        }
+
+        foreach($c_ids_b as $key => $right) {
+            $links_reversed[$right] = [];
+            foreach($c_ids_a as $key2 => $left) {
+                $links_reversed[$right][] = $left;
+                $links_merged[$right][] = $left;
+            }
+        }
+
+        asort($links);
+        asort($links_reversed);
+        asort($links_merged);
+
+        
+
+        \UtilsTests::removeCollections(static::$c_ids);
+    }
+*/
     public static function onlyLeftIds($relations) {
         return array_map(function(&$elem) {
             return $elem['item_left'];

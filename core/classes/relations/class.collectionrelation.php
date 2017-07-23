@@ -5,7 +5,7 @@ namespace Forge\Core\Classes\Relations;
 use Forge\Core\App\App;
 use Forge\Core\Classes\CollectionItem;
 
-class CollectionRelation implements Forge\Core\Interfaces\IRelation {
+class CollectionRelation implements \Forge\Core\Interfaces\IRelation {
 
     protected $c_left;
     protected $c_right;
@@ -43,6 +43,8 @@ class CollectionRelation implements Forge\Core\Interfaces\IRelation {
         return $relations;
     }
 
+
+/*
     public function purge() {
         $db = App::instance()->db;
         // TODO: WRITE TEST
@@ -53,5 +55,5 @@ class CollectionRelation implements Forge\Core\Interfaces\IRelation {
        
         $relations = $db->get('relations');
         die(error_log(print_r($relations, 1)));
-    }
+    }*/
 }

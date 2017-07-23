@@ -5,7 +5,7 @@ namespace Forge\Core\Classes\Relations;
 use Forge\Core\App\App;
 use Forge\Core\Classes\CollectionItem;
 
-class Relation implements Forge\Core\Interfaces\IRelation {
+class Relation implements \Forge\Core\Interfaces\IRelation {
 
     const DIR_DIRECTED = 0x1;
     const DIR_BIDIRECT = 0x3;
@@ -42,6 +42,38 @@ class Relation implements Forge\Core\Interfaces\IRelation {
 
         $relations = $db->get('relations');
         return $this->prepareRelations($relations);
+    }
+
+    public function getId($id_left, $id_right) {
+        $db = App::instance()->db;
+        $db->where('identifier', $this->identifier);
+        $db->where('item_left', $id_left);
+        $db->where('item_right', $id_right);
+
+        $relations = $db->get('relations');
+
+        if(count($relations))
+            return $relations[0];
+        return null;
+    }
+
+    public function get($id) { 
+        $db = App::instance()->db;
+        $db->where('id', $id);
+
+        $relations = $db->get('relations');
+        if(count($relations))
+            return $this->prepareRelations($relations)[0];
+        return null;
+    }
+
+    public function getReverse($id) {
+        $relation = $this->get($id);
+        if(is_null($relation)) {
+            return null;
+        }
+        $rev_id = $this->getId($relation['item_left'], $relation['item_right']);
+        return $this->get($rev_id);
     }
 
     public function getOfLeft($id_left) {
@@ -85,5 +117,18 @@ class Relation implements Forge\Core\Interfaces\IRelation {
                 'item_right' => $id_left
             ]);
         }
+    }
+
+    public function remove($id, $bidirect=true) {
+        $db = App::instance()->db;
+        if($bidirect && $this->direction == Relation::DIR_BIDIRECT) {
+            $other = $this->getReverse($id);
+            if($other) {
+                $this->remove($other['id'], false);
+            }
+        }
+        $db->where('name', $this->identifier);
+        $db->where('id', $id);
+        $db->delete('relations');
     }
 }
