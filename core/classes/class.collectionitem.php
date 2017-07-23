@@ -75,6 +75,9 @@ class CollectionItem {
         foreach ($this->meta as $meta) {
             // return the value, if the meta value is language independent
             if($meta['keyy'] == $key && $meta['lang'] == 0) {
+                if($meta['value'] === '0') {
+                    return $meta['value'];
+                }
                 return Utils::maybeJSON($meta['value']);
             }
             // return the value, if the language and the key are the same.
@@ -93,8 +96,10 @@ class CollectionItem {
         if(is_array($current_value)) {
             $current_value = json_encode($current_value);
         }
-        if(strlen($value) == 0) {
+        $deleted = false;
+        if(strlen($value) == 0 || $value === '0') {
             // remove meta value, if there is no value
+            $deleted = true;
             $this->deleteMeta($key, $language);
         }
         if($current_value) {
@@ -102,6 +107,9 @@ class CollectionItem {
             $this->setMeta($key, $value, $language);
         } else {
             // insert new value
+            if($deleted) {
+                return;
+            }
             $this->insertMeta($key, $value, $language);
         }
     }
