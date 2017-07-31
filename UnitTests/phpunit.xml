@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="">7
+<phpunit colors="true" bootstrap="">
     <testsuites>
         <testsuite name="Forge Core">
             <file>db/test.collection.php</file>
+            <file>db/test.relations.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
