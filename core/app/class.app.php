@@ -16,6 +16,7 @@ class App {
     public $vm = null;
     public $cm = null;
     public $mm = null;
+    public $rd = null;
     public $nm = null;
     public $tm = null;
     public $mim = null;
@@ -57,6 +58,10 @@ class App {
             $this->mm = new ModuleManager();
         }
 
+        if(is_null($this->rd)) {
+            $this->rd = new RelationDirectory();
+        }
+
         if(is_null($this->mim)){
             $this->mim = new MigrationManager();
         }
@@ -76,6 +81,8 @@ class App {
 
         // start all active modules
         $this->mm->start();
+
+        $this->rd->start();
 
         if(is_null($this->vm)) {
             $this->vm = new ViewManager();

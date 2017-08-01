@@ -4,14 +4,14 @@ namespace Forge\Core\Classes\Relations;
 
 use Forge\Core\App\App;
 use Forge\Core\Classes\CollectionItem;
+use Forge\Core\Classes\Relations\Relation as Relation;
 
-class CollectionRelation implements \Forge\Core\Interfaces\IRelation {
+class CollectionRelation extends Relation implements \Forge\Core\Interfaces\IRelation {
 
     protected $c_left;
     protected $c_right;
 
     public function __construct($identifier, $c_left, $c_right, $direction=Relation::DIR_DIRECTED) {
-        $db = App::instance()->db;
         $this->c_left = App::instance()->cm->getCollection($c_left);
         $this->c_right = App::instance()->cm->getCollection($c_right);
 
@@ -32,7 +32,6 @@ class CollectionRelation implements \Forge\Core\Interfaces\IRelation {
         }
 
         return true;
-
     }
 
     protected function prepareRelations($relations) {

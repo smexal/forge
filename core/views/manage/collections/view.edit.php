@@ -88,7 +88,7 @@ class EditView extends View {
 
     // displays the left form fields for the edit mask
     private function leftFields() {
-        $fields = $this->collection->fields();
+        $fields = $this->collection->fields($this->item);
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'left') {
@@ -110,7 +110,7 @@ class EditView extends View {
             'position' => 'right',
             'hint' => false
         ));
-        $fields = $this->collection->fields();
+        $fields = $this->collection->fields($this->item);
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'right') {

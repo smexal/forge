@@ -452,15 +452,16 @@ abstract class DataCollection implements IDataCollection {
         array_push($this->customFields, $field);
     }
 
-      public function configuration() {
-          $fields = array_merge($this->defaultConfiguration(), $this->customConfiguration);
-          return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
-      }
+    public function configuration() {
+        $fields = array_merge($this->defaultConfiguration(), $this->customConfiguration);
+        return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+    }
 
-      public function fields() {
-          $fields = array_merge($this->defaultFields(), $this->customFields);
-          return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
-      }
+    public function fields($item) {
+      $fields = array_merge($this->defaultFields(), $this->customFields);
+      
+      return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+    }
 
     static public function instance() {
         $class = get_called_class();

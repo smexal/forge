@@ -120,6 +120,21 @@ class Fields {
         return static::tags($args, $value);
     }
 
+    public static function collection_relation($args, $value='') {
+        static $defaults = [
+            'state' => 'all',
+            'relation_identifier' => null
+        ];
+        $args = array_merge($defaults, $args);
+        if(!is_string($args['relation_identifier'])) {
+            throw new \Exception("No relation identifier specified");
+        }
+        
+        $relation = App::instance()->rd->getRelation($args['relation_identifier']);
+        $others = $relation->getOfLeft()
+
+    }
+
     public static function email($args, $value='') {
         return self::text($args, $value);
     }
@@ -260,6 +275,7 @@ class Fields {
             'chosen' => $args['chosen'],
             'values' => $values,
             'selected' => $value,
+            'readonly' => isset($args['readonly']) ? $args['readonly'] : false,
             'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
         ));
     }
