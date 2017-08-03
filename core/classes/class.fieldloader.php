@@ -5,6 +5,7 @@ namespace Forge\Core\Classes;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Relations\Relation;
+use \Forge\Core\Classes\Relations\Enums\Prepares;
 
 class FieldLoader {
     public static function load($item, $field, $lang=null) {
@@ -12,8 +13,8 @@ class FieldLoader {
 
         if(isset($field['relation'])) {
             $relation = App::instance()->rd->getRelation($field['relation']);
-            // The special case of DIR_REVERSED is ignored here
-            $value = $relation->getOfLeft($item->id);
+            // The special case of Direction::REVERSED is not yet implemented here
+            $value = $relation->getOfLeft($item->id, Prepares::AS_RIGHT_IDS);
         } else {
             $value = $item->getMeta($field['key'], $lang);
         }

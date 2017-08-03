@@ -5,13 +5,15 @@ namespace Forge\Core\Classes\Relations;
 use Forge\Core\App\App;
 use Forge\Core\Classes\CollectionItem;
 use Forge\Core\Classes\Relations\Relation as Relation;
+use Forge\Core\Classes\Relations\Enums\Directions;
+use Forge\Core\Classes\Relations\Enums\Prepares;
 
 class CollectionRelation extends Relation implements \Forge\Core\Interfaces\IRelation {
 
     protected $c_left;
     protected $c_right;
 
-    public function __construct($identifier, $c_left, $c_right, $direction=Relation::DIR_DIRECTED) {
+    public function __construct($identifier, $c_left, $c_right, $direction=Directions::DIR_DIRECTED) {
         $this->c_left = App::instance()->cm->getCollection($c_left);
         $this->c_right = App::instance()->cm->getCollection($c_right);
 
@@ -34,7 +36,10 @@ class CollectionRelation extends Relation implements \Forge\Core\Interfaces\IRel
         return true;
     }
 
-    protected function prepareRelations($relations) {
+    protected function prepareRelations($relations, $prepare=Prepares::AS_ARRAY) {
+        if($prepare !== Prepares::AS_OBJECT) {
+            return parent::prepareRelations($relations, $prepare);
+        }
         foreach($relations as &$relation) {
             $relation['item_left'] = $this->c_left->getItem($relation['item_left']);
             $relation['item_right'] = $this->c_right->getItem($relation['item_right']);

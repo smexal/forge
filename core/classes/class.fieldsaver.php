@@ -9,15 +9,22 @@ class FieldSaver {
     public static function save($item, $field, $data) {
         $lang = static::determineLang($field, $data['language']);
 
-        $meta_key   = $field['key'];
-        $meta_lang  = $lang;
-        $meta_value = $data[$field['key']];
-        $meta_value = isset($field['process:save']) ? call_user_func($field['process:save'], $meta_value) : $meta_value;
+        $key   = $field['key'];
+        $lang  = $lang;
+        $value = $data[$field['key']];
+        $value = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
 
-        if (is_array($data[$field['key']])) {
-            $meta_value = json_encode($meta_value);
+         if(isset($field['relation'])) {
+            $relation = App::instance()->rd->getRelation($field['relation']);
+            // The special case of Directions::REVERSED is not yet implemented here
+            $relation->setRightItems($value);
+
+        } else {
+            if (is_array($data[$field['key']])) {
+                $value = json_encode($value);
+            }
+            $item->updateMeta($key, $value, $lang);
         }
-        $item->updateMeta($meta_key, $meta_value, $meta_lang);
     }
 
     public static function remove($item, $field, $lang) {
