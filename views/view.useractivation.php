@@ -2,6 +2,7 @@
 
 namespace Forge\Views;
 
+use \Forge\Core\Classes\Utils;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\User;
@@ -21,6 +22,8 @@ class UseractivationView extends View {
                 App::instance()->addMessage(i('Something went wrong with the e-mail confirmation.'));
                 App::instance()->redirect('');
             }
+        } else {
+            App::instance()->redirect('');
         }
     }
 }

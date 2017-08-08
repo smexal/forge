@@ -256,7 +256,7 @@ class App {
 
     public function redirect($target, $go_back=false) {
         if(is_array($target)) {
-            $target = WWW_ROOT.implode("/", $target);
+            $target = Utils::getUrl($target);
         } else {
             if(!strstr($target, WWW_ROOT)) {
                 $target = WWW_ROOT.$target;
@@ -265,13 +265,16 @@ class App {
         if($go_back) {
             $_SESSION['back'] = $go_back;
         }
-
         if(Utils::isAjax()) {
             exit(json_encode(array(
                 "action" => "redirect",
                 "target" => $target
             )));
         } else {
+            if($target == '/') {
+                var_dump($target);
+                exit(header("Location: ".$target));
+            }
             exit(header("Location: ".rtrim($target, "/")));
         }
     }
