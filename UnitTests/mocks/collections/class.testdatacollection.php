@@ -32,5 +32,4 @@ class TestCollection extends DataCollection {
 
     private function custom_fields() {}
 }
-
 ?>

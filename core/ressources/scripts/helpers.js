@@ -1,7 +1,8 @@
 var helpers = {
     init : function() {
       $('.tipster, .tooltip').tooltipster({
-        debug : false
+        debug : false,
+        contentAsHTML : true
       });
 
       $('.tipster-ajax').tooltipster({

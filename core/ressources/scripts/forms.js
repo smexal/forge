@@ -100,12 +100,12 @@ var forms = {
 
     tagsInputByGetter : function(element) {
         var self = this;
-        var geturl = element.data('getter'); 
+        var geturl = element.data('getter');
         geturl += (geturl.indexOf("%QUERY") == -1 ) ? '/search/%QUERY' : '';
         var getter_convert = element.data('getter-convert');
         var loadingcontext = element.data('loadingcontext');
         var context = element;
-        
+
         if(loadingcontext) {
           context = $(element).parent(loadingcontext);
           if(!context) {
@@ -115,7 +115,7 @@ var forms = {
 
         // is overwritten if defined via getter-convert
         var transform = function(data) {
-          return data; 
+          return data;
         }
 
         if(getter_convert) {
@@ -131,7 +131,7 @@ var forms = {
               return func.apply(this, args);
             };
           } catch (e) {
-            
+
           }
         }
 
@@ -172,7 +172,7 @@ var forms = {
         var labels = element.data('tag-labels');
         if(!labels || labels.length == 0)
           return;
-      
+
         var values = element.val().split(",");
         for(var i = 0; i < values.length; i++) {
           typeahead.add({id: values[i], name: labels[values[i]]})
@@ -301,6 +301,8 @@ var forms = {
         var data = $(data.content);
         data.addClass("loading");
         $(container).replaceWith(data);
+        $(container).removeClass('loading');
+        $(document).trigger("ajaxReload");
       }).complete(function() {
         $(container).removeClass('loading');
         $(document).trigger("ajaxReload");
