@@ -2,6 +2,7 @@
 
 namespace Forge\Core\App;
 
+use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\User;
 use \Forge\Core\Classes\Utils;
 
@@ -29,12 +30,13 @@ class Auth {
     }
 
     public static function allowed($permission, $inpage = false) {
+        Logger::debug('Checking Permission: '. $permission);
         if (is_null($permission) || $permission == false) {
             // no permission required for this view.
             return true;
         }
         // not even logged in... send to login
-        if ((! Auth::any() || is_null(App::instance()->user))) {
+        if (! Auth::any() || is_null(App::instance()->user)) {
             if ($inpage === false) {
                 App::instance()->redirect(Utils::getUrl(array('login')), Utils::getCurrentUrl());
             } else {

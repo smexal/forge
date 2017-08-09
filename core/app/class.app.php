@@ -112,9 +112,9 @@ class App {
         $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
 
-      $this->managers();
-
       Auth::setSessionUser();
+
+      $this->managers();
 
       $this->prepared = true;
     }

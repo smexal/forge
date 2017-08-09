@@ -2,6 +2,7 @@
 
 namespace Forge\Core\Abstracts;
 
+use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Interfaces\IModule;
 
@@ -43,6 +44,23 @@ abstract class Module implements IModule {
         return sprintf(i('Name for Module not set. Set $name in setup Method in Module `%s`'), get_called_class());
     }
     return true;
+  }
+
+  public function hasSettings() {
+    if(array_key_exists($this->id, Settings::instance()->fields) 
+      && count(Settings::instance()->fields[$this->id]['left']) > 0) {
+      return true;
+    }
+    if(array_key_exists($this->id, Settings::instance()->fields) &&
+      count(Settings::instance()->fields[$this->id]['right']) > 0) {
+      return true;
+    }
+    if(property_exists($this, 'settingsViews')
+      && is_array($this->settingsViews)
+      && count($this->settingsViews) > 0) {
+      return true;
+    }
+    return false;
   }
 
   static public function instance() {

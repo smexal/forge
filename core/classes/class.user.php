@@ -2,6 +2,7 @@
 
 namespace Forge\Core\Classes;
 
+use \Forge\Core\Classes\Logger;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Settings;

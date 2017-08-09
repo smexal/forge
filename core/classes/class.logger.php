@@ -51,11 +51,6 @@ class Logger {
                     $output .= str_pad("#$i",4," ") ."> ".$t[$i]['file'].':'.$t[1]['line']."\n";
                 }
             }
-            if($level == 'DEBUG') {
-                if(!Utils::isAjax()) {
-                    echo '<script>console.log("'.$level. " - ".$key." => ".$value.'")</script>';
-                }
-            }
             $filename = "error-".date("Y-m-d").".log";
 
             $file = fopen(DOC_ROOT."logs/".$filename, "a+") or die("Unable to open Log File!");

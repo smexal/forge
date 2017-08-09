@@ -55,3 +55,6 @@
   width: 60px;
   vertical-align: middle;
 }
+#modulesgrid.grid .block {
+  margin-bottom: 60px;
+}

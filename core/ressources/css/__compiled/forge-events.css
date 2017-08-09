@@ -57,6 +57,15 @@
   background-color: #FFC107;
   border-color: #FF8F00;
 }
+.seatplan .cell.sold.mine,
+.seatplan .name.sold.mine {
+  background-color: #FFA726;
+  border-color: #FFB74D;
+}
+.seatplan .cell.sold.mine:hover,
+.seatplan .name.sold.mine:hover {
+  background-color: #FFB74D;
+}
 .seatplan .name {
   font-size: 11px;
   line-height: 21px;

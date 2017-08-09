@@ -73,17 +73,20 @@ class ManageView extends View {
         }
 
         if(Auth::allowed($this->permissions[4])) {
-          // display menu points for active modules
-          $mm = App::instance()->mm;
-          foreach($mm->getActiveModules() as $mod) {
-              $modObject = $mm->getModuleObject($mod);
-              $this->navigation->add(
-                  "pref_".$mod,
-                  $modObject->name,
-                  Utils::getUrl(array('manage', 'module-settings', $mod)),
-                  $panelLeft,
-                  false,
-                  'modules'
+            // display menu points for active modules
+            $mm = App::instance()->mm;
+            foreach($mm->getActiveModules() as $mod) {
+                $modObject = $mm->getModuleObject($mod);
+                if(! $modObject->hasSettings()) {
+                    continue;
+                }
+                $this->navigation->add(
+                    "pref_".$mod,
+                    $modObject->name,
+                    Utils::getUrl(array('manage', 'module-settings', $mod)),
+                    $panelLeft,
+                    false,
+                    'modules'
               );
             }
         }
