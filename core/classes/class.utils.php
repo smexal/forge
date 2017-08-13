@@ -34,8 +34,12 @@ class Utils {
       return $ext;
     }
 
-    public static function getHomeUrl() {
-      return self::getAbsoluteUrlRoot().self::getServerRoot();
+    public static function getHomeUrl($noTrailing = false) {
+      $url = self::getAbsoluteUrlRoot().self::getServerRoot();
+      if($noTrailing) {
+        $url = rtrim($url,"/");
+      }
+      return $url;
     }
 
     public static function getAbsoluteUrlRoot() {
@@ -50,6 +54,10 @@ class Utils {
     }
     public static function passwordCheck($password, $hash) {
         return password_verify($password, $hash);
+    }
+
+    public static function hash($raw) {
+        return md5($raw);
     }
 
     public static function getCurrentUrl() {
