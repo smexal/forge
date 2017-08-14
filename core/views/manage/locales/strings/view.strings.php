@@ -159,7 +159,7 @@ class StringsView extends View {
                     "confirm" => true
                 )
             )
-        )), "center");
+        )), "center", false, false, Utils::getUrl(array("manage", "string-translation", "translate", $string['id'])));
     }
 
     private function getLanguageTranslationState($string) {

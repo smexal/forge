@@ -91,3 +91,7 @@ ul.content-listing li:last-child {
   min-height: 20px;
   margin-bottom: 10px;
 }
+code.fullwidth {
+  display: block;
+  margin-bottom: 2px;
+}

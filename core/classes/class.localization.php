@@ -89,8 +89,8 @@ class Localization {
 
     public static function stringTranslation($orignal, $domain='', $lang=false) {
         $db = App::instance()->db;
-        $db->where("string", $orignal);
-        $db->where("domain", $domain);
+        $db->where("string", $db->escape($orignal));
+        $db->where("domain", $db->escape($domain));
         $string = $db->getOne("language_strings");
         if (!$lang) {
             $lang = self::getCurrentLanguage();

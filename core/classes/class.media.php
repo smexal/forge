@@ -107,6 +107,10 @@ class Media {
         return $this->url.$this->name;
     }
 
+    public function getAbsolutePath() {
+        return $this->abs_path.$this->name;
+    }
+
     public function create($file) {
         $this->title = $file["name"];
         $ext = end((explode(".", $this->title)));

@@ -94,7 +94,7 @@ class Utils {
         return self::getUrl($params, $addGET, $additionalGET, $language);
     }
 
-    public static function getUrl($params = array(), $addGET=false, $additionalGET = array(), $language = false) {
+    public static function getUrl($params = array(), $addGET=false, $additionalGET = array(), $language = false, $absolute = false) {
         $query = '';
         if($addGET) {
             if(is_array($additionalGET)) {
@@ -107,7 +107,11 @@ class Utils {
             if(strlen($query) == 1)
                 $query = '';
         }
-        $start = WWW_ROOT;
+        if($absolute) {
+          $start = Utils::getHomeUrl();
+        } else {
+          $start = WWW_ROOT;
+        }
         if($language) {
           $start.= Localization::getCurrentLanguage()."/";
         }

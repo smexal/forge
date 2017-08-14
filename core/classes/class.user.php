@@ -58,7 +58,7 @@ class User {
                 if (array_key_exists($field, $this->data)) {
                     return $this->data[$field];
                 } else {
-                    Logger::error(sprintf(i("Queried field `%1$s` which does not exist")), $field);
+                    Logger::error(sprintf(i("Queried field `%1$s` which does not exist", 'core')), $field);
                 }
             }
         }
