@@ -291,6 +291,52 @@ class Utils {
       return str_replace("-", "", $string);
     }
 
+    public static function resizeImage($source, $target, $width, $height) {
+        $parts = pathinfo($source);
+        $type = $parts['extension'];
+        $thumbName = $parts['filename'].'__'.$width.'x'.$height.'.'.$type;
+
+        $original = $source;
+        list($w, $h) = getimagesize($original);
+
+        if($type == 'jpeg') $type = 'jpg';
+        switch($type){
+            case 'bmp': $originalImage = imagecreatefromwbmp($original); break;
+            case 'gif': $originalImage = imagecreatefromgif($original); break;
+            case 'jpg': $originalImage = imagecreatefromjpeg($original); break;
+            case 'png': $originalImage = imagecreatefrompng($original); break;
+            default : return $source;
+        }
+
+        // calculating the part of the image to use for thumbnail
+        if($w < $width or $h < $height) {
+            return $source;
+        }
+        $ratio = max($width/$w, $height/$h);
+        $h = $height / $ratio;
+        $x = ($w - $width / $ratio) / 2;
+        $w = $width / $ratio;
+
+        $new = imagecreatetruecolor($width, $height);
+        // preserve transparency
+        if($type == "gif" or $type == "png"){
+            imagecolortransparent($new, imagecolorallocatealpha($new, 0, 0, 0, 127));
+            imagealphablending($new, false);
+            imagesavealpha($new, true);
+        }
+
+        imagecopyresampled($new, $originalImage, 0, 0, $x, 0, $width, $height, $w, $h);
+
+        $dst = $target;
+        switch($type){
+            case 'bmp': imagewbmp($new, $dst); break;
+            case 'gif': imagegif($new, $dst); break;
+            case 'jpg': imagejpeg($new, $dst); break;
+            case 'png': imagepng($new, $dst); break;
+        }
+        return $target;
+    }
+
     /**
      * DEVELOPMENT UTILS
      */

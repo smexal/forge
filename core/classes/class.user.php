@@ -5,6 +5,7 @@ namespace Forge\Core\Classes;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
+use \Forge\Core\App\ModifyHandler;
 use \Forge\Core\Classes\Settings;
 
 class User {
@@ -17,6 +18,7 @@ class User {
         'password',
         'active'
     );
+    private static $avatarDirectory = UPLOAD_DIR.'avatar/';
 
     public function __construct($id) {
         $this->app = App::instance();
@@ -49,6 +51,11 @@ class User {
         $mail->send();
     }
 
+    public static function sendRecoveryMail() {
+        // TODO: SEND IT!
+        Logger::debug('Send recovery email.... nyi');
+    }
+
     public function get($field) {
         if (array_key_exists($field, $this->data)) {
             return $this->data[$field];
@@ -79,8 +86,13 @@ class User {
             if( $id == $app->user->get('id')) {
                 return false;
             } else {
+                self::deleteAvatar($id);
                 $app->db->where('id', $id);
                 $app->db->delete('users');
+
+                ModifyHandler::instance()->trigger(
+                    'core_delete_user', $id
+                );
                 return true;
             }
         } else {
@@ -147,7 +159,7 @@ class User {
     }
 
     public function setName($newName) {
-        if (! Auth::allowed("manage.users.edit")) {
+        if (! Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
             return i("Permission denied to edit users.");
         }
         // check if user already has that given username.
@@ -190,6 +202,66 @@ class User {
             'email' => $newMail
         ));
       return true;
+    }
+
+    private static function getAvatarName($id) {
+        if(! $id)
+            $id = $this->get('id');
+        return 'avatar_user_'.md5($id);
+    }
+
+    private static function deleteAvatar($id) {
+        // delete current images 
+        $files = glob(self::$avatarDirectory.self::getAvatarName($id).'.*');
+        if (count($files) > 0) {
+            foreach ($files as $f) {
+                unlink($f);
+            }
+        }
+    }
+
+    public function setAvatar($file) {
+        // is not an image...
+        if(! Media::_isImage($file['type'])) {
+            return;
+        }
+
+        self::deleteAvatar($this->get('id'));
+
+        $parts = explode(".", $file['name']);
+        $ext = strtolower(array_pop($parts));
+
+        $filename = self::getAvatarName($this->get('id')).".".$ext;
+
+        if (!file_exists(self::$avatarDirectory)) {
+            mkdir(self::$avatarDirectory, 0655, true);
+        }
+
+        $width = 100;
+        $height = 100;
+        if(Settings::get('forge_avatar_width')) {
+            $width = Settings::get('forge_avatar_width');
+        }
+        if(Settings::get('forge_avatar_height')) {
+            $height = Settings::get('forge_avatar_height');
+        }
+
+        if (move_uploaded_file($file['tmp_name'], self::$avatarDirectory.$filename)) {
+            Utils::resizeImage(self::$avatarDirectory.$filename, self::$avatarDirectory.$filename, $width, $height);
+            // continue....
+        }
+    }
+
+    public function getAvatar($type="url") {
+        $files = glob(self::$avatarDirectory.self::getAvatarName($this->get('id')).'.*');
+        if (count($files) > 0) {
+            foreach ($files as $file) {
+                if($type == 'url') {
+                    return UPLOAD_WWW.'avatar/'.basename($file);
+                }
+            }
+        }
+        return;
     }
 
     public function setPassword($new_pw, $new_pw_rep) {
@@ -269,10 +341,16 @@ class User {
           return $nameStatus;
         }
 
+        $active = 0;
+        if(Auth::allowed("manage.users.add", true)) {
+            $active = 1;
+        }
+
         $data = array(
             'username' => $name,
             'password' => Utils::password($password),
-            'email' => $email
+            'email' => $email,
+            'active' => $active
         );
         $app->db->insert('users', $data);
         return false;

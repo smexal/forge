@@ -30,7 +30,6 @@ class Auth {
     }
 
     public static function allowed($permission, $inpage = false) {
-        Logger::debug('Checking Permission: '. $permission);
         if (is_null($permission) || $permission == false) {
             // no permission required for this view.
             return true;

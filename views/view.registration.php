@@ -3,7 +3,6 @@
 namespace Forge\Views;
 
 use \Forge\Core\Abstracts\View;
-use \Forge\Core\Abstracts;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Fields;
@@ -80,7 +79,7 @@ class RegistrationView extends View {
 
     public function getRegistrationForm() {
         if(! Settings::get('allow_registration')) {
-            return;
+            App::instance()->redirect(['denied']);
         }
         $return = '';
         $return.= Fields::hidden(array(
@@ -122,7 +121,11 @@ class RegistrationView extends View {
                 'ajax_target' => '',
                 'content' => array($return)
         ));
-        return '<div class="wrapped">'.$return.'</div>';
+        return App::instance()->render(CORE_TEMPLATE_DIR.'views/sites/', 'smallcenter-content', [
+            'title' => i('User Registration', 'core'),
+            'lead' => i('Register on this site to get access to additional functionality and be a part of this community.', 'core'),
+            'content' => $return
+        ]);
 
     }
 }

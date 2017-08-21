@@ -35,7 +35,7 @@ class LoginView extends View {
         if(! $trigger_event) {
             $form->hidden("disable-trigger", "true");
         }
-        $form->input("name", "name", i('Username'));
+        $form->input("name", "name", i('Username or E-Mail'));
         $form->input("password", "password", i('Password'), 'password');
         $form->submit(i('Log in'));
         return $form->render();

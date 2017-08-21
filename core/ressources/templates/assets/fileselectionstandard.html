@@ -1,4 +1,11 @@
-<label class="control-label">{$label}</label>
-<div class="form-group">
-    <input type="file" id="{$name}" name="{$name}" />
+<div class="file-upload-default card">
+    <label class="control-label">{$label}</label>
+    <div class="form-group">
+        {if="$current_content"}
+        <div class="current-content">
+            {$current_content}
+        </div>
+        {/if}
+        <input type="file" id="{$name}" name="{$name}" />
+    </div>
 </div>

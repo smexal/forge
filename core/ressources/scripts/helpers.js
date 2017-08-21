@@ -2,6 +2,7 @@ var helpers = {
     init : function() {
       $('.tipster, .tooltip').tooltipster({
         debug : false,
+        delay: 10,
         contentAsHTML : true
       });
 
@@ -105,13 +106,18 @@ function redirect(target, special) {
     }).done(function(data) {
         hideLoading(container, function() {
             if(special=="in_overlay") {
-                overlay.setContent($(data).find(".ajax-reload-container"), $(".overlay-container"));
+                if(typeof(overlay) !== 'undefined') {
+                    overlay.setContent($(data).find(".ajax-reload-container"), $(".overlay-container"));
+                }
                 $(document).trigger("ajaxReload");
             } else {
-                overlay.hide();
+                if(typeof(overlay) !== 'undefined') {
+                    overlay.hide();
+                }
                 container.html($(data).find(".ajax-reload-container").html());
                 container.append($(data).find(".message-container"));
                 $(document).trigger("ajaxReload");
+                container.removeClass('loading');
             }
         });
     });

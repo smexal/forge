@@ -41,7 +41,9 @@ class SettingsView extends View {
             'NIGHTMODE' => 'nightmode',
             'ALLOW_REGISTRATION' => 'allow_registration',
             'DEFAULT_USER_GROUP' => 'default_usergroup',
-            'GOOGLE_API_KEY' => 'google_api_key'
+            'GOOGLE_API_KEY' => 'google_api_key',
+            'AVATAR_WIDTH' => 'forge_avatar_width',
+            'AVATAR_HEIGHT' => 'forge_avatar_height',
         );
     }
 
@@ -56,6 +58,8 @@ class SettingsView extends View {
         Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
         Settings::set($this->keys['NIGHTMODE'], $_POST[$this->keys['NIGHTMODE']]);
         Settings::set($this->keys['GOOGLE_API_KEY'], $_POST[$this->keys['GOOGLE_API_KEY']]);
+        Settings::set($this->keys['AVATAR_WIDTH'], $_POST[$this->keys['AVATAR_WIDTH']]);
+        Settings::set($this->keys['AVATAR_HEIGHT'], $_POST[$this->keys['AVATAR_HEIGHT']]);
 
         foreach($this->settings->fields as $name => $tab) {
             // skip if it's a modules settings fields...
@@ -137,6 +141,7 @@ class SettingsView extends View {
             $return .= '<hr />';
             $return .= $this->getAllowRegistration();
             $return .= $this->getDefaultUserGroup();
+            $return .= $this->getAvatarSizeInputs();
             $return .= '<hr />';
         }
 
@@ -205,6 +210,24 @@ class SettingsView extends View {
             'label' => 'Select the default user group for new registrations.',
             'values' => $selection
         ), Settings::get($this->keys['DEFAULT_USER_GROUP']));
+    }
+
+    private function getAvatarSizeInputs() {
+        $fields = '';
+
+        $fields.= Fields::text(array(
+            'key' => $this->keys['AVATAR_WIDTH'],
+            'label' => i('Avatar Width', 'core'),
+            'hint' => ''
+        ), Settings::get($this->keys['AVATAR_WIDTH']));
+
+        $fields.= Fields::text(array(
+            'key' => $this->keys['AVATAR_HEIGHT'],
+            'label' => i('Avatar Height', 'core'),
+            'hint' => ''
+        ), Settings::get($this->keys['AVATAR_HEIGHT']));
+
+        return $fields;
     }
 
 

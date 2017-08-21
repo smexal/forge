@@ -1,8 +1,8 @@
 <div class="ajax-reload-container">
     <form method="post" action="{$action}" class="ajax" data-target="">
         <input type="hidden" name="event" value="{$event}">
-        <div class="head-panel">
-            <div class="row heading-row page-header maxed">
+        <div class="head-panel wrapped">
+            <div class="row heading-row page-header maxed wrapped">
                 <div class="col-lg-12">
                     <h1>{$title}</h1>
                     {if="$subnavigation"}
@@ -20,15 +20,17 @@
                     </div>
                     {/if}
                     {if="$tabs"}
-                    <div class="subnavigation">
-                        <ul class="nav nav-tabs">
-                        {loop="tabs"}
-                            <li class="{if="$value.active"}active{/if}">
-                                <a data-toggle="tab" href="#{$value.id}">{$value.title}</a>
-                            </li>
-                        {/loop}
-                        </ul>
-                    </div>
+                    {if="count($tabs) > 1"}
+                      <div class="subnavigation">
+                          <ul class="nav nav-tabs">
+                          {loop="tabs"}
+                              <li class="{if="$value.active"}active{/if}">
+                                  <a data-toggle="tab" href="#{$value.id}">{$value.title}</a>
+                              </li>
+                          {/loop}
+                          </ul>
+                      </div>
+                    {/if}
                     {/if}
                     {if="!$subview"}
                     <div class="actions">
@@ -39,7 +41,7 @@
             </div>
         </div>
         {if="$subview"}
-        <div class="maxed">
+        <div class="maxed wrapped">
             <div class="row">
               <div class="col-lg-12">
                 {$subview}
@@ -47,22 +49,20 @@
             </div>
         </div>
         {else}
-          <div class="maxed">
-              <div class="row{if="$tabs"} tab-content{/if}">
-                  <div class="col-lg-12">
-                      {loop="tab_content"}
-                          <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
-                            <div class="row">
-                              <div class="col-lg-6">
-                                {$value.left}
-                              </div>
-                              <div class="col-lg-6">
-                                {$value.right}
-                              </div>
-                            </div>
+          <div class="maxed wrapped">
+              <div class="row{if="$tabs"} tab-content{/if}{if="$subnavigation"}{if="count($tabs) > 1"} has-subnavigation{/if}{/if}">
+                  {loop="tab_content"}
+                      <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            {$value.left}
                           </div>
-                      {/if}
-                  </div>
+                          <div class="col-lg-6">
+                            {$value.right}
+                          </div>
+                        </div>
+                      </div>
+                  {/if}
               </div>
           </div>
         {/if}

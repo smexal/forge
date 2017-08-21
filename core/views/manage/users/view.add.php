@@ -7,6 +7,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\User;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\Classes\Logger;
 
 class AddView extends View {
     public $parent = 'users';
@@ -34,6 +35,7 @@ class AddView extends View {
             $this->new_name = $data['new_name'];
         } else {
             // new user has been created
+            // activate the new user directly
             App::instance()->addMessage(sprintf(i('User %1$s (%2$s) has been created.'), $data['new_name'], $data['new_email']), "success");
             App::instance()->redirect(Utils::getUrl(array('manage', 'users')));
         }

@@ -104,7 +104,7 @@ class ManageView extends View {
             $this->navigation->add('permissions', i('Permissions'), Utils::getUrl(array('manage', 'permissions')), $panelLeft, false, 'users_container');
         }
         $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelLeft, 'settings');
-        $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', 'profile')), $panelLeft, false, 'usermenu');
+        $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', '__profile')), $panelLeft, false, 'usermenu');
         if(Auth::allowed($this->permissions[1])) {
             $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
         }

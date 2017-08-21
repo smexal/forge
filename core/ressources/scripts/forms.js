@@ -16,7 +16,7 @@ var forms = {
     },
 
     focusToggle : function() {
-        $("input[type='text'], input[type='password'], input[type='input'], textarea, input[type='datetime'], input[type='number']").each(function() {
+        $("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number']").each(function() {
             if($(this).val().length > 0) {
                 $(this).parent().addClass('focus');
                 if($(this).parent().hasClass("input-group")) {

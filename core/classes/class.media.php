@@ -148,6 +148,10 @@ class Media {
         return strstr($mime, "image/");
     }
 
+    public static function _isImage($mime) {
+        return strstr($mime, "image/");
+    }
+
     public function delete() {
         if(! $this->id) {
             return;

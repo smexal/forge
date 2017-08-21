@@ -1,5 +1,12 @@
 <?php
 
+if(array_key_exists('debug', $_GET)) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
+
+
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;

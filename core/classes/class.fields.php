@@ -232,12 +232,13 @@ class Fields {
         ));
     }
 
-    public static function fileStandart($args, $value='') {
+    public static function fileStandard($args, $value='') {
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'fileselectionstandard', array(
             'label' => $args['label'],
             'name' => $args['key'],
             'change_text' => i('Choose file'),
-            'no_file' => i('No file selected')
+            'no_file' => i('No file selected'),
+            'current_content' => array_key_exists('current_content', $args) ? $args['current_content'] : false
         ));
     }
 
