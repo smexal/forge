@@ -51,9 +51,22 @@ class User {
         $mail->send();
     }
 
-    public static function sendRecoveryMail() {
-        // TODO: SEND IT!
-        Logger::debug('Send recovery email.... nyi');
+    public static function sendRecoveryMail($user) {
+        $mail = new Mail();
+        $mail->recipient($user->get('email'));
+
+        $mail->subject(sprintf(i('Password Reset for %s'), $user->get('username')). ' - '.
+            Settings::get('title_'.Localization::getCurrentLanguage()));
+
+        $mail->addMessage(sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n");
+        $mail->addMessage(sprintf(i('You have requested a password reset for your user.')) . "\r\n");
+        $mail->addMessage(sprintf(i('Click the following link to set a new password:')) . "\r\n");
+
+        $mail->addMessage($user->getPasswordResetLink() . "\r\n" . "\r\n" . "\r\n");
+        Logger::debug('Sending: '. $user->getPasswordResetLink());
+        $mail->addMessage(sprintf(i('mail_end_text', 'core')));
+
+
     }
 
     public function get($field) {
@@ -299,9 +312,6 @@ class User {
 
     public static function getAll() {
         $app = App::instance();
-        if (! Auth::allowed("manage.users", true)) {
-            return array();
-        }
         return $app->db->get('users', null, array("id", "username", "email"));
     }
 
@@ -317,6 +327,11 @@ class User {
     public function getActivationLink() {
         $string = md5($this->get('email').$this->get('password'));
         return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('user-verification', $string));
+    }
+
+    public function getPasswordResetLink() {
+        $string = md5($this->get('email').$this->get('password')).':'.microtime(true);
+        return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('recover', 'password', $string));
     }
 
     public static function create($name, $password, $email, $registration = false) {
@@ -411,7 +426,7 @@ class User {
         return true;
     }
 
-    private static function checkPassword($password, $repeat = false) {
+    public static function checkPassword($password, $repeat = false) {
         if (strlen($password) <= 3) {
             return i('Given password is too short.');
         }
