@@ -1,11 +1,11 @@
 <div class="actions">
     {loop="$actions"}
         {if="$value.icon"}
-            <a class="btn btn-icon-container{if="$value.ajax"} ajax{/if}{if="$value.confirm"} confirm{/if}{if="$value.icon=='panorama_fish_eye'"} red{/if}" href="{$value.url}" title="{$value.name}">
+            <a class="btn tipster btn-icon-container{if="$value.ajax"} ajax{/if}{if="$value.confirm"} confirm{/if}{if="$value.icon=='panorama_fish_eye'"} red{/if}" href="{$value.url}" title="{$value.name}">
                 <i class="material-icons">{$value.icon}</i>
             </a>
         {else}
-            <a class="btn btn-icon-container{if="$value.ajax"} ajax{/if} {if="$value.confirm"}confirm{/if}"  href="{$value.url}">{$value.name}</a>
+            <a class="btn tipster btn-icon-container{if="$value.ajax"} ajax{/if} {if="$value.confirm"}confirm{/if}"  href="{$value.url}">{$value.name}</a>
         {/if}
     {/loop}
 </div>
