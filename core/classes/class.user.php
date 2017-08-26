@@ -61,12 +61,12 @@ class User {
         $mail->addMessage(sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n");
         $mail->addMessage(sprintf(i('You have requested a password reset for your user.')) . "\r\n");
         $mail->addMessage(sprintf(i('Click the following link to set a new password:')) . "\r\n");
-
-        $mail->addMessage($user->getPasswordResetLink() . "\r\n" . "\r\n" . "\r\n");
-        Logger::debug('Sending: '. $user->getPasswordResetLink());
+        $resetLink = $user->getPasswordResetLink();
+        $mail->addMessage($resetLink . "\r\n" . "\r\n" . "\r\n");
+        Logger::debug('Sending: '. $resetLink);
         $mail->addMessage(sprintf(i('mail_end_text', 'core')));
 
-
+        $mail->send();
     }
 
     public function get($field) {
@@ -330,7 +330,7 @@ class User {
     }
 
     public function getPasswordResetLink() {
-        $string = md5($this->get('email').$this->get('password')).':'.microtime(true);
+        $string = Utils::hash($this->get('email').$this->get('password')).'__'.microtime(true);
         return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('recover', 'password', $string));
     }
 

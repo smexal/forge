@@ -57,7 +57,7 @@ class Utils {
     }
 
     public static function hash($raw) {
-        return md5($raw);
+        return md5(HASH_SALT_2.$raw.HASH_SALT_1);
     }
 
     public static function getCurrentUrl() {

@@ -45,4 +45,7 @@ if(file_exists('config-env.php')) {
 @define('AUTOLOADER_CLASS_FLUSH', false || isset($_GET['flushac']) || isset($_GET['flushall']));
 @define('MANAGER_CACHE_FLUSH', false || isset($_GET['flushmc']) || isset($_GET['flushall']));
 
+@define('HASH_SALT_1', 'kl34j%%');
+@define('HASH_SALT_2', 'dkfje/liker=0=');
+
 date_default_timezone_set("Europe/Zurich");

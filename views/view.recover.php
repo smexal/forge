@@ -40,13 +40,13 @@ class RecoverView extends View {
         if($this->data['__event'] == 'onRecoverSetPassword') {
             $token = Utils::getUriComponents();
             if(array_key_exists(2, $token)) {
-                $token = explode(":", $token[2]);
+                $token = explode("__", $token[2]);
             }
             if(strtotime('+1 day', $token[1]) > microtime()) {
                 $foundUser = false;
                 foreach(User::getAll() as $user) {
                     $u = new User($user['id']);
-                    if(md5($u->get('email').$u->get('password')) == $token[0]) {
+                    if(Utils::hash($u->get('email').$u->get('password')) == $token[0]) {
                         $foundUser = $u;
                         break;
                     }
@@ -71,6 +71,8 @@ class RecoverView extends View {
                         ]);
                         App::instance()->addMessage(i('Your new password is set. You can login with your new password.', 'core'), 'success');
                         App::instance()->redirect([]);
+                    } else {
+                        $this->errors['password'] = i('Your link seems to be broken.', 'core');
                     }
                 }
             } else {
