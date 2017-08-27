@@ -9,5 +9,7 @@ class Prepares {
     const AS_OBJECT = 0x3;
     const AS_RIGHT_IDS = 0x4;
     const AS_LEFT_IDS = 0x5;
+    const AS_LEFT_ITEM = 0x6;
+    const AS_RIGHT_ITEM = 0x7;
 
 }

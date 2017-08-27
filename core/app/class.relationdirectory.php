@@ -22,12 +22,12 @@ class RelationDirectory {
     if(!isset($this->relations[$identifier])) {
       return null;
     }
-    return $this->relations[$name];
+    return $this->relations[$identifier];
   }
 
   public function collectRelations() {
       App::instance()->eh->fire("onGetRelations");
-      $relations = \triggerModifier('Forge\\Core\\RelationDirectory/collectRelations', []);
+      $relations = \triggerModifier('Forge/Core/RelationDirectory/collectRelations', []);
       App::instance()->eh->fire("onLoadedRelations", $relations);
       return $relations;
   }

@@ -4,6 +4,7 @@ namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
 use \Forge\Core\App\API;
+use \Forge\Core\Classes\FieldUtils;
 
 class Fields {
 
@@ -54,7 +55,8 @@ class Fields {
             'loadingcontext' => false,
             'error' => false,
             'autocomplete' => true,
-            'hor' => false
+            'hor' => false,
+            'data_attrs' => []
         ];
 
         $args = array_merge($defaults, $args);
@@ -75,7 +77,8 @@ class Fields {
     public static function tags($args, $value='') {
         static $defaults = [
             'state' => 'all',
-            'loadingcontext' => '.form-group'
+            'loadingcontext' => '.form-group',
+            'data_attrs' => []
         ];
         
         $args['type'] = 'text';
@@ -83,21 +86,25 @@ class Fields {
         $args = array_merge($defaults, $args);
         $args['autocomplete'] = false;
         $args['input_class'] = 'tags';
-        $args['getter'] = is_string($args['getter']) ? ['url' => $args['getter']] : $args['getter'];
-
+        if(isset($args['getter'])) {
+            $args['data_attrs'] = [
+                'getter' => $args['getter']
+            ];
+        }
         return static::text($args, $value);
     }
 
     public static function collection($args, $value='') {
         static $defaults = [
-            'state' => 'all'
+            'state' => 'all',
+            'maxtags' => false
         ];
 
         $args = array_merge($defaults, $args);
         $url = API::getAPIURL();
         $url .= '/collections/' . $args['collection'] . '?s=' . $args['state'] .'&q=%%QUERY%';
         
-        $c_ids = explode(',', $value);
+        $c_ids = is_array($value) ? $value : explode(',', $value);
         if($value && count($c_ids)) {
             $c_items = App::instance()->cm->getCollection($args['collection'])->getItems($c_ids); 
 
@@ -108,31 +115,18 @@ class Fields {
             $c_items = [];
         }
 
-        $args['getter'] = [
-            'url' => $url,
-            'labels' => htmlspecialchars(json_encode($c_items)),
-            'convert' => 'forge_api.collections.onlyItems',
-            'value_key' => 'id',
-            'label_key' => 'name'
+        // TODO: Move getter inside data_attr for generic approach
+        $args['data_attrs'] = [
+            'maxtags' => $args['maxtags'],
+            'getter' => $url,
+            'tag-labels' => htmlspecialchars(json_encode($c_items)),
+            'getter-convert' => 'forge_api.collections.onlyItems',
+            'getter-value' => 'id',
+            'getter-name' => 'name'
         ];
 
         unset($args['collection']);
         return static::tags($args, $value);
-    }
-
-    public static function collection_relation($args, $value='') {
-        static $defaults = [
-            'state' => 'all',
-            'relation_identifier' => null
-        ];
-        $args = array_merge($defaults, $args);
-        if(!is_string($args['relation_identifier'])) {
-            throw new \Exception("No relation identifier specified");
-        }
-        
-        $relation = App::instance()->rd->getRelation($args['relation_identifier']);
-        $others = $relation->getOfLeft()
-
     }
 
     public static function email($args, $value='') {

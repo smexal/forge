@@ -20,7 +20,6 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
         if(true !== ($error = $this->validate())) {
             throw new \Exception($error);
         }
-
     }
 
     protected function validate() {
@@ -189,9 +188,16 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
         $db = App::instance()->db;
         $db->where('name', $this->identifier);
         $db->where('left_item', $id_left);
-        foreach($ids_right as $item) {
-            $db->where('right_item', $ids_right, 'IN');
-        }
+        $db->where('right_item', $ids_right, 'IN');
+
+        $db->delete('relations');
+    }
+
+    public function removeAll($id_left) {
+        $db = App::instance()->db;
+        $db->where('name', $this->identifier);
+        $db->where('left_item', $id_left);
+
         $db->delete('relations');
     }
 
@@ -199,9 +205,19 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
         $existing = $this->getOfLeft($id_left, Prepares::AS_RIGHT_ITEM);
         $add = array_diff($ids_right, $existing);
         $remove = array_diff($existing, $ids_right);
+      /*   error_log("EXISTING");
+        error_log(print_r($existing, 1));
+        error_log("ADD");
+        error_log(print_r($add, 1));
+        error_log("REMOVE");
+        error_log(print_r($remove, 1));*/
         
-        $this->removeByRelationItems($left_item, $remove);
-        $this->addMultiple($left_item, $add)
+        if(count($remove) > 0) {
+            $this->removeByRelationItems($id_left, $remove);
+        }
+        
+        if(count($add) > 0) {
+            $this->addMultiple($id_left, $add);
+        }
     }
-
 }

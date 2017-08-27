@@ -25,4 +25,18 @@ class FieldUtils {
         $fields[] = $field;
         return $fields;
     }
+
+    public static function field_data_html($data, $urlencode=true) {
+        foreach($data as $key => $value) {
+            if(!is_array($value) || is_object($value)) {
+                $value = json_encode($value);
+                if($urlencode) {
+                    $value = rawurlencode($value);
+                }
+                $data[$key] = $value;
+            }
+        }
+
+        return $data;
+    }
 }

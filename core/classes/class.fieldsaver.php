@@ -9,26 +9,57 @@ class FieldSaver {
     public static function save($item, $field, $data) {
         $lang = static::determineLang($field, $data['language']);
 
-        $key   = $field['key'];
-        $lang  = $lang;
-        $value = $data[$field['key']];
-        $value = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
+        $data_source = isset($field['data_source']) ? $field['data_source'] : 'meta';
+        
+        $value       = $data[$field['key']];
+        $value       = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
 
-         if(isset($field['relation'])) {
-            $relation = App::instance()->rd->getRelation($field['relation']);
-            // The special case of Directions::REVERSED is not yet implemented here
-            $relation->setRightItems($value);
-
-        } else {
-            if (is_array($data[$field['key']])) {
-                $value = json_encode($value);
-            }
-            $item->updateMeta($key, $value, $lang);
+        $callable = [__CLASS__, 'save' .ucfirst($data_source)];
+        $callable = is_callable($callable) ? $callable : $data_source;
+        if(!is_callable($callable)) {
+            throw new \Exception("Can not save field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
         }
+        call_user_func_array($callable, [$item, $field, $value, $lang]);
+    }
+
+    private static function saveMeta($item, $field, $value, $lang) {
+        if(is_array($value)) {
+            $value = json_encode($value);
+        }
+        $item->updateMeta($field['key'], $value, $lang);
+    }
+
+    private static function saveRelation($item, $field, $value, $lang) {
+        $value = is_null($value) || $value == false ? [] : $value;
+        if(!is_array($value)) {
+            throw new \Exception("Can only save array values as relation");
+        }
+        $relation = $field['relation'];
+        $rel = App::instance()->rd->getRelation($relation['identifier']);
+        // The special case of Directions::REVERSED is not yet implemented
+        $rel->setRightItems($item->id, $value);
     }
 
     public static function remove($item, $field, $lang) {
+        $lang = static::determineLang($field, $lang);
+
+        $data_source = isset($field['data_source']) ? $field['data_source'] : 'meta';
+
+        $callable = [__CLASS__, 'remove' .ucfirst($data_source)];
+        $callable = is_callable($callable) ? $callable : $data_source;
+        if(!is_callable($callable)) {
+            throw new \Exception("Can not remove field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
+        }
+    }
+
+    private static function removeMeta($item, $field, $key, $lang) {
         $item->updateMeta($field['key'], '', static::determineLang($field, $lang));
+    }
+    
+    private static function removeRelation($item, $field, $key, $lang) {
+        $relation = $field['relation'];
+        $rel = App::instance()->rd->getRelation($relation['identifier']);
+        $rel->removeAll();
     }
 
     public static function determineLang($field, $lang) {

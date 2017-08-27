@@ -106,6 +106,8 @@ var forms = {
         var loadingcontext = element.data('loadingcontext');
         var context = element;
 
+        var max_tags = element.data('maxtags') ? element.data('maxtags') : false;
+
         if(loadingcontext) {
           context = $(element).parent(loadingcontext);
           if(!context) {
@@ -163,6 +165,7 @@ var forms = {
               hint: true,
               highlight: true,
               minLength: 2,
+              maxTags: max_tags,
               name: "name_"+element.data('getter-name'),
               displayKey: element.data('getter-name'),
               source: engine.ttAdapter()

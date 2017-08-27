@@ -81,12 +81,13 @@ class App {
 
         // start all active modules
         $this->mm->start();
+        \fireEvent('onModulesLoaded');
 
-        $this->rd->start();
 
         if(is_null($this->vm)) {
             $this->vm = new ViewManager();
         }
+        \fireEvent('onViewManagerLoaded');
 
         // init theme
         if($this->tm->theme !== '') {
@@ -101,6 +102,9 @@ class App {
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();
       }
+
+      // Collects relations (dependency on CollectionManager)
+      $this->rd->start();
 
       \fireEvent('onManagersLoaded');
 
