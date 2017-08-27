@@ -262,7 +262,7 @@ var forms = {
                             var form = button.closest("form");
                             console.log(data.errors);
                             for(var index = 0; index < data.errors.length; index++) {
-                              var field = form.find("#" + data.errors[index].field);
+                              var field = form.find('*[name="' + data.errors[index].field + '"]');
                               if(! field.hasClass("error")) {
                                 field.addClass("error");
                               }

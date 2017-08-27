@@ -298,15 +298,24 @@ abstract class DataCollection implements IDataCollection {
                 'hint' => sprintf(
                     i('Select categories for this %1$s.'),
                     $this->preferences['single-item'])
-            ),            
+            ),
             array(
                 'key' => 'password_protection',
                 'label' => i('Password protection'),
                 'multilang' => false,
                 'type' => 'text',
-                'order' => 10,
+                'order' => 20,
                 'position' => 'right',
                 'hint' => i('If you define a password, the detail page of this item will be protected by this password.')
+            ),
+            array(
+                'key' => 'collection_image',
+                'label' => i('Collection Image'),
+                'multilang' => false,
+                'type' => 'image',
+                'order' => 30,
+                'position' => 'right',
+                'hint' => i('Choose an image for this collection item.')
             ),
         );
         return $fields;
