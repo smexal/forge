@@ -42,7 +42,8 @@ class RecoverView extends View {
             if(array_key_exists(2, $token)) {
                 $token = explode("__", $token[2]);
             }
-            if(strtotime('+1 day', $token[1]) > microtime()) {
+
+            if($token[1] + (60 * 60 * 24 * 1000) > round(microtime(true) * 1000)) {
                 $foundUser = false;
                 foreach(User::getAll() as $user) {
                     $u = new User($user['id']);
@@ -65,12 +66,17 @@ class RecoverView extends View {
                 if(! $errors) {
                     if($foundUser) {
                         $db = App::instance()->db;
-                        $db->where($foundUser->get('id'));
-                        $db->update('users', [
-                            'password' => Utils::password($this->data['password'])
-                        ]);
-                        App::instance()->addMessage(i('Your new password is set. You can login with your new password.', 'core'), 'success');
-                        App::instance()->redirect([]);
+                        $userId = $foundUser->get('id');
+                        if(is_numeric($userId)) {
+                            $db->where('id', $userId);
+                            $db->update('users', [
+                                'password' => Utils::password($this->data['password'])
+                            ]);
+                            App::instance()->addMessage(i('Your new password is set. You can login with your new password.', 'core'), 'success');
+                            App::instance()->redirect([]);
+                        } else {
+                            App::instance()->addMessage(i('Error while reseting password.', 'core'), 'error');
+                        }
                     } else {
                         $this->errors['password'] = i('Your link seems to be broken.', 'core');
                     }

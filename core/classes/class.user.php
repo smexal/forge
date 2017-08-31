@@ -330,7 +330,7 @@ class User {
     }
 
     public function getPasswordResetLink() {
-        $string = Utils::hash($this->get('email').$this->get('password')).'__'.microtime(true);
+        $string = Utils::hash($this->get('email').$this->get('password')).'__'.round(microtime(true) * 1000);
         return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('recover', 'password', $string));
     }
 
