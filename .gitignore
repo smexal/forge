@@ -61,3 +61,7 @@ doxy
 composer.lock
 *.sublime-project
 *.sublime-workspace
+
+# PHPStorm files
+*.iml
+*.idea
