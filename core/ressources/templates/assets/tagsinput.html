@@ -7,6 +7,7 @@
         id="{$id}"
         name="{$name}"
         type="text"
+        {if="$readonly"}disabled="true"{/if}
         {if="!$multiple"}data-single="true"{/if}
         {if="$getter"}data-getter="{$getter.url}" data-getter-name="{$getter.name}" data-getter-value="{$getter.value}"{/if}>
     {else}
