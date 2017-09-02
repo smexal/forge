@@ -463,8 +463,6 @@ abstract class DataCollection implements IDataCollection {
     public function fields($item=null) {
       $this->itemDependentFields($item);
       $fields = array_merge($this->defaultFields(), $this->customFields);
-      
-
 
       return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
     }
