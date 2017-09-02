@@ -16,6 +16,7 @@ class App {
     public $vm = null;
     public $cm = null;
     public $mm = null;
+    public $rd = null;
     public $nm = null;
     public $tm = null;
     public $mim = null;
@@ -57,6 +58,10 @@ class App {
             $this->mm = new ModuleManager();
         }
 
+        if(is_null($this->rd)) {
+            $this->rd = new RelationDirectory();
+        }
+
         if(is_null($this->mim)){
             $this->mim = new MigrationManager();
         }
@@ -76,10 +81,13 @@ class App {
 
         // start all active modules
         $this->mm->start();
+        \fireEvent('onModulesLoaded');
+
 
         if(is_null($this->vm)) {
             $this->vm = new ViewManager();
         }
+        \fireEvent('onViewManagerLoaded');
 
         // init theme
         if($this->tm->theme !== '') {
@@ -94,6 +102,9 @@ class App {
       if(is_null($this->cm)) {
         $this->cm = new CollectionManager();
       }
+
+      // Collects relations (dependency on CollectionManager)
+      $this->rd->start();
 
       \fireEvent('onManagersLoaded');
 

@@ -4,6 +4,7 @@ namespace Forge\Core\Classes;
 
 use \Forge\Core\App\App;
 use \Forge\Core\App\API;
+use \Forge\Core\Classes\FieldUtils;
 
 class Fields {
 
@@ -54,7 +55,8 @@ class Fields {
             'loadingcontext' => false,
             'error' => false,
             'autocomplete' => true,
-            'hor' => false
+            'hor' => false,
+            'data_attrs' => []
         ];
 
         $args = array_merge($defaults, $args);
@@ -75,7 +77,8 @@ class Fields {
     public static function tags($args, $value='') {
         static $defaults = [
             'state' => 'all',
-            'loadingcontext' => '.form-group'
+            'loadingcontext' => '.form-group',
+            'data_attrs' => []
         ];
         
         $args['type'] = 'text';
@@ -83,21 +86,54 @@ class Fields {
         $args = array_merge($defaults, $args);
         $args['autocomplete'] = false;
         $args['input_class'] = 'tags';
-        $args['getter'] = is_string($args['getter']) ? ['url' => $args['getter']] : $args['getter'];
+        if(isset($args['getter'])) {
+            $args['data_attrs'] = [
+                'getter' => $args['getter']
+            ];
+        }
 
         return static::text($args, $value);
     }
 
-    public static function collection($args, $value='') {
+    public static function taglabels($args, $value='') {
         static $defaults = [
-            'state' => 'all'
+            'state' => 'all',
+            'maxtags' => false,
+            'url' => false,
+            'tag-labels' => [],
+            'getter-convert' => null,
+            'getter-value' => null,
+            'getter-name' => null
         ];
 
         $args = array_merge($defaults, $args);
+
+        $args['tag-labels'] = htmlspecialchars(json_encode($args['tag-labels']));
+
+        $args['data_attrs'] = [
+            'maxtags' => $args['maxtags'],
+            'getter' => $args['getter-url'],
+            'tag-labels' => $args['tag-labels'],
+            'getter-convert' => $args['getter-convert'],
+            'getter-value' => $args['getter-value'],
+            'getter-name' => $args['getter-name']
+        ];
+
+        return static::tags($args, $value);
+    }
+
+    public static function collection($args, $value='') {
+        static $defaults = [
+            'state' => 'all',
+            'maxtags' => false
+        ];
+
+        $args = array_merge($defaults, $args);
+
         $url = API::getAPIURL();
         $url .= '/collections/' . $args['collection'] . '?s=' . $args['state'] .'&q=%%QUERY%';
         
-        $c_ids = explode(',', $value);
+        $c_ids = is_array($value) ? $value : explode(',', $value);
         if($value && count($c_ids)) {
             $c_items = App::instance()->cm->getCollection($args['collection'])->getItems($c_ids); 
 
@@ -108,16 +144,17 @@ class Fields {
             $c_items = [];
         }
 
-        $args['getter'] = [
-            'url' => $url,
-            'labels' => htmlspecialchars(json_encode($c_items)),
-            'convert' => 'forge_api.collections.onlyItems',
-            'value_key' => 'id',
-            'label_key' => 'name'
-        ];
+        $args['maxtags'] = $args['maxtags'];
+        $args['tag-labels'] = $c_items;
+
+        $args['getter-url'] = $url;
+        $args['getter-convert'] = 'forge_api.collections.onlyItems';
+        $args['getter-value'] = 'id';
+        $args['getter-name'] = 'name';
 
         unset($args['collection']);
-        return static::tags($args, $value);
+
+        return static::taglabels($args, $value);
     }
 
     public static function email($args, $value='') {
@@ -261,6 +298,7 @@ class Fields {
             'chosen' => $args['chosen'],
             'values' => $values,
             'selected' => $value,
+            'readonly' => isset($args['readonly']) ? $args['readonly'] : false,
             'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
         ));
     }

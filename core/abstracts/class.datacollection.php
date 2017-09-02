@@ -16,7 +16,7 @@ abstract class DataCollection implements IDataCollection {
     protected $app;
     public $preferences = array();
     public $name = false;
-    private $customFields = array();
+    protected $customFields = array();
     private $customConfiguration = array();
 
     abstract protected function setup();
@@ -215,7 +215,7 @@ abstract class DataCollection implements IDataCollection {
               return;
           }
 
-          foreach ($this->fields() as $field) {
+          foreach ($this->fields($item) as $field) {
               if (!array_key_exists($field['key'], $data)) {
                   // remove field
                   FieldSaver::remove($item, $field, isset($data['lang']) ? $data['lang'] : 0);
@@ -223,6 +223,7 @@ abstract class DataCollection implements IDataCollection {
               }
               FieldSaver::save($item, $field, $data);
           }
+         \fireEvent('/Forge/Core/DataCollection/save', $item);
       } else {
           App::instance()->addMessage(i('Unable to save item, Item does not exist'));
       }
@@ -320,6 +321,8 @@ abstract class DataCollection implements IDataCollection {
         );
         return $fields;
     }
+
+    protected function itemDependentFields($item) {}
 
     public function addConfigurations( $fields=array() ) {
         foreach($fields as $field) {
@@ -470,15 +473,17 @@ abstract class DataCollection implements IDataCollection {
         array_push($this->customFields, $field);
     }
 
-      public function configuration() {
-          $fields = array_merge($this->defaultConfiguration(), $this->customConfiguration);
-          return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
-      }
+    public function configuration() {
+        $fields = array_merge($this->defaultConfiguration(), $this->customConfiguration);
+        return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+    }
 
-      public function fields() {
-          $fields = array_merge($this->defaultFields(), $this->customFields);
-          return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
-      }
+    public function fields($item=null) {
+      $this->itemDependentFields($item);
+      $fields = array_merge($this->defaultFields(), $this->customFields);
+
+      return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+    }
 
     static public function instance() {
         $class = get_called_class();
