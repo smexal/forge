@@ -41,6 +41,10 @@ a.small:hover {
   color: white;
   text-decoration: none;
 }
+span.amount i {
+  font-size: 0.8em !important;
+  display: inline-block !important;
+}
 a {
   color: #212121;
   transition: 300ms;

@@ -157,17 +157,44 @@ class CollectionItem {
         $app->tm->theme->styles();
 
         if($this->isPublished() || $this->getAuthor() == App::instance()->user->get('id')) {
+            $password_set = false;
+            if((array_key_exists('password_protection', $_POST)
+                && $_POST['password_protection'] == $this->getMeta('password_protection')) ||
+                @$_SESSION['pw_'.$this->id] == md5($this->getMeta('password_protection'))) {
+                $_SESSION['pw_'.$this->id] = md5($this->getMeta('password_protection'));
+                $password_set = true;
+            }
+            if($this->getMeta('password_protection') && ! $password_set) {
+                $body = $this->collectionLogin();
+            } else {
+                $body = $app->cm->getCollection($this->base_data['type'])->render($this);
+            }
             return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
                 array(
                     'bodyclass' => $this->bodyclass,
                     'head' => $app->tm->theme->header(),
-                    'body' => $app->cm->getCollection($this->base_data['type'])->render($this),
+                    'body' => $body,
                     'messages' => App::instance()->displayMessages()
                 ),
                 $app->tm->theme->globals()
           ));
       }
-      return i('Access Denied');
+      return App::instance()->redirect('denied');
+  }
+
+  private function collectionLogin() {
+    $form = '<form method="post">'.Fields::text([
+        'key' => 'password_protection',
+        'label' => i('Password', 'core'),
+        'type' => 'password'
+    ]);
+    $form.=Fields::button(i('Submit', 'core'));
+    $form.='</form>';
+    return App::instance()->render(CORE_TEMPLATE_DIR.'views/sites/', 'smallcenter-content', [
+        'title' => i('Password protection', 'core'),
+        'lead' => i('This page is password protected.', 'core'),
+        'content' => $form
+    ]);
   }
 }
 

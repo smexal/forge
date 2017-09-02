@@ -262,10 +262,13 @@ class Utils {
       return '<div class="bs-callout bs-callout-danger"><p>'.$error.'</p></div>';
     }
 
-    public static function formatAmount($amount) {
+    public static function formatAmount($amount, $switchCurLabel = false) {
       // TODO: Make Currency from a Setting....
       $currency = 'CHF';
-      return sprintf(i('%1$s %2$s', 'core-currency'), $currency, number_format($amount, 2, '.', '\''));
+      if($switchCurLabel) {
+        return '<span class="amount">'.sprintf(i('%1$s <i>%2$s</i>', 'core-currency'), number_format($amount, 2, '.', '\''), $currency).'</span>';
+      }
+      return '<span class="amount">'.sprintf(i('<i>%1$s</i> %2$s', 'core-currency'), $currency, number_format($amount, 2, '.', '\'')).'</span>';
     }
 
     public static function extractParams($defaults, $params) {

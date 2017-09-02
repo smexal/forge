@@ -13,9 +13,9 @@ var forge_tinymce = {
         tinymce.remove();
         tinymce.init({
             selector:'textarea.tinymce',
-            toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright alignjustify | numlist bullist',
-            plugins: "link lists",
-            height : "480",
+            toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright alignjustify | numlist bullist | fullscreen',
+            plugins: "link lists fullscreen",
+            height : "320",
             menu: {
               edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
               format: {title: 'Format', items: 'bold italic link | formats | removeformat'},
