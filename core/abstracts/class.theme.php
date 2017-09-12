@@ -13,6 +13,7 @@ abstract class Theme implements ITheme {
     protected static $instances = array();
     private $styles = array();
     private $load_scripts = array();
+    private $defered_scripts = [];
     private $lessc = null;
     public $lessVariables = array();
 
@@ -24,13 +25,16 @@ abstract class Theme implements ITheme {
         return '';
     }
 
-    public function addScript($script, $absolute=false, $index = false) {
+    public function addScript($script, $absolute=false, $index = false, $defer = false) {
         if(in_array($script, $this->load_scripts)) {
             return;
         }
 
         if(!$absolute) {
             $script = $this->url().$script;
+        }
+        if($defer) {
+            $this->defered_scripts[] = $script;
         }
 
         if ($index || $index === 0) {
@@ -158,7 +162,8 @@ abstract class Theme implements ITheme {
             'styles' => $this->styles,
             'favicon' => false,
             'eventContent' => $eventContent,
-            'custom' => $this->customHeader()
+            'custom' => $this->customHeader(),
+            'defered_scripts' => $this->defered_scripts
         ));
         return $return;
     }

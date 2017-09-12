@@ -56,6 +56,10 @@ var helpers = {
     }
 };
 
+function gCaptchaSubmit(token) {
+    $("button.g-recaptcha").closest('form').submit();
+}
+
 $(document).ready(helpers.init);
 $(document).on("ajaxReload", helpers.init);
 

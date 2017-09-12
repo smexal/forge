@@ -2,7 +2,14 @@
 {if="$hor"}
   <div class="col-lg-9 col-lg-offset-3">
 {/if}
-    <button type="submit" class="btn btn-{$level}" value="submit">{$text}</button>
+    <button 
+        type="submit" 
+        class="btn btn-{$level}{if="isset($bindCaptcha) && $bindCaptcha"} g-recaptcha{/if}" 
+        value="submit"
+        {if="isset($bindCaptcha) && $bindCaptcha"}data-callback='gCaptchaSubmit'{/if}
+        {if="isset($bindCaptcha) && $bindCaptcha"}data-sitekey='{$captchaKey}'{/if}>
+        {$text}
+    </button>
 {if="$hor"}
   </div>
 {/if}
