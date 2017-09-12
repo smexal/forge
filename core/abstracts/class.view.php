@@ -2,11 +2,11 @@
 
 namespace Forge\Core\Abstracts;
 
-use \Forge\Core\App\App;
-use \Forge\Core\App\Auth;
-use \Forge\Core\Classes\Logger;
-use \Forge\Core\Classes\Utils;
-use \Forge\Core\Interfaces\IView;
+use Forge\Core\App\App;
+use Forge\Core\App\Auth;
+use Forge\Core\Classes\Logger;
+use Forge\Core\Classes\Utils;
+use Forge\Core\Interfaces\IView;
 
 abstract class View implements IView {
     protected static $instances = array();
@@ -19,6 +19,8 @@ abstract class View implements IView {
     public $activeSubview = false;
     public $favicon = WWW_ROOT."images/favicon.png";
     public $allowNavigation = false;
+    public $refId = null;
+    public $refType = null;
 
     public function additionalNavigationForm() {
       return array("form" => "");
@@ -69,7 +71,8 @@ abstract class View implements IView {
       }
     }
 
-    public function getSubview($uri_components, $parent) {
+    public function getSubview($uri_components, $parent, $refId = null, $refType = null)
+    {
       $vm = App::instance()->vm;
       if (!is_array($uri_components)) {
         $subview = $uri_components;
@@ -100,6 +103,10 @@ abstract class View implements IView {
         Logger::error("View '".Utils::getUrl($uri_components)."' not found.");
         App::instance()->redirect('404');
       } else {
+          if ($refId != null && $refType != null) {
+              $view->refId = $refId;
+              $view->refType = $refType;
+          }
         $parent->activeSubview = $view->name;
         return $this->app->content($view);
       }

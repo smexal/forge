@@ -2,20 +2,20 @@ var table = {
 
     init : function() {
         $(document).find("table tr td").each(function() {
-            var action = $(this).attr('data-main-action');
-            if(typeof(action) === 'undefined' || action.length == 0) {
-                return;
-            }
-            $(this).closest('tr').addClass('hasAction');
-            $(this).closest('tr').unbind('click').on('click', function() {
-                if($(this).data('action') === true)
+            var links = $(this).find('a');
+            if (links.length === 0) {
+                var action = $(this).parent().attr('data-main-action');
+                if (typeof(action) === 'undefined' || action.length === 0) {
                     return;
-
-                $(this).data('action', true);
-                $(this).find("a[href='"+action+"']").get(0).click();
-            });
+                }
+                $(this).addClass('hasAction');
+                $(this).unbind('click').on('click', function () {
+                    var links = $(document).find("table tr td a[href='" + action + "'][class*='btn']");
+                    links.get(0).click();
+                });
+            }
         });
-    },
+    }
 };
 
 $(document).ready(table.init);

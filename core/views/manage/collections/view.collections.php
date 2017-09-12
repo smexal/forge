@@ -2,11 +2,11 @@
 
 namespace Forge\Core\Views\Manage\Collections;
 
-use \Forge\Core\Abstracts\View;
-use \Forge\Core\App\Auth;
-use \Forge\Core\App\ModifyHandler;
-use \Forge\Core\Classes\User;
-use \Forge\Core\Classes\Utils;
+use Forge\Core\Abstracts\View;
+use Forge\Core\App\Auth;
+use Forge\Core\App\ModifyHandler;
+use Forge\Core\Classes\User;
+use Forge\Core\Classes\Utils;
 
 class CollectionsView extends View {
     public $parent = 'manage';
@@ -79,6 +79,8 @@ class CollectionsView extends View {
                 return $this->getSubview('categories', $this);
             case 'configure':
                 return $this->getSubview('configure', $this);
+            case 'assign':
+                return $this->getSubview('add', $this, $uri[2], $uri[3]);
             default:
                return '';
         }
@@ -108,7 +110,8 @@ class CollectionsView extends View {
         $rows = array();
         foreach ($this->collection->items() as $item) {
             $user = new User($item->getAuthor());
-            array_push($rows, array(
+            $row = new \stdClass();
+            $row->tds = array(
                 Utils::tableCell(
                     $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
                         "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
@@ -119,10 +122,11 @@ class CollectionsView extends View {
                 Utils::tableCell(Utils::dateFormat($item->getCreationDate())),
                 Utils::tableCell(i($item->getMeta('status'))),
                 Utils::tableCell($this->actions($item), false, false, false, Utils::url(["manage", "collections", $this->collection->getPref('name'), 'edit', $item->id]))
-            ));
-        }
+            );
+            $row->rowAction = Utils::getUrl(['manage', 'collections', $item->getType(), 'edit', $item->id]);
 
-        $rows = $rows; // filter
+            array_push($rows, $row);
+        }
         return $rows;
     }
 

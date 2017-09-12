@@ -1,7 +1,9 @@
 {loop="$td"}
-<tr {if="isset($value.rowAction)"}data-main-action="{$value.rowAction}"{/if}>
+<tr>
 {loop="$value"}
-     <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if} {if="isset($value.rowAction)"}data-main-action="{$value.rowAction}"{/if}>
+    <td {if="$value.id" }id="{$value.id}" {
+    /if} {if="$value.class"}class="{$value.class}"{/if}
+    {if="$value.cellAction"}data-main-action="{$value.cellAction}"{/if}>
        {$value.content}
      </td>
 {/loop}
