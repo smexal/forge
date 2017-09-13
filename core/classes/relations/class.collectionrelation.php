@@ -47,7 +47,6 @@ class CollectionRelation extends Relation implements \Forge\Core\Interfaces\IRel
         return $relations;
     }
 
-
 /*
     public function purge() {
         $db = App::instance()->db;

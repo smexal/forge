@@ -37,19 +37,19 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
 
         switch($prepare) {
             case Prepares::AS_ID:
-                $fn = function() { return $rel['id']; };
+                $fn = function($rel) { return $rel['id']; };
             break;
 
             case Prepares::AS_LEFT_ITEM:
-                $fn = function() { return $rel['item_left']; };
+                $fn = function($rel) { return $rel['item_left']; };
             break;
 
             case Prepares::AS_RIGHT_ITEM:
-                $fn = function() { return $rel['item_right']; };
+                $fn = function($rel) { return $rel['item_right']; };
             break;
            
             case Prepares::AS_OBJECT:
-                $fn = function() { return (object) $rel; };
+                $fn = function($rel) { return (object) $rel; };
             break;
 
             case Prepares::AS_ARRAY:

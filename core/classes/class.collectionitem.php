@@ -2,9 +2,10 @@
 
 namespace Forge\Core\Classes;
 
-use \Forge\Core\App\App;
+use Forge\Core\App\App;
+use Forge\Core\Interfaces\ICollectionItem;
 
-class CollectionItem {
+class CollectionItem implements ICollectionItem {
     public $id = null;
 
     private $db = null;

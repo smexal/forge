@@ -30,6 +30,7 @@ class FieldSaver {
     }
 
     private static function saveRelation($item, $field, $value, $lang) {
+
         $value = is_null($value) || $value == false ? [] : $value;
         if(!is_array($value)) {
             throw new \Exception("Can only save array values as relation");

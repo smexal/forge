@@ -16,7 +16,7 @@ class FieldBuilder {
         $html  = Fields::build($field, $value);
 
         if(isset($field['process:afterRender']) && is_callable($field['process:afterRender'])) {
-            $html =  call_user_func($field['process:afterRender'], $value);
+            $html =  call_user_func($field['process:afterRender'], $value, $item);
         }
 
         return  $html;
