@@ -11,12 +11,16 @@
     <tbody>
         {if="! is_string($td)"}
             {loop="$td"}
-            <tr>
-            {loop="$value"}
-                 <td {if="$value.id"}id="{$value.id}"{/if} {if="$value.class"}class="{$value.class}"{/if} {if="isset($value.rowAction)"}data-main-action="{$value.rowAction}"{/if}>
-                   {$value.content}
-                 </td>
-            {/loop}
+            <tr {if="isset($value1->rowAction)"}data-main-action="{$value1->rowAction}"{/if}>
+                {loop="$value->tds"}
+                    <td {if="$value2.id"}id="{$value2.id}"{/if} {if="$value2.class"}class="{$value2.class}"{/if}>
+                        {if="$value2.cellAction"}
+                            <a href="{$value.cellAction}">{$value2.content}</a>
+                        {else}
+                            {$value2.content}
+                        {/if}
+             </td>
+                {/loop}
             </tr>
             {/loop}
         {else}

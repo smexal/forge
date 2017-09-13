@@ -42,6 +42,7 @@ class SettingsView extends View {
             'ALLOW_REGISTRATION' => 'allow_registration',
             'DEFAULT_USER_GROUP' => 'default_usergroup',
             'GOOGLE_API_KEY' => 'google_api_key',
+            'GOOGLE_CAPTCHA_KEY' => 'google_captcha_key',
             'AVATAR_WIDTH' => 'forge_avatar_width',
             'AVATAR_HEIGHT' => 'forge_avatar_height',
         );
@@ -58,6 +59,7 @@ class SettingsView extends View {
         Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
         Settings::set($this->keys['NIGHTMODE'], $_POST[$this->keys['NIGHTMODE']]);
         Settings::set($this->keys['GOOGLE_API_KEY'], $_POST[$this->keys['GOOGLE_API_KEY']]);
+        Settings::set($this->keys['GOOGLE_CAPTCHA_KEY'], $_POST[$this->keys['GOOGLE_CAPTCHA_KEY']]);
         Settings::set($this->keys['AVATAR_WIDTH'], $_POST[$this->keys['AVATAR_WIDTH']]);
         Settings::set($this->keys['AVATAR_HEIGHT'], $_POST[$this->keys['AVATAR_HEIGHT']]);
 
@@ -162,6 +164,7 @@ class SettingsView extends View {
             $return .= $this->getBackendThemeColor();
             $return .= $this->getNightModeCheckbox();
             $return .= $this->getGoogleApiKeyField();
+            $return .= $this->getGoogleCaptchaKeyField();
             $return .= '<hr />';
         }
         if(array_key_exists($tab_id, $this->settings->fields)
@@ -180,6 +183,14 @@ class SettingsView extends View {
             'label' => i('Google API Key'),
             'hint' => ''
         ), Settings::get($this->keys['GOOGLE_API_KEY']));
+    }
+
+    private function getGoogleCaptchaKeyField() {
+        return Fields::text(array(
+            'key' => $this->keys['GOOGLE_CAPTCHA_KEY'],
+            'label' => i('Google Captcha Key'),
+            'hint' => ''
+        ), Settings::get($this->keys['GOOGLE_CAPTCHA_KEY']));
     }
 
     private function getNightModeCheckbox() {

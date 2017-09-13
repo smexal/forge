@@ -111,7 +111,7 @@ class RegistrationView extends View {
             'type' => 'password',
             'autocomplete' => false
         ));
-        $return.= Fields::button(i('Complete Registration'));
+        $return.= Fields::button(i('Complete Registration'), 'primary', true);
 
         $return = App::instance()->render(CORE_ROOT."ressources/templates/assets/", "form", array(
                 "method" => 'post',

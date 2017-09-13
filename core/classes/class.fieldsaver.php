@@ -51,6 +51,7 @@ class FieldSaver {
         if(!is_callable($callable)) {
             throw new \Exception("Can not remove field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
         }
+        call_user_func_array($callable, [$item, $field, '', $lang]);
     }
 
     private static function removeMeta($item, $field, $key, $lang) {

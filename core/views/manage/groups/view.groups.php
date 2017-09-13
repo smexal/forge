@@ -2,13 +2,13 @@
 
 namespace Forge\Core\Views\Manage\Groups;
 
-use \Forge\Core\Abstracts\View;
-use \Forge\Core\App\App;
-use \Forge\Core\App\Auth;
-use \Forge\Core\Classes\Group;
-use \Forge\Core\Classes\Utils;
+use Forge\Core\Abstracts\View;
+use Forge\Core\App\Auth;
+use Forge\Core\Classes\Group;
+use Forge\Core\Classes\Utils;
 
-class GroupsView extends View {
+class GroupsView extends View
+{
     public $parent = 'manage';
     public $name = 'groups';
     public $permission = 'manage.groups';
@@ -16,16 +16,18 @@ class GroupsView extends View {
         'manage.groups.add'
     );
 
-    public function content($uri=array()) {
-      if(count($uri) > 0) {
+    public function content($uri = array())
+    {
+        if (count($uri) > 0) {
             return $this->getSubview($uri, $this);
         } else {
             return $this->ownContent();
         }
     }
 
-    public function ownContent() {
-        return $this->app->render(CORE_TEMPLATE_DIR."views/", "groups", array(
+    public function ownContent()
+    {
+        return $this->app->render(CORE_TEMPLATE_DIR . "views/", "groups", array(
             'title' => i('Group Management'),
             'add' => array(
                 "permission" => Auth::allowed($this->permissions[0]),
@@ -36,8 +38,9 @@ class GroupsView extends View {
         ));
     }
 
-    public function groupTable() {
-        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", array(
+    public function groupTable()
+    {
+        return $this->app->render(CORE_TEMPLATE_DIR . "assets/", "table", array(
             'id' => 'groupsTable',
             'th' => array(
                 Utils::tableCell(i('id')),
@@ -49,23 +52,28 @@ class GroupsView extends View {
         ));
     }
 
-    public function getGroupRows() {
+    public function getGroupRows()
+    {
         $groups = $this->app->db->get('groups');
         $groups_enriched = array();
-        foreach($groups as $group) {
+        foreach ($groups as $group) {
+            $row = new \stdClass();
             $obj = new Group($group['id']);
-            array_push($groups_enriched, array(
+            $row->tds = array(
                 Utils::tableCell($group['id']),
                 Utils::tableCell($group['name']),
                 Utils::tableCell($obj->memberCount()),
                 Utils::tableCell($this->actions($obj))
-            ));
+            );
+            $row->rowAction = Utils::getUrl(array("manage", "groups", 'edit', $group['id']));
+            array_push($groups_enriched, $row);
         }
         return $groups_enriched;
     }
 
-    public function actions($group) {
-        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table.actions", array(
+    public function actions($group)
+    {
+        return $this->app->render(CORE_TEMPLATE_DIR . "assets/", "table.actions", array(
             'actions' => array(
                 array(
                     "url" => Utils::getUrl(array("manage", "groups", "edit", $group->id)),

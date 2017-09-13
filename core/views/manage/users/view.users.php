@@ -2,9 +2,9 @@
 
 namespace Forge\Core\Views\Manage\Users;
 
-use \Forge\Core\Abstracts\View;
-use \Forge\Core\App\Auth;
-use \Forge\Core\Classes\Utils;
+use Forge\Core\Abstracts\View;
+use Forge\Core\App\Auth;
+use Forge\Core\Classes\Utils;
 
 class UsersView extends View {
     public $parent = 'manage';
@@ -47,12 +47,16 @@ class UsersView extends View {
         $users = $this->app->db->get('users');
         $user_enriched = array();
         foreach($users as $user) {
-            array_push($user_enriched, array(
+            $row = new \stdClass();
+            $row->tds = array(
                 Utils::tableCell($user['id']),
                 Utils::tableCell($user['username']),
                 Utils::tableCell($user['email']),
                 Utils::tableCell($this->actions($user['id']), false, false, false, Utils::url(["manage", "users", "edit", $user['id']]))
-            ));
+            );
+            $row->rowAction = Utils::getUrl(['manage', 'users', 'edit', $user['id']]);
+
+            array_push($user_enriched, $row);
         }
         return $user_enriched;
     }

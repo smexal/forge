@@ -2,7 +2,7 @@
 
 namespace Forge\Core\Classes;
 
-use \Forge\Core\App\App;
+use Forge\Core\App\App;
 
 class Navigation {
     private $sticky = false;
@@ -40,6 +40,12 @@ class Navigation {
         } else {
             $this->items[$parent]['children'][] = $id;
         }
+    }
+
+    public function removeFromCollections($id)
+    {
+        $index = array_search($id, $this->items['collections']['children']);
+        unset($this->items['collections']['children'][$index]);
     }
 
     public function reorder($panel, $id, $newposition) {

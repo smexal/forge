@@ -5,6 +5,7 @@ namespace Forge\Core\Classes;
 use \Forge\Core\App\App;
 use \Forge\Core\App\API;
 use \Forge\Core\Classes\FieldUtils;
+use \Forge\Core\Classes\Settings;
 
 class Fields {
 
@@ -347,11 +348,13 @@ class Fields {
         ));
     }
 
-    public static function button($name, $level='primary') {
+    public static function button($name, $level='primary', $bindCaptcha = false) {
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "submit", array(
             'text' => $name,
             'level' => $level,
-            'hor' => false
+            'hor' => false,
+            'bindCaptcha' => $bindCaptcha,
+            'captchaKey' => Settings::get('google_captcha_key')
         ));
     }
 
