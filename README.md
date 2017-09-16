@@ -88,3 +88,49 @@ The TYPE: is either views, components or collections
  } 
 }
 ```
+
+# Relations
+
+##Registering new relations in the Relation Directory
+Registering new relations in the Relation Directory
+Example at: https://github.com/smexal/forge-tournaments/blob/master/module.php#L65
+            https://github.com/smexal/forge-tournaments/blob/master/collections/collection.phase.php#L42
+```            
+ \registerModifier('Forge/Core/RelationDirectory/collectRelations', 
+    'my_new_relations');
+function my_new_relations($existing) {
+    return array_merge($existing, [
+        'forge_teams-team_teammember' => new CollectionRelation(
+            // This is the name in the db-column "name"
+            'forge_teams-team_teammember',
+            TeamCollection::COLLECTION_NAME, 
+            TeamMemberCollection::COLLECTION_NAME, 
+            RelationDirection::DIRECTED
+        )
+    ]);
+}
+```
+
+## Retrieving new relations
+Example at: https://github.com/smexal/forge/blob/master/core/classes/class.fieldloader.php#L32
+```
+$relation = $field['relation'];
+$relation = App::instance()->rd->getRelation($relation['identifier']);
+// The special case of Direction::REVERSED is not yet implemented here
+$list_of_ids = $relation->getOfLeft($item->id, Prepares::AS_IDS_RIGHT);
+
+// Directly generates CollectionItems iff the Relation registered is a CollectionRelation
+$list_of_collections = $relation->getOfLeft($item->id, Prepares::AS_INSTANCE_RIGHT);
+```
+
+# Saving or Adding relations
+Example In: https://github.com/smexal/forge/blob/master/core/classes/class.fieldsaver.php#L32
+```
+$relation = $field['relation'];
+$rel = App::instance()->rd->getRelation($relation['identifier']);
+// Maxes a diff from the items in the DB then removes the missing won in $right_item_ids and adds the new one
+$rel->setRightItems($item->id, $right_item_ids);
+// There is no interface for setting via an object, always an ID
+$rel->add($r_item->id, $r_item->id);
+$rel->addMultiple($r_item->id, [42, 1337, 80085]);
+```
