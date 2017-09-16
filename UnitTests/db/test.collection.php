@@ -85,8 +85,6 @@ class TestOfCollection extends TestCase {
             ]
         ])));
 
-        UtilsTests::removeCollections(static::$c_ids);
-        static::$c_ids = [];
     }
 
     public static function setUpBeforeClass() {

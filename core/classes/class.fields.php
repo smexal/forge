@@ -79,7 +79,8 @@ class Fields {
         static $defaults = [
             'state' => 'all',
             'loadingcontext' => '.form-group',
-            'data_attrs' => []
+            'data_attrs' => [],
+            'glue' => ','
         ];
         
         $args['type'] = 'text';
@@ -91,6 +92,10 @@ class Fields {
             $args['data_attrs'] = [
                 'getter' => $args['getter']
             ];
+        }
+
+        if(is_array($value)) {
+            $value = implode($args['glue'], $value);
         }
 
         return static::text($args, $value);
@@ -135,6 +140,7 @@ class Fields {
         $url .= '/collections/' . $args['collection'] . '?s=' . $args['state'] .'&q=%%QUERY%';
         
         $c_ids = is_array($value) ? $value : explode(',', $value);
+
         if($value && count($c_ids)) {
             $c_items = App::instance()->cm->getCollection($args['collection'])->getItems($c_ids); 
 

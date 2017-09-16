@@ -6,6 +6,7 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Relations\Relation;
 use \Forge\Core\Classes\Relations\Enums\Prepares;
+use \Forge\Core\Classes\Relations\Enums\Directions;
 
 class FieldLoader {
     public static function load($item, $field, $lang=null) {
@@ -30,10 +31,22 @@ class FieldLoader {
     }
 
     private static function loadRelation($item, $field, $lang) {
-        $relation = $field['relation'];
-        $relation = App::instance()->rd->getRelation($relation['identifier']);
-        // The special case of Direction::REVERSED is not yet implemented here
-        return $relation->getOfLeft($item->id, Prepares::AS_RIGHT_IDS);
+        $relation_config = $field['relation'];
+        $relation = App::instance()->rd->getRelation($relation_config['identifier']);
+        
+        // The special case of Directions::REVERSED is not yet implemented here
+        $left_id = isset($relation_config['left_id']) ? $relation_config['left_id'] : $item->id;
+        $direction = isset($relation_config['direction']) ? $relation_config['direction'] : Directions::DIRECTED;
+
+        if($direction === Directions::DIRECTED) {
+            $prepares = isset($relation_config['prepares']) ? $relation_config['prepares'] : Prepares::AS_IDS_RIGHT;
+            $res = $relation->getOfLeft($left_id, Prepares::AS_IDS_RIGHT);
+        } else {
+            $prepares = isset($relation_config['prepares']) ? $relation_config['prepares'] : Prepares::AS_IDS_LEFT;
+            $res = $relation->getOfRight($left_id, Prepares::AS_IDS_LEFT);
+        }
+
+        return $res;
     }
 
     private static function getFieldLanguage($field, $lang=null) {
