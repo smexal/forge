@@ -100,7 +100,6 @@ TBD
 ## Relations
 
 ### Registering new relations in the Relation Directory
-Registering new relations in the Relation Directory
 Example at: https://github.com/smexal/forge-tournaments/blob/master/module.php#L65
             https://github.com/smexal/forge-tournaments/blob/master/collections/collection.phase.php#L42
 ```            
@@ -132,7 +131,7 @@ $list_of_collections = $relation->getOfLeft($item->id, Prepares::AS_INSTANCE_RIG
 ```
 
 ### Saving or Adding relations
-Example In: https://github.com/smexal/forge/blob/master/core/classes/class.fieldsaver.php#L32
+Example at: https://github.com/smexal/forge/blob/master/core/classes/class.fieldsaver.php#L32
 ```
 $relation = $field['relation'];
 $rel = App::instance()->rd->getRelation($relation['identifier']);
