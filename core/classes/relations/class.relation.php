@@ -37,19 +37,27 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
 
         switch($prepare) {
             case Prepares::AS_ID:
-                $fn = function() { return $rel['id']; };
+                $fn = function($rel) { return $rel['id']; };
             break;
 
-            case Prepares::AS_LEFT_ITEM:
-                $fn = function() { return $rel['item_left']; };
+            case Prepares::AS_IDS_RIGHT:
+                $fn = function($rel) { return $rel['item_right']; };
             break;
 
-            case Prepares::AS_RIGHT_ITEM:
-                $fn = function() { return $rel['item_right']; };
+            case Prepares::AS_IDS_LEFT:
+                $fn = function($rel) { return $rel['item_left']; };
+            break;
+
+            case Prepares::AS_ITEM_LEFT:
+                $fn = function($rel) { return $rel['item_left']; };
+            break;
+
+            case Prepares::AS_ITEM_RIGHT;
+                $fn = function($rel) { return $rel['item_right']; };
             break;
            
             case Prepares::AS_OBJECT:
-                $fn = function() { return (object) $rel; };
+                $fn = function($rel) { return (object) $rel; };
             break;
 
             case Prepares::AS_ARRAY:
@@ -156,7 +164,7 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
             'item_left' => $id_left,
             'item_right' => $id_right
         ]);
-        if($this->direction == Directions::DIR_BIDIRECT) {
+        if($this->direction == Directions::BIDIRECT) {
             $db->insert('relations', [
                 'name' => $this->identifier,
                 'item_left' => $id_right,
@@ -173,7 +181,7 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
 
     public function remove($id, $bidirect=true) {
         $db = App::instance()->db;
-        if($bidirect && $this->direction == Directions::DIR_BIDIRECT) {
+        if($bidirect && $this->direction == Directions::BIDIRECT) {
             $other = $this->getReverse($id);
             if($other) {
                 $this->remove($other['id'], false);
@@ -187,8 +195,8 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
     public function removeByRelationItems($id_left, $ids_right) {
         $db = App::instance()->db;
         $db->where('name', $this->identifier);
-        $db->where('left_item', $id_left);
-        $db->where('right_item', $ids_right, 'IN');
+        $db->where('item_left', $id_left);
+        $db->where('item_right', $ids_right, 'IN');
 
         $db->delete('relations');
     }
@@ -196,22 +204,16 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
     public function removeAll($id_left) {
         $db = App::instance()->db;
         $db->where('name', $this->identifier);
-        $db->where('left_item', $id_left);
+        $db->where('item_left', $id_left);
 
         $db->delete('relations');
     }
 
     public function setRightItems($id_left, $ids_right) {
-        $existing = $this->getOfLeft($id_left, Prepares::AS_RIGHT_ITEM);
+        $existing = $this->getOfLeft($id_left, Prepares::AS_IDS_RIGHT);
         $add = array_diff($ids_right, $existing);
         $remove = array_diff($existing, $ids_right);
-      /*   error_log("EXISTING");
-        error_log(print_r($existing, 1));
-        error_log("ADD");
-        error_log(print_r($add, 1));
-        error_log("REMOVE");
-        error_log(print_r($remove, 1));*/
-        
+
         if(count($remove) > 0) {
             $this->removeByRelationItems($id_left, $remove);
         }

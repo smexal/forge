@@ -37,16 +37,32 @@ class CollectionRelation extends Relation implements \Forge\Core\Interfaces\IRel
     }
 
     protected function prepareRelations($relations, $prepare=Prepares::AS_ARRAY) {
-        if($prepare !== Prepares::AS_OBJECT) {
+        if(!in_array($prepare, [Prepares::AS_INSTANCE, Prepares::AS_INSTANCE_LEFT, Prepares::AS_INSTANCE_RIGHT])) {
             return parent::prepareRelations($relations, $prepare);
         }
+
+        $list = [];
         foreach($relations as &$relation) {
-            $relation['item_left'] = $this->c_left->getItem($relation['item_left']);
-            $relation['item_right'] = $this->c_right->getItem($relation['item_right']);
+            switch ($prepare) {
+                case  Prepares::AS_INSTANCE:
+                    $relation['item_left'] = $this->c_left->getItem($relation['item_left']);
+                    $relation['item_right'] = $this->c_right->getItem($relation['item_right']);
+                break;
+                
+                case Prepares::AS_INSTANCE_LEFT:
+                    $list[] = $this->c_left->getItem($relation['item_left']);
+                break;
+                case Prepares::AS_INSTANCE_RIGHT:
+                    $list[] = $this->c_left->getItem($relation['item_right']);
+                break;
+            }
+        }
+
+        if(count($list)) {
+            return $list;
         }
         return $relations;
     }
-
 
 /*
     public function purge() {

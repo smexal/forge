@@ -2,11 +2,12 @@
 
 namespace Forge\Core\Classes;
 
-use \Forge\Core\App\App;
+use Forge\Core\App\App;
+use Forge\Core\Interfaces\ICollectionItem;
 
-class CollectionItem {
+class CollectionItem implements ICollectionItem {
     public $id = null;
-
+    // TODO: DO NOT have the dependency on the db inside each collection item, Relocate it
     private $db = null;
     private $base_data = null;
     private $meta = null;
@@ -15,7 +16,7 @@ class CollectionItem {
     public function __construct($id) {
         $this->id = $id;
         $this->db = App::instance()->db;
-
+        
         $this->db->where('item', $this->id);
         $this->meta = $this->db->get('collection_meta');
 

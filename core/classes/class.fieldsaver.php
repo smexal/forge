@@ -30,7 +30,9 @@ class FieldSaver {
     }
 
     private static function saveRelation($item, $field, $value, $lang) {
-        $value = is_null($value) || $value == false ? [] : $value;
+        $value = is_null($value) || $value === '' || $value === false ? [] : explode(',', $value);
+        $value = array_map('trim', $value);
+        $value = array_map([App::instance()->db, 'escape'], $value);
         if(!is_array($value)) {
             throw new \Exception("Can only save array values as relation");
         }

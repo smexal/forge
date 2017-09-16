@@ -3,6 +3,8 @@
 use PHPUnit\Framework\TestCase;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Relations\Relation as Relation;
+use \Forge\Core\Classes\Relations\Enums\Directions as Directions;
+use \Forge\Core\Classes\Relations\Enums\Prepares as Prepares;
 
 class TestRelations extends TestCase {
 
@@ -15,8 +17,8 @@ class TestRelations extends TestCase {
         $c_ids_a = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollection');
         $c_ids_b = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollectionTwo');
 
-        $relationBD = new Relation('test-BIBIBIDIRECT', Relation::DIR_BIDIRECT);
-        $relationUD = new Relation('test-____DIRECT', Relation::DIR_DIRECTED);
+        $relationBD = new Relation('test-BIBIBIDIRECT', Directions::BIDIRECT);
+        $relationUD = new Relation('test-____DIRECT', Directions::DIRECTED);
 
         static::$c_ids = array_merge($c_ids_a, $c_ids_b);
 
@@ -55,7 +57,13 @@ class TestRelations extends TestCase {
             $this->assertEquals($test_bidir_left_ids, $links_merged[$right_key]);
         }
 
-        \UtilsTests::removeCollections(static::$c_ids);
+        $keys = array_keys($links);
+        $new_rights_save = [$links[$key][1], $links[$key][2]];
+        $relationBD->setRightItems($keys[0], $new_rights_save);
+        $new_rights_load = $relationBD->getOfLeft($keys[0], Prepares::AS_IDS_RIGHT);
+        
+        $this->assertEquals($new_rights_save, $new_rights_load);
+
     }
 /*
     public function testPurgeCollectionRelations() {
@@ -65,7 +73,7 @@ class TestRelations extends TestCase {
         $c_ids_a = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollection');
         $c_ids_b = \UtilsTests::generateCollections(4, [], '\Forge\Core\Tests\TestCollectionTwo');
 
-        $relationUD = new Relation('test-____DIRECT', 'testcollection', 'testcollectiontwo', Relation::DIR_DIRECTED);
+        $relationUD = new Relation('test-____DIRECT', 'testcollection', 'testcollectiontwo', Directions::DIRECTED);
 
         static::$c_ids = array_merge($c_ids_a, $c_ids_b);
 
@@ -95,7 +103,6 @@ class TestRelations extends TestCase {
 
         
 
-        \UtilsTests::removeCollections(static::$c_ids);
     }
 */
     public static function onlyLeftIds($relations) {
