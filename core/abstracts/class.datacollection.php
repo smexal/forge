@@ -70,7 +70,11 @@ abstract class DataCollection implements IDataCollection {
             'all-title' => i('All Collection Items'),
             'add-label' => i('Add item'),
             'single-item' => i('item'),
-            'categories' => false
+            'multilang' => false,
+            'has_status' => false,
+            'has_categories' => false,
+            'has_password' => false,
+            'has_image' => false
         );
         $this->setup();
         $this->name = $this->getPref('name');
@@ -82,7 +86,7 @@ abstract class DataCollection implements IDataCollection {
 
     /**
      * Fetch collectionitems based on the provided filter params
-     * 
+     *
      * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
      */
     public function items($settings = array()) {
@@ -130,7 +134,7 @@ abstract class DataCollection implements IDataCollection {
                         continue;
                     }
                 }
-            } 
+            }
             array_push($item_objects, $obj);
         }
 
@@ -245,8 +249,8 @@ abstract class DataCollection implements IDataCollection {
     }
 
     private function defaultFields() {
-        $fields = array(
-            array(
+        $fields = [];
+        array_push($fields, array(
                 'key' => 'title',
                 'label' => i('Title', 'core'),      // default value is "Label"
                 'multilang' => true,
@@ -254,8 +258,8 @@ abstract class DataCollection implements IDataCollection {
                 'order' => 2,                       // default value is 1000
                 'position' => 'left',               // default is left
                 'hint' => i('Will be used for title attribute (Search Engine and Social Media Title)')
-            ),
-            array(
+            ));
+        array_push($fields, array(
                 'key' => 'description',
                 'label' => i('Description', 'core'),
                 'multilang' => true,
@@ -263,8 +267,9 @@ abstract class DataCollection implements IDataCollection {
                 'order' => 3,
                 'position' => 'left',
                 'hint' => i('Will be used for description for Search Engines and Social Media')
-            ),
-            array(
+            ));
+        if($this->preferences['has_status']) {
+            array_push($fields, array(
                 'key' => 'status',
                 'label' => sprintf(i('%s status'), $this->preferences['single-item']),
                 'multilang' => true,
@@ -276,8 +281,9 @@ abstract class DataCollection implements IDataCollection {
                 'order' => 1,
                 'position' => 'right',
                 'hint' => ''
-            ),
-            array(
+            ));
+        }
+        array_push($fields, array(
                 'key' => 'slug',
                 'label' => i('URL Part'),
                 'multilang' => true,
@@ -288,8 +294,9 @@ abstract class DataCollection implements IDataCollection {
                     i('This field will be used to find the %1$s with an url. If not set, the name of the %1$s will be used.'),
                     $this->preferences['single-item']
                 )
-            ),
-            array(
+            ));
+        if($this->preferences['has_categories']) {
+            array_push($fields, array(
                 'key' => 'categories',
                 'label' => i('Categories'),
                 'multilang' => false,
@@ -300,8 +307,10 @@ abstract class DataCollection implements IDataCollection {
                 'hint' => sprintf(
                     i('Select categories for this %1$s.'),
                     $this->preferences['single-item'])
-            ),
-            array(
+            ));
+        }
+        if($this->preferences['has_password']) {
+            array_push($fields, array(
                 'key' => 'password_protection',
                 'label' => i('Password protection'),
                 'multilang' => false,
@@ -309,8 +318,10 @@ abstract class DataCollection implements IDataCollection {
                 'order' => 20,
                 'position' => 'right',
                 'hint' => i('If you define a password, the detail page of this item will be protected by this password.')
-            ),
-            array(
+            ));
+        }
+        if($this->preferences['has_image']) {
+            array_push($fields, array(
                 'key' => 'collection_image',
                 'label' => i('Collection Image'),
                 'multilang' => false,
@@ -318,8 +329,8 @@ abstract class DataCollection implements IDataCollection {
                 'order' => 30,
                 'position' => 'right',
                 'hint' => i('Choose an image for this collection item.')
-            ),
-        );
+            ));
+        }
         return $fields;
     }
 

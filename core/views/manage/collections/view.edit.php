@@ -100,16 +100,18 @@ class EditView extends View {
 
     // displays the right form fields for the edit mask
     private function rightFields() {
-        $this->collection->addField(array(
-            'key' => 'language-switch',
-            'label' => i('Change to other language', 'core'),
-            'type' => 'linklist',
-            'links' => $this->getLanguageLinks(),
-            'boxed' => true,
-            'order' => 1,
-            'position' => 'right',
-            'hint' => false
-        ));
+        if($this->collection->preferences['multilang']) {
+            $this->collection->addField(array(
+                'key' => 'language-switch',
+                'label' => i('Change to other language', 'core'),
+                'type' => 'linklist',
+                'links' => $this->getLanguageLinks(),
+                'boxed' => true,
+                'order' => 1,
+                'position' => 'right',
+                'hint' => false
+            ));
+        }
         $fields = $this->collection->fields($this->item);
         $return = '';
         foreach($fields as $field) {
