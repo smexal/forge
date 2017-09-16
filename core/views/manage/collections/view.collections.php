@@ -50,7 +50,7 @@ class CollectionsView extends View {
                         'label' => i('Configure', 'core')
                     ));
                 }
-                if (Auth::allowed($this->permissions['categories'])) {
+                if ($collection->preferences['categories'] && Auth::allowed($this->permissions['categories'])) {
                     $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
                       'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'categories')),
                       'label' => i('Categories', 'core')
