@@ -25,8 +25,7 @@ class ManageView extends View {
         6 => 'manage.configuration',
         7 => 'manage.builder.pages',
         8 => 'manage.builder.navigation',
-        9 => 'manage.media',
-        10 => 'manage.teams'
+        9 => 'manage.media'
     );
 
     public function content($uri=array()) {
@@ -102,12 +101,6 @@ class ManageView extends View {
             $this->navigation->add('users', i('Users'), Utils::getUrl(array('manage', 'users')), $panelLeft, false, 'users_container');
             $this->navigation->add('groups', i('Groups'), Utils::getUrl(array('manage', 'groups')), $panelLeft, false, 'users_container');
             $this->navigation->add('permissions', i('Permissions'), Utils::getUrl(array('manage', 'permissions')), $panelLeft, false, 'users_container');
-        }
-
-        if (Auth::allowed($this->permissions[10])) {
-            $this->navigation->add('esports_container', i('E-Sports'), false, $panelLeft, 'videogame_asset');
-            $this->navigation->add('organizations', i('Organizations'), Utils::getUrl(array('manage', 'collections', 'forge-organizations')), $panelLeft, false, 'esports_container');
-            $this->navigation->add('teams', i('Teams'), Utils::getUrl(array('manage', 'collections', 'forge-teams')), $panelLeft, false, 'esports_container');
         }
 
         $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelLeft, 'settings');
