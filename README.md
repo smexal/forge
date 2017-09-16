@@ -89,9 +89,17 @@ The TYPE: is either views, components or collections
 }
 ```
 
-# Relations
+# Collections, Metas, Relations
 
-##Registering new relations in the Relation Directory
+## Collections
+TBD
+
+## Metas
+TBD
+
+## Relations
+
+### Registering new relations in the Relation Directory
 Registering new relations in the Relation Directory
 Example at: https://github.com/smexal/forge-tournaments/blob/master/module.php#L65
             https://github.com/smexal/forge-tournaments/blob/master/collections/collection.phase.php#L42
@@ -111,7 +119,7 @@ function my_new_relations($existing) {
 }
 ```
 
-## Retrieving new relations
+### Retrieving new relations
 Example at: https://github.com/smexal/forge/blob/master/core/classes/class.fieldloader.php#L32
 ```
 $relation = $field['relation'];
@@ -123,7 +131,7 @@ $list_of_ids = $relation->getOfLeft($item->id, Prepares::AS_IDS_RIGHT);
 $list_of_collections = $relation->getOfLeft($item->id, Prepares::AS_INSTANCE_RIGHT);
 ```
 
-# Saving or Adding relations
+### Saving or Adding relations
 Example In: https://github.com/smexal/forge/blob/master/core/classes/class.fieldsaver.php#L32
 ```
 $relation = $field['relation'];
