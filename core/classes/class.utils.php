@@ -60,6 +60,16 @@ class Utils {
         return md5(HASH_SALT_2.$raw.HASH_SALT_1);
     }
 
+    public static function encodeBase64($raw) {
+        return base64_encode(HASH_SALT_2.$raw.HASH_SALT_1);
+    }
+
+    public static function decodeBase64($value) {
+        $decoded = base64_decode($value);
+        $replaced = str_replace(HASH_SALT_2, '', $decoded);
+        return str_replace(HASH_SALT_1, '', $replaced);
+    }
+
     public static function getCurrentUrl() {
         return self::getUrl(self::getUriComponents());
     }

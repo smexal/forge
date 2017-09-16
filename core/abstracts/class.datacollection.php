@@ -69,7 +69,8 @@ abstract class DataCollection implements IDataCollection {
             'title' => i('Data'),
             'all-title' => i('All Collection Items'),
             'add-label' => i('Add item'),
-            'single-item' => i('item')
+            'single-item' => i('item'),
+            'categories' => false
         );
         $this->setup();
         $this->name = $this->getPref('name');
