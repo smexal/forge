@@ -25,12 +25,12 @@ class App {
     public $stream = false;
     public $sticky = false;
     public $page = false;
-    
+
     private $prepared = false;
     private $uri_components = false;
 
     static private $instance = null;
-    
+
     static public function instance() {
         if (null === self::$instance) {
             self::$instance = new self;
@@ -118,7 +118,7 @@ class App {
     public function prepare() {
       if($this->prepared)
         return;
-      
+
       if(is_null($this->db)) {
         $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
       }
@@ -237,6 +237,7 @@ class App {
             'scripts' => $loader->getScripts(),
             'styles' => $loader->getStyles(),
             'favicon' => $this->getFavicon($view),
+            'defered_scripts' => [],
             'custom' => false
         ));
     }
@@ -400,4 +401,3 @@ class App {
     private function __construct(){}
     private function __clone(){}
 }
-
