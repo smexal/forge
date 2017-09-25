@@ -392,10 +392,34 @@ class Fields {
             throw new \Exception("Please use FieldBuilder to create repeater Fields!");
         }
 
+        /* CREATING TEMPLATE FOR FRONTEND */
+        $subfield_templates = [];
+        foreach($args['subfields'] as $subfield) {
+            $subfield_templates[] = static::build($subfield);
+        }
+        $fieldset_template = App::instance()->render(CORE_TEMPLATE_DIR . 'assets/', 'fieldset', [
+            'fields' => $subfield_templates,
+            'cls' => 'repeater-entry',
+            'cls_subfield' => 'repeater-entry-field'
+        ]);
+
+        /* CREATING INPUT SET FOR FRONTEND */
+        $existing_fields = [];
+        foreach($args['rendered_subfields'] as $key => $subfield_set) {
+            $existing_fields[] = App::instance()->render(CORE_TEMPLATE_DIR . 'assets/', 'fieldset', [
+                'fields' => $subfield_set,
+                'cls' => 'repeater-entry',
+                'cls_subfield' => 'repeater-entry-field'
+            ]);
+        }
+
         $args = array_merge($defaults, [
             'name' => empty($args['key']) ? $args['name'] : $args['key'],
             'value' => $value ? $value : 0,
-            'rendered_subfields' => $args['rendered_subfields']
+            'max' => $args['max'],
+            'fieldset_template' => $fieldset_template,
+            'existing_fields' => $existing_fields,
+            'repeater_title' => isset($args['repeater_title']) ? $args['repeater_title'] : \i('Repeater Fieldset', 'forge')
         ]);
 
          return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "repeater", $args);

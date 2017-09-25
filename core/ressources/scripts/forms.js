@@ -1,22 +1,43 @@
 var forms = {
     init : function() {
+        forms.initFields();
+
+        forms.helperlinks();
+        forms.additionalNavigationForm();
+    },
+
+    initFields : function() {
         forms.ajax();
         forms.tags();
-        forms.helperlinks();
+        forms.repeater();
         forms.readOnlyInput();
-        forms.additionalNavigationForm();
         forms.focusToggle();
     },
 
     tags : function() {
       var self = this;
-      $("input.tags").each(function() {
+      $("input.tags:not([data-prepared='1'])").each(function() {
+        $(this).attr('data-prepared', 1);
         self.init_tag(this);
       });
     },
 
+    repeater : function() {
+      var repeaters = [];
+      $('input.repeater-input').each(function() {
+        var root_elem = $(this).closest('.repeater-root')[0];
+        root_elem.addEventListener(forge.fields.Repeater.EVT_ADDENTRY, function() {
+          forms.initFields();
+        });
+        new forge.fields.Repeater(root_elem);
+      });
+    },
+
     focusToggle : function() {
-        $("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number']").each(function() {
+        $("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number']")
+        .filter(":not([data-prepared='1'])")
+        .each(function() {
+            $(this).attr('data-prepared', 1);
             if($(this).val().length > 0) {
                 $(this).parent().addClass('focus');
                 if($(this).parent().hasClass("input-group")) {
@@ -89,7 +110,8 @@ var forms = {
     },
 
     readOnlyInput : function() {
-      $("label").each(function() {
+      $("label:not([data-prepared='1'])").each(function() {
+        $(this).attr('data-prepared', 1);
         $(this).on('click', function() {
           var target = $('input#' + $(this).attr('for'));
           target.removeAttr('readonly');

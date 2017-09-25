@@ -39,4 +39,24 @@ class FieldUtils {
 
         return $data;
     }
+
+    public static function &assignSubfieldKeys(&$parent_field, $iteration=0) {
+        $type_count = [];
+        $subfields = &$parent_field['subfields'];
+        foreach($subfields as &$field) {
+            $type_idx = $type_count[$field['type']];
+            $type_count[$field['type']] = $type_idx + 1;
+
+            $field['iteration'] = $iteration;
+            $field['key'] = isset($field['key']) ? $field['key'] : $field['type'] . '-' . $type_idx;
+            
+            $field['original_key'] = $field['key'];
+            $field['key_iteration_prefix'] = $parent_field['key']. '_';
+            $field['key_iteration_suffix'] = '_' . $field['key'];
+            $field['key'] = $field['key_iteration_prefix']  . $iteration . $field['key_template_suffix'];
+        }
+
+        return $parent_field;
+    }
+    
 }

@@ -13,12 +13,18 @@ class FieldBuilder {
 
 
          if(isset($field['subfields'])) {
-            $value = $value === '' && isset($field['init_count']) ? $field['init_count'] : $value; 
             $field['rendered_subfields'] = [];
-            for($i = 0; $i++; $i < $value) {
-                $field['subfields'] = static::assignSubfieldKeys($field, $i);
+            $field_count = $value === '' && isset($field['init_count']) ? $field['init_count'] : $value; 
+            
+            for($i = 0; $i++; $i < $field_count) {
+                $field['subfields'] = FieldUtils::assignSubfieldKeys($field['subfields'], $i);
+                
+                $field['rendered_subfields'][$i] = [];
                 foreach($field['subfields'] as &$subfield) {
-                    $field['rendered_subfields'] = FieldBuilder::build($item, $subfield, $lang);
+                    $field['rendered_subfields'][$i][] = [
+                        'data' => $subfield,
+                        'render' => FieldBuilder::build($item, $subfield, $lang)
+                    ];
                 }
             }
         }
@@ -35,20 +41,5 @@ class FieldBuilder {
         return  $html;
     }
 
-    public static function &assignSubfieldKeys(&$parent_field, $iteration=0) {
-        $type_count = [];
-        $subfields = &$parent_field['subfields'];
-        foreach($subfields as &$field) {
-            $type_idx = $type_count[$field['type']];
-            $type_count[$field['type']] = $type_idx + 1;
 
-            $field['iteration'] = $iteration;
-            $field['key'] = isset($field['key']) ? $field['key'] : $field['type'] . '-' . $type_idx;
-            
-            $field['original_key'] = $field['key'];
-            $field['key'] = $parent_field['key'] . '_' . $iteration . '_' .  $field['key'];
-        }
-
-        return $parent_field;
-    }
 }

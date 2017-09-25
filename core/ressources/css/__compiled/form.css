@@ -131,6 +131,9 @@
   font-size: 11px;
   top: 0px;
 }
+.form-group .forge-template {
+  display: none;
+}
 .form-group small {
   color: #ABABAB;
   font-size: 80%;

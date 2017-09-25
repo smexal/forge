@@ -34,8 +34,14 @@ class FieldLoader {
         ];
 
         if(isset($field['subfields'])) {
-            foreach($field['subfields'] as &$subfield) {
-                $data['subvalues'] = FieldLoader::load($item, $subfield, $lang);
+            $field_count = $data['value'] === '' && isset($field['init_count']) ? $field['init_count'] : $data['value']; 
+            for($i = 0; $i++; $i < $field_count) {
+                $field['subfields'] = FieldUtils::assignSubfieldKeys($field['subfields'], $i);
+                
+                $field['subvalues'][$i] = [];
+                foreach($field['subfields'] as &$subfield) {
+                    $field['subvalues'][$i][] = FieldBuilder::load($item, $subfield, $lang);
+                }
             }
         }
         return $data;

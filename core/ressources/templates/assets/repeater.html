@@ -1,24 +1,31 @@
-<div class="form-group{if="$hor"} row{/if}{if="isset($group_class)"} {$group_class}{/if}">
+<div class="form-group{if="$hor"} row{/if}{if="isset($group_class)"} {$group_class}{/if} ">
     <label class='control-label{if="$hor"} col-lg-3{/if}' {if="isset($id)"}for="{$id}"{/if}>{$label}</label>
 {if="$hor"}
     <div class="col-lg-9">
 {/if}
-    <div class="repeater-field-wrapper">
-        <input class="form-control{if="$error"} has-error{/if}{if="isset($input_class)"} {$input_class}{/if}" {if="isset($id)"}id="{$id}"{/if} name="{$name}" type="{$type}"
+    <div class="repeater-field-wrapper repeater-root" data-repeater-title="{$repeater_title}" data-repeater-max="{$max}">
+        <div class="forge-template repeater-template">
+            {$fieldset_template}
+        </div>
+        <input type="hidden" class="form-control repeater-input{if="$error"} has-error{/if}{if="isset($input_class)"} {$input_class}{/if}" {if="isset($id)"}id="{$id}"{/if} name="{$name}" type="{$type}"
             {if="$value"}value="{$value}"{/if}
             {loop="$data_attrs"}
                 data-{$key}="{$value}"
             {/loop}
         />
-
-        {loop="$rendered_subfields"}
-        {$value}
-        {/loop}
+        <ul class="repeater-content">
+            {loop="$existing_fields"}
+            <li class="repeater-entry">
+                <span>{$repeater_title} - {$key + 1}</span>
+                {$value}
+            </li>
+            {/loop}
+        </ul>
             {if="$error"}<small class="clearfix error-message">{$error}</small>{/if}
         {if="$hint"}<small class="clearfix">{$hint}</small>{/if}
-    </div>
-    <div class="repeater-field-controls">
-        <button class="button button-primary">Add new Fieldset</button>
+        <div class="repeater-field-controls">
+            <span class="btn btn-primary repeater-add">Add new Fieldset</span>
+        </div>
     </div>
 {if="$hor"}
     </div>
