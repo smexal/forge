@@ -21,29 +21,43 @@ class FieldLoader {
             throw new \Exception("Can not load field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
         }
 
+
         $value = call_user_func_array($callable, [$item, $field, $lang]);
+        if(isset($field['subfields'])) {
+            $data = static::loadSubvalues($item, $field, $lang, $value);
+            error_log(print_r("Corrected value of repeater from $value to {$data['value']}", 1));
+            $value = $data['value'];
+        }
         $value = isset($field['process:load']) ? call_user_func($field['process:load'], $value, $lang) : $value;
 
         return $value;
     }
 
-    public static function loadRepeaterData($item, $field, $lang=null) {
+    public static function loadSubvalues($item, $field, $lang=null, $value=null) {
         $data = [
-            'value' => FieldLoader::load($item, $field, $lang),
+            'value' => !is_null($value) ? $value :FieldLoader::load($item, $field, $lang),
             'subvalues' => []
         ];
 
         if(isset($field['subfields'])) {
             $field_count = $data['value'] === '' && isset($field['init_count']) ? $field['init_count'] : $data['value']; 
-            for($i = 0; $i++; $i < $field_count) {
-                $field['subfields'] = FieldUtils::assignSubfieldKeys($field['subfields'], $i);
+            $missing_count = 0;
+            for($i = 0; $i < $field_count; $i++) {
+                $field = FieldUtils::assignSubfieldKeys($field, $i);
                 
+                $has_entries = false;
                 $field['subvalues'][$i] = [];
                 foreach($field['subfields'] as &$subfield) {
-                    $field['subvalues'][$i][] = FieldBuilder::load($item, $subfield, $lang);
+                    $result = FieldLoader::load($item, $subfield, $lang);
+                    $has_entries = false === $result ? $has_entries : true;
+                    $field['subvalues'][$i][] = $result;
+                }
+                if(!$has_entries) {
+                    $missing_count++;
                 }
             }
         }
+        $data['value'] = max(0, min($data['value'], $data['value'] - $missing_count));
         return $data;
     }
 

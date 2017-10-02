@@ -5,6 +5,7 @@
 {/if}
     <div class="repeater-field-wrapper repeater-root" data-repeater-title="{$repeater_title}" data-repeater-max="{$max}">
         <div class="forge-template repeater-template">
+            <span class="repeater-title"></span>
             {$fieldset_template}
         </div>
         <input type="hidden" class="form-control repeater-input{if="$error"} has-error{/if}{if="isset($input_class)"} {$input_class}{/if}" {if="isset($id)"}id="{$id}"{/if} name="{$name}" type="{$type}"
@@ -16,7 +17,7 @@
         <ul class="repeater-content">
             {loop="$existing_fields"}
             <li class="repeater-entry">
-                <span>{$repeater_title} - {$key + 1}</span>
+                <span class="repeater-title">{$repeater_title} - {$key + 1}</span>
                 {$value}
             </li>
             {/loop}
@@ -24,7 +25,7 @@
             {if="$error"}<small class="clearfix error-message">{$error}</small>{/if}
         {if="$hint"}<small class="clearfix">{$hint}</small>{/if}
         <div class="repeater-field-controls">
-            <span class="btn btn-primary repeater-add">Add new Fieldset</span>
+            <span class="repeater-add"><i class="material-icons">add_circle_outline</i></span>
         </div>
     </div>
 {if="$hor"}

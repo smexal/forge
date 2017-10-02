@@ -40,22 +40,30 @@ class FieldUtils {
         return $data;
     }
 
-    public static function &assignSubfieldKeys(&$parent_field, $iteration=0) {
+    public static function assignSubfieldKeys($parent_field, $iteration=0) {
         $type_count = [];
-        $subfields = &$parent_field['subfields'];
-        foreach($subfields as &$field) {
+        foreach($parent_field['subfields'] as $key => $field) {
+            if(!isset($type_count[$field['type']])) {
+                $type_count[$field['type']] = 0;
+            }
             $type_idx = $type_count[$field['type']];
             $type_count[$field['type']] = $type_idx + 1;
 
             $field['iteration'] = $iteration;
-            $field['key'] = isset($field['key']) ? $field['key'] : $field['type'] . '-' . $type_idx;
             
+            if(isset($field['original_key'])) {
+                $field['key'] = $field['original_key'];
+            } else {
+                $field['key'] = isset($field['key']) ? $field['key'] : $field['type'] . '-' . $type_idx;
+            }
             $field['original_key'] = $field['key'];
-            $field['key_iteration_prefix'] = $parent_field['key']. '_';
+            
+            $field['key_iteration_prefix'] = $parent_field['key'] . '_';
             $field['key_iteration_suffix'] = '_' . $field['key'];
-            $field['key'] = $field['key_iteration_prefix']  . $iteration . $field['key_template_suffix'];
-        }
+            $field['key'] = $field['key_iteration_prefix']  . $iteration . $field['key_iteration_suffix'];
 
+            $parent_field['subfields'][$key] = $field;
+        }
         return $parent_field;
     }
     

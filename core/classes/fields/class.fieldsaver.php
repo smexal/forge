@@ -24,11 +24,14 @@ class FieldSaver {
         call_user_func_array($callable, [$item, $field, $value, $lang]);
         
         if(isset($field['subfields'])) {
-            $field_count = $data['value'] === '' && isset($field['init_count']) ? $field['init_count'] : $data['value']; 
-            for($i = 0; $i++; $i < $field_count) {
-                $field['subfields'] = FieldUtils::assignSubfieldKeys($field['subfields'], $i);
+            $field_count = $value === '' && isset($field['init_count']) ? $field['init_count'] : $value; 
+
+            for($i = 0; $i < $field_count; $i++) {
+                $field = FieldUtils::assignSubfieldKeys($field, $i);
+                error_log(print_r("Saving Subfield:::", 1));
                 
-                foreach($field['subfields'] as &$subfield) {
+                error_log(print_r($field['subfields'], 1));
+                foreach($field['subfields'] as $subfield) {
                     FieldSaver::save($item, $subfield, $data);
                 }
             }

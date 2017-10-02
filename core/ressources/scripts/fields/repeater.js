@@ -16,14 +16,19 @@ forge = (function(forge) {
     this.max = root_elem.getAttribute('data-max') || -1;
     this.count = root_elem.getAttribute('data-count') || 0;
     this.repeater_title = root_elem.getAttribute('data-repeater-title') || false;
+    this.repeater_field = root_elem.querySelector('input.repeater-input');
     this.template = root_elem.querySelector('.repeater-template');
     this.entry_container = root_elem.querySelector('.repeater-content');
     this.append_button = root_elem.querySelector('.repeater-add');
 
     this.repeater_entries = this.readEntries();
     this.registerHandlers();
+
+    Repeater.list.push(this);
   };
   
+  Repeater.list = [];
+
   Repeater.EVT_ADDENTRY = 'addentry';
 
   Repeater.prototype = {
@@ -38,28 +43,29 @@ forge = (function(forge) {
       });
 
       for(var i = 0; i < this.repeater_entries.length; i++) {
-        this.registerRepeaterEntryHandlers(this.repeater_entries[i]);
+        this.registerEntryHandlers(this.repeater_entries[i]);
       }
     },
 
     registerEntryHandlers : function(entry) {
       var self = this;
-      entry.querySelector('.control-add').on('click', function(e) {
+
+      entry.querySelector('.control-add').addEventListener('click', function(e) {
         e.preventDefault();
         self.addEntryBelow(entry, self.createNewEntry());
       });
 
-      entry.querySelector('.control-remove').on('click', function(e) {
+      entry.querySelector('.control-remove').addEventListener('click', function(e) {
         e.preventDefault();
-        self.removeEntry(entry, self.createNewEntry());
+        self.removeEntry(entry);
       });
 
-      entry.querySelector('.control-up').on('click', function(e) {
+      entry.querySelector('.control-up').addEventListener('click', function(e) {
         e.preventDefault();
         self.moveEntryUp(entry);
       });
 
-      entry.querySelector('.control-down').on('click', function(e) {
+      entry.querySelector('.control-down').addEventListener('click', function(e) {
         e.preventDefault();
         self.moveEntryDown(entry);
       });
@@ -83,61 +89,79 @@ forge = (function(forge) {
     },  
 
     addEntryBelow : function(entry, new_entry) {
-      this.entry_container.insertAfter(new_entry, entry.nextSibling);
+      if(!entry.nextElementSibling) {
+        this.appendNewEntry(entry, new_entry)
+      }
+      this.entry_container.insertBefore(new_entry, entry.nextElementSibling);
 
       this.reindexFields();
     },
 
     removeEntry : function(entry) {
-      this.entry_container.remove(entry);
-
+      this.entry_container.removeChild(entry);
+      delete entry;
       this.reindexFields();
     },
 
     moveEntryUp : function(entry) {
-      var prev_entry = entry.nextSibling;
-
+      var prev_entry = entry.previousElementSibling;
+      if(!prev_entry) {
+        return;
+      }
       this.swapEntries(entry, prev_entry);
-      this.reindexFields();
     },
 
     moveEntryDown : function(entry) {
-      var next_entry = entry.previousSibling;
-
+      var next_entry = entry.nextElementSibling;
+      if(!next_entry) {
+        return;
+      }
       this.swapEntries(entry, next_entry);
-      this.reindexFields();
     },
 
     swapEntries : function(entry_a, entry_b) {
-      var prev_a = entry_a.nextSibling;
-      var prev_b = entry_b.nextSibling;
+      var after_a = entry_a.nextElementSibling;
+      var after_b = entry_b.nextElementSibling;
 
-      this.entry_container.insertBefore(prev_a, entry_b);
-      this.entry_container.insertBefore(prev_b, entry_a);
+      this.entry_container.insertBefore(entry_a, after_b);
+      this.entry_container.insertBefore(entry_b, after_a);
 
       this.reindexFields();
     },
 
-    reindexFields : function(entry, new_entry) {
+    reindexFields : function() {
       this.entries = this.readEntries();
       for(var i = 0; i < this.entries.length; i++) {
-        var field_wrappers = this.entries[i].querySelector('.fieldset-entry-field');
+        this.entries[i].querySelector('.repeater-title').textContent = this.repeater_title + " - " + i;
+        var field_wrappers = this.entries[i].querySelectorAll('.fieldset-entry-field');
         for(var k = 0; k < field_wrappers.length; k++) {
-          var key = field.attr('data-key');
-          var prefix = field.attr('key-prefix');
-          var suffix = field.attr('key-suffix');
-          var field = field_wrapper.querySelector('name', key);
-          field.attr('name', prefix + i + suffix);
+          var field_wrapper = field_wrappers[k];
+
+
+          var key = field_wrapper.getAttribute('data-key');
+          var prefix = field_wrapper.getAttribute('data-key-prefix');
+          var suffix = field_wrapper.getAttribute('data-key-suffix');
+          var field = field_wrapper.querySelector('[name="' + key + '"]');
+          
+          field.setAttribute('name', prefix + i + suffix);
+          field_wrapper.setAttribute('data-key', prefix + i + suffix);
         }
       }
+      this.repeater_field.value = this.entries.length;
+
     },
 
     createNewEntry : function() {
       var rendered = this.template.cloneNode(true);
-      rendered.classList.remove("repeater-template");
+      rendered.classList.remove("forge-template");
+
+      rendered.querySelector('.repeater-title').textContent = this.repeater_title + " - %ITERATION%"
 
       var li = document.createElement('li');
       li.appendChild(rendered);
+      li.classList.add('repeater-entry');
+      this.registerEntryHandlers(li);
+
       return li;
     },
 

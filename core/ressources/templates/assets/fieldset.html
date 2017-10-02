@@ -1,13 +1,13 @@
 <div class="fielset_wrapper {$cls}">
     <ul>
         {loop="$fields"}
-        <li class="fieldset-entry-field {$cls_subfield}" data-key="{$value.data.key}" data-key-prefix="{$value.data.key_iteration_prefix}" data-key-suffix="{$value.data.key_iteration_suffix}">{$value.rendered}</li>
+        <li class="fieldset-entry-field {$cls_subfield}" data-key="{$value.key}" data-key-prefix="{$value.key_iteration_prefix}" data-key-suffix="{$value.key_iteration_suffix}">{$value.rendered}</li>
         {/loop}
     </ul>
-    <ul class="controls">
-        <li class="control control-up">UP</li>
-        <li class="control control-add">Add</li>
-        <li class="control control-remove">Remove</li>
-        <li class="control control-down">DOWN</li>
+    <ul class="controls clearfix">
+        <li class="control control-up"><i class="material-icons">keyboard_arrow_up</i></li>
+        <li class="control control-down "><i class="material-icons">keyboard_arrow_down</i></li>
+        <li class="control control-add"><i class="material-icons">add_circle_outline</i></li>
+        <li class="control control-remove"><i class="material-icons">remove_circle_outline</i></li>
     </ul>
 </div>

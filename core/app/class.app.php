@@ -234,6 +234,7 @@ class App {
         $loader = Loader::instance();
         return $this->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle($view),
+            'defered_scripts' => [],
             'scripts' => $loader->getScripts(),
             'styles' => $loader->getStyles(),
             'favicon' => $this->getFavicon($view),
