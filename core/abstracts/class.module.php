@@ -47,19 +47,17 @@ abstract class Module implements IModule {
   }
 
   public function hasSettings() {
-    if(array_key_exists($this->id, Settings::instance()->fields) 
-      && count(Settings::instance()->fields[$this->id]['left']) > 0) {
+    $fields = Settings::instance()->fields;
+
+    // check if module has setting fields defined
+    if (array_key_exists($this->id, $fields))
+      if ((array_key_exists('left', $fields[$this->id]) && count($fields[$this->id]['left']))
+       || (array_key_exists('right', $fields[$this->id]) && count($fields[$this->id]['right'])))
+        return true;
+
+    if (count($this->settingsViews))
       return true;
-    }
-    if(array_key_exists($this->id, Settings::instance()->fields) &&
-      count(Settings::instance()->fields[$this->id]['right']) > 0) {
-      return true;
-    }
-    if(property_exists($this, 'settingsViews')
-      && is_array($this->settingsViews)
-      && count($this->settingsViews) > 0) {
-      return true;
-    }
+
     return false;
   }
 

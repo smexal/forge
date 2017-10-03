@@ -76,9 +76,10 @@ class ManageView extends View {
             $mm = App::instance()->mm;
             foreach($mm->getActiveModules() as $mod) {
                 $modObject = $mm->getModuleObject($mod);
-                if(! $modObject->hasSettings()) {
+
+                if (! is_object($modObject) || ! $modObject->hasSettings())
                     continue;
-                }
+
                 $this->navigation->add(
                     "pref_".$mod,
                     $modObject->name,
