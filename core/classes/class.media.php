@@ -60,6 +60,9 @@ class Media {
         }
 
         $original = UPLOAD_DIR.$this->rel_path.$this->name;
+        if (!file_exists($original))
+            return '';
+
         list($w, $h) = getimagesize($original);
 
         if($type == 'jpeg') $type = 'jpg';
