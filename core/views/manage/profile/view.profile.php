@@ -81,7 +81,7 @@ class ProfileView extends View {
         return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "oneform", array(
             'action' => Utils::getCurrentUrl(),
             'event' => "updateUserProfile",
-            'title' => sprintf(i('%1$s\'s Profile', 'core'), $user->get('username')),
+            'title' => sprintf(i("%s's Profile", 'core'), $user->get('username')),
             'tabs' => $this->getTabs(),
             'tab_content' => $this->getTabContent(),
             'global_actions' => Fields::button(i('Save changes')),
@@ -306,7 +306,7 @@ class ProfileView extends View {
                 'create-key' => "true"
             ]
         );
-        return '<a class="btn btn-xs" href="'.$keyUrl.'">'.i('Create key', 'core').'</a>';        
+        return '<a class="btn btn-xs" href="'.$keyUrl.'">'.i('Create key', 'core').'</a>';
     }
 
 }
