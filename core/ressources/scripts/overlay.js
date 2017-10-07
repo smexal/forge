@@ -1,13 +1,14 @@
 var overlay = {
-    init : function() {
-        $(".open-overlay").each(function() {
+    init : function($context) {
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+        $context.find(".open-overlay").each(function() {
             $(this).unbind("click").on("click", function() {
                 var the_overlay = overlay.prepare();
                 overlay.open($(this), the_overlay);
             });
         });
 
-        $(".close-overlay").each(function() {
+        $context.find(".close-overlay").each(function() {
             $(this).unbind("click").on("click", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
@@ -17,11 +18,13 @@ var overlay = {
             });
         })
 
-        overlay.fullscreen();
+        overlay.fullscreen($context);
     },
 
-    fullscreen : function() {
-        $("a.fullscreen-overlay").each(function() {
+    fullscreen : function($context) {
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+
+        $context.find("a.fullscreen-overlay").each(function() {
             $(this).unbind('click').on("click", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
@@ -138,5 +141,10 @@ var overlay = {
         });
     }
 };
-$(document).ready(overlay.init);
-$(document).on("ajaxReload", overlay.init);
+
+$(document).ready(function() {
+    overlay.init();
+});
+$(document).on("ajaxReload", function()  {
+    overlay.init();
+});

@@ -29,12 +29,10 @@ forge = (function(forge) {
   
   Repeater.list = [];
 
-  Repeater.EVT_ADDENTRY = 'addentry';
+  var EVT_PREFIX = 'forge.fields.Repeater:';
+  Repeater.EVT_ADDENTRY = EVT_PREFIX + 'addentry';
 
   Repeater.prototype = {
-    
-    PREFIX_EVT : 'forge.fields.Repeater:',
-    
 
     registerHandlers : function() {
       var self = this;
@@ -77,15 +75,14 @@ forge = (function(forge) {
 
     appendNewEntry : function(new_entry) {
       this.entry_container.appendChild(new_entry);
-      
-      this.trigger(Repeater.EVT_ADDENTRY, new_entry);
       this.reindexFields();
+      this.trigger(Repeater.EVT_ADDENTRY, {entry: new_entry});
     },
 
     addEntryAbove : function(entry, new_entry) {
       this.entry_container.insertBefore(new_entry, entry);
-
       this.reindexFields();
+      this.trigger(Repeater.EVT_ADDENTRY, {entry: new_entry});
     },  
 
     addEntryBelow : function(entry, new_entry) {
@@ -93,8 +90,9 @@ forge = (function(forge) {
         this.appendNewEntry(entry, new_entry)
       }
       this.entry_container.insertBefore(new_entry, entry.nextElementSibling);
-
       this.reindexFields();
+      this.trigger(Repeater.EVT_ADDENTRY, {entry: new_entry});
+
     },
 
     removeEntry : function(entry) {
@@ -168,8 +166,7 @@ forge = (function(forge) {
     trigger : function(name, data) {
       data = data || {};
       data.instance = this;
-      
-      this.root_elem.dispatchEvent(new CustomEvent(this.prefix + name, data));
+      this.root_elem.dispatchEvent(new CustomEvent(name, {detail: data}));
     }
   };
 

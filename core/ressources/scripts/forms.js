@@ -1,40 +1,47 @@
 var forms = {
     init : function() {
-        forms.initFields();
+        forms.initFields($('body'));
 
-        forms.helperlinks();
         forms.additionalNavigationForm();
-    },
-
-    initFields : function() {
         forms.ajax();
-        forms.tags();
-        forms.repeater();
-        forms.readOnlyInput();
-        forms.focusToggle();
     },
 
-    tags : function() {
+    initFields : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      forms.helperlinks($context);
+      forms.tags($context);
+      forms.repeater($context);
+      forms.readOnlyInput($context);
+      forms.focusToggle($context);
+    },
+
+    tags : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
       var self = this;
-      $("input.tags:not([data-prepared='1'])").each(function() {
+      $context.find("input.tags:not([data-prepared='1'])").each(function() {
         $(this).attr('data-prepared', 1);
         self.init_tag(this);
       });
     },
 
-    repeater : function() {
+    repeater : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
       var repeaters = [];
-      $('input.repeater-input').each(function() {
+      $context.find('input.repeater-input').each(function() {
         var root_elem = $(this).closest('.repeater-root')[0];
-        root_elem.addEventListener(forge.fields.Repeater.EVT_ADDENTRY, function() {
-          forms.initFields();
+        root_elem.addEventListener(forge.fields.Repeater.EVT_ADDENTRY, function(data) {
+          var $context = $(data.detail.entry);
+          forms.initFields($context);
+          overlay.init($context);
         });
         new forge.fields.Repeater(root_elem);
       });
     },
 
-    focusToggle : function() {
-        $("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number']")
+    focusToggle : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context
+        .find("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number']")
         .filter(":not([data-prepared='1'])")
         .each(function() {
             $(this).attr('data-prepared', 1);
@@ -109,8 +116,9 @@ var forms = {
       }
     },
 
-    readOnlyInput : function() {
-      $("label:not([data-prepared='1'])").each(function() {
+    readOnlyInput : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find("label:not([data-prepared='1'])").each(function() {
         $(this).attr('data-prepared', 1);
         $(this).on('click', function() {
           var target = $('input#' + $(this).attr('for'));
@@ -215,8 +223,9 @@ var forms = {
       });
     },
 
-    helperlinks : function() {
-        $("a.set-value").unbind("click").on('click', function() {
+    helperlinks : function($context) {
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+        $context.find("a.set-value").unbind("click").on('click', function() {
             $("input#" + $(this).data('target')).val($(this).data('value'));
             $(this).parent().find(".active").removeClass('active');
             $(this).addClass('active');
