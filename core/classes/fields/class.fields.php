@@ -406,7 +406,6 @@ class Fields {
         /* CREATING INPUT SET FOR FRONTEND */
         $existing_fields = [];
         foreach($args['rendered_subfields'] as $key => $subfield_set) {
-            error_log(print_r($subfield_set, 1));
             $existing_fields[] = App::instance()->render(CORE_TEMPLATE_DIR . 'assets/', 'fieldset', [
                 'fields' => $subfield_set,
                 'cls' => '',

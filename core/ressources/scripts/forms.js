@@ -1,18 +1,47 @@
 var forms = {
     init : function() {
-        forms.initFields($('body'));
+      forms._init($('body'));
+    },
 
-        forms.additionalNavigationForm();
-        forms.ajax();
+    _init : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      forms.initFields($context);
+
+      forms.additionalNavigationForm($context);
+      forms.ajax($context);
     },
 
     initFields : function($context) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
       forms.helperlinks($context);
+      forms.imageselector($context);
       forms.tags($context);
       forms.repeater($context);
+      forms.datetime($context);
       forms.readOnlyInput($context);
       forms.focusToggle($context);
+    },
+
+    imageselector : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find('.imageselection input[type="hidden"]')
+        .off('overlay.change')
+        .on('overlay.change', function(e, data) {
+            var container = $(this).closest('.imageselection');
+            var src = $(data.source).closest('.ajax-content').find('[data-value="' + data.value + '"] img').attr('src');
+            var img = container.find('img');
+            console.log(img.attr('src'));
+            debugger;
+            if(img.length == 0) {
+              img = $('<img />').css({
+                'max-width': '120px',
+                'max-height': '120px'
+              });
+              container.find('.selected p').replaceWith(img);
+            }
+            img.attr('src', src);
+            console.log(img.attr('src'));
+        });
     },
 
     tags : function($context) {
@@ -24,6 +53,11 @@ var forms = {
       });
     },
 
+    datetime : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find('input[type="datetime"]').datetimepicker();
+    },
+
     repeater : function($context) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
       var repeaters = [];
@@ -31,8 +65,7 @@ var forms = {
         var root_elem = $(this).closest('.repeater-root')[0];
         root_elem.addEventListener(forge.fields.Repeater.EVT_ADDENTRY, function(data) {
           var $context = $(data.detail.entry);
-          forms.initFields($context);
-          overlay.init($context);
+          forms._init($context);
         });
         new forge.fields.Repeater(root_elem);
       });
@@ -41,7 +74,7 @@ var forms = {
     focusToggle : function($context) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
       $context
-        .find("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number']")
+        .find("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number'], input[type='url']")
         .filter(":not([data-prepared='1'])")
         .each(function() {
             $(this).attr('data-prepared', 1);
@@ -85,8 +118,9 @@ var forms = {
 
     },
 
-    additionalNavigationForm : function() {
-      $('form[action*="navigation/itemedit"').each(function() {
+    additionalNavigationForm : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find('form[action*="navigation/itemedit"]').each(function() {
         $(this).find("select#item").each(function() {
           forms.getAdditionalNavigationItemForm($(this));
 
@@ -232,8 +266,9 @@ var forms = {
         });
     },
 
-    ajax : function() {
-        $("form.ajax").each(function() {
+    ajax : function($context) {
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+        $context.find("form.ajax").each(function() {
             $(this).unbind('submit').on("submit", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();

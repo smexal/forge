@@ -9,7 +9,8 @@
 .form-group input[type="password"],
 .form-group input[type="email"],
 .form-group input[type="number"],
-.form-group input[type="datetime"] {
+.form-group input[type="datetime"],
+.form-group input[type="url"] {
   background-color: transparent;
   box-shadow: none;
   border-radius: 0px;
@@ -29,7 +30,9 @@
 .form-group input[type="number"]:focus,
 .form-group input[type="number"]:hover,
 .form-group input[type="datetime"]:focus,
-.form-group input[type="datetime"]:hover {
+.form-group input[type="datetime"]:hover,
+.form-group input[type="url"]:focus,
+.form-group input[type="url"]:hover {
   background-color: transparent;
   box-shadow: none;
 }
@@ -158,6 +161,7 @@
 }
 .img-select {
   margin-top: 30px;
+  position: relative;
 }
 .img-select > .form-group {
   padding: 0;

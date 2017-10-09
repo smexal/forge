@@ -14,6 +14,7 @@ var overlay = {
                 e.stopImmediatePropagation();
                 var value = $("#" + $(this).attr('data-open')).val();
                 var target = $("input#" + $(this).attr('data-target')).val(value);
+                target.triggerHandler('overlay.change', {value: value, target: target, source: this})
                 overlay.hide();
             });
         })
