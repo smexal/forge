@@ -2,7 +2,15 @@
     <label class="control-label" for="{$id}">{$label}</label>
     <select class="form-control{if="$chosen"} chosen-select{/if}" {if="$readonly"}disabled="true"{/if} name="{$name}" id="{$id}">
         {loop="$values"}
-            <option value="{$key}" {if="$key==$selected"}selected{/if}>{$value}</option>
+            {if="$grouped"}
+                <optgroup label="{$key}">
+                    {loop="$value"}
+                        <option value="{$key2}" {if="$key==$selected"}selected{/if}>{$value2}</option>
+                    {/loop}
+                </optgroup>
+            {else}
+                <option value="{$key}" {if="$key==$selected"}selected{/if}>{$value}</option>
+            {/if}
         {/loop}
     </select>
     {if="$hint"}<small>{$hint}</small>{/if}

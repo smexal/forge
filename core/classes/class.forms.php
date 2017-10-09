@@ -40,12 +40,12 @@ class Form {
     }
 
     public function select($args, $value='') {
-        if(array_key_exists('saved_value', $args)) {
-            $value = $args['saved_value'];
-        }
-        if(!array_key_exists('chosen', $args)) {
-            $args['chosen'] = false;
-        }
+        $value = $args['saved_value'] ?? '';
+
+        $args['chosen'] = $args['chosen'] ?? false;
+        $args['readonly'] = $args['readonly'] ?? false;
+        $args['grouped'] = $args['grouped'] ?? false;
+
         array_push($this->content, $this->app->render(CORE_TEMPLATE_DIR."assets/", "select", array(
             'name' => $args['key'],
             'id' => $args['key'],
@@ -53,7 +53,9 @@ class Form {
             'values' => $args['values'],
             'selected' => $value,
             'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false),
-            'chosen' => $args['chosen']
+            'chosen' => $args['chosen'],
+            'readonly' => $args['readonly'],
+            'grouped' => $args['grouped']
         )));
     }
 

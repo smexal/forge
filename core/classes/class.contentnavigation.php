@@ -38,45 +38,57 @@ class ContentNavigation {
     }
 
     public static function getPossibleItems() {
-        $items = array();
+        $items = [];
         $db = App::instance()->db;
-        foreach($db->get('pages') as $page) {
-            if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
+
+        $json = array_key_exists('format', $_GET) && $_GET['format'] == 'json';
+
+        $displayFormat = '%s (%s)';
+
+        // get all pages
+        $type = i('Page', 'core');
+        foreach ($db->get('pages') as $page) {
+            if ($json) {
                 $p = new Page($page['id']);
                 array_push($items, [
-                    'title' => $p->getTitle().' ('.i('Page', 'core').')',
+                    'title' => sprintf($displayFormat, $p->getTitle(), $type),
                     'value' => $p->getUrl()
                 ]);
             } else {
-                $items['page##'.$page['id']] = $page['name'].' ('.i('Page').')';
+                $items[$type]['page##'.$page['id']] = $page['name'];
             }
         }
 
-        foreach($db->get('collections') as $collection) {
-            if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
+        // get all collections
+        foreach ($db->get('collections') as $collection) {
+            $type = i($collection['type'], 'core');
+            if ($json) {
                 $c = new CollectionItem($collection['id']);
                 array_push($items, [
-                    'title' => $c->getName().' ('.i($collection['type']).')',
+                    'title' => sprintf($displayFormat, $c->getName(), $type),
                     'value' => $c->url()
                 ]);
             } else {
-                $items[$collection['type'].'##'.$collection['id']] = $collection['name'].' ('.i($collection['type']).')';
+                $items[$type][$collection['type'].'##'.$collection['id']] = $collection['name'];
             }
         }
 
-        foreach(App::instance()->vm->getNavigationViews() as $view) {
-            if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
+        // get all navigation views
+        $type = i('View', 'core');
+        foreach (App::instance()->vm->getNavigationViews() as $view) {
+            if ($json) {
                 array_push($items, [
-                    'title' => $view->title().' ('.i('View', 'core').')',
+                    'title' => sprintf($displayFormat, $view->title(), $type),
                     'value' => $view->buildURL()
                 ]);
             } else {
-                $items['view##'.$view->name] = i($view->name).' ('.i('View').')';
+                $items[$type]['view##'.$view->name] = i($view->name);
             }
         }
-        if(array_key_exists('format', $_GET) && $_GET['format'] == 'json') {
-            return json_encode($items);
-        }
+
+        if ($json)
+            $items = json_encode($items);
+
         return $items;
     }
 
@@ -267,7 +279,7 @@ class ContentNavigation {
             return $hashUrl;
         }
         switch($urlArray[0]) {
-            case 'page' : 
+            case 'page' :
                 $page = new Page($urlArray[1]);
                 return $page->getUrl();
             case 'view' :

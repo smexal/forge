@@ -21,7 +21,7 @@ class AdditemView extends View {
 
     public function content($uri=array()) {
         $this->navigation = $uri[0];
-        return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
+        return $this->app->render(CORE_TEMPLATE_DIR.'views/parts/', 'crud.modify', array(
             'title' => i('Add item to navigation'),
             'message' => $this->message,
             'form' => $this->form()
@@ -29,46 +29,47 @@ class AdditemView extends View {
     }
 
     public function onAddNavigationItem($data) {
-        $item = explode("##", $data['item']);
+        $item = explode('##', $data['item']);
         $item_id = $item[1];
         if(array_key_exists('add-to-url', $data)) {
             $item_id.'/'.$data['add-to-url'];
         }
         $this->message = ContentNavigation::addItem($data['navigation'], array(
-            "name" => $data["new_name"],
-            "parent" => $data['parent'],
-            "item" => $item_id,
-            "item_type" => $item[0]
+            'name' => $data['new_name'],
+            'parent' => $data['parent'],
+            'item' => $item_id,
+            'item_type' => $item[0]
         ));
-        App::instance()->addMessage(sprintf(i('Navigation Item %1$s has been added.'), $data['new_name']), "success");
+        App::instance()->addMessage(sprintf(i('Navigation Item %1$s has been added.'), $data['new_name']), 'success');
         App::instance()->redirect(Utils::getUrl(array('manage', 'navigation')));
     }
 
     public function form() {
         $form = new Form(Utils::getUrl(array('manage', 'navigation', 'add-item')));
-        $form->ajax(".content");
+        $form->ajax('.content');
         $form->disableAuto();
-        $form->hidden("additional-form-url", Utils::getUrl(array('api', 'edit-navigation-item-additional-form')));
-        $form->hidden("event", $this->events[0]);
-        $form->hidden("navigation", $this->navigation);
-        $form->input("new_name", "new_name", i('Item name'), 'input', '');
+        $form->hidden('additional-form-url', Utils::getUrl(array('api', 'edit-navigation-item-additional-form')));
+        $form->hidden('event', $this->events[0]);
+        $form->hidden('navigation', $this->navigation);
+        $form->input('new_name', 'new_name', i('Item name'), 'input', '');
 
         $items = ContentNavigation::getPossibleItems();
         $form->select(array(
-            "key" => 'item',
-            "label" => i('Select item'),
-            "values" => ContentNavigation::getPossibleItems(),
-            'chosen' => true
+            'key' => 'item',
+            'label' => i('Select item'),
+            'values' => $items,
+            'chosen' => true,
+            'grouped' => true
         ), '');
 
         $items = $this->getNavigationItems($this->navigation);
-        $items["0"] = i('No Parent');
+        $items['0'] = i('No Parent');
         asort($items);
 
         $form->select(array(
-            "key" => 'parent',
-            "label" => i('Select a parent item'),
-            "values" => $items
+            'key' => 'parent',
+            'label' => i('Select a parent item'),
+            'values' => $items
         ), '');
         $form->submit(i('Add item'));
         return $form->render();
