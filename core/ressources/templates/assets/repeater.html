@@ -5,8 +5,7 @@
 {/if}
     <div class="repeater-field-wrapper repeater-root" data-repeater-title="{$repeater_title}" data-repeater-max="{$max}">
         <div class="forge-template repeater-template">
-            <span class="repeater-title"></span>
-            {$fieldset_template}
+        {$repeater_template}
         </div>
         <input type="hidden" class="form-control repeater-input{if="$error"} has-error{/if}{if="isset($input_class)"} {$input_class}{/if}" {if="isset($id)"}id="{$id}"{/if} name="{$name}" type="{$type}"
             {if="$value"}value="{$value}"{/if}

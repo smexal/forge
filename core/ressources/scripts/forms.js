@@ -3,7 +3,7 @@ var forms = {
       forms._init($('body'));
     },
 
-    _init : function($context) {
+    _init : function($context, force) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
       forms.initFields($context);
 
@@ -30,18 +30,12 @@ var forms = {
             var container = $(this).closest('.imageselection');
             var src = $(data.source).closest('.ajax-content').find('[data-value="' + data.value + '"] img').attr('src');
             var img = container.find('img');
-            console.log(img.attr('src'));
-            debugger;
             if(img.length == 0) {
-              img = $('<img />').css({
-                'max-width': '120px',
-                'max-height': '120px'
-              });
+              img = $('<img />').attr('width', '80');
               container.find('.selected p').replaceWith(img);
             }
             img.attr('src', src);
-            console.log(img.attr('src'));
-        });
+        }).data('prepared', 1);
     },
 
     tags : function($context) {
@@ -55,13 +49,16 @@ var forms = {
 
     datetime : function($context) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
-      $context.find('input[type="datetime"]').datetimepicker();
+      $context.find('input[type="datetime"]:not([data-prepared="1"])')
+        .datetimepicker()
+        .data('prepared', 1);
     },
 
     repeater : function($context) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
       var repeaters = [];
-      $context.find('input.repeater-input').each(function() {
+      $context.find('input.repeater-input:not([data-prepared="1"])').each(function() {
+        $(this).data('prepared', 1)
         var root_elem = $(this).closest('.repeater-root')[0];
         root_elem.addEventListener(forge.fields.Repeater.EVT_ADDENTRY, function(data) {
           var $context = $(data.detail.entry);
@@ -120,7 +117,8 @@ var forms = {
 
     additionalNavigationForm : function($context) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
-      $context.find('form[action*="navigation/itemedit"]').each(function() {
+      $context.find('form[action*="navigation/itemedit"]:not([data-prepared="1"])').each(function() {
+        $(this).data('prepared', 1);
         $(this).find("select#item").each(function() {
           forms.getAdditionalNavigationItemForm($(this));
 

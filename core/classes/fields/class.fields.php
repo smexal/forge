@@ -394,9 +394,11 @@ class Fields {
 
         /* CREATING TEMPLATE FOR FRONTEND */
         foreach($args['subfields'] as &$subfield) {
+            //$key_prev = $subfield['key'];
             $subfield['rendered'] = static::build($subfield);
+            // Ensure that the frontend ID is NOT an ID which exists
+            //$subfield['rendered'] = preg_replace('/(name\\s*=\\s?")' . $key_prev . '(")/', '$1$2', $subfield['rendered']);
         }
-
         $fieldset_template = App::instance()->render(CORE_TEMPLATE_DIR . 'assets/', 'fieldset', [
             'fields' => $args['subfields'],
             'cls' => '',
@@ -417,7 +419,9 @@ class Fields {
             'name' => empty($args['key']) ? $args['name'] : $args['key'],
             'value' => $value ? $value : 0,
             'max' => $args['max'],
-            'fieldset_template' => $fieldset_template,
+            'repeater_template' => rawurlencode(App::instance()->render(CORE_TEMPLATE_DIR."assets/", "repeater_template", [
+                'fieldset_template' => $fieldset_template
+            ])),
             'existing_fields' => $existing_fields,
             'repeater_title' => isset($args['repeater_title']) ? $args['repeater_title'] : \i('Repeater Fieldset', 'forge'),
             'btn_add' => \i('Add', 'forge')

@@ -150,14 +150,20 @@ forge = (function(forge) {
     },
 
     createNewEntry : function() {
-      var rendered = this.template.cloneNode(true);
-      rendered.classList.remove("forge-template");
+      var tpl_string, wrapper, li;
 
-      rendered.querySelector('.repeater-title').textContent = this.repeater_title + " - %ITERATION%"
+      debugger;
+      tpl_string = this.template.innerText;
+      tpl_string = decodeURIComponent(tpl_string);
 
-      var li = document.createElement('li');
-      li.appendChild(rendered);
+      wrapper = document.createElement('div');
+      wrapper.innerHTML= tpl_string;
+
+      li = wrapper.querySelector("li");
+      li.classList.remove('repeater-entry-template');
       li.classList.add('repeater-entry');
+      li.querySelector('.repeater-title').textContent = this.repeater_title + " - %ITERATION%"
+
       this.registerEntryHandlers(li);
 
       return li;
