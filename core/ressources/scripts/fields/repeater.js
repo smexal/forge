@@ -31,6 +31,7 @@ forge = (function(forge) {
 
   var EVT_PREFIX = 'forge.fields.Repeater:';
   Repeater.EVT_ADDENTRY = EVT_PREFIX + 'addentry';
+  Repeater.EVT_REINDEX = EVT_PREFIX + 'addentry';
 
   Repeater.prototype = {
 
@@ -50,21 +51,26 @@ forge = (function(forge) {
 
       entry.querySelector('.control-add').addEventListener('click', function(e) {
         e.preventDefault();
-        self.addEntryBelow(entry, self.createNewEntry());
+
+        var new_entry = self.createNewEntry();
+        self.addEntryBelow(entry, new_entry);
       });
 
       entry.querySelector('.control-remove').addEventListener('click', function(e) {
         e.preventDefault();
+
         self.removeEntry(entry);
       });
 
       entry.querySelector('.control-up').addEventListener('click', function(e) {
         e.preventDefault();
+
         self.moveEntryUp(entry);
       });
 
       entry.querySelector('.control-down').addEventListener('click', function(e) {
         e.preventDefault();
+
         self.moveEntryDown(entry);
       });
     },
@@ -87,8 +93,10 @@ forge = (function(forge) {
 
     addEntryBelow : function(entry, new_entry) {
       if(!entry.nextElementSibling) {
-        this.appendNewEntry(entry, new_entry)
+        this.appendNewEntry(new_entry);
+        return;
       }
+      
       this.entry_container.insertBefore(new_entry, entry.nextElementSibling);
       this.reindexFields();
       this.trigger(Repeater.EVT_ADDENTRY, {entry: new_entry});
@@ -141,8 +149,25 @@ forge = (function(forge) {
           var suffix = field_wrapper.getAttribute('data-key-suffix');
           var field = field_wrapper.querySelector('[name="' + key + '"]');
           
-          field.setAttribute('name', prefix + i + suffix);
-          field_wrapper.setAttribute('data-key', prefix + i + suffix);
+
+          var new_key = prefix + i + suffix;
+          field.setAttribute('name', new_key);
+          field_wrapper.setAttribute('data-key', new_key);
+
+          var field_id = field.getAttribute('id');
+          if(field_id && field_id.match(new RegExp(prefix + '[0-9]+' + suffix))) {
+            field.setAttribute('id', new_key);
+          }
+
+          // Allow integration of special fields which need additional changes
+          // to the field id an name
+          this.trigger(Repeater.EVT_REINDEX, {
+            field: field, 
+            old_key: key, 
+            new_key: new_key, 
+            prefix: prefix, 
+            suffix: suffix
+          })
         }
       }
       this.repeater_field.value = this.entries.length;
@@ -152,7 +177,6 @@ forge = (function(forge) {
     createNewEntry : function() {
       var tpl_string, wrapper, li;
 
-      debugger;
       tpl_string = this.template.innerText;
       tpl_string = decodeURIComponent(tpl_string);
 

@@ -58,13 +58,30 @@ var forms = {
       $context = typeof $context == 'undefined' ? $('body') : $context;
       var repeaters = [];
       $context.find('input.repeater-input:not([data-prepared="1"])').each(function() {
-        $(this).data('prepared', 1)
+        $(this).attr('data-prepared', 1);
         var root_elem = $(this).closest('.repeater-root')[0];
+        
         root_elem.addEventListener(forge.fields.Repeater.EVT_ADDENTRY, function(data) {
-          var $context = $(data.detail.entry);
-          forms._init($context);
+          $(document).trigger("ajaxReload");
+        });
+
+        root_elem.addEventListener(forge.fields.Repeater.EVT_REINDEX, function(data) {
+          var label, img_select;
+          var data = data.detail;
+
+          if((label = $(data.field).closest('.form-group').find('label[for]')).length) {
+            label.attr('for', data.new_key);
+          }
+
+          // Is image media selection
+          if((img_select = $(data.field).closest('.img-select')).length) {
+            var link = img_select.find('a.fullscreen-overlay');
+            var href = link.attr('href').replace(/(.*&target=)[^&]+(.*)/, '$1' + data.new_key + '$2');
+            link.attr('href', href);
+          }
         });
         new forge.fields.Repeater(root_elem);
+        
       });
     },
 
