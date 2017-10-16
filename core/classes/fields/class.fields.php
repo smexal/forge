@@ -372,6 +372,63 @@ class Fields {
         ));
     }
 
+    public static function repeater($args, $value='') {
+        static $defaults = [
+            'layout' => 'horizontal',
+            'label' => '',
+            'max' => -1,
+            'subfields' => [],
+            'hint' => '',
+            'type' => 'text',
+            'group_class' => '',
+            'input_class' => '',
+            'error' => false,
+            'hor' => false,
+            'data_attrs' => []
+        ];
+
+        $args = array_merge($defaults, $args);
+        if(!isset($args['subfields']) || !isset($args['rendered_subfields'])) {
+            throw new \Exception("Please use FieldBuilder to create repeater Fields!");
+        }
+
+        /* CREATING TEMPLATE FOR FRONTEND */
+        foreach($args['subfields'] as &$subfield) {
+            //$key_prev = $subfield['key'];
+            $subfield['rendered'] = static::build($subfield);
+            // Ensure that the frontend ID is NOT an ID which exists
+            //$subfield['rendered'] = preg_replace('/(name\\s*=\\s?")' . $key_prev . '(")/', '$1$2', $subfield['rendered']);
+        }
+        $fieldset_template = App::instance()->render(CORE_TEMPLATE_DIR . 'assets/', 'fieldset', [
+            'fields' => $args['subfields'],
+            'cls' => '',
+            'cls_subfield' => 'repeater-entry-field'
+        ]);
+
+        /* CREATING INPUT SET FOR FRONTEND */
+        $existing_fields = [];
+        foreach($args['rendered_subfields'] as $key => $subfield_set) {
+            $existing_fields[] = App::instance()->render(CORE_TEMPLATE_DIR . 'assets/', 'fieldset', [
+                'fields' => $subfield_set,
+                'cls' => '',
+                'cls_subfield' => 'repeater-entry-field'
+            ]);
+        }
+
+        $args = array_merge($defaults, [
+            'name' => empty($args['key']) ? $args['name'] : $args['key'],
+            'value' => $value ? $value : 0,
+            'max' => $args['max'],
+            'repeater_template' => rawurlencode(App::instance()->render(CORE_TEMPLATE_DIR."assets/", "repeater_template", [
+                'fieldset_template' => $fieldset_template
+            ])),
+            'existing_fields' => $existing_fields,
+            'repeater_title' => isset($args['repeater_title']) ? $args['repeater_title'] : \i('Repeater Fieldset', 'forge'),
+            'btn_add' => \i('Add', 'forge')
+        ]);
+
+         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "repeater", $args);
+    }
 
     private static function getRelevantValue($args, $value) {
         if (array_key_exists('saved_value', $args)) {

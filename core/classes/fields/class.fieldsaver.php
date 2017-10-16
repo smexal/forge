@@ -6,20 +6,40 @@ use \Forge\Core\App\App;
 use \Forge\Core\Classes\Localization;
 
 class FieldSaver {
+
     public static function save($item, $field, $data) {
+/*        if($field['key'] == 'myrepeater_0_comments') {
+            error_log(print_r($item, 1));
+            error_log(print_r($field, 1));
+            error_log(print_r($data, 1));
+            die();  
+        }*/
         $lang = static::determineLang($field, $data['language']);
 
         $data_source = isset($field['data_source']) ? $field['data_source'] : 'meta';
         
-        $value       = $data[$field['key']];
-        $value       = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
+        $value = isset($data[$field['key']]) ? $data[$field['key']] : null;
+        $value = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
 
-        $callable = [__CLASS__, 'save' .ucfirst($data_source)];
+        $callable = [__CLASS__, 'save' . ucfirst($data_source)];
         $callable = is_callable($callable) ? $callable : $data_source;
+
         if(!is_callable($callable)) {
-            throw new \Exception("Can not save field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
+            throw new \Exception("Can not save field {$field['key']} via the data_source " . substr(print_r($data_source,1), 0,100));
         }
         call_user_func_array($callable, [$item, $field, $value, $lang]);
+        
+        if(isset($field['subfields'])) {
+            $field_count = $value === '' && isset($field['init_count']) ? $field['init_count'] : $value; 
+
+            for($i = 0; $i < $field_count; $i++) {
+                $field = FieldUtils::assignSubfieldKeys($field, $i);
+                
+                foreach($field['subfields'] as $subfield) {
+                    FieldSaver::save($item, $subfield, $data);
+                }
+            }
+        }
     }
 
     private static function saveMeta($item, $field, $value, $lang) {
@@ -53,6 +73,12 @@ class FieldSaver {
             throw new \Exception("Can not remove field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
         }
         call_user_func_array($callable, [$item, $field, '', $lang]);
+
+        if(isset($field['subfields'])) {
+            foreach($field['subfields'] as &$subfield) {
+                FieldSaver::remove($item, $subfield, $data);
+            }
+        }
     }
 
     private static function removeMeta($item, $field, $key, $lang) {

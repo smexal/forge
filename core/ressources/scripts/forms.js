@@ -1,22 +1,97 @@
 var forms = {
     init : function() {
-        forms.ajax();
-        forms.tags();
-        forms.helperlinks();
-        forms.readOnlyInput();
-        forms.additionalNavigationForm();
-        forms.focusToggle();
+      forms._init($('body'));
     },
 
-    tags : function() {
+    _init : function($context, force) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      forms.initFields($context);
+
+      forms.additionalNavigationForm($context);
+      forms.ajax($context);
+    },
+
+    initFields : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      forms.helperlinks($context);
+      forms.imageselector($context);
+      forms.tags($context);
+      forms.repeater($context);
+      forms.datetime($context);
+      forms.readOnlyInput($context);
+      forms.focusToggle($context);
+    },
+
+    imageselector : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find('.imageselection input[type="hidden"]')
+        .off('overlay.change')
+        .on('overlay.change', function(e, data) {
+            var container = $(this).closest('.imageselection');
+            var src = $(data.source).closest('.ajax-content').find('[data-value="' + data.value + '"] img').attr('src');
+            var img = container.find('img');
+            if(img.length == 0) {
+              img = $('<img />').attr('width', '80');
+              container.find('.selected p').replaceWith(img);
+            }
+            img.attr('src', src);
+        }).data('prepared', 1);
+    },
+
+    tags : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
       var self = this;
-      $("input.tags").each(function() {
+      $context.find("input.tags:not([data-prepared='1'])").each(function() {
+        $(this).attr('data-prepared', 1);
         self.init_tag(this);
       });
     },
 
-    focusToggle : function() {
-        $("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number']").each(function() {
+    datetime : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find('input[type="datetime"]:not([data-prepared="1"])')
+        .datetimepicker()
+        .data('prepared', 1);
+    },
+
+    repeater : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      var repeaters = [];
+      $context.find('input.repeater-input:not([data-prepared="1"])').each(function() {
+        $(this).attr('data-prepared', 1);
+        var root_elem = $(this).closest('.repeater-root')[0];
+        
+        root_elem.addEventListener(forge.fields.Repeater.EVT_ADDENTRY, function(data) {
+          $(document).trigger("ajaxReload");
+        });
+
+        root_elem.addEventListener(forge.fields.Repeater.EVT_REINDEX, function(data) {
+          var label, img_select;
+          var data = data.detail;
+
+          if((label = $(data.field).closest('.form-group').find('label[for]')).length) {
+            label.attr('for', data.new_key);
+          }
+
+          // Is image media selection
+          if((img_select = $(data.field).closest('.img-select')).length) {
+            var link = img_select.find('a.fullscreen-overlay');
+            var href = link.attr('href').replace(/(.*&target=)[^&]+(.*)/, '$1' + data.new_key + '$2');
+            link.attr('href', href);
+          }
+        });
+        new forge.fields.Repeater(root_elem);
+        
+      });
+    },
+
+    focusToggle : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context
+        .find("input[type='text'], input[type='password'], input[type='email'], input[type='input'], textarea, input[type='datetime'], input[type='number'], input[type='url']")
+        .filter(":not([data-prepared='1'])")
+        .each(function() {
+            $(this).attr('data-prepared', 1);
             if($(this).val().length > 0) {
                 $(this).parent().addClass('focus');
                 if($(this).parent().hasClass("input-group")) {
@@ -57,8 +132,10 @@ var forms = {
 
     },
 
-    additionalNavigationForm : function() {
-      $('form[action*="navigation/itemedit"').each(function() {
+    additionalNavigationForm : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find('form[action*="navigation/itemedit"]:not([data-prepared="1"])').each(function() {
+        $(this).data('prepared', 1);
         $(this).find("select#item").each(function() {
           forms.getAdditionalNavigationItemForm($(this));
 
@@ -88,8 +165,10 @@ var forms = {
       }
     },
 
-    readOnlyInput : function() {
-      $("label").each(function() {
+    readOnlyInput : function($context) {
+      $context = typeof $context == 'undefined' ? $('body') : $context;
+      $context.find("label:not([data-prepared='1'])").each(function() {
+        $(this).attr('data-prepared', 1);
         $(this).on('click', function() {
           var target = $('input#' + $(this).attr('for'));
           target.removeAttr('readonly');
@@ -193,16 +272,18 @@ var forms = {
       });
     },
 
-    helperlinks : function() {
-        $("a.set-value").unbind("click").on('click', function() {
+    helperlinks : function($context) {
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+        $context.find("a.set-value").unbind("click").on('click', function() {
             $("input#" + $(this).data('target')).val($(this).data('value'));
             $(this).parent().find(".active").removeClass('active');
             $(this).addClass('active');
         });
     },
 
-    ajax : function() {
-        $("form.ajax").each(function() {
+    ajax : function($context) {
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+        $context.find("form.ajax").each(function() {
             $(this).unbind('submit').on("submit", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();

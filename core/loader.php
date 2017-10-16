@@ -220,6 +220,7 @@ class Loader {
       $this->addScript("core/ressources/scripts/tinymce.js");
       $this->addScript("core/ressources/scripts/helpers.js");
       $this->addScript("core/ressources/scripts/ajaxlinks.js");
+      $this->addScript("core/ressources/scripts/fields/repeater.js");
       $this->addScript("core/ressources/scripts/forms.js");
       $this->addScript("core/ressources/scripts/messages.js");
       $this->addScript("core/ressources/scripts/overlay.js");

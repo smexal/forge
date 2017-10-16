@@ -9,7 +9,8 @@
     input[type="password"],
     input[type="email"],
     input[type="number"],
-    input[type="datetime"] {
+    input[type="datetime"],
+    input[type="url"] {
         background-color: transparent;
         box-shadow: none;
         border-radius: 0px;
@@ -135,6 +136,35 @@
         }
     }
 
+    /* REPEATER FIELD START */
+    .forge-template {
+        display: none;
+    }
+
+    .repeater-field-wrapper {
+        .repeater-content > li {
+            padding: 2rem;
+            border: 1px solid @color-gray-middle;
+        }
+        .material-icons {
+            cursor: pointer;
+            -webkit-touch-callout: none; /* iOS Safari */
+             -webkit-user-select: none; /* Safari */
+              -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                 -ms-user-select: none; /* Internet Explorer/Edge */
+                     user-select: none; /* Non-prefixed version, currently
+                                          supported by Chrome and Opera */
+        }
+        .controls {
+            .control {
+                float: left;
+                display: inline-block;
+            }
+        }
+    }
+    /* REPEATER FIELD END */
+
     small {
         color: @color-gray-middle;
         font-size: 80%;
@@ -143,6 +173,7 @@
 }
 .img-select {
     margin-top: 30px;
+    position: relative;
     > .form-group {
         padding: 0;
         margin: 0;
