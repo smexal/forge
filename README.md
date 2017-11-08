@@ -99,89 +99,90 @@ Collections can define fields which are then represented in the frontend of the 
 
 #### Repeater
 Example:
-```
-[
-                'key' => 'myrepeater',
-                'label' => \i('Maaai Repeater', 'forge-tournaments'),
-                'multilang' => false,
-                'type' => 'repeater',
-                'order' => 10,
-                'position' => 'left',
-                'hint' => i('Select the participant status', 'forge-tournaments'),
-                'subfields' => [
-                     [
-                        'key' => 'alpha',
-                        'label' => i('Alpha', 'forge-tournaments'),
-                        'value' => "val_alpha",
-                        'multilang' => false,
-                        'type' => 'text',
-                        'hint' => i('Short key', 'forge-tournaments')
-                    ],
-                    [
-                        'key' => 'url',
-                        'label' => i('Website', 'forge-tournaments'),
-                        'value' => "",
-                        'multilang' => true,
-                        'type' => 'url',
-                        'order' => 60,
-                        'position' => 'right',
-                        'hint' => i('Link to the website', 'forge-tournaments')
-                    ],
-                    [
-                        'key' => 'image_logo',
-                        'label' => i('Logo', 'forge-tournaments'),
-                        'value' => "",
-                        'multilang' => true,
-                        'type' => 'image',
-                        'order' => 70,
-                        'position' => 'right',
-                        'hint' => i('Logo', 'forge-tournaments')
-                    ],
-                    [
-                        'key' => 'qc_action', 
-                        'label' => \i('Action', 'forge-quests'),
-                        'values' => [
-                            'alpha' => 'Alpha',
-                            'beta' => 'Beta',
-                            'gamma' => 'Gamma',
-                            'delta' => 'Delta',
-                            'yotta' => 'Yotta'
-                        ],
-                        'value' => 'gamma',
-                        'multilang' => false,
-                        'type' => 'select',
-                        'order' => 20,
-                        'position' => 'left'
-                    ],
-                    [
-                        'key' => 'comments',
-                        'label' => i('Allow Comments (Disqus)', 'forge-news'),
-                        'multilang' => true,
-                        'type' => 'checkbox',
-                        'order' => 20,
-                        'position' => 'right',
-                        'hint' => ''
-                    ],
-                     [
-                        'key' => 'end-date',
-                        'label' => i('End Date', 'forge-events'),
-                        'multilang' => true,
-                        'type' => 'datetime',
-                        'order' => 30,
-                        'position' => 'right',
-                        'hint' => ''
-                    ],
-                    [
-                        'key' => 'price',
-                        'label' => i('Event Price', 'forge-events'),
-                        'multilang' => true,
-                        'type' => 'number',
-                        'order' => 19,
-                        'position' => 'right',
-                        'hint' => ''
-                    ]
-                ]
-            ]
+```php
+$repeater_field [
+'key' => 'myrepeater',
+    'label' => \i('Maaai Repeater', 'forge-tournaments'),
+    'multilang' => false,
+    'type' => 'repeater',
+    'order' => 10,
+    'position' => 'left',
+    'hint' => i('Select the participant status', 'forge-tournaments'),
+    'subfields' => [
+         [
+            'key' => 'alpha',
+            'label' => i('Alpha', 'forge-tournaments'),
+            'value' => "val_alpha",
+            'multilang' => false,
+            'type' => 'text',
+            'hint' => i('Short key', 'forge-tournaments')
+        ],
+        [
+            'key' => 'url',
+            'label' => i('Website', 'forge-tournaments'),
+            'value' => "",
+            'multilang' => true,
+            'type' => 'url',
+            'order' => 60,
+            'position' => 'right',
+            'hint' => i('Link to the website', 'forge-tournaments')
+        ],
+        [
+            'key' => 'image_logo',
+            'label' => i('Logo', 'forge-tournaments'),
+            'value' => "",
+            'multilang' => true,
+            'type' => 'image',
+            'order' => 70,
+            'position' => 'right',
+            'hint' => i('Logo', 'forge-tournaments')
+        ],
+        [
+            'key' => 'qc_action', 
+            'label' => \i('Action', 'forge-quests'),
+            'values' => [
+                'alpha' => 'Alpha',
+                'beta' => 'Beta',
+                'gamma' => 'Gamma',
+                'delta' => 'Delta',
+                'yotta' => 'Yotta'
+            ],
+            'value' => 'gamma',
+            'multilang' => false,
+            'type' => 'select',
+            'order' => 20,
+            'position' => 'left'
+        ],
+        [
+            'key' => 'comments',
+            'label' => i('Allow Comments (Disqus)', 'forge-news'),
+            'multilang' => true,
+            'type' => 'checkbox',
+            'order' => 20,
+            'position' => 'right',
+            'hint' => ''
+        ],
+         [
+            'key' => 'end-date',
+            'label' => i('End Date', 'forge-events'),
+            'multilang' => true,
+            'type' => 'datetime',
+            'order' => 30,
+            'position' => 'right',
+            'hint' => ''
+        ],
+        [
+            'key' => 'price',
+            'label' => i('Event Price', 'forge-events'),
+            'multilang' => true,
+            'type' => 'number',
+            'order' => 19,
+            'position' => 'right',
+            'hint' => ''
+        ]
+    ]
+];
+             
 ```
 ## Metas
 TBD
@@ -191,7 +192,7 @@ TBD
 ### Registering new relations in the Relation Directory
 Example at: https://github.com/smexal/forge-tournaments/blob/master/module.php#L65
             https://github.com/smexal/forge-tournaments/blob/master/collections/collection.phase.php#L42
-```            
+```php            
  \registerModifier('Forge/Core/RelationDirectory/collectRelations', 
     'my_new_relations');
 function my_new_relations($existing) {
@@ -209,7 +210,7 @@ function my_new_relations($existing) {
 
 ### Retrieving new relations
 Example at: https://github.com/smexal/forge/blob/master/core/classes/class.fieldloader.php#L32
-```
+```php
 $relation = $field['relation'];
 $relation = App::instance()->rd->getRelation($relation['identifier']);
 // The special case of Direction::REVERSED is not yet implemented here
@@ -221,7 +222,7 @@ $list_of_collections = $relation->getOfLeft($item->id, Prepares::AS_INSTANCE_RIG
 
 ### Saving or Adding relations
 Example at: https://github.com/smexal/forge/blob/master/core/classes/class.fieldsaver.php#L32
-```
+```php
 $relation = $field['relation'];
 $rel = App::instance()->rd->getRelation($relation['identifier']);
 // Maxes a diff from the items in the DB then removes the missing won in $right_item_ids and adds the new one
