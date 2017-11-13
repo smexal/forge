@@ -233,15 +233,15 @@ $rel->addMultiple($r_item->id, [42, 1337, 80085]);
 ```
 
 # Migrations
-Modules often need to be updated. Forge provides a migration interface which checks different migration steps and orders them correctly based on the provided versions.
-For this to work you have to place you migraion in the mirations folder as followed:
+Modules often need to be updated. Forge provides a migration interface which checks different migration steps and orders and executes  them based on the provided versions.
+For this to work you have to place you migraion in the mirations folder as following. Make shure the foldername and the file prefix are correctly named. The file part "forgetournaments" in the example below defines the classname used inside the file.
 ```
 modules/forge-tournament
 |_migrations
   |_migration.forgetournaments_0_0_1.php
 ```
 ## Example Class
-Not the Namespace, Classname and interface which is used. Make shure that your migration class defines a unique identifier. This, because the consecutive versions are identified by the identifier and targetversion.
+Note the namespace, class name and interface which is used. Make sure that your migration class defines a unique identifier. This is necessary for correctly executed, consecutive versions. Forge only executes the migrations which habe a bigger target version as currently is stated in the database.
 ```
 <?php
 namespace Forge\Modules\ForgeTournaments;
