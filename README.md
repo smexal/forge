@@ -231,3 +231,66 @@ $rel->setRightItems($item->id, $right_item_ids);
 $rel->add($r_item->id, $r_item->id);
 $rel->addMultiple($r_item->id, [42, 1337, 80085]);
 ```
+
+# Migrations
+Modules often need to be updated. Forge provides a migration interface which checks different migration steps and orders them correctly based on the provided versions.
+For this to work you have to place you migraion in the mirations folder as followed:
+```
+modules/forge-tournament
+|_migrations
+  |_migration.forgetournaments_0_0_1.php
+```
+## Example Class
+Not the Namespace, Classname and interface which is used. Make shure that your migration class defines a unique identifier. This, because the consecutive versions are identified by the identifier and targetversion.
+```
+<?php
+namespace Forge\Modules\ForgeTournaments;
+
+use Forge\Core\Traits\Singleton;
+use Forge\Core\Interfaces\IMigration;
+
+use Forge\Core\App\App;
+
+class Forgetournaments_0_0_1Migration implements IMigration {
+    use Singleton;
+    
+    public static function identifier() {
+        return 'forge-torunaments';
+    }
+
+    public static function targetversion() {
+        return '0.0.1';
+    }
+
+    public static function oninstall() {
+        return true;
+    }
+
+    public static function prepare() {
+
+    }
+
+    public static function execute() {
+        try {
+            App::instance()->db->startTransaction();
+            App::instance()->db->query(
+                'CREATE TABLE `ft_datastorage` (
+                    `ref_type` VARCHAR(32) NOT NULL,
+                    `ref_id` INT(11) NOT NULL,
+                    `source` VARCHAR(16) NOT NULL,
+                    `group` VARCHAR(16) NOT NULL,
+                    `key` VARCHAR(16) NOT NULL,
+                    `value` VARCHAR(64),
+                    `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (`ref_type`, `ref_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;'
+            );
+            App::instance()->db->commit();
+        } catch (Exception $e) {
+            App::instance()->db->rollback();
+        }
+
+    }
+}
+```
+
