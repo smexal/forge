@@ -7,8 +7,7 @@ use Forge\Core\App\Auth;
 use Forge\Core\Classes\Localization;
 use Forge\Core\Classes\Utils;
 
-class LocalesView extends View
-{
+class LocalesView extends View {
     public $parent = 'manage';
     public $name = 'locales';
     public $permission = 'manage.locales';
@@ -16,8 +15,7 @@ class LocalesView extends View
         'manage.locales.add'
     );
 
-    public function content($uri = array())
-    {
+    public function content($uri = array()) {
         if (count($uri) > 0) {
             if ($uri[0] == 'set-default') {
                 Localization::setDefault($uri[1]);
@@ -31,8 +29,7 @@ class LocalesView extends View
         }
     }
 
-    public function ownContent()
-    {
+    public function ownContent() {
         return $this->app->render(CORE_TEMPLATE_DIR . "views/", "locales", array(
             'title' => i('Language Configuration'),
             'add' => i('Add language'),
@@ -42,8 +39,7 @@ class LocalesView extends View
         ));
     }
 
-    private function languageTable()
-    {
+    private function languageTable() {
         return $this->app->render(CORE_TEMPLATE_DIR . "assets/", "table", array(
             'id' => "languageTable",
             'th' => array(
@@ -55,8 +51,7 @@ class LocalesView extends View
         ));
     }
 
-    private function getLanguageRows()
-    {
+    private function getLanguageRows() {
         $languages = $this->app->db->get('languages');
         $language_prepared = [];
         foreach ($languages as $language) {
@@ -71,8 +66,7 @@ class LocalesView extends View
         return $language_prepared;
     }
 
-    private function setDefaultAction($id, $isDefault)
-    {
+    private function setDefaultAction($id, $isDefault) {
         return $this->app->render(CORE_TEMPLATE_DIR . "assets/", "table.actions", array(
             'actions' => array(
                 array(
