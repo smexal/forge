@@ -6,8 +6,8 @@ use Forge\Core\App\App;
 use Forge\Core\Interfaces\ICollectionItem;
 
 class CollectionItem implements ICollectionItem {
+    // @depricated Will be set private in the next major update. Use getID instead
     public $id = null;
-    // TODO: DO NOT have the dependency on the db inside each collection item, Relocate it
     private $db = null;
     private $base_data = null;
     private $meta = null;
@@ -24,6 +24,10 @@ class CollectionItem implements ICollectionItem {
         $this->base_data = $this->db->getOne('collections');
 
         $this->bodyclass.= ' '.$this->base_data['type'];
+    }
+
+    public function getID() {
+        return $this->id;
     }
 
     public function getCollection() {
