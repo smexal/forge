@@ -367,6 +367,10 @@ abstract class DataCollection implements IDataCollection {
         array_push($this->customConfiguration, $field);
     }
 
+    /**
+     * No duplicate check is performed here.
+     * If necessary
+     */
     public function addFields( $fields=array() ) {
         foreach ($fields as $field) {
             if (is_array($field)) {
@@ -374,6 +378,40 @@ abstract class DataCollection implements IDataCollection {
             }
         }
     }
+
+    /**
+     * This ensures that a field key is only once inside the field list.
+     * 
+     * Use this function inside the method itemDependentFields
+     */
+    public function addUniqueFields($fields=array()) {
+        foreach ($fields as $field) {
+            if (!is_array($field)) {
+                Logger::debug('<field> is not an array');
+                continue;
+            }
+            if(-1 === ($idx = $this->getFieldIdx($field['key']))) {
+                $this->addField($field);
+            } else {
+                $this->replaceField($idx, $field);
+            }
+        }
+    }
+
+    protected function getFieldIdx($key) {
+        foreach($this->customFields as $idx => $field) {
+            if($field['key'] == $key) {
+                return $idx;
+            }
+        }
+        return -1;
+    }
+
+    protected function replaceField($idx, $field) {
+        $field = $this->prepareField($field);
+        $this->customFields[$idx] = $field;
+    }
+
 
     private function getCategoriesForSelection($parent = 0, $level = 0) {
         $returnable = array();
@@ -460,6 +498,11 @@ abstract class DataCollection implements IDataCollection {
       }
 
     public function addField($field=array()) {
+        $field = $this->prepareField($field);
+        array_push($this->customFields, $field);
+    }
+
+    protected function prepareField($field) {
         if (! array_key_exists('key', $field)) {
             Logger::debug('<key> for field not set: '.implode(", ", $field));
             return;
@@ -482,7 +525,7 @@ abstract class DataCollection implements IDataCollection {
         if (! array_key_exists('hint', $field)) {
             $field['hint'] = false;
         }
-        array_push($this->customFields, $field);
+        return $field;
     }
 
     public function configuration() {
