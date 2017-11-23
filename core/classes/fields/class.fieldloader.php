@@ -14,7 +14,7 @@ class FieldLoader {
         $lang = static::getFieldLanguage($field, $lang);
         $data_source = isset($field['data_source_load']) ? $field['data_source_load'] : 'meta';
         
-        if(!is_array($callable)) {
+        if(!is_array($data_source)) {
             $callable = [__CLASS__, 'load' .ucfirst($data_source)];
             $callable = is_callable($callable) ? $callable : $data_source;
         }

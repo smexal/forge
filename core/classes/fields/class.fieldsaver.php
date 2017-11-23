@@ -69,7 +69,7 @@ class FieldSaver {
 
         $data_source = isset($field['data_source_remove']) ? $field['data_source_remove'] : 'meta';
 
-        if(!is_array($callable)) {
+        if(!is_array($data_source)) {
             $callable = [__CLASS__, 'remove' .ucfirst($data_source)];
             $callable = is_callable($callable) ? $callable : $data_source;
         }
