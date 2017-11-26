@@ -40,6 +40,10 @@ class CollectionItem implements ICollectionItem {
             $item->insertMultipleMeta($metas);
         }
 
+        if(is_numeric($args['parent'])) {
+            $item->setParent($args['parent']);
+        }
+
         return $item_id;
     }
 
@@ -213,6 +217,21 @@ class CollectionItem implements ICollectionItem {
           ));
       }
       return App::instance()->redirect('denied');
+  }
+
+  public function setParent($parent_id) {
+    $db->reset();
+    $db->where('item_left', $parent_id);
+    $db->where('item_right', $this->getID());
+    $db->where('name', DefaultRelations::PARENT_OF);
+    $db->delete('relations');
+  }
+
+  public function removeParent() {
+    $db->reset();
+    $db->where('item_right', $this->getID());
+    $db->where('name', DefaultRelations::PARENT_OF);
+    $db->delete('relations');
   }
 
   /**

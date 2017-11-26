@@ -85,7 +85,7 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function items($settings = array()) {
-        $settings['type'] = $this->name;
+        $settings['name'] = $this->name;
         return CollectionQuery::items($settings);
     }
 

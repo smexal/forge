@@ -5,13 +5,14 @@ namespace Forge\Core\Abstracts;
 use Forge\Core\App\App;
 use Forge\Core\Interfaces\ICollectionItem;
 use Forge\Core\Classes\Relations\Enums\DefaultRelations;
+use Forge\Core\Classes\CollectionItem;
 
 class CollectionQuery {
     const AS_IDS = 0x1;
     const AS_ARRAYS = 0x2;
     const AS_COLLECTIONS = 0x3;
 
-    public abstract function getCollection($type) {
+    public static function getCollection($type) {
         return App::instance()->cm->getCollection($type);
     }
 
@@ -80,7 +81,7 @@ class CollectionQuery {
             }
             if($prepare == CollectionQuery::AS_COLLECTIONS) {
                 array_push($item_objects, $obj);
-            } else if($prepare == CollectionQuery::AS_ARRAYS) }
+            } else if($prepare == CollectionQuery::AS_ARRAYS) {
                 array_push($item_objects, $item);
             } else {
                 array_push($item_objects, $item['id']);
@@ -88,5 +89,6 @@ class CollectionQuery {
         }
 
         return $item_objects;
+    }
 
 }
