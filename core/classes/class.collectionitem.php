@@ -26,6 +26,24 @@ class CollectionItem implements ICollectionItem {
         $this->bodyclass.= ' '.$this->base_data['type'];
     }
 
+    public static function create($args, $metas=array()) {
+        $db = App::instance()->db;
+        $item_id = $db->insert('collections', array(
+          'sequence' => 0,
+          'name' => $args['name'],
+          'type' => $args['type'],
+          'author' => App::instance()->user->get('id')
+        ));
+
+        if(count($metas)) {
+            $item = new CollectionItem($item_id);
+            $item->insertMultipleMeta($metas);
+        }
+
+        return $item_id;
+    }
+
+
     public function getID() {
         return $this->id;
     }
@@ -135,6 +153,16 @@ class CollectionItem implements ICollectionItem {
         ));
     }
 
+      public function insertMultipleMeta($metas) {
+        foreach($metas as $key => &$value) {
+            $value['item'] = $this->id;
+            if(!isset($value['keyy']) && is_string($key)) {
+                $value['keyy'] = $key;
+            }
+        }
+        $this->db->insertMultiple('collection_meta', $metas);
+      }
+
       public function insertMeta($key, $value, $language) {
         if(strlen($value) == 0) {
             return;
@@ -185,6 +213,28 @@ class CollectionItem implements ICollectionItem {
           ));
       }
       return App::instance()->redirect('denied');
+  }
+
+  /**
+   * Removes this item completely from the DB
+   */
+  public function delete() {
+    $db = App::instance()->db;
+
+    $db->reset();
+    $db->where('id', $id);
+    $db->delete('collections');
+
+    $db->reset();
+    $db->where('item_id', $id);
+    $db->delete('collection_meta');
+    
+    $db->reset();
+    $db->where('item_left', $id);
+    $db->where('name', DefaultRelations::PARENT_OF);
+    $db->delete('relations');
+
+    \fireEvent('Forge/Core/CollectionItem/delete', $item);
   }
 
   private function collectionLogin() {

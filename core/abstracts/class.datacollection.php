@@ -84,61 +84,9 @@ abstract class DataCollection implements IDataCollection {
         return false;
     }
 
-    /**
-     * Fetch collectionitems based on the provided filter params
-     *
-     * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
-     */
     public function items($settings = array()) {
-        $db = App::instance()->db;
-        if (array_key_exists('order', $settings)) {
-            $direction = 'asc';
-            if(array_key_exists('order_direction', $settings)) {
-                $direction = $settings['order_direction'];
-            }
-            $db->orderBy($settings['order'], $direction);
-        }
-        $limit = false;
-        if (array_key_exists('limit', $settings)) {
-            $limit = $settings['limit'];
-        }
-        $db->where('type', $this->name);
-
-        if(array_key_exists('query', $settings)) {
-            $db->where('name', $db->escape($settings['query']), 'LIKE');
-        }
-
-        if(array_key_exists('meta_query', $settings)) {
-            $idx = -1;
-            foreach($settings['meta_query'] as $key => $value) {
-                $idx++;
-                $as_key = "cm_{$idx}";
-                $db->join("collection_meta $as_key", "collections.id = {$as_key}.item", 'RIGHT');
-                $db->where("{$as_key}.keyy", $key);
-                $db->where("{$as_key}.value", $value);
-            }
-        }
-
-        if (!$limit) {
-            $items = $db->get('collections');
-        } else {
-            $items = $db->get('collections', $limit);
-        }
-
-        $item_objects = array();
-        foreach ($items as $item) {
-            $obj = new CollectionItem($item['id']);
-            if (array_key_exists('status', $settings)) {
-                if ($settings['status'] == 'published' || $settings['status'] == 'draft') {
-                    if ($obj->getMeta('status') != $settings['status']) {
-                        continue;
-                    }
-                }
-            }
-            array_push($item_objects, $obj);
-        }
-
-        return $item_objects;
+        $settings['type'] = $this->name;
+        return CollectionQuery::items($settings);
     }
 
     public function slug() {
@@ -228,7 +176,7 @@ abstract class DataCollection implements IDataCollection {
               }
               FieldSaver::save($item, $field, $data);
           }
-         \fireEvent('/Forge/Core/DataCollection/save', $item);
+         \fireEvent('Forge/Core/DataCollection/save', $item);
       } else {
           App::instance()->addMessage(i('Unable to save item, Item does not exist'));
       }
