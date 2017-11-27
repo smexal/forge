@@ -28,11 +28,15 @@ class CollectionItem implements ICollectionItem {
 
     public static function create($args, $metas=array()) {
         $db = App::instance()->db;
+        
+        if(!isset($args['author'])) {
+            $args['author'] = -1;
+        }
         $item_id = $db->insert('collections', array(
           'sequence' => 0,
           'name' => $args['name'],
           'type' => $args['type'],
-          'author' => App::instance()->user->get('id')
+          'author' => $args['author']
         ));
 
         if(count($metas)) {
@@ -40,7 +44,7 @@ class CollectionItem implements ICollectionItem {
             $item->insertMultipleMeta($metas);
         }
 
-        if(is_numeric($args['parent'])) {
+        if(isset($args['parent']) && is_numeric($args['parent'])) {
             $item->setParent($args['parent']);
         }
 
@@ -164,7 +168,7 @@ class CollectionItem implements ICollectionItem {
                 $value['keyy'] = $key;
             }
         }
-        $this->db->insertMultiple('collection_meta', $metas);
+        $this->db->insertMulti('collection_meta', $metas);
       }
 
       public function insertMeta($key, $value, $language) {
