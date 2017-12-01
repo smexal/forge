@@ -6,6 +6,9 @@ use Forge\Core\App\App;
 use Forge\Core\Interfaces\ICollectionItem;
 
 class CollectionItem implements ICollectionItem {
+    const AS_ID = 0x1;
+    const AS_ITEM = 0x2;
+
     // @depricated Will be set private in the next major update. Use getID instead
     public $id = null;
     private $db = null;
@@ -18,7 +21,12 @@ class CollectionItem implements ICollectionItem {
         $this->db = App::instance()->db;
         
         $this->db->where('item', $this->id);
-        $this->meta = $this->db->get('collection_meta');
+
+        $this->meta = [];
+        $metas = $this->db->get('collection_meta');
+        foreach($metas as $set) {
+            $this->meta[$set['keyy']] = $set;
+        }
 
         $this->db->where('id', $this->id);
         $this->base_data = $this->db->getOne('collections');
@@ -26,7 +34,7 @@ class CollectionItem implements ICollectionItem {
         $this->bodyclass.= ' '.$this->base_data['type'];
     }
 
-    public static function create($args, $metas=array()) {
+    public static function create($args, $metas=array(), $prepare=CollectionItem::AS_ID) {
         $db = App::instance()->db;
         
         if(!isset($args['author'])) {
@@ -39,8 +47,14 @@ class CollectionItem implements ICollectionItem {
           'author' => $args['author']
         ));
 
-        if(count($metas)) {
+        if($prepare == CollectionItem::AS_ITEM ||
+            count($metas) ||
+            (isset($args['parent']) && is_numeric($args['parent']))
+        ) {
             $item = new CollectionItem($item_id);
+        }
+
+        if(count($metas)) {
             $item->insertMultipleMeta($metas);
         }
 
@@ -48,6 +62,9 @@ class CollectionItem implements ICollectionItem {
             $item->setParent($args['parent']);
         }
 
+        if($prepare == CollectionItem::AS_ITEM) {
+            return $item;
+        }
         return $item_id;
     }
 
@@ -145,30 +162,42 @@ class CollectionItem implements ICollectionItem {
         }
     }
 
-    public function deleteMeta($key, $language) {
+    public function deleteMeta($key, $language='0') {
         $this->db->where('keyy', $key);
         $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->delete('collection_meta');
+        unset($this->metas[$key]);
     }
 
-    public function setMeta($key, $value, $language) {
+    public function setMeta($key, $value, $language='0') {
         $this->db->where('keyy', $key);
         $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->update('collection_meta', array(
             'value' => $value
         ));
+        $this->metas[$key] = [
+            'keyy' => $key,
+            'item' => $this->id,
+            'value' => $value,
+            'lang' => $language
+        ];
     }
 
       public function insertMultipleMeta($metas) {
         foreach($metas as $key => &$value) {
             $value['item'] = $this->id;
+
             if(!isset($value['keyy']) && is_string($key)) {
                 $value['keyy'] = $key;
             }
+            if(!isset($value['lang'])) {
+                $value['lang'] = '0';
+            }
         }
         $this->db->insertMulti('collection_meta', $metas);
+        $this->metas = array_merge($this->meta, $metas);
       }
 
       public function insertMeta($key, $value, $language) {
@@ -176,12 +205,14 @@ class CollectionItem implements ICollectionItem {
             return;
             // don't save if we don't have anything to save...
         }
-        $this->db->insert('collection_meta', array(
+        $data = array(
             'keyy' => $key,
             'lang' => $language,
             'item' => $this->id,
             'value' => $value
-        ));
+        );
+        $this->db->insert('collection_meta', $data);
+        $this->metas[$key] = $data;
     }
 
     public function isPublished() {
@@ -260,6 +291,7 @@ class CollectionItem implements ICollectionItem {
     \fireEvent('Forge/Core/CollectionItem/delete', $item);
   }
 
+  // TODO: Remove this from collection item
   private function collectionLogin() {
     $form = '<form method="post">'.Fields::text([
         'key' => 'password_protection',

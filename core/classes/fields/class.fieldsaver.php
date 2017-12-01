@@ -21,7 +21,7 @@ class FieldSaver {
         $value = isset($data[$field['key']]) ? $data[$field['key']] : null;
         $value = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
 
-        if(!is_array($callable)) {
+        if(!is_array($data_source)) {
             $callable = [__CLASS__, 'save' . ucfirst($data_source)];
             $callable = is_callable($callable) ? $callable : $data_source;
         }
