@@ -1,3 +1,0 @@
-[submodule "core/libs/mysqlidb"]
-	path = core/libs/mysqlidb
-	url = https://github.com/ThingEngineer/PHP-MySQLi-Database-Class.git
