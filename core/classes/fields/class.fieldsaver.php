@@ -16,13 +16,15 @@ class FieldSaver {
         }*/
         $lang = static::determineLang($field, $data['language']);
 
-        $data_source = isset($field['data_source']) ? $field['data_source'] : 'meta';
+        $data_source = isset($field['data_source_save']) ? $field['data_source_save'] : 'meta';
         
         $value = isset($data[$field['key']]) ? $data[$field['key']] : null;
         $value = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
 
-        $callable = [__CLASS__, 'save' . ucfirst($data_source)];
-        $callable = is_callable($callable) ? $callable : $data_source;
+        if(!is_array($data_source)) {
+            $callable = [__CLASS__, 'save' . ucfirst($data_source)];
+            $callable = is_callable($callable) ? $callable : $data_source;
+        }
 
         if(!is_callable($callable)) {
             throw new \Exception("Can not save field {$field['key']} via the data_source " . substr(print_r($data_source,1), 0,100));
@@ -65,10 +67,13 @@ class FieldSaver {
     public static function remove($item, $field, $lang) {
         $lang = static::determineLang($field, $lang);
 
-        $data_source = isset($field['data_source']) ? $field['data_source'] : 'meta';
+        $data_source = isset($field['data_source_remove']) ? $field['data_source_remove'] : 'meta';
 
-        $callable = [__CLASS__, 'remove' .ucfirst($data_source)];
-        $callable = is_callable($callable) ? $callable : $data_source;
+        if(!is_array($data_source)) {
+            $callable = [__CLASS__, 'remove' .ucfirst($data_source)];
+            $callable = is_callable($callable) ? $callable : $data_source;
+        }
+
         if(!is_callable($callable)) {
             throw new \Exception("Can not remove field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
         }

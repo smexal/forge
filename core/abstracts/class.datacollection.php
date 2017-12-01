@@ -84,61 +84,9 @@ abstract class DataCollection implements IDataCollection {
         return false;
     }
 
-    /**
-     * Fetch collectionitems based on the provided filter params
-     *
-     * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
-     */
     public function items($settings = array()) {
-        $db = App::instance()->db;
-        if (array_key_exists('order', $settings)) {
-            $direction = 'asc';
-            if(array_key_exists('order_direction', $settings)) {
-                $direction = $settings['order_direction'];
-            }
-            $db->orderBy($settings['order'], $direction);
-        }
-        $limit = false;
-        if (array_key_exists('limit', $settings)) {
-            $limit = $settings['limit'];
-        }
-        $db->where('type', $this->name);
-
-        if(array_key_exists('query', $settings)) {
-            $db->where('name', $db->escape($settings['query']), 'LIKE');
-        }
-
-        if(array_key_exists('meta_query', $settings)) {
-            $idx = -1;
-            foreach($settings['meta_query'] as $key => $value) {
-                $idx++;
-                $as_key = "cm_{$idx}";
-                $db->join("collection_meta $as_key", "collections.id = {$as_key}.item", 'RIGHT');
-                $db->where("{$as_key}.keyy", $key);
-                $db->where("{$as_key}.value", $value);
-            }
-        }
-
-        if (!$limit) {
-            $items = $db->get('collections');
-        } else {
-            $items = $db->get('collections', $limit);
-        }
-
-        $item_objects = array();
-        foreach ($items as $item) {
-            $obj = new CollectionItem($item['id']);
-            if (array_key_exists('status', $settings)) {
-                if ($settings['status'] == 'published' || $settings['status'] == 'draft') {
-                    if ($obj->getMeta('status') != $settings['status']) {
-                        continue;
-                    }
-                }
-            }
-            array_push($item_objects, $obj);
-        }
-
-        return $item_objects;
+        $settings['name'] = $this->name;
+        return CollectionQuery::items($settings);
     }
 
     public function slug() {
@@ -228,7 +176,7 @@ abstract class DataCollection implements IDataCollection {
               }
               FieldSaver::save($item, $field, $data);
           }
-         \fireEvent('/Forge/Core/DataCollection/save', $item);
+         \fireEvent('Forge/Core/DataCollection/save', $item);
       } else {
           App::instance()->addMessage(i('Unable to save item, Item does not exist'));
       }
@@ -367,6 +315,10 @@ abstract class DataCollection implements IDataCollection {
         array_push($this->customConfiguration, $field);
     }
 
+    /**
+     * No duplicate check is performed here.
+     * If necessary
+     */
     public function addFields( $fields=array() ) {
         foreach ($fields as $field) {
             if (is_array($field)) {
@@ -374,6 +326,40 @@ abstract class DataCollection implements IDataCollection {
             }
         }
     }
+
+    /**
+     * This ensures that a field key is only once inside the field list.
+     * 
+     * Use this function inside the method itemDependentFields
+     */
+    public function addUniqueFields($fields=array()) {
+        foreach ($fields as $field) {
+            if (!is_array($field)) {
+                Logger::debug('<field> is not an array');
+                continue;
+            }
+            if(-1 === ($idx = $this->getFieldIdx($field['key']))) {
+                $this->addField($field);
+            } else {
+                $this->replaceField($idx, $field);
+            }
+        }
+    }
+
+    protected function getFieldIdx($key) {
+        foreach($this->customFields as $idx => $field) {
+            if($field['key'] == $key) {
+                return $idx;
+            }
+        }
+        return -1;
+    }
+
+    protected function replaceField($idx, $field) {
+        $field = $this->prepareField($field);
+        $this->customFields[$idx] = $field;
+    }
+
 
     private function getCategoriesForSelection($parent = 0, $level = 0) {
         $returnable = array();
@@ -460,6 +446,11 @@ abstract class DataCollection implements IDataCollection {
       }
 
     public function addField($field=array()) {
+        $field = $this->prepareField($field);
+        array_push($this->customFields, $field);
+    }
+
+    protected function prepareField($field) {
         if (! array_key_exists('key', $field)) {
             Logger::debug('<key> for field not set: '.implode(", ", $field));
             return;
@@ -482,7 +473,7 @@ abstract class DataCollection implements IDataCollection {
         if (! array_key_exists('hint', $field)) {
             $field['hint'] = false;
         }
-        array_push($this->customFields, $field);
+        return $field;
     }
 
     public function configuration() {
@@ -491,10 +482,12 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function fields($item=null) {
-      $this->itemDependentFields($item);
-      $fields = array_merge($this->defaultFields(), $this->customFields);
+        if(!is_null($item)) {
+            $this->itemDependentFields($item);
+        }
+        $fields = array_merge($this->defaultFields(), $this->customFields);
 
-      return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
+        return array_msort($fields, array('order'=>SORT_ASC, 'key'=>SORT_ASC));
     }
 
     static public function instance() {
