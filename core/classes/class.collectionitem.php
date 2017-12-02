@@ -4,6 +4,8 @@ namespace Forge\Core\Classes;
 
 use Forge\Core\App\App;
 use Forge\Core\Interfaces\ICollectionItem;
+use Forge\Core\Classes\Relations\Enums\DefaultRelations;
+use Forge\Core\Classes\Relations\Enums\Prepares;
 
 class CollectionItem implements ICollectionItem {
     const AS_ID = 0x1;
@@ -167,17 +169,18 @@ class CollectionItem implements ICollectionItem {
         $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->delete('collection_meta');
-        unset($this->metas[$key]);
+        unset($this->meta[$key]);
     }
 
     public function setMeta($key, $value, $language='0') {
+        $value = is_array($value) ? json_encode($value) : $value;
         $this->db->where('keyy', $key);
         $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->update('collection_meta', array(
             'value' => $value
         ));
-        $this->metas[$key] = [
+        $this->meta[$key] = [
             'keyy' => $key,
             'item' => $this->id,
             'value' => $value,
@@ -192,12 +195,17 @@ class CollectionItem implements ICollectionItem {
             if(!isset($value['keyy']) && is_string($key)) {
                 $value['keyy'] = $key;
             }
+
             if(!isset($value['lang'])) {
                 $value['lang'] = '0';
             }
+
+            if(is_array($value['value'])) {
+                $value['value'] = json_encode($value);
+            }
         }
         $this->db->insertMulti('collection_meta', $metas);
-        $this->metas = array_merge($this->meta, $metas);
+        $this->meta = array_merge($this->meta, $metas);
       }
 
       public function insertMeta($key, $value, $language) {
@@ -212,7 +220,7 @@ class CollectionItem implements ICollectionItem {
             'value' => $value
         );
         $this->db->insert('collection_meta', $data);
-        $this->metas[$key] = $data;
+        $this->meta[$key] = $data;
     }
 
     public function isPublished() {
@@ -255,38 +263,54 @@ class CollectionItem implements ICollectionItem {
   }
 
   public function setParent($parent_id) {
-    $db->reset();
-    $db->where('item_left', $parent_id);
-    $db->where('item_right', $this->getID());
-    $db->where('name', DefaultRelations::PARENT_OF);
-    $db->delete('relations');
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $this->removeParent();
+    $relation->add($parent_id, $this->getID());
+  }
+
+  public function getParent($parent_id) {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $ids = $relation->getOfRight($this->getID(), Prepares::AS_IDS_LEFT);
+    if(!count($ids)) {
+        return null;
+    }
+    return new CollectionItem($ids[0]);
   }
 
   public function removeParent() {
-    $db->reset();
-    $db->where('item_right', $this->getID());
-    $db->where('name', DefaultRelations::PARENT_OF);
-    $db->delete('relations');
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $relation->removeByRightID($this->getID());
+  }
+
+
+  public function getChildren() {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $id_list = $relation->getOfLeft($this->getID(), Prepares::AS_IDS_RIGHT);
+    $list = [];
+    foreach($id_list as $item_id) {
+        $list[] = new CollectionItem($item_id);
+    }
+    return $list;
+  }
+
+  public function removeChildren($children) {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $relation->removeAll($this->getID());
   }
 
   /**
    * Removes this item completely from the DB
    */
   public function delete() {
-    $db = App::instance()->db;
+    $this->db->where('id', $id);
+    $this->db->delete('collections');
 
-    $db->reset();
-    $db->where('id', $id);
-    $db->delete('collections');
-
-    $db->reset();
-    $db->where('item_id', $id);
-    $db->delete('collection_meta');
+    $this->db->where('item_id', $id);
+    $this->db->delete('collection_meta');
     
-    $db->reset();
-    $db->where('item_left', $id);
-    $db->where('name', DefaultRelations::PARENT_OF);
-    $db->delete('relations');
+    $this->db->where('item_left', $id);
+    $this->db->where('name', DefaultRelations::PARENT_OF);
+    $this->db->delete('relations');
 
     \fireEvent('Forge/Core/CollectionItem/delete', $item);
   }
