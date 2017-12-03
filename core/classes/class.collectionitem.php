@@ -302,17 +302,20 @@ class CollectionItem implements ICollectionItem {
    * Removes this item completely from the DB
    */
   public function delete() {
-    $this->db->where('id', $id);
+    $this->db->where('id', $this->getID());
     $this->db->delete('collections');
 
-    $this->db->where('item_id', $id);
+    $this->db->where('item', $this->getID());
     $this->db->delete('collection_meta');
     
-    $this->db->where('item_left', $id);
-    $this->db->where('name', DefaultRelations::PARENT_OF);
-    $this->db->delete('relations');
+    $this->meta = [];
 
-    \fireEvent('Forge/Core/CollectionItem/delete', $item);
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    // Remove children relations
+    $relation->removeAll($this->getID());
+    // Remove parent relation
+    $relation->removeByRightID($this->getID());
+    \fireEvent('Forge/Core/CollectionItem/delete', $this, $this->meta);
   }
 
   // TODO: Remove this from collection item
