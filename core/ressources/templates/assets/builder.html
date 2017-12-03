@@ -1,0 +1,31 @@
+<div class="builder dragsort">
+    <!-- display existing elements -->
+    {if="$elements"}
+    <div class="elements items" data-drag-disable-indention="true" data-callback>
+    {loop="$elements"}
+        <div class="element {$value.type} card item" data-id="{$value.id}">
+            <div class="self">
+                <h4>{$value.name}</h4>
+                <div class="actions">
+                    <a href="{$value.edit.link}" class="ajax slidein"><i class="material-icons">mode_edit</i></a>
+                    <a href="{$value.remove.link}" class="ajax slidein"><i class="material-icons">delete</i></a>
+                </div>
+            </div>
+            {if="$value.container"}
+            <div class="content inner">
+                {$value.content}
+            </div>
+            {/if}
+        </div>
+    {/loop}
+    </div>
+    {/if}
+    <!-- add new item button -->
+    <div class="elements">
+        <div class="col-lg-12 card">
+            <a href="{$new_url}" class="add ajax slidein">
+                <i class="material-icons">add_circle_outline</i>
+            </a>
+        </div>
+    </div>
+</div>

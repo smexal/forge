@@ -8,6 +8,7 @@ use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\Page;
 use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\Classes\Builder;
 
 
 
@@ -73,6 +74,8 @@ class EditView extends View {
     }
 
     private function defaultContent() {
+        $builder = new Builder('page', $this->page->id);
+
         return $this->app->render(CORE_TEMPLATE_DIR."views/", "builder", array(
             'title' => sprintf(i('Edit %s'), '<span class="highlight">'.$this->page->name.'</span>'),
             'backurl' => Utils::getUrl(array('manage', 'pages')),
@@ -83,8 +86,7 @@ class EditView extends View {
             'savetext' => i('Save Changes', 'core'),
             'itemid' => $this->page->id,
             'lang' => $this->lang,
-            'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true),
-            'elements' => $this->getElements(0, $this->lang),
+            'builder' => $builder->render(),
             'custom' => '',
             'general_name' => false,
             'subview_name' => false,
@@ -93,33 +95,6 @@ class EditView extends View {
             'subnavigation_root' => false,
             'subnavigation' => false
         ));
-    }
-
-    private function getElements($parent, $lang) {
-        $elements = array();
-        foreach( $this->page->getElements(0, $lang) as $element ) {
-            array_push($elements, array(
-                'name' => $element->getPref('name'),
-                'type' => $element->getPref('id'),
-                'id' => $element->id,
-                'container' => $element->getPref('container'),
-                'addcontent' => $element->getPref('container') ? $this->innerContentUrl($element->id) : '',
-                'edit' => array(
-                    'link' => Utils::getUrl(array('manage', 'pages', 'edit-element', $element->id)),
-                    'name' => i('Edit')
-                ),
-                'remove' => array(
-                    'link' => Utils::getUrl(array('manage', 'pages', 'remove-element', $element->id)),
-                    'name' => i('Remove')
-                ),
-                'content' => $element->getBuilderContent()
-            ));
-        }
-        return $elements;
-    }
-
-    private function innerContentUrl($target) {
-        return Utils::getUrl(array('manage', 'pages', 'edit', $this->page->id, 'add-element'), true, array('target' => $target));
     }
 
     // displays the left form fields for the edit mask
@@ -168,4 +143,3 @@ class EditView extends View {
         return $return;
     }
 }
-

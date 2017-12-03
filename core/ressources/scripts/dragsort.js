@@ -4,28 +4,29 @@ var forge_dragsort = {
             connectWith: ".items",
             placeholder: "placeholder",
             stop: function(event, ui) {
-
-                // correct indetion for too big gaps ( e.g. level-0 > level-3 to level-0 > level-1)
-                var previousElementLevel = null;
-                ui.item.closest(".ui-sortable").find(">li").each(function() {
-                    if(previousElementLevel !== null) {
-                        // lower the level if it gaps more then one level
-                        if(parseInt($(this).data('level')) - parseInt(previousElementLevel) > 1) {
+                if($(this).attr('data-drag-disable-indention') != 'true') {
+                    // correct indetion for too big gaps ( e.g. level-0 > level-3 to level-0 > level-1)
+                    var previousElementLevel = null;
+                    ui.item.closest(".ui-sortable").find(">li").each(function() {
+                        if(previousElementLevel !== null) {
+                            // lower the level if it gaps more then one level
+                            if(parseInt($(this).data('level')) - parseInt(previousElementLevel) > 1) {
+                                $(this).removeClass(function (index, css) {
+                                    return (css.match (/(^|\s)level-.+/g) || []).join(' ');
+                                });
+                                $(this).addClass('level-' +  parseInt(parseInt(previousElementLevel)+1));
+                                $(this).data('level', parseInt(previousElementLevel)+1);
+                            }
+                        } else {
                             $(this).removeClass(function (index, css) {
                                 return (css.match (/(^|\s)level-.+/g) || []).join(' ');
                             });
-                            $(this).addClass('level-' +  parseInt(parseInt(previousElementLevel)+1));
-                            $(this).data('level', parseInt(previousElementLevel)+1);
+                            $(this).addClass('level-0');
+                            $(this).data('level', 0);
                         }
-                    } else {
-                        $(this).removeClass(function (index, css) {
-                            return (css.match (/(^|\s)level-.+/g) || []).join(' ');
-                        });
-                        $(this).addClass('level-0');
-                        $(this).data('level', 0);
-                    }
-                    previousElementLevel = $(this).data('level');
-                });
+                        previousElementLevel = $(this).data('level');
+                    });
+                }
 
                 // prepare new order for server
                 var dataset = [];
@@ -57,6 +58,9 @@ var forge_dragsort = {
                 });
             },
             sort: function(event, ui) {
+                if($(this).attr('data-drag-disable-indention') == 'true') {
+                    return;
+                }
 
                 var pos;
                 if(ui.helper.hasClass('level-1')){
