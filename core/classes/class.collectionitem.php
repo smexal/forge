@@ -4,10 +4,15 @@ namespace Forge\Core\Classes;
 
 use Forge\Core\App\App;
 use Forge\Core\Interfaces\ICollectionItem;
+use Forge\Core\Classes\Relations\Enums\DefaultRelations;
+use Forge\Core\Classes\Relations\Enums\Prepares;
 
 class CollectionItem implements ICollectionItem {
+    const AS_ID = 0x1;
+    const AS_ITEM = 0x2;
+
+    // @depricated Will be set private in the next major update. Use getID instead
     public $id = null;
-    // TODO: DO NOT have the dependency on the db inside each collection item, Relocate it
     private $db = null;
     private $base_data = null;
     private $meta = null;
@@ -18,12 +23,56 @@ class CollectionItem implements ICollectionItem {
         $this->db = App::instance()->db;
         
         $this->db->where('item', $this->id);
-        $this->meta = $this->db->get('collection_meta');
+
+        $this->meta = [];
+        $metas = $this->db->get('collection_meta');
+        foreach($metas as $set) {
+            $this->meta[$set['keyy']] = $set;
+        }
 
         $this->db->where('id', $this->id);
         $this->base_data = $this->db->getOne('collections');
 
         $this->bodyclass.= ' '.$this->base_data['type'];
+    }
+
+    public static function create($args, $metas=array(), $prepare=CollectionItem::AS_ID) {
+        $db = App::instance()->db;
+        
+        if(!isset($args['author'])) {
+            $args['author'] = -1;
+        }
+        $item_id = $db->insert('collections', array(
+          'sequence' => 0,
+          'name' => $args['name'],
+          'type' => $args['type'],
+          'author' => $args['author']
+        ));
+
+        if($prepare == CollectionItem::AS_ITEM ||
+            count($metas) ||
+            (isset($args['parent']) && is_numeric($args['parent']))
+        ) {
+            $item = new CollectionItem($item_id);
+        }
+
+        if(count($metas)) {
+            $item->insertMultipleMeta($metas);
+        }
+
+        if(isset($args['parent']) && is_numeric($args['parent'])) {
+            $item->setParent($args['parent']);
+        }
+
+        if($prepare == CollectionItem::AS_ITEM) {
+            return $item;
+        }
+        return $item_id;
+    }
+
+
+    public function getID() {
+        return $this->id;
     }
 
     public function getCollection() {
@@ -115,33 +164,63 @@ class CollectionItem implements ICollectionItem {
         }
     }
 
-    public function deleteMeta($key, $language) {
+    public function deleteMeta($key, $language='0') {
         $this->db->where('keyy', $key);
         $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->delete('collection_meta');
+        unset($this->meta[$key]);
     }
 
-    public function setMeta($key, $value, $language) {
+    public function setMeta($key, $value, $language='0') {
+        $value = is_array($value) ? json_encode($value) : $value;
         $this->db->where('keyy', $key);
         $this->db->where('item', $this->id);
         $this->db->where('lang', $language);
         $this->db->update('collection_meta', array(
             'value' => $value
         ));
+        $this->meta[$key] = [
+            'keyy' => $key,
+            'item' => $this->id,
+            'value' => $value,
+            'lang' => $language
+        ];
     }
+
+      public function insertMultipleMeta($metas) {
+        foreach($metas as $key => &$value) {
+            $value['item'] = $this->id;
+
+            if(!isset($value['keyy']) && is_string($key)) {
+                $value['keyy'] = $key;
+            }
+
+            if(!isset($value['lang'])) {
+                $value['lang'] = '0';
+            }
+
+            if(is_array($value['value'])) {
+                $value['value'] = json_encode($value);
+            }
+        }
+        $this->db->insertMulti('collection_meta', $metas);
+        $this->meta = array_merge($this->meta, $metas);
+      }
 
       public function insertMeta($key, $value, $language) {
         if(strlen($value) == 0) {
             return;
             // don't save if we don't have anything to save...
         }
-        $this->db->insert('collection_meta', array(
+        $data = array(
             'keyy' => $key,
             'lang' => $language,
             'item' => $this->id,
             'value' => $value
-        ));
+        );
+        $this->db->insert('collection_meta', $data);
+        $this->meta[$key] = $data;
     }
 
     public function isPublished() {
@@ -183,6 +262,63 @@ class CollectionItem implements ICollectionItem {
       return App::instance()->redirect('denied');
   }
 
+  public function setParent($parent_id) {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $this->removeParent();
+    $relation->add($parent_id, $this->getID());
+  }
+
+  public function getParent($parent_id) {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $ids = $relation->getOfRight($this->getID(), Prepares::AS_IDS_LEFT);
+    if(!count($ids)) {
+        return null;
+    }
+    return new CollectionItem($ids[0]);
+  }
+
+  public function removeParent() {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $relation->removeByRightID($this->getID());
+  }
+
+
+  public function getChildren() {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $id_list = $relation->getOfLeft($this->getID(), Prepares::AS_IDS_RIGHT);
+    $list = [];
+    foreach($id_list as $item_id) {
+        $list[] = new CollectionItem($item_id);
+    }
+    return $list;
+  }
+
+  public function removeChildren($children) {
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    $relation->removeAll($this->getID());
+  }
+
+  /**
+   * Removes this item completely from the DB
+   */
+  public function delete() {
+    $this->db->where('id', $this->getID());
+    $this->db->delete('collections');
+
+    $this->db->where('item', $this->getID());
+    $this->db->delete('collection_meta');
+    
+    $this->meta = [];
+
+    $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
+    // Remove children relations
+    $relation->removeAll($this->getID());
+    // Remove parent relation
+    $relation->removeByRightID($this->getID());
+    \fireEvent('Forge/Core/CollectionItem/delete', $this, $this->meta);
+  }
+
+  // TODO: Remove this from collection item
   private function collectionLogin() {
     $form = '<form method="post">'.Fields::text([
         'key' => 'password_protection',
