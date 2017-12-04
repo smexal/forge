@@ -22,6 +22,12 @@ class API {
         return array_key_exists($query, $this->calls);
     }
 
+    public function getAdapters() {
+        $c = $this->calls;
+        $c = array_map(function ($v){if (is_array($v) || is_object($v)) {return "";}return $v;}, $c);
+        return $c;
+    }
+
     public static function getAPIURL() {
         return App::instance()->vm->getViewByName('api')->buildURL();
     }

@@ -4,14 +4,23 @@ namespace Forge\Core\Classes;
 
 use Forge\Core\App\App;
 use Forge\Core\Classes\Localization;
+use Forge\Core\Traits\ApiAdapter;
+use Forge\Core\Traits\Singleton;
 
 class Builder {
+    use ApiAdapter {
+        ApiAdapter::__construct as private __swConstruct;
+    }
+
     private $type = false;
     private $id = null;
     private $page = null;
 
+    private $apiMainListener = 'forge-builder';
 
     public function __construct($type = 'page', $id = null) {
+        $this->__swConstruct();
+
         $this->id = $id;
         if($type=='page' || $type == 'collection') {
             $this->type = $type;
@@ -25,6 +34,19 @@ class Builder {
         if(is_null($id)) {
             throw new \Exception('Unknown ID');
         }
+    }
+
+    public function orderUpdate() {
+        $items = $_POST['itemset'];
+        // update page elements
+        $db = App::instance()->db;
+        foreach($items as $item) {
+            $db->where('id', $item['id']);
+            $db->update('page_elements', [
+                'position' => $item['order']
+            ]);
+        }
+        return json_encode(['order' => 'updated']);
     }
 
     private function getElements($parent, $lang = null) {
@@ -56,6 +78,7 @@ class Builder {
     public function render() {
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "builder", [
             'new_url' => Utils::getUrl(array('manage', 'pages', 'edit', $this->id, 'add-element'), true),
+            'order_callback' => Utils::getUrl(['api', 'forge-builder', 'order-update']),
             'elements' => $this->getElements(0)
         ]);
     }

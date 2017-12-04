@@ -10,6 +10,7 @@ use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\User;
 use \Forge\Core\Classes\ContentNavigation;
 use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Builder;
 
 class ApiView extends View {
     public $name = 'api';
@@ -17,6 +18,7 @@ class ApiView extends View {
     public $standalone = true;
 
     public function content($query=array()) {
+        new Builder('page', 1);
 
         $key = false;
         if((array_key_exists('format', $_GET) && $_GET['format'] == 'xml') && ! $headerSet) {
@@ -60,7 +62,12 @@ class ApiView extends View {
                 if($return) {
                     return $return;
                 } else {
-                    return json_encode(array("Unknown Object Query" => $part));
+                    return json_encode(
+                        [ 
+                            [ "Unknown Object Query" => $part ],
+                            [ "Known" => API::instance()->getAdapters()]
+                        ]
+                    );
                 }
         }
     }

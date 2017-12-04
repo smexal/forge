@@ -2,13 +2,14 @@
 
 namespace Forge\Core\Views\Manage\Builder\Pages;
 
+use \Forge\Core\Classes\Logger;
 use \Forge\Core\Abstracts\View;
-use \Forge\Core\Classes\Localization;
+use \Forge\Core\Classes\Builder;
 use \Forge\Core\Classes\Fields;
+use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Page;
 use \Forge\Core\Classes\Pages;
 use \Forge\Core\Classes\Utils;
-use \Forge\Core\Classes\Builder;
 
 
 

@@ -34,7 +34,7 @@ var forge_dragsort = {
                 var parentElement = null;
                 var orderNo = 0;
 
-                ui.item.closest(".ui-sortable").find(">li").each(function() {
+                ui.item.closest(".ui-sortable").find(">*").each(function() {
                     if($(this).data('level') > 0) {
                         parent = $(this).prevAll(".level-" + parseInt(parseInt($(this).data('level'))-1)).data('id');
                     } else {

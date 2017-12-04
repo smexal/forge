@@ -1,7 +1,7 @@
 <div class="builder dragsort">
     <!-- display existing elements -->
     {if="$elements"}
-    <div class="elements items" data-drag-disable-indention="true" data-callback>
+    <div class="elements items" data-drag-disable-indention="true" data-callback="{$order_callback}">
     {loop="$elements"}
         <div class="element {$value.type} card item" data-id="{$value.id}">
             <div class="self">
