@@ -10,8 +10,7 @@ use Forge\Core\Classes\TableBar;
 use Forge\Core\Classes\Utils;
 use Forge\Core\Traits\ApiAdapter;
 
-class StringsView extends View
-{
+class StringsView extends View {
     public $parent = 'manage';
     public $name = 'string-translation';
     public $permission = 'manage.locales.strings';
@@ -23,13 +22,11 @@ class StringsView extends View
 
     use ApiAdapter;
 
-    public function init()
-    {
+    public function init() {
         $this->languages = Localization::getLanguages();
     }
 
-    public function content($uri = array())
-    {
+    public function content($uri = array()) {
         if (count($uri) > 0) {
             if ($uri[0] == 'update') {
                 return $this->getSubview($uri, $this);
@@ -42,8 +39,7 @@ class StringsView extends View
         }
     }
 
-    private function ownContent()
-    {
+    private function ownContent() {
         return $this->app->render(CORE_TEMPLATE_DIR . "views/", "locales", array(
             'title' => i('String Translations'),
             'add' => i('Update Strings'),
@@ -53,8 +49,7 @@ class StringsView extends View
         ));
     }
 
-    private function stringsTable()
-    {
+    private function stringsTable() {
         $bar = new TableBar(Utils::url(['api', $this->apiMainListener]), 'string_translations_table');
         $bar->enableSearch();
         $bar->enableSorting([
@@ -118,8 +113,7 @@ class StringsView extends View
         ]);
     }
 
-    private function getLanguageNameCells()
-    {
+    private function getLanguageNameCells() {
         $cells = array();
         foreach ($this->languages as $lang) {
             array_push($cells, Utils::tableCell($lang['name'], "center"));
@@ -127,8 +121,7 @@ class StringsView extends View
         return $cells;
     }
 
-    private function getStringRows($sort = ["used", "desc"], $args = [])
-    {
+    private function getStringRows($sort = ["used", "desc"], $args = []) {
         $rows = [];
         foreach (Localization::getAllStrings($sort, $args) as $string) {
             $row = new \stdClass();
@@ -148,16 +141,14 @@ class StringsView extends View
         return $rows;
     }
 
-    private function stringInUse($string)
-    {
+    private function stringInUse($string) {
         return Utils::tableCell(
             $string['used'] == 1 ? Utils::icon("check") : Utils::icon("error_outline"),
             "center"
         );
     }
 
-    private function translateAction($string)
-    {
+    private function translateAction($string) {
         return Utils::tableCell(App::instance()->render(CORE_TEMPLATE_DIR . "assets/", "table.actions", array(
             'actions' => array(
                 array(
@@ -171,8 +162,7 @@ class StringsView extends View
         )), "center", false, false, Utils::getUrl(array("manage", "string-translation", "translate", $string['id'])));
     }
 
-    private function getLanguageTranslationState($string)
-    {
+    private function getLanguageTranslationState($string) {
         $cells = array();
         foreach (Localization::getLanguages() as $language) {
             $translated = Localization::stringTranslationState($string['string'], $string['domain'], $language['code']);
