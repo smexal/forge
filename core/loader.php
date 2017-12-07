@@ -6,6 +6,7 @@ use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
 use \Forge\Core\App\ViewManager;
+use \Forge\Core\App\App;
 
 /*
     This Class is here to provide loader functionalities
@@ -158,6 +159,9 @@ class Loader {
                 $run = true;
             if (!file_exists($css_file))
                 $run = true;
+            if(App::instance()->forceLessCompile === true) {
+              $run = true;
+            }
             if ($run) {
                 if ($handle = fopen($css_file, "w")) {
                     $content = $this->lessc->compileFile($less_path);

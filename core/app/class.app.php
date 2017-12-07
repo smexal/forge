@@ -25,6 +25,7 @@ class App {
     public $stream = false;
     public $sticky = false;
     public $page = false;
+    public $forceLessCompile = false;
 
     private $prepared = false;
     private $uri_components = false;

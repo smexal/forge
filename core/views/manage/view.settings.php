@@ -55,9 +55,15 @@ class SettingsView extends View {
         Settings::set($this->keys['THEME'], $_POST[$this->keys['THEME']]);
         Settings::set($this->keys['TITLE'], $_POST[$this->keys['TITLE']]);
         Settings::set($this->keys['PRIMARY_COLOR'], $_POST[$this->keys['PRIMARY_COLOR']]);
-        Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
+
+        if(array_key_exists($this->keys['ALLOW_REGISTRATION'], $_POST)) {
+            Settings::set($this->keys['ALLOW_REGISTRATION'], $_POST[$this->keys['ALLOW_REGISTRATION']]);
+        }
         Settings::set($this->keys['DEFAULT_USER_GROUP'], $_POST[$this->keys['DEFAULT_USER_GROUP']]);
-        Settings::set($this->keys['NIGHTMODE'], $_POST[$this->keys['NIGHTMODE']]);
+
+        if(array_key_exists($this->keys['NIGHTMODE'], $_POST)) {
+            Settings::set($this->keys['NIGHTMODE'], $_POST[$this->keys['NIGHTMODE']]);
+        }
         Settings::set($this->keys['GOOGLE_API_KEY'], $_POST[$this->keys['GOOGLE_API_KEY']]);
         Settings::set($this->keys['GOOGLE_CAPTCHA_KEY'], $_POST[$this->keys['GOOGLE_CAPTCHA_KEY']]);
         Settings::set($this->keys['AVATAR_WIDTH'], $_POST[$this->keys['AVATAR_WIDTH']]);
@@ -86,6 +92,9 @@ class SettingsView extends View {
         }
 
         App::instance()->addMessage(sprintf(i('Changes saved')), "success");
+
+        App::instance()->eh->fire('globalSettingsUpdated');
+
         App::instance()->redirect(Utils::getUrl(array('manage', 'settings')));
     }
 
