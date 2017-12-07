@@ -6,6 +6,8 @@ var helpers = {
         contentAsHTML : true
       });
 
+      $(document).find("body").addClass('js-active');
+
       $('.tipster-ajax').tooltipster({
         debug: false,
         content: '...',

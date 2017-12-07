@@ -159,9 +159,6 @@ class Loader {
                 $run = true;
             if (!file_exists($css_file))
                 $run = true;
-            if(App::instance()->forceLessCompile === true) {
-              $run = true;
-            }
             if ($run) {
                 if ($handle = fopen($css_file, "w")) {
                     $content = $this->lessc->compileFile($less_path);

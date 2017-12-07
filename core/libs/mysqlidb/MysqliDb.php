@@ -7,10 +7,10 @@
  * @author    Jeffery Way <jeffrey@jeffrey-way.com>
  * @author    Josh Campbell <jcampbell@ajillion.com>
  * @author    Alexander V. Butenko <a.butenka@gmail.com>
- * @copyright Copyright (c) 2010-2016
+ * @copyright Copyright (c) 2010-2017
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class 
- * @version   2.8-master
+ * @version   2.9.1
  */
 
 class MysqliDb
@@ -32,7 +32,7 @@ class MysqliDb
      * MySQLi instances
      * @var mysqli[]
      */
-    protected $_mysqli = [];
+    protected $_mysqli = array();
 
     /**
      * The SQL query to be prepared and executed
@@ -211,7 +211,7 @@ class MysqliDb
     /**
      * @var array connections settings [profile_name=>[same_as_contruct_args]]
      */
-    protected $connectionsSettings = [];
+    protected $connectionsSettings = array();
     /**
      * @var string the name of a default (main) mysqli connection
      */
@@ -219,6 +219,11 @@ class MysqliDb
     
     public $autoReconnect = true;
     protected $autoReconnectCount = 0;
+
+    /**
+     * @var bool Operations in transaction indicator
+     */
+    protected $_transaction_in_progress = false;
 
     /**
      * @param string $host
@@ -240,7 +245,7 @@ class MysqliDb
             }
         }
 
-        $this->addConnection('default', [
+        $this->addConnection('default', array(
             'host' => $host,
             'username' => $username,
             'password' => $password,
@@ -248,7 +253,7 @@ class MysqliDb
             'port' => $port,
             'socket' => $socket,
             'charset' => $charset
-        ]);
+        ));
 
         if ($isSubQuery) {
             $this->isSubQuery = true;
@@ -269,7 +274,7 @@ class MysqliDb
      * @throws Exception
      * @return void
      */
-    public function connect($connectionName)
+    public function connect($connectionName = 'default')
     {
         if(!isset($this->connectionsSettings[$connectionName]))
             throw new Exception('Connection profile not set');
@@ -345,8 +350,8 @@ class MysqliDb
      */
     public function addConnection($name, array $params)
     {
-        $this->connectionsSettings[$name] = [];
-        foreach (['host', 'username', 'password', 'db', 'port', 'socket', 'charset'] as $k) {
+        $this->connectionsSettings[$name] = array();
+        foreach (array('host', 'username', 'password', 'db', 'port', 'socket', 'charset') as $k) {
             $prm = isset($params[$k]) ? $params[$k] : null;
 
             if ($k == 'host') {
@@ -416,7 +421,9 @@ class MysqliDb
         $this->_lastInsertId = null;
         $this->_updateColumns = null;
         $this->_mapKey = null;
-        $this->defConnectionName = 'default';
+        if(!$this->_transaction_in_progress ) {
+            $this->defConnectionName = 'default';
+        }
         $this->autoReconnectCount = 0;
         return $this;
     }
@@ -1004,7 +1011,7 @@ class MysqliDb
      */
     public function join($joinTable, $joinCondition, $joinType = '')
     {
-        $allowedTypes = array('LEFT', 'RIGHT', 'OUTER', 'INNER', 'LEFT OUTER', 'RIGHT OUTER');
+        $allowedTypes = array('LEFT', 'RIGHT', 'OUTER', 'INNER', 'LEFT OUTER', 'RIGHT OUTER', 'NATURAL');
         $joinType = strtoupper(trim($joinType));
 
         if ($joinType && !in_array($joinType, $allowedTypes)) {
@@ -1042,7 +1049,7 @@ class MysqliDb
 		
 		// Define the default values
 		// We will merge it later
-		$settings 				= Array("fieldChar" => ';', "lineChar" => PHP_EOL, "linesToIgnore" => 1);
+		$settings = Array("fieldChar" => ';', "lineChar" => PHP_EOL, "linesToIgnore" => 1);
 		
 		// Check the import settings 
 		if(gettype($importSettings) == "array") {
@@ -1056,9 +1063,12 @@ class MysqliDb
 		// Add 1 more slash to every slash so maria will interpret it as a path
 		$importFile = str_replace("\\", "\\\\", $importFile);  
 		
+		// Switch between LOAD DATA and LOAD DATA LOCAL
+		$loadDataLocal = isset($settings["loadDataLocal"]) ? 'LOCAL' : '';
+			
 		// Build SQL Syntax
-		$sqlSyntax = sprintf('LOAD DATA INFILE \'%s\' INTO TABLE %s', 
-					$importFile, $table);
+		$sqlSyntax = sprintf('LOAD DATA %s INFILE \'%s\' INTO TABLE %s', 
+			$loadDataLocal, $importFile, $table);
 		
 		// FIELDS
 		$sqlSyntax .= sprintf(' FIELDS TERMINATED BY \'%s\'', $settings["fieldChar"]);
@@ -1191,7 +1201,7 @@ class MysqliDb
      */
     public function groupBy($groupByField)
     {
-        $groupByField = preg_replace("/[^-a-z0-9\.\(\),_\*]+/i", '', $groupByField);
+        $groupByField = preg_replace("/[^-a-z0-9\.\(\),_\* <>=!]+/i", '', $groupByField);
 
         $this->_groupBy[] = $groupByField;
         return $this;
@@ -1646,7 +1656,7 @@ class MysqliDb
                 $joinStr = $joinTable;
             }
 
-            $this->_query .= " " . $joinType . " JOIN " . $joinStr . 
+            $this->_query .= " " . $joinType . " JOIN " . $joinStr .
                 (false !== stripos($joinCondition, 'using') ? " " : " on ")
                 . $joinCondition;
         }
@@ -1897,8 +1907,11 @@ class MysqliDb
     {
         $stmt = $this->mysqli()->prepare($this->_query);
 
-        if ($stmt !== false)
-            goto release;
+        if ($stmt !== false) {
+            if ($this->traceEnabled)
+                $this->traceStartQ = microtime(true);
+            return $stmt;
+        }
 
         if ($this->mysqli()->errno === 2006 && $this->autoReconnect === true && $this->autoReconnectCount === 0) {
             $this->connect($this->defConnectionName);
@@ -1906,15 +1919,11 @@ class MysqliDb
             return $this->_prepareQuery();
         }
         
+        $error = $this->mysqli()->error;
+        $query = $this->_query;
+        $errno = $this->mysqli()->errno;
         $this->reset();
-        throw new Exception(sprintf('%s query: %s', $this->mysqli()->error, $this->_query), $this->mysqli()->errno);
-
-        release:
-        if ($this->traceEnabled) {
-            $this->traceStartQ = microtime(true);
-        }
-
-        return $stmt;
+        throw new Exception(sprintf('%s query: %s', $error, $query), $errno);
     }
 
     /**
@@ -2159,7 +2168,7 @@ class MysqliDb
     public function copy()
     {
         $copy = unserialize(serialize($this));
-        $copy->_mysqli = [];
+        $copy->_mysqli = array();
         return $copy;
     }
 
@@ -2353,7 +2362,9 @@ class MysqliDb
             else
                 $joinStr = $joinTable;
 
-            $this->_query .= " " . $joinType. " JOIN " . $joinStr ." on " . $joinCondition;
+            $this->_query .= " " . $joinType. " JOIN " . $joinStr . 
+                (false !== stripos($joinCondition, 'using') ? " " : " on ") 
+                . $joinCondition;
 
             // Add join and query
             if (!empty($this->_joinAnd) && isset($this->_joinAnd[$joinStr])) {
