@@ -83,9 +83,15 @@ class CollectionItem implements ICollectionItem {
         return $this->base_data['type'];
     }
 
-    public function url() {
+    public function url($manage=false) {
         $parent = App::instance()->cm->getCollection($this->base_data['type']);
-        return Utils::getUrl(array($parent->slug(), $this->slug()));
+        if(!$manage) {
+            $params = array($parent->slug(), $this->slug());
+        } else {
+            $params = array('manage', 'collections', $parent->slug(), 'edit', $this->slug());
+        }
+        return Utils::getUrl($params);
+
     }
 
     public function absUrl() {
