@@ -38,7 +38,7 @@ class CollectionItem implements ICollectionItem {
 
     public static function create($args, $metas=array(), $prepare=CollectionItem::AS_ID) {
         $db = App::instance()->db;
-        
+
         if(!isset($args['author'])) {
             $args['author'] = -1;
         }
@@ -106,10 +106,6 @@ class CollectionItem implements ICollectionItem {
         } else {
             return $this->base_data['id'];
         }
-    }
-
-    public function getId() {
-        return $this->id;
     }
 
     public function getSlug() {
@@ -317,7 +313,7 @@ class CollectionItem implements ICollectionItem {
 
     $this->db->where('item', $this->getID());
     $this->db->delete('collection_meta');
-    
+
     $this->meta = [];
 
     $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
