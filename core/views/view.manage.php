@@ -91,23 +91,20 @@ class ManageView extends View {
             }
         }
 
+        $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', '__profile')), $panelLeft, 'settings');
+        if(Auth::allowed($this->permissions[1])) {
+            $this->navigation->add('settings', i('Basic Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
+        }
 
+        if(Auth::allowed($this->permissions[1])) {
+            $this->navigation->add('users', i('Users'), Utils::getUrl(array('manage', 'users')), $panelLeft, false, 'usermenu');
+            $this->navigation->add('groups', i('Groups'), Utils::getUrl(array('manage', 'groups')), $panelLeft, false, 'usermenu');
+            $this->navigation->add('permissions', i('Permissions'), Utils::getUrl(array('manage', 'permissions')), $panelLeft, false, 'usermenu');
+        }
 
         if(Auth::allowed($this->permissions[5])) {
-            $this->navigation->add('language', i('Language & Translations', 'core'), Utils::getUrl(['manage', 'locales']), $panelLeft, 'language');
-            $this->navigation->add('string-translation', i('String Translations'), Utils::getUrl(array('manage', 'string-translation')), $panelLeft, false, 'language');
-        }
-        if(Auth::allowed($this->permissions[1])) {
-            $this->navigation->add('users_container', i('Users'), false, $panelLeft, 'person_add');
-            $this->navigation->add('users', i('Users'), Utils::getUrl(array('manage', 'users')), $panelLeft, false, 'users_container');
-            $this->navigation->add('groups', i('Groups'), Utils::getUrl(array('manage', 'groups')), $panelLeft, false, 'users_container');
-            $this->navigation->add('permissions', i('Permissions'), Utils::getUrl(array('manage', 'permissions')), $panelLeft, false, 'users_container');
-        }
-
-        $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', 'sites')), $panelLeft, 'settings');
-        $this->navigation->add('profile', i('Profile Settings'), Utils::getUrl(array('manage', '__profile')), $panelLeft, false, 'usermenu');
-        if(Auth::allowed($this->permissions[1])) {
-            $this->navigation->add('settings', i('Global Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
+            $this->navigation->add('language', i('Language & Translations', 'core'), Utils::getUrl(['manage', 'locales']), $panelLeft, false, 'usermenu');
+            $this->navigation->add('string-translation', i('System Translation'), Utils::getUrl(array('manage', 'string-translation')), $panelLeft, false, 'usermenu');
         }
 
         $panelBottom = $this->navigation->addPanel('right');

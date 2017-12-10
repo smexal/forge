@@ -6,6 +6,7 @@ use \Forge\Core\Classes\Settings;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
 use \Forge\Core\App\ViewManager;
+use \Forge\Core\App\App;
 
 /*
     This Class is here to provide loader functionalities

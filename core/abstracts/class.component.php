@@ -2,10 +2,10 @@
 
 namespace Forge\Core\Abstracts;
 
-use \Forge\Core\App\App;
-use \Forge\Core\Classes\Logger;
-use \Forge\Core\Classes\Utils;
-use \Forge\Core\Interfaces\IComponent;
+use Forge\Core\App\App;
+use Forge\Core\Classes\Logger;
+use Forge\Core\Classes\Utils;
+use Forge\Core\Interfaces\IComponent;
 
 
 

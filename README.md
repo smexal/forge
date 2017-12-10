@@ -94,6 +94,96 @@ The TYPE: is either views, components or collections
 ## Collections
 TBD
 
+### Fields
+Collections can define fields which are then represented in the frontend of the Adminview
+
+#### Repeater
+Example:
+```php
+$repeater_field [
+'key' => 'myrepeater',
+    'label' => \i('Maaai Repeater', 'forge-tournaments'),
+    'multilang' => false,
+    'type' => 'repeater',
+    'order' => 10,
+    'position' => 'left',
+    'hint' => i('Select the participant status', 'forge-tournaments'),
+    'subfields' => [
+         [
+            'key' => 'alpha',
+            'label' => i('Alpha', 'forge-tournaments'),
+            'value' => "val_alpha",
+            'multilang' => false,
+            'type' => 'text',
+            'hint' => i('Short key', 'forge-tournaments')
+        ],
+        [
+            'key' => 'url',
+            'label' => i('Website', 'forge-tournaments'),
+            'value' => "",
+            'multilang' => true,
+            'type' => 'url',
+            'order' => 60,
+            'position' => 'right',
+            'hint' => i('Link to the website', 'forge-tournaments')
+        ],
+        [
+            'key' => 'image_logo',
+            'label' => i('Logo', 'forge-tournaments'),
+            'value' => "",
+            'multilang' => true,
+            'type' => 'image',
+            'order' => 70,
+            'position' => 'right',
+            'hint' => i('Logo', 'forge-tournaments')
+        ],
+        [
+            'key' => 'qc_action', 
+            'label' => \i('Action', 'forge-quests'),
+            'values' => [
+                'alpha' => 'Alpha',
+                'beta' => 'Beta',
+                'gamma' => 'Gamma',
+                'delta' => 'Delta',
+                'yotta' => 'Yotta'
+            ],
+            'value' => 'gamma',
+            'multilang' => false,
+            'type' => 'select',
+            'order' => 20,
+            'position' => 'left'
+        ],
+        [
+            'key' => 'comments',
+            'label' => i('Allow Comments (Disqus)', 'forge-news'),
+            'multilang' => true,
+            'type' => 'checkbox',
+            'order' => 20,
+            'position' => 'right',
+            'hint' => ''
+        ],
+         [
+            'key' => 'end-date',
+            'label' => i('End Date', 'forge-events'),
+            'multilang' => true,
+            'type' => 'datetime',
+            'order' => 30,
+            'position' => 'right',
+            'hint' => ''
+        ],
+        [
+            'key' => 'price',
+            'label' => i('Event Price', 'forge-events'),
+            'multilang' => true,
+            'type' => 'number',
+            'order' => 19,
+            'position' => 'right',
+            'hint' => ''
+        ]
+    ]
+];
+             
+```
 ## Metas
 TBD
 
@@ -102,7 +192,7 @@ TBD
 ### Registering new relations in the Relation Directory
 Example at: https://github.com/smexal/forge-tournaments/blob/master/module.php#L65
             https://github.com/smexal/forge-tournaments/blob/master/collections/collection.phase.php#L42
-```            
+```php            
  \registerModifier('Forge/Core/RelationDirectory/collectRelations', 
     'my_new_relations');
 function my_new_relations($existing) {
@@ -120,7 +210,7 @@ function my_new_relations($existing) {
 
 ### Retrieving new relations
 Example at: https://github.com/smexal/forge/blob/master/core/classes/class.fieldloader.php#L32
-```
+```php
 $relation = $field['relation'];
 $relation = App::instance()->rd->getRelation($relation['identifier']);
 // The special case of Direction::REVERSED is not yet implemented here
@@ -132,7 +222,7 @@ $list_of_collections = $relation->getOfLeft($item->id, Prepares::AS_INSTANCE_RIG
 
 ### Saving or Adding relations
 Example at: https://github.com/smexal/forge/blob/master/core/classes/class.fieldsaver.php#L32
-```
+```php
 $relation = $field['relation'];
 $rel = App::instance()->rd->getRelation($relation['identifier']);
 // Maxes a diff from the items in the DB then removes the missing won in $right_item_ids and adds the new one
@@ -141,3 +231,66 @@ $rel->setRightItems($item->id, $right_item_ids);
 $rel->add($r_item->id, $r_item->id);
 $rel->addMultiple($r_item->id, [42, 1337, 80085]);
 ```
+
+# Migrations
+Modules often need to be updated. Forge provides a migration interface which checks different migration steps and orders and executes  them based on the provided versions.
+For this to work you have to place you migraion in the mirations folder as following. Make shure the foldername and the file prefix are correctly named. The file part "forgetournaments" in the example below defines the classname used inside the file.
+```
+modules/forge-tournament
+|_migrations
+  |_migration.forgetournaments_0_0_1.php
+```
+## Example Class
+Note the namespace, class name and interface which is used. Make sure that your migration class defines a unique identifier. This is necessary for correctly executed, consecutive versions. Forge only executes the migrations which habe a bigger target version as currently is stated in the database.
+```
+<?php
+namespace Forge\Modules\ForgeTournaments;
+
+use Forge\Core\Traits\Singleton;
+use Forge\Core\Interfaces\IMigration;
+
+use Forge\Core\App\App;
+
+class Forgetournaments_0_0_1Migration implements IMigration {
+    use Singleton;
+    
+    public static function identifier() {
+        return 'forge-torunaments';
+    }
+
+    public static function targetversion() {
+        return '0.0.1';
+    }
+
+    public static function oninstall() {
+        return true;
+    }
+
+    public static function prepare() {
+
+    }
+
+    public static function execute() {
+        try {
+            App::instance()->db->startTransaction();
+            App::instance()->db->query(
+                'CREATE TABLE `ft_datastorage` (
+                    `ref_type` VARCHAR(32) NOT NULL,
+                    `ref_id` INT(11) NOT NULL,
+                    `source` VARCHAR(16) NOT NULL,
+                    `group` VARCHAR(16) NOT NULL,
+                    `key` VARCHAR(16) NOT NULL,
+                    `value` VARCHAR(64),
+                    `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (`ref_type`, `ref_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;'
+            );
+            App::instance()->db->commit();
+        } catch (Exception $e) {
+            App::instance()->db->rollback();
+        }
+
+    }
+}
+```
+

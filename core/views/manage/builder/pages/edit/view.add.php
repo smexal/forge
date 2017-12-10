@@ -16,10 +16,7 @@ class AddView extends View {
 
     public function content($parts = array()) {
         $this->page = new Page($parts[0]);
-        $level = 'root';
-        if(is_array($_GET) && array_key_exists('inner', $_GET)) {
-            $level = 'inner';
-        }
+        $level = 'inner';
 
         return App::instance()->render(CORE_TEMPLATE_DIR."views/parts/", "builder.addelement", array(
             "title" => i("Add Element", "core"),
@@ -40,4 +37,3 @@ class AddView extends View {
         return $components;
     }
 }
-

@@ -196,7 +196,7 @@ class SuperLoader {
         if(array_key_exists($ns_cls, $this->mappings)) {
             require_once($this->mappings[$ns_cls]);
             return;
-        }
+        } 
         
         /*error_log("SuperLoader could not find $ns_cls");
         echo "<pre>";

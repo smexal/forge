@@ -1,8 +1,10 @@
 <?php
 
 namespace Forge\Core\App;
-use \Forge\Core\Abstracts\Manager;
-use \Forge\Core\App\Modifier;
+
+use Forge\Core\Abstracts\Manager;
+use Forge\Core\App\Modifier;
+use Forge\Core\Classes\CollectionItem;
 
 class CollectionManager extends Manager {
   public $collections = null;
@@ -15,14 +17,12 @@ class CollectionManager extends Manager {
     $this->getCollections();
   }
 
+  /**
+   * @deprecated Collection Manager is not responsible for creating CollectionItems.
+   */
   public function add($args) {
-    $db = App::instance()->db;
-    return $db->insert('collections', array(
-      'sequence' => 0,
-      'name' => $args['name'],
-      'type' => $args['type'],
-      'author' => App::instance()->user->get('id')
-    ));
+    \Forge\Core\Classes\Logger::debug("This method is deprecated. Please Use CollectionItem::create()");
+    CollectionItem::create($args);
   }
 
   public function getCollection($name) {
@@ -63,9 +63,12 @@ class CollectionManager extends Manager {
       return $classes;
   }
 
+  /**
+   * @deprecated
+   */
   public function deleteCollectionItem($id) {
-    $db = App::instance()->db;
-    $db->where('id', $id);
-    $db->delete('collections');
+    Forge\Core\Classes\Logger::debug("This method is deprecated. Please Use CollectionItem->delete()");
+    $item = new CollectionItem($id);
+    $item->delete();
   }
 }

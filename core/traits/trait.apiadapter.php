@@ -14,7 +14,10 @@ use \Forge\Core\Classes\Logger;
 trait ApiAdapter {
 
     public function __construct() {
-        parent::__construct();
+        // make sure this is not been called from the parents __construct
+        if(debug_backtrace()[1]['function'] !== '__construct') {
+            parent::__construct();
+        }
         if(!isset($this->apiMainListener)) {
             Logger::error('When using, the trait "ApiAdapter", you have to define a "apiMainListener" variable');
             return;

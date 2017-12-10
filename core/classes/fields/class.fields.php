@@ -10,7 +10,7 @@ use \Forge\Core\Classes\Settings;
 class Fields {
 
     public static function build($args, $value='') {
-        if (! method_exists(get_class(), $args['type'])) {
+        if (is_array($args['type']) || !method_exists(get_class(), $args['type'])) {
             return call_user_func($args['type'], $args, $value);
         }
         return self::{$args['type']}($args, $value);
@@ -298,6 +298,11 @@ class Fields {
         if(! array_key_exists('chosen', $args)) {
             $args['chosen'] = false;
         }
+        
+        if (!array_key_exists('grouped', $args)) {
+            $args['grouped'] = false;
+        }
+        
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "select", array(
             'name' => $args['key'],
             'id' => $args['key'],
@@ -305,6 +310,7 @@ class Fields {
             'chosen' => $args['chosen'],
             'values' => $values,
             'selected' => $value,
+            'grouped' => $args['grouped'],
             'readonly' => isset($args['readonly']) ? $args['readonly'] : false,
             'hint' => (array_key_exists('hint', $args) ? $args['hint'] : false)
         ));

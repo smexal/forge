@@ -1,6 +1,6 @@
 <div class="form-group select {if="$chosen"}contains-chosen{/if}">
     <label class="control-label" for="{$id}">{$label}</label>
-    <select class="form-control{if="$chosen"} chosen-select{/if}" {if="$readonly"}disabled="true"{/if} name="{$name}" id="{$id}">
+    <select class="form-control{if="$chosen"} chosen-select{/if}" {if="$readonly"} readonly {/if} {if="isset($disabled) && $disabled"} disabled="true" {/if} name="{$name}" id="{$id}">
         {loop="$values"}
             {if="$grouped"}
                 <optgroup label="{$key}">

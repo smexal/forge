@@ -24,10 +24,6 @@
 .builder a i:hover {
   color: #343434;
 }
-.builder .elements .element .self {
-  border-bottom: 1px solid #E0E0E0;
-  margin-bottom: 10px;
-}
 .builder .elements .element .self h4 {
   display: inline-block;
 }

@@ -30,7 +30,7 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
         return true;
     }
 
-    // Override this to directly server instantiiated objects
+    // Override this to directly serve instantiiated objects
     protected function prepareRelations($relations, $prepare=Prepares::AS_ARRAY) {
         $return = [];
         $fn = null;
@@ -196,7 +196,15 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
         $db = App::instance()->db;
         $db->where('name', $this->identifier);
         $db->where('item_left', $id_left);
-        $db->where('item_right', $ids_right, 'IN');
+        $db->where('item_right', array_values($ids_right), 'IN');
+
+        $db->delete('relations');
+    }
+
+    public function removeByRightID($id_right) {
+        $db = App::instance()->db;
+        $db->where('name', $this->identifier);
+        $db->where('item_right', $id_right);
 
         $db->delete('relations');
     }

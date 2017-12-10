@@ -35,19 +35,18 @@ class UtilsTests {
             return;
         }
         $prepared = true;
-        
+
+
         // Force correct path for including app
         $_SERVER['DOCUMENT_ROOT'] = realpath('..') . DIRECTORY_SEPARATOR;
-        $_SERVER['SCRIPT_NAME'] = basename($_SERVER['DOCUMENT_ROOT']);
-        $_SERVER['SCRIPT_NAME'] = basename($_SERVER['DOCUMENT_ROOT']);
         $_SERVER['SCRIPT_NAME'] = basename($_SERVER['DOCUMENT_ROOT']);
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de-CH,de;q=0.8,de-DE;q=0.6,en-US;q=0.4,en;q=0.2,fr-CH;q=0.2,fr;q=0.2';
 
         chdir($_SERVER['DOCUMENT_ROOT']);
-        include("config-tests.php");
-        include("config.php");
-        include("core/superloader.php");
-        include("core/loader.php");
+        require_once("config-tests.php");
+        require_once("config.php");
+        require_once("core/superloader.php");
+        require_once("core/loader.php");
 
         // Don't do anything if the phpunit-env is not set correctly
         if(static::detectDanger()) {

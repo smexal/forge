@@ -1,5 +1,10 @@
 <head>
-    {loop="$styles"}<link rel="stylesheet" href="{$value}">{/loop}
+    {loop="$styles"}
+        <link
+            rel="stylesheet" 
+            href="{$value}{if="isset($build_no)"}?build={$build_no}{/if}"
+        >
+    {/loop}
     {loop="$scripts"}
     <script src="{$value}"{if="(in_array($value, $defered_scripts))"} async defer{/if}></script>
     {/loop}

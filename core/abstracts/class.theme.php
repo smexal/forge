@@ -59,10 +59,6 @@ abstract class Theme implements ITheme {
     private function __clone() {}
 
     public function init() {
-        if(is_null($this->lessc)) {
-            $this->lessc = new \lessc;
-            $this->lessc->setVariables($this->lessVariables);
-        }
     }
 
     public function scripts() {
@@ -80,6 +76,11 @@ abstract class Theme implements ITheme {
     }
 
     public function addStyle($style, $absolute=false, $viewCondition=false) {
+        if(is_null($this->lessc)) {
+            $this->lessc = new \lessc;
+            $this->lessc->setVariables($this->lessVariables);
+        }
+
         if(in_array($style, $this->styles)) {
             return;
         }
@@ -111,6 +112,7 @@ abstract class Theme implements ITheme {
             if(!file_exists($css_file))
                 $run = true;
             if($run) {
+                Settings::set('css_version_number', uniqid());
                 if ($handle = fopen($css_file, "w")) {
                     $content = $this->lessc->compileFile($less);
                     fwrite($handle, $content);
@@ -159,6 +161,7 @@ abstract class Theme implements ITheme {
         $return = App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle(),
             'scripts' => $this->load_scripts,
+            'build_no' => Settings::get('css_version_number'),
             'styles' => $this->styles,
             'favicon' => false,
             'eventContent' => $eventContent,
