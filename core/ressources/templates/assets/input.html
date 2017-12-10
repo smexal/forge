@@ -11,6 +11,7 @@
             {if="$value=='on'"}checked="checked"{/if}
         {/if}
         {if="$noautocomplete"} readonly onfocus="this.removeAttribute('readonly');"{/if}
+        {if="isset($readonly) && $readonly"} readonly {/if}
         {if="$value"}value="{$value}"{/if}
         {if="isset($loadingcontext)"}data-loadingcontext="{$loadingcontext}"{/if}
         {loop="$data_attrs"}
