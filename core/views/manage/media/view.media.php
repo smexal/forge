@@ -39,12 +39,12 @@ class MediaView extends View {
     }
 
     private function ownContent() {
-        return $this->app->render(CORE_TEMPLATE_DIR."views/", "media", array(
+        return $this->app->render(CORE_TEMPLATE_DIR."views/", "media", [
             'selection' => $this->selection,
             'upload_handler_url' => Utils::getUrl(array('api', 'media', 'upload')),
             'redirect_url' => Utils::getUrl(array('manage', 'media')),
             'media' => $this->getMedia()
-        ));
+        ]);
     }
 
     private function getMedia() {

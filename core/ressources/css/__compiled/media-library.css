@@ -18,10 +18,7 @@
   align-items: center;
 }
 .media-library a.active {
-  border-color: #ABABAB;
-}
-.media-library a.set-value {
-  border-color: #343434;
+  border-color: #B2FF59;
 }
 .media-library a img {
   object-fit: cover;

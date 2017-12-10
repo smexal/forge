@@ -23,7 +23,6 @@ class LoginView extends View {
         return $this->app->render(CORE_TEMPLATE_DIR, "login", array(
             "title" => i("Login"),
             "message" => $this->message,
-            "text" => i("login_intro_text"),
             "form" => $this->form()
         ));
     }
