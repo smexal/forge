@@ -16,7 +16,7 @@ class CollectionItem implements ICollectionItem {
     public function __construct($id) {
         $this->id = $id;
         $this->db = App::instance()->db;
-        
+
         $this->db->where('item', $this->id);
         $this->meta = $this->db->get('collection_meta');
 
@@ -51,6 +51,10 @@ class CollectionItem implements ICollectionItem {
         } else {
             return $this->base_data['id'];
         }
+    }
+
+    public function getId() {
+        return $this->id;
     }
 
     public function getSlug() {
