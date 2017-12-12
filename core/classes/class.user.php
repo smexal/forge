@@ -262,6 +262,10 @@ class User {
         if (move_uploaded_file($file['tmp_name'], self::$avatarDirectory.$filename)) {
             Utils::resizeImage(self::$avatarDirectory.$filename, self::$avatarDirectory.$filename, $width, $height);
             // continue....
+        } else {
+            Logger::error('Avatar has not been set, move_uploaded_file failed hard.');
+            Logger::error('... Source : '.$file['tmp_name']);
+            Logger::error('... Target : '.self::$avatarDirectory.$filename);
         }
     }
 
