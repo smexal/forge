@@ -21,7 +21,7 @@ class CollectionQuery {
      *
      * @param $settings['meta_query'] | Associative array with key = meta_key and value = meta_value
      */
-    public function items($settings = array(), $prepare=CollectionQuery::AS_COLLECTIONS) {
+    public static function items($settings = array(), $prepare=CollectionQuery::AS_COLLECTIONS) {
         $db = App::instance()->db;
         if (array_key_exists('order', $settings)) {
             $direction = 'asc';
@@ -52,7 +52,7 @@ class CollectionQuery {
             }
         }
 
-        
+
         if(array_key_exists('parent', $settings)) {
             $as_key = "relations";
             $db->join("relations as r", "collections.id = r.item_left", 'RIGHT');

@@ -196,7 +196,7 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
         $db = App::instance()->db;
         $db->where('name', $this->identifier);
         $db->where('item_left', $id_left);
-        $db->where('item_right', $ids_right, 'IN');
+        $db->where('item_right', array_values($ids_right), 'IN');
 
         $db->delete('relations');
     }

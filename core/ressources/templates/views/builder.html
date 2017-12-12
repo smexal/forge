@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-lg-9">
                                 {$panel_left}
-                                {$builder}
+                                {if="isset($builder)"}{$builder}{/if}
                                 {if="$custom"}
                                     {$custom}
                                 {/if}

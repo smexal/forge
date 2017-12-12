@@ -14,17 +14,16 @@ class FieldLoader {
         $lang = static::getFieldLanguage($field, $lang);
         $data_source = isset($field['data_source_load']) ? $field['data_source_load'] : 'meta';
         
-        if(!is_array($data_source)) {
+        if(is_array($data_source)) {
+            $callable = $data_source;
+        } else {
             $callable = [__CLASS__, 'load' .ucfirst($data_source)];
             $callable = is_callable($callable) ? $callable : $data_source;
         }
 
-        if(!is_callable($callable)) {
+        if(isset($callable) && !is_callable($callable)) {
             throw new \Exception("Can not load field {$field['key']} via the data_source " .substr(print_r($data_source,1), 0,100));
         }
-
-
-
 
         $value = call_user_func_array($callable, [$item, $field, $lang]);
         if(isset($field['subfields'])) {

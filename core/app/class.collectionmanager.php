@@ -21,7 +21,7 @@ class CollectionManager extends Manager {
    * @deprecated Collection Manager is not responsible for creating CollectionItems.
    */
   public function add($args) {
-    Forge\Core\Classes\Logger::debug("This method is deprecated. Please Use CollectionItem::create($args)");
+    \Forge\Core\Classes\Logger::debug("This method is deprecated. Please Use CollectionItem::create()");
     CollectionItem::create($args);
   }
 

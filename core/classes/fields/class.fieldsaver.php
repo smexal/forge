@@ -21,12 +21,14 @@ class FieldSaver {
         $value = isset($data[$field['key']]) ? $data[$field['key']] : null;
         $value = isset($field['process:save']) ? call_user_func($field['process:save'], $value) : $value;
 
-        if(!is_array($data_source)) {
+        if(is_array($data_source)) {
+            $callable = $data_source;
+        } else {
             $callable = [__CLASS__, 'save' . ucfirst($data_source)];
             $callable = is_callable($callable) ? $callable : $data_source;
         }
 
-        if(!is_callable($callable)) {
+        if(isset($callable) && !is_callable($callable)) {
             throw new \Exception("Can not save field {$field['key']} via the data_source " . substr(print_r($data_source,1), 0,100));
         }
         call_user_func_array($callable, [$item, $field, $value, $lang]);
