@@ -37,12 +37,13 @@
   box-shadow: none;
 }
 .form-group label {
-  transition: 300ms;
-  color: #343434;
-  font-weight: normal;
   position: absolute;
   top: 18px;
+  color: #343434;
+  font-weight: normal;
   font-size: 13px;
+  transition: 300ms;
+  pointer-events: none;
 }
 .form-group label.control-label.wysiwyg {
   position: static;

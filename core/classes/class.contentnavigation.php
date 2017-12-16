@@ -61,15 +61,14 @@ class ContentNavigation {
 
         // get all collections
         foreach ($db->get('collections') as $collection) {
-            $type = i($collection['type'], 'core');
+            $c = new CollectionItem($collection['id']);
             if ($json) {
-                $c = new CollectionItem($collection['id']);
                 array_push($items, [
-                    'title' => sprintf($displayFormat, $c->getName(), $type),
+                    'title' => sprintf($displayFormat, $c->getName(), i($c->getType(), 'core')),
                     'value' => $c->url()
                 ]);
             } else {
-                $items[$type][$collection['type'].'##'.$collection['id']] = $collection['name'];
+                $items[$c->getType()][$c->getType().'##'.$c->getId()] = $c->getName();
             }
         }
 

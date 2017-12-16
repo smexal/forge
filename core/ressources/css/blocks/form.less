@@ -25,12 +25,15 @@
         }
     }
     label {
-        transition: 300ms;
-        color: @color-gray;
-        font-weight: normal;
         position: absolute;
         top: 18px;
+
+        color: @color-gray;
+        font-weight: normal;
         font-size: 13px;
+
+        transition: 300ms;
+        pointer-events: none;
 
         &.control-label.wysiwyg {
             position: static;

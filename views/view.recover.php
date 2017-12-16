@@ -37,7 +37,7 @@ class RecoverView extends View {
     public function onRecoverFormSubmit() {
         $this->data = $_POST;
 
-        if($this->data['__event'] == 'onRecoverSetPassword') {
+        if(array_key_exists('__event', $this->data) && $this->data['__event'] == 'onRecoverSetPassword') {
             $token = Utils::getUriComponents();
             if(array_key_exists(2, $token)) {
                 $token = explode("__", $token[2]);
