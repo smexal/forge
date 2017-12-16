@@ -28,7 +28,6 @@ class FieldLoader {
         $value = call_user_func_array($callable, [$item, $field, $lang]);
         if(isset($field['subfields'])) {
             $data = static::loadSubvalues($item, $field, $lang, $value);
-            error_log(print_r("Corrected value of repeater from $value to {$data['value']}", 1));
             $value = $data['value'];
         }
         $value = isset($field['process:load']) ? call_user_func($field['process:load'], $value, $lang) : $value;
