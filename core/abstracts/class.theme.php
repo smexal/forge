@@ -78,8 +78,8 @@ abstract class Theme implements ITheme {
     public function addStyle($style, $absolute=false, $viewCondition=false) {
         if(is_null($this->lessc)) {
             $this->lessc = new \lessc;
-            $this->lessc->setVariables($this->lessVariables);
         }
+        $this->lessc->setVariables($this->lessVariables);
 
         if(in_array($style, $this->styles)) {
             return;
