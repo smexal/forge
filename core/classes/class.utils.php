@@ -273,13 +273,27 @@ class Utils {
       return '<div class="bs-callout bs-callout-danger"><p>'.$error.'</p></div>';
     }
 
-    public static function formatAmount($amount, $switchCurLabel = false) {
+    public static function formatAmount($amount, $switchCurLabel = false, $seperateCurrency = false) {
       // TODO: Make Currency from a Setting....
       $currency = 'CHF';
-      if($switchCurLabel) {
-        return '<span class="amount">'.sprintf(i('%1$s <i>%2$s</i>', 'core-currency'), number_format($amount, 2, '.', '\''), $currency).'</span>';
+      $seperateCurrencyStart = '';
+      $seperateCurrencyEnd = '';
+      if($seperateCurrency) {
+        $seperateCurrencyStart = '<span class="amount">';
+        $seperateCurrencyEnd = '</span>';
       }
-      return '<span class="amount">'.sprintf(i('<i>%1$s</i> %2$s', 'core-currency'), $currency, number_format($amount, 2, '.', '\'')).'</span>';
+      $pattern = '%1$s %2$s';
+      if($switchCurLabel) {
+        if($seperateCurrency) {
+          $pattern = '%1$s <i>%2$s</i>';
+        }
+        return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), number_format($amount, 2, '.', '\''), $currency).$seperateCurrencyEnd;
+      }
+      $pattern = '%1$s <i>%2$s</i>';
+      if($seperateCurrency) {
+        $pattern = '<i>%1$s</i> %2$s';
+      }
+      return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), $currency, number_format($amount, 2, '.', '\'')).$seperateCurrencyEnd;
     }
 
     public static function extractParams($defaults, $params) {
