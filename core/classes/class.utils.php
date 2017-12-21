@@ -289,7 +289,6 @@ class Utils {
         }
         return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), number_format($amount, 2, '.', '\''), $currency).$seperateCurrencyEnd;
       }
-      $pattern = '%1$s <i>%2$s</i>';
       if($seperateCurrency) {
         $pattern = '<i>%1$s</i> %2$s';
       }
