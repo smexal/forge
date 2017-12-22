@@ -11,6 +11,7 @@ abstract class ListingComponent extends Component {
     protected $order = 'id';
     protected $orderDirection = 'DESC';
     protected $collection = null;
+    protected $cssClasses = [];
 
     public function __construct() {
         $this->settings = array(
@@ -56,9 +57,11 @@ abstract class ListingComponent extends Component {
             }
         }
         return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", array(
+            'title' => $this->getField('title'),
             'message' => $message,
             'items' => $items,
-            'type' => $this->collection
+            'type' => $this->collection,
+            'classes' => implode(" ", $this->cssClasses)
         ));
     }
 
