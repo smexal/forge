@@ -54,7 +54,7 @@ class ManageView extends View {
         }
 
         if(Auth::allowed($this->permissions[3])) {
-            $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft, 'build');
+            $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft, 'create');
             if(Auth::allowed($this->permissions[7])) {
                 $this->navigation->add('Pages', i('Pages'), Utils::getUrl(array('manage', 'pages')), $panelLeft, false, 'builder');
             }
