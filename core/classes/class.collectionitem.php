@@ -255,7 +255,11 @@ class CollectionItem implements ICollectionItem {
             } else {
                 $body = $app->cm->getCollection($this->base_data['type'])->render($this);
             }
-            return $app->render($app->tm->getTemplateDirectory(), "layout", array_merge(
+            $layout = 'layout';
+            if($app->tm->theme->ajaxLayout && Utils::isAjax()) {
+                $layout = $app->tm->theme->ajaxLayout;
+            }
+            return $app->render($app->tm->getTemplateDirectory(), $layout, array_merge(
                 array(
                     'bodyclass' => $this->bodyclass,
                     'head' => $app->tm->theme->header(),

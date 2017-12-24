@@ -15,6 +15,7 @@ abstract class Theme implements ITheme {
     private $load_scripts = array();
     private $defered_scripts = [];
     private $lessc = null;
+    public $ajaxLayout = '';
     public $lessVariables = array();
 
     public function tinyUrl() {

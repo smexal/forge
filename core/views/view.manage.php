@@ -111,7 +111,6 @@ class ManageView extends View {
         $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelBottom, 'power_settings_new');
 
 
-
         $this->navigation->setSticky();
 
         $this->navigation = ModifyHandler::instance()->trigger(
