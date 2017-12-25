@@ -49,6 +49,9 @@ var forms = {
 
     datetime : function($context) {
       $context = typeof $context == 'undefined' ? $('body') : $context;
+      if(typeof( $context.datetimepicker) == 'undefined' ) {
+        return;
+      }
       $context.find('input[type="datetime"]:not([data-prepared="1"])')
         .datetimepicker()
         .data('prepared', 1);
