@@ -16,13 +16,12 @@ include("config.php");
 include("core/superloader.php");
 include("core/loader.php");
 
-//SuperLoader::$DEBUG = SuperLoader::DEBUG_PAGE;
+SuperLoader::$DEBUG = SuperLoader::DEBUG_LOG;
 SuperLoader::$BASE_DIR = DOC_ROOT;
 SuperLoader::$FLUSH = AUTOLOADER_CLASS_FLUSH === true;
+
 spl_autoload_register(array(SuperLoader::instance(), "autoloadClass"));
-
 $loader = \Forge\Loader::instance();
-
 Auth::session();
 // all php loaded; instance the app
 $app = App::instance();

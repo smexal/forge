@@ -67,8 +67,8 @@ class CollectionManager extends Manager {
    * @deprecated
    */
   public function deleteCollectionItem($id) {
-    Forge\Core\Classes\Logger::debug("This method is deprecated. Please Use CollectionItem->delete()");
-    $item = new CollectionItem($id);
-    $item->delete();
+      \Forge\Core\Classes\Logger::debug("This method is deprecated. Please Use CollectionItem->delete()");
+      $item = new CollectionItem($id);
+      $item->delete();
   }
 }

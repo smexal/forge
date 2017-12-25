@@ -23,7 +23,13 @@ class SuperLoader {
     const DEBUG_LOG  = 1;
     const DEBUG_PAGE = 2;
 
-    public static $DEBUG = true;
+    const VERBOSITY_0 = 0;
+    const VERBOSITY_1 = 1;
+    const VERBOSITY_2 = 2;
+
+    public static $VERBOSITY = SuperLoader::VERBOSITY_1;
+    
+    public static $DEBUG = SuperLoader::DEBUG_NONE;
     public static $FLUSH = false;
 
     public static $BASE_DIR = null;
@@ -139,15 +145,19 @@ class SuperLoader {
 
         // Get Namespace
         if(!preg_match('/namespace\s+(.*)\;/', $head, $ns_match)) {
-            if(! strstr($file, '.rtpl.php')) {
-                error_log("Cant find namespace for $file");
+            if(!strstr($file, '.rtpl.php')) {
+                if(SuperLoader::$VERBOSITY >= SuperLoader::VERBOSITY_2) {
+                  error_log("Cant find namespace for $file");
+                }
             }
           continue;
         }
 
         // Get Class / Interface / Trait name
         if(!preg_match('/\\n((abstract\s+)?class|interface|trait)\s+([a-zA-Z][a-zA-Z0-9_]+)/', $head, $cls_match)) {
-          error_log("Can't find class for file $file");
+          if(SuperLoader::$VERBOSITY >= SuperLoader::VERBOSITY_2) {
+            error_log("Can't find class for file $file");
+          }
           continue;
         }
 
@@ -198,10 +208,26 @@ class SuperLoader {
             return;
         } 
         
-        /*error_log("SuperLoader could not find $ns_cls");
-        echo "<pre>";
-        echo "SuperLoader has following Mapping:";
-        echo print_r($this->mappings, 1);
-        exit();*/
+        if(SuperLoader::$DEBUG == SuperLoader::DEBUG_NONE) {
+          return;
+        }
+        
+        $log_page = SuperLoader::$DEBUG == SuperLoader::DEBUG_PAGE;
+        $str = "SuperLoader could not find $ns_cls";
+        
+        $str .= $log_page ? "<pre>" : '';
+        $str .= "SuperLoader has following Mapping:";
+        $str .= print_r($this->mappings, 1);
+        $str .= $log_page ? "<pre>" : '';
+        
+        if($log_page) {
+          echo $str;
+        } else {
+          if(SuperLoader::$VERBOSITY >= SuperLoader::VERBOSITY_1) {
+            error_log($str);
+          }
+        }
+
+        exit();
     }
 }

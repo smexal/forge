@@ -99,9 +99,21 @@ class Loader {
     }
 
     private function __construct(){
+
+        $timer = Logger::timer();
         $this->libraries();
+        Logger::debug('Library load time:');
+        Logger::stop($timer);
+        
+        $timer = Logger::timer();
         $this->loadCoreScripts();
+        Logger::debug('Core Scripts load time:');
+        Logger::stop($timer);
+        
+        $timer = Logger::timer();
         $this->loadModules();
+        Logger::debug('Modules load time:');
+        Logger::stop($timer);
 
     }
 
@@ -181,7 +193,7 @@ class Loader {
     }
 
     public function loadModules() {
-      $this->loadDirectory(DOC_ROOT."modules/", false, "module.php");
+      $this->loadDirectory(DOC_ROOT."modules/", false, "module.php", false, 1);
     }
 
     public function loadTraits() {
@@ -231,39 +243,80 @@ class Loader {
       $this->addScript("core/ressources/scripts/tablebar.js");
     }
 
-    public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern = false) {
-      if (file_exists($directory)) {
-        $dir = new \DirectoryIterator($directory);
-        foreach ($dir as $fileinfo) {
-            if ($fileinfo->isDot()) {
-              continue;
-            }
+    public function loadDirectory($directory, $inquery=false, $filefilter=false, $namepattern=false, $max_depth=1000) {
+      if (!file_exists($directory)) {
+        return;
+      }
 
-            if (strstr($fileinfo->getFilename(), ".php")) {
-                if (! $filefilter || $filefilter == $fileinfo->getFilename()) {
-                  if (!$namepattern) {
-                    $f = $directory.$fileinfo->getFilename();
-                    require_once($f);
-                  } else {
-                    foreach ($namepattern as $pattern) {
-                      $fileparts = explode(".", $fileinfo->getFilename());
-                      if (in_array($pattern, $fileparts)) {
-                        require_once($directory.$fileinfo->getFilename());
-                        break;
-                      }
-                    }
-                  }
-                }
-            } elseif ($fileinfo->isDir()) {
-              // check if the subdirectory is part of the queried url. (no manage views without manage queried)
-              if ($inquery) {
-                if (in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
-                  $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
-                }
-              } else {
-                $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern);
+      $dir = new \DirectoryIterator($directory);
+      foreach ($dir as $fileinfo) {
+
+        // Avoid . and ..
+        if ($fileinfo->isDot()) {
+          continue;
+        }
+
+        // Avoid .git, .gitignore usw.
+        if(strpos($fileinfo->getFilename(), '.') === 0) {
+          continue;
+        }
+
+        // Avoid if this is not a php file and this is not a dirctory
+        if(!strstr($fileinfo->getFilename(), ".php") && !$fileinfo->isDir()) {
+          continue;
+        }
+
+        /**
+         * DIRECTORY HANDLING
+         */
+        if ($fileinfo->isDir()) {
+          if($max_depth - 1 == -1) {
+            continue;
+          }
+
+          // check if the subdirectory is part of the queried url. (no manage views without manage queried)
+          if ($inquery && in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
+              $timer = Logger::timer();
+              $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern, $max_depth -1);
+              Logger::debug('Directory load time "' . $directory.$fileinfo->getFilename() . '"');
+              Logger::stop($timer);
+          } else {
+              $timer = Logger::timer();
+              $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern, $max_depth - 1);
+              Logger::debug('Directory load time "' . $directory.$fileinfo->getFilename() . '"');
+              Logger::stop($timer);
+          }
+        /**
+         * FILE HANDLING
+         */
+        } else {
+          // Abort if filefilter does not match
+          if ($filefilter && $filefilter != $fileinfo->getFilename()) {
+            continue;
+          }
+
+          if (!$namepattern) {
+            $file_path = $directory.$fileinfo->getFilename();
+            
+            $timer = Logger::timer();
+            require_once($file_path);
+            Logger::debug('(1) Loadtime for: "' . $file_path . '"');
+            Logger::stop($timer);
+          } else {
+            foreach ($namepattern as $pattern) {
+              $fileparts = explode(".", $fileinfo->getFilename());
+              if (in_array($pattern, $fileparts)) {
+                $file_path = $directory.$fileinfo->getFilename();
+                
+                $timer = Logger::timer();
+                require_once($file_path);
+                Logger::debug('(2) Loadtime for "' . $file_path . '"');
+                Logger::stop($timer);
+                
+                break;
               }
             }
+          }
         }
       }
     }
