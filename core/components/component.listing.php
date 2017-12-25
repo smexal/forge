@@ -80,6 +80,7 @@ abstract class ListingComponent extends Component {
         foreach($collectionItems as $item) {
             array_push($items, $this->renderItem($item));
         }
+        $items = array_reverse($items);
 
         return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", [
             'title' => $this->getField('title'),
