@@ -274,7 +274,7 @@ class App {
         return $tpl->draw($template_file, true);
     }
 
-    public function redirect($target, $go_back=false) {
+    public function redirect($target, $go_back=false, $forceAjaxThrough = false) {
         if(is_array($target)) {
             $target = Utils::getUrl($target);
         } else {
@@ -285,14 +285,13 @@ class App {
         if($go_back) {
             $_SESSION['back'] = $go_back;
         }
-        if(Utils::isAjax()) {
+        if(Utils::isAjax() && ! $forceAjaxThrough) {
             exit(json_encode(array(
                 "action" => "redirect",
                 "target" => $target
             )));
         } else {
             if($target == '/') {
-                var_dump($target);
                 exit(header("Location: ".$target));
             }
             exit(header("Location: ".rtrim($target, "/")));
@@ -323,6 +322,7 @@ class App {
         if(isset($_SESSION['back'])) {
             $back = $_SESSION['back'];
             unset($_SESSION['back']);
+            Logger::debug('back');
             $this->redirect($back);
         } else {
             $this->redirect(Utils::getHomeUrl());

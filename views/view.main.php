@@ -2,11 +2,12 @@
 
 namespace Forge\Views;
 
+use Forge\Core\Classes\Logger;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
+use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Page;
 use \Forge\Core\Classes\Settings;
-use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Utils;
 
 class MainView extends View {
@@ -86,7 +87,7 @@ class MainView extends View {
 
     private function redirectPrependLanguage() {
         $current = Localization::getCurrentLanguage();
-        $this->app->redirect(array_merge(array($current),  Utils::getUriComponents()));
+        $this->app->redirect(array_merge(array($current),  Utils::getUriComponents()), false, true);
     }
 
     private function languageSet() {

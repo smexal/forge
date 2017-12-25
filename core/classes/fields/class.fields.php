@@ -2,8 +2,9 @@
 
 namespace Forge\Core\Classes;
 
-use \Forge\Core\App\App;
+use Forge\Core\Classes\Logger;
 use \Forge\Core\App\API;
+use \Forge\Core\App\App;
 use \Forge\Core\Classes\FieldUtils;
 use \Forge\Core\Classes\Settings;
 
@@ -133,6 +134,11 @@ class Fields {
             'state' => 'all',
             'maxtags' => false
         ];
+
+        Logger::debug($args);
+        if(array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        }
 
         $args = array_merge($defaults, $args);
 

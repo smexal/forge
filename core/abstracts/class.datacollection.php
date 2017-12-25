@@ -71,7 +71,7 @@ abstract class DataCollection implements IDataCollection {
             'add-label' => i('Add item'),
             'single-item' => i('item'),
             'multilang' => false,
-            'has_status' => false,
+            'has_status' => true,
             'has_categories' => false,
             'has_password' => false,
             'has_image' => false

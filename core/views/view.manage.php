@@ -54,7 +54,7 @@ class ManageView extends View {
         }
 
         if(Auth::allowed($this->permissions[3])) {
-            $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft, 'build');
+            $this->navigation->add('builder', i('Builder'), Utils::getUrl(array('manage', 'builder')), $panelLeft, 'create');
             if(Auth::allowed($this->permissions[7])) {
                 $this->navigation->add('Pages', i('Pages'), Utils::getUrl(array('manage', 'pages')), $panelLeft, false, 'builder');
             }
@@ -109,7 +109,6 @@ class ManageView extends View {
 
         $panelBottom = $this->navigation->addPanel('right');
         $this->navigation->add('logout', i('Logout'), Utils::getUrl(array('logout')), $panelBottom, 'power_settings_new');
-
 
 
         $this->navigation->setSticky();

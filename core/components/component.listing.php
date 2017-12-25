@@ -2,25 +2,38 @@
 
 namespace Forge\Core\Components;
 
-use \Forge\Core\App\ModifyHandler;
+use \Forge\Core\Classes\CollectionItem;
 use \Forge\Core\Abstracts\Component;
 use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
+use \Forge\Core\App\ModifyHandler;
+use \Forge\Core\Classes\Logger;
 
 abstract class ListingComponent extends Component {
     public $settings = array();
     protected $order = 'id';
     protected $orderDirection = 'DESC';
     protected $collection = null;
+    protected $cssClasses = [];
 
     public function __construct() {
-        $this->settings = array(
-            array(
+        Auth::registerPermissions("api.collection.".$this->collection.'.read');
+
+        $this->settings = [
+            [
                 "label" => i('Title'),
                 "hint" => '',
                 "key" => "title",
                 "type" => "text"
-            )
-        );
+            ],
+            [
+                'label' => i('Choose Elements'),
+                'hint' => i('If you want you can choose the desired objects for the listing.'),
+                'key' => 'filter',
+                'type' => 'collection',
+                'collection' => $this->collection
+            ]
+        ];
     }
 
     public function prefs() {
@@ -39,27 +52,43 @@ abstract class ListingComponent extends Component {
         if(is_null($this->collection)) {
            $message = i('No Collection defined for listing, contact your administrator.', 'core'); 
            $items = false;
-        } else {
+       }
+
+        $collectionItems = [];
+        if( strlen($this->getField('filter')) > 0 ) {
+            $filter = explode(",", $this->getField('filter'));
+            foreach($filter as $i) {
+                $collectionItems[] = new CollectionItem($i);
+            }
+        }
+
+        if(! $message && count($collectionItems) == 0) {
             $collection = App::instance()->cm->getCollection($this->collection);
             $collectionItems = $collection->items([
                 'status' => 'published',
                 'order' => $this->order,
                 'order_direction' => $this->orderDirection
             ]);
-            $items = [];
-            $collectionItems = ModifyHandler::instance()->trigger(
-                'modify_collection_listing_items',
-                $collectionItems
-            );
-            foreach($collectionItems as $item) {
-                array_push($items, $this->renderItem($item));
-            }
         }
-        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", array(
+
+        $collectionItems = ModifyHandler::instance()->trigger(
+            'modify_collection_listing_items',
+            $collectionItems
+        );
+
+        $items = [];
+        foreach($collectionItems as $item) {
+            array_push($items, $this->renderItem($item));
+        }
+        $items = array_reverse($items);
+
+        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", [
+            'title' => $this->getField('title'),
             'message' => $message,
             'items' => $items,
-            'type' => $this->collection
-        ));
+            'type' => $this->collection,
+            'classes' => implode(" ", $this->cssClasses)
+        ]);
     }
 
     public function renderItem($item) {

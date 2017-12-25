@@ -42,8 +42,7 @@ class Navigation {
         }
     }
 
-    public function removeFromCollections($id)
-    {
+    public function removeFromCollections($id) {
         $index = array_search($id, $this->items['collections']['children']);
         unset($this->items['collections']['children'][$index]);
     }

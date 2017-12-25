@@ -1,8 +1,11 @@
-<div class="listing {$type}">
-    {if="$message"}<p class="message info">{$message}</p>{/if}
-    {if="$items"}
-        {loop="items"}
-            {$value}
-        {/loop}
-    {/if}
+<div class="{$type} {$classes} component-listing">
+    <h2>{$title}</h2>
+    <div class="listing">
+        {if="$message"}<p class="message info">{$message}</p>{/if}
+        {if="$items"}
+            {loop="items"}
+                {$value}
+            {/loop}
+        {/if}
+    </div>
 </div>
