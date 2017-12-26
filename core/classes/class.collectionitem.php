@@ -253,7 +253,15 @@ class CollectionItem implements ICollectionItem {
             if($this->getMeta('password_protection') && ! $password_set) {
                 $body = $this->collectionLogin();
             } else {
-                $body = $app->cm->getCollection($this->base_data['type'])->render($this);
+                // collection subview wanted, render this
+                $parts = Utils::getUriComponents();
+                $collectionObj = $app->cm->getCollection($this->base_data['type']);
+                if(array_key_exists(3, $parts) && method_exists($collectionObj, $parts[3])) {
+                    $method = $parts[3];
+                    $body = $collectionObj->$method($this);
+                } else {
+                    $body = $collectionObj->render($this);
+                }
             }
             $layout = 'layout';
             if($app->tm->theme->ajaxLayout && Utils::isAjax()) {
