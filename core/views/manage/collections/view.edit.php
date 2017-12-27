@@ -92,7 +92,7 @@ class EditView extends View {
         $return = '';
         foreach($fields as $field) {
             if($field['position'] == 'left') {
-                $return.= FieldBuilder::build($this->item, $field);
+                $return .= FieldBuilder::build($this->item, $field);
             }
         }
         return $return;

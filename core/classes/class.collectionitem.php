@@ -178,6 +178,9 @@ class CollectionItem implements ICollectionItem {
         unset($this->meta[$key]);
     }
 
+    /**
+     * Use this only when the meta field already exsists
+     */
     public function setMeta($key, $value, $language='0') {
         $value = is_array($value) ? json_encode($value) : $value;
         $this->db->where('keyy', $key);
