@@ -295,8 +295,12 @@ class Page {
       // show subnavigation
 
       if($this->getMeta('subnavigation') === false) {
+          $items = $this->getSubnavigationItems();
+          if(strlen($items) == 0) {
+            $items = false;
+          }
           $content.= App::instance()->render(CORE_TEMPLATE_DIR."assets/", "subnavigation", array(
-              'items' => $this->getSubnavigationItems()
+              'items' => $items
           ));
       }
 

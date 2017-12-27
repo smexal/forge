@@ -102,18 +102,12 @@ class Loader {
 
         $timer = Logger::timer();
         $this->libraries();
-        Logger::debug('Library load time:');
-        Logger::stop($timer);
         
         $timer = Logger::timer();
         $this->loadCoreScripts();
-        Logger::debug('Core Scripts load time:');
-        Logger::stop($timer);
         
         $timer = Logger::timer();
         $this->loadModules();
-        Logger::debug('Modules load time:');
-        Logger::stop($timer);
 
     }
 
@@ -278,13 +272,13 @@ class Loader {
           if ($inquery && in_array($fileinfo->getFilename(), Utils::getUriComponents())) {
               $timer = Logger::timer();
               $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern, $max_depth -1);
-              Logger::debug('Directory load time "' . $directory.$fileinfo->getFilename() . '"');
-              Logger::stop($timer);
+              /*Logger::debug('Directory load time "' . $directory.$fileinfo->getFilename() . '"');
+              Logger::stop($timer);*/
           } else {
               $timer = Logger::timer();
               $this->loadDirectory($directory.$fileinfo->getFilename()."/", false, $filefilter, $namepattern, $max_depth - 1);
-              Logger::debug('Directory load time "' . $directory.$fileinfo->getFilename() . '"');
-              Logger::stop($timer);
+              /*Logger::debug('Directory load time "' . $directory.$fileinfo->getFilename() . '"');
+              Logger::stop($timer);*/
           }
         /**
          * FILE HANDLING
@@ -300,8 +294,8 @@ class Loader {
             
             $timer = Logger::timer();
             require_once($file_path);
-            Logger::debug('(1) Loadtime for: "' . $file_path . '"');
-            Logger::stop($timer);
+            /*Logger::debug('(1) Loadtime for: "' . $file_path . '"');
+            Logger::stop($timer);*/
           } else {
             foreach ($namepattern as $pattern) {
               $fileparts = explode(".", $fileinfo->getFilename());
@@ -310,8 +304,8 @@ class Loader {
                 
                 $timer = Logger::timer();
                 require_once($file_path);
-                Logger::debug('(2) Loadtime for "' . $file_path . '"');
-                Logger::stop($timer);
+                /*Logger::debug('(2) Loadtime for "' . $file_path . '"');
+                Logger::stop($timer);*/
                 
                 break;
               }

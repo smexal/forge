@@ -77,6 +77,11 @@ abstract class Component implements IComponent {
         return $this->id;
     }
 
+    public function configureManual($args) {
+        $this->id = uniqid();
+        $this->prefs['page_element_prefs']['prefs'] = json_encode($args);
+    }
+
     public function getSavedPrefs($forceUpdate=false) {
         if (is_null($this->prefs)) {
             $this->prefs = $this->prefs();
