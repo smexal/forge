@@ -223,11 +223,9 @@ class SuperLoader {
         if($log_page) {
           echo $str;
         } else {
-          if(SuperLoader::$VERBOSITY >= SuperLoader::VERBOSITY_1) {
+          if(SuperLoader::$VERBOSITY >= SuperLoader::VERBOSITY_2) {
             error_log($str);
           }
         }
-
-        exit();
     }
 }

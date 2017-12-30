@@ -135,7 +135,6 @@ class Fields {
             'maxtags' => false
         ];
 
-        Logger::debug($args);
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
         }

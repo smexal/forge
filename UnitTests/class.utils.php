@@ -104,7 +104,7 @@ class UtilsTests {
   
         $db = App::instance()->db;
         $db->rawQuery('TRUNCATE TABLE `collections`');
-        $db->rawQuery('TRUNCATE TABLE `collections_meta`');
+        $db->rawQuery('TRUNCATE TABLE `collection_meta`');
         $db->rawQuery('TRUNCATE TABLE `relations`');
 
     }

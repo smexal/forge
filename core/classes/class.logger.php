@@ -22,11 +22,11 @@ class Logger {
         if(is_null($level)) {
             $level = "INFO";
         }
-        if(! in_array($level, self::$levels)) {
+        if(!in_array($level, self::$levels)) {
             self::warn("Logged on unknown Level '".$message."'");
         }
         $log_level = self::$log_level;
-        if(! is_null(LOG_LEVEL)) {
+        if(!is_null(LOG_LEVEL)) {
             $log_level = LOG_LEVEL;
         }
         $log_level_key = array_search($log_level, self::$levels);
@@ -36,7 +36,14 @@ class Logger {
           if(! is_array($text))
             $text = array($text);
           foreach($text as $key => $value) {
+            if(is_object($value)) {
+                $value = [print_r($value, 1)];
+            }
             if(is_array($value)) {
+              $value = array_map(function($val) {
+                return print_r($val, 1);
+              }, $value);
+
               $value = implode(", ", $value);
             }
             $output = date("Y-m-d H:i:s")." - ".$level." - ".$key." => ".$value."\n";
