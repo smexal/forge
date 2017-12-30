@@ -35,6 +35,10 @@ class EditView extends View {
         $this->lang = Localization::currentLang();
         $this->pages = new Pages();
         if(is_numeric($uri[0])) {
+            if(array_key_exists('elementId', $_GET)) {
+                $elementId = $_GET['elementId'];
+                $builderId = $_GET['builderId'];
+            }
             $this->page = new Page($uri[0]);
             if(count($uri) > 1 && $uri[1] == 'save') {
                 // save changes
@@ -66,8 +70,12 @@ class EditView extends View {
                 if(array_key_exists('inner', $_GET)) {
                     $position_x = $_GET['inner'];
                 }
-                $this->page->addElement($elementToAdd, $lang, $parent, "end", $position_x);
+                $builder = new Builder('page', $elementId);
+                $builder->addElement($elementId, $elementToAdd, $lang, $parent, "end", $position_x, $builderId);
 
+                if(array_key_exists('fromParts', $_GET)) {
+                    return $this->app->redirect(Utils::getUrl(explode(",", $_GET['fromParts'])));
+                }
                 return $this->app->redirect(Utils::getUrl(array("manage", "pages", "edit", $this->page->id), true));
             }
             return $this->defaultContent();

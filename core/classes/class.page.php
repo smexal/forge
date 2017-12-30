@@ -148,43 +148,6 @@ class Page {
       }
   }
 
-  public function addElement($type, $language, $parent=0, $position="end", $position_x = 0) {
-      $data = array(
-          'pageid' => $this->id,
-          'elementid' => $type,
-          'prefs' => '',
-          'parent' => $parent,
-          'lang' => $language,
-          'position' => $position == 'end' ? $this->getNextElementPosition($parent, $language, $position_x) : $position,
-          'position_x' => $position_x
-      );
-      $this->db->insert('page_elements', $data);
-  }
-
-  public function getElements($parent, $lang) {
-      $this->db->where('parent', $parent);
-      $this->db->where('lang', $lang);
-      $this->db->where('pageid', $this->id);
-      $this->db->orderBy('position', 'ASC');
-      $elements = array();
-      foreach($this->db->get('page_elements') as $element) {
-          $element = App::instance()->com->instance($element['id'], $element['elementid']);
-          if(!is_null($element)) {
-              array_push($elements, $element);
-          }
-      }
-      return $elements;
-  }
-
-  private function getNextElementPosition($parent, $language, $position_x = 0) {
-      $this->db->where('parent', $parent);
-      $this->db->where('pageid', $this->id);
-      $this->db->where('position_x', $position_x);
-      $this->db->where('lang', $language);
-      $this->db->get('page_elements');
-      return $this->db->count;
-  }
-
   public function isPublished() {
       if($this->getMeta('status') == 'published') {
           return true;
@@ -289,7 +252,6 @@ class Page {
   }
 
   public function content() {
-      $elements = $this->getElements(0, Localization::getCurrentLanguage());
       $content = '';
 
       // show subnavigation
@@ -304,6 +266,9 @@ class Page {
           ));
       }
 
+
+      $builder = new Builder('page', $this->id);
+      $elements = $builder->getBuilderElements(Localization::getCurrentLanguage());
 
       foreach($elements as $element) {
           $content.=$element->content();

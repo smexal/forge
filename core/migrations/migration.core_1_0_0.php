@@ -38,6 +38,10 @@ class Core_1_0_0Migration implements IMigration {
                     PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;'
             );
+
+            App::instance()->db->query(
+                'ALTER TABLE `page_elements` ADD `builderId` VARCHAR(150) NOT NULL DEFAULT \'none\' AFTER `position_x`, ADD INDEX `builderId` (`builderId`);'
+            );
             App::instance()->db->commit();
         } catch (Exception $e) {
             App::instance()->db->rollback();

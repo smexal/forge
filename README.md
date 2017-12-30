@@ -1,6 +1,33 @@
 # FORGE
 ...yo
 
+## Builder
+The Builder can be used to build sites or custom content everywhere where desired. Used with the following instructions:
+
+### Backend Builder
+Initialize and Render the Builder for Building with Components
+```php
+// use 'collection' as the other type is reserved for 'pages'
+// $id is the collection item id
+// 'defaultEventBuilder' is the Identification of the builder
+
+$builder = new Builder('collection', $id, 'defaultEventBuilder');
+return $builder->render();
+```
+
+### Render Builder
+Render the components which the user has defined within the builder.
+```php
+$builder = new Builder('collection', $item->id, 'defaultEventBuilder');
+$elements = $builder->getBuilderElements(Localization::getCurrentLanguage());
+
+$builderContent = '';
+foreach($elements as $element) {
+    $builderContent.=$element->content();
+}
+```
+
+
 ## Modules
 ...
 

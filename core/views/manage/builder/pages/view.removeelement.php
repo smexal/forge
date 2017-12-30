@@ -18,12 +18,18 @@ class RemoveelementView extends View {
                 $component = App::instance()->com->instance($id);
                 $page_id = $component->getPage();
                 if($uri[1] == "cancel") {
+                    if(array_key_exists('fromParts', $_GET)) {
+                        return App::instance()->redirect(Utils::getUrl(explode(",", $_GET['fromParts'])));
+                    }
                     App::instance()->redirect(Utils::getUrl(array('manage', 'pages', 'edit', $page_id)));
                 } else if ($uri[1] == 'confirmed') {
                     if(App::instance()->com->deleteComponent($id)) {
                         App::instance()->addMessage(i('Component removed.'), "success");
                     } else {
                         App::instance()->addMessage(i('Error while removing component.'), "danger");
+                    }
+                    if(array_key_exists('fromParts', $_GET)) {
+                        return App::instance()->redirect(Utils::getUrl(explode(",", $_GET['fromParts'])));
                     }
                     App::instance()->redirect(Utils::getUrl(array('manage', 'pages', 'edit', $page_id)));
                 }
@@ -40,11 +46,11 @@ class RemoveelementView extends View {
           "message" => sprintf(i('Do you really want to delete the component \'%s\' and its content?'), $component->getPref('name')),
           "yes" => array(
               "title" => i('Yes, delete component'),
-              "url" => Utils::getUrl(array("manage", "pages", "remove-element", $id, "confirmed"))
+              "url" => Utils::getUrl(array("manage", "pages", "remove-element", $id, "confirmed"), true)
           ),
           "no" => array(
               "title" => i("No, cancel."),
-              "url" => Utils::getUrl(array("manage", "pages", "remove-element", $id, "cancel"))
+              "url" => Utils::getUrl(array("manage", "pages", "remove-element", $id, "cancel"), true)
           )
       ));
     }

@@ -27,6 +27,9 @@ class EditelementView extends View {
             }
         }
         $this->message = i('Changes saved');
+        if(array_key_exists('fromParts', $_GET)) {
+            return App::instance()->redirect(Utils::getUrl(explode(",", $_GET['fromParts'])));
+        }
     }
 
     public function content($parts = array()) {
