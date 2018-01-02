@@ -1,25 +1,43 @@
 var forms = {
     init : function() {
-      forms._init($('body'));
+        forms._init($('body'));
     },
 
     _init : function($context, force) {
-      $context = typeof $context == 'undefined' ? $('body') : $context;
-      forms.initFields($context);
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+        forms.initFields($context);
 
-      forms.additionalNavigationForm($context);
-      forms.ajax($context);
+        forms.additionalNavigationForm($context);
+        forms.ajax($context);
     },
 
     initFields : function($context) {
-      $context = typeof $context == 'undefined' ? $('body') : $context;
-      forms.helperlinks($context);
-      forms.imageselector($context);
-      forms.tags($context);
-      forms.repeater($context);
-      forms.datetime($context);
-      forms.readOnlyInput($context);
-      forms.focusToggle($context);
+        $context = typeof $context == 'undefined' ? $('body') : $context;
+        forms.helperlinks($context);
+        forms.imageselector($context);
+        forms.tags($context);
+        forms.repeater($context);
+        forms.datetime($context);
+        forms.readOnlyInput($context);
+        forms.focusToggle($context);
+        forms.searchComponents($context);
+    },
+
+    searchComponents : function($context) {
+        var timeout = false;
+        $context.find("#searchComponent").on('input', function () {
+            clearTimeout(timeout);
+            var term = $(this).val().toLowerCase();
+            timeout = setTimeout(function() {
+                $context.find(".components > .card").each(function() {
+                    if($(this).find("h5").text().toLowerCase().indexOf(term) >= 0) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }, 400);
+        });
     },
 
     imageselector : function($context) {

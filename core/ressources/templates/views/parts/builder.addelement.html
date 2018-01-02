@@ -1,13 +1,17 @@
 <div class="padded">
     <h2>{$title}</h2>
+    <div class="form-group searchComponentContainer">
+        <label class="control-label">{$searchComponentTitle}</label>
+        <input type="text" id="searchComponent" />
+    </div>
     <div class="components">
         {loop="$components"}
         <div class="card">
             <a href="{$value.url}" class="comp ajax {$value.id}">
                 <div class="image">{$value.image}</div>
                 <div class="info">
-                    <h4>{$value.name}</h4>
-                    <p>{$value.description}</p>
+                    <h5>{$value.name}</h5>
+                    <small>{$value.description}</small>
                 </div>
             </a>
         </div>

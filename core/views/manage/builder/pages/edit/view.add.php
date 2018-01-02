@@ -24,10 +24,11 @@ class AddView extends View {
         }
         $level = 'inner';
 
-        return App::instance()->render(CORE_TEMPLATE_DIR."views/parts/", "builder.addelement", array(
-            "title" => i("Add Element", "core"),
-            "components" => $this->components($level)
-        ));
+        return App::instance()->render(CORE_TEMPLATE_DIR.'views/parts/', 'builder.addelement', [
+            'searchComponentTitle' => i('Search Component', 'core'),
+            'title' => i('Add Element', 'core'),
+            'components' => $this->components($level)
+        ]);
     }
 
     private function components($level) {

@@ -48,6 +48,9 @@ abstract class ListingComponent extends Component {
     }
 
     public function content() {
+        if(method_exists($this, 'beforeContent')) {
+            $this->beforeContent();
+        }
         $message = false;
         if(is_null($this->collection)) {
            $message = i('No Collection defined for listing, contact your administrator.', 'core'); 
