@@ -435,7 +435,8 @@ class Fields {
             ])),
             'existing_fields' => $existing_fields,
             'repeater_title' => isset($args['repeater_title']) ? $args['repeater_title'] : \i('Repeater Fieldset', 'forge'),
-            'btn_add' => \i('Add', 'forge')
+            'btn_add' => \i('Add', 'forge'),
+            'repeater_set_title' => $args['label']
         ]);
 
          return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "repeater", $args);
