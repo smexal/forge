@@ -73,7 +73,11 @@ class Localization {
             $prio = 0;
             foreach ($res as $n => $v) {
                 $n = substr($n, 0, 2);
-                $v = +$v ? +$v : 1;
+                if(is_numeric($v)) {
+                    $v = + $v ? +$v : 1;
+                } else {
+                    $v = 1;
+                }
                 if ((!$lang || $v > $prio) && in_array($n, $avail)) {
                     $prio = $v;
                     $lang = $n;

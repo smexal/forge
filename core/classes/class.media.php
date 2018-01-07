@@ -116,7 +116,8 @@ class Media {
 
     public function create($file) {
         $this->title = $file["name"];
-        $ext = end((explode(".", $this->title)));
+        $nameArray = explode(".", $this->title);
+        $ext = end($nameArray);
         $this->name = md5(microtime()).".".$ext;
         $this->rel_path = $this->getSubdirectory();
         $this->abs_path = UPLOAD_DIR.$this->getSubdirectory();

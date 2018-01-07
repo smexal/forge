@@ -37,6 +37,10 @@ class CollectionQuery {
         }
         $db->where('type', $settings['name']);
 
+        if(array_key_exists('author', $settings)) {
+            $db->where('author', $settings['author']);
+        }
+
         if(array_key_exists('query', $settings)) {
             $db->where('name', $db->escape($settings['query']), 'LIKE');
         }

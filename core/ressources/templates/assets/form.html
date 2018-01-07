@@ -2,7 +2,8 @@
     method="{$method}"
     {if="$action"}action="{$action}"{/if}
     class="{if="$ajax"}ajax{/if} {if="$horizontal"}form-horizontal{/if}"
-    {if="$ajax"}data-target="{$ajax_target}"{/if}>
+    {if="$ajax"}data-target="{$ajax_target}"{/if}
+    enctype="multipart/form-data">
     {loop="$content"}
         {$value}
     {/loop}
