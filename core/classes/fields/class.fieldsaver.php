@@ -14,6 +14,7 @@ class FieldSaver {
             error_log(print_r($data, 1));
             die();  
         }*/
+
         $lang = static::determineLang($field, $data['language']);
 
         $data_source = isset($field['data_source_save']) ? $field['data_source_save'] : 'meta';
@@ -100,7 +101,7 @@ class FieldSaver {
 
     public static function determineLang($field, $lang) {
         if ($field['multilang'] == false) {
-            $lang = false;
+            return '0';
         } else if(!!$lang) {
             $lang = $lang;
         } else {

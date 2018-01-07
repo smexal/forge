@@ -2,6 +2,7 @@
 
 namespace Forge\Core\Abstracts;
 
+use Forge\Core\App\ModifyHandler;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\CollectionItem;
@@ -279,6 +280,10 @@ abstract class DataCollection implements IDataCollection {
                 'hint' => i('Choose an image for this collection item.')
             ));
         }
+        $fields = ModifyHandler::instance()->trigger(
+            'Core/Manage/modifiyDefaultFields',
+            $fields, $this->name
+        );
         return $fields;
     }
 

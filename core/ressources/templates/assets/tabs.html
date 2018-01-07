@@ -3,3 +3,12 @@
     <li {if="$value.active"}class="active"{/if}><a data-toggle="tab" href="#{$value.key}">{$value.name}</a></li>
     {/loop}
 </ul>
+{if="isset($tabs_content)"}
+<div class="tab-content">
+{loop="$tabs_content"}
+    <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
+    {$value.content}
+    </div>
+{/loop}
+</div>
+{/if}
