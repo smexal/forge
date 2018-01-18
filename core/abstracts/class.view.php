@@ -28,12 +28,15 @@ abstract class View implements IView {
 
     public $app = null;
 
-    public function buildURL() {
+    public function buildURL($additional_parts = []) {
       $items = array($this);
       $items = array_merge($items, $this->getParentItems($this));
       $parts = array();
       foreach ($items as $item) {
         array_push($parts, $item->name);
+      }
+      if(count($additional_parts) > 0) {
+        $parts = array_merge($parts, $additional_parts);
       }
       return Utils::getUrl($parts);
     }
