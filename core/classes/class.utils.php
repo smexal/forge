@@ -251,8 +251,7 @@ class Utils {
       return '<a href="javascript://" data-open="'.$url.'" '.$t.' class="btn btn-primary '.$overlay.' '.$classes.'">'.$label.'</a>';
     }
 
-    public static function tableCell($content, $class = false, $id = false, $structure = false, $cell_action = false)
-    {
+    public static function tableCell($content, $class = false, $id = false, $structure = false, $cell_action = false) {
       $data = array(
           'content' => $content,
           'class' => $class,

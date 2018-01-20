@@ -1,12 +1,18 @@
 <ul class="nav nav-tabs">
     {loop="tabs"}
-    <li {if="$value.active"}class="active"{/if}><a data-toggle="tab" href="#{$value.key}">{$value.name}</a></li>
+    <li class="{if="isset($value.active) && $value.active"}active{/if}{if="isset($value.disabled) && $value.disabled"} disabled{/if}">
+        <a 
+            {if="! isset($value.disabled) || !$value.disabled"}data-toggle="tab"{/if} 
+            href="#{$value.key}">
+            {$value.name}
+        </a>
+    </li>
     {/loop}
 </ul>
 {if="isset($tabs_content)"}
 <div class="tab-content">
 {loop="$tabs_content"}
-    <div id="{$value.id}" class="tab-pane fade{if="$value.active"} in active{/if}">
+    <div id="{$value.id}" class="tab-pane fade{if="isset($value.active) && $value.active"} in active{/if}">
     {$value.content}
     </div>
 {/loop}

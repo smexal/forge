@@ -6,6 +6,12 @@ var helpers = {
         contentAsHTML : true
       });
 
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // since reveal elements don't get triggered on a tab change.
+            // make sure the scroll event is triggered on change of to reveal.
+            $(window).scroll();
+      });
+
       $(document).find("body").addClass('js-active');
 
       $('.tipster-ajax').tooltipster({

@@ -159,18 +159,19 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
 
     public function add($id_left, $id_right) {
         $db = App::instance()->db;
-        $db->insert('relations', [
+        $id = $db->insert('relations', [
             'name' => $this->identifier,
             'item_left' => $id_left,
             'item_right' => $id_right
         ]);
         if($this->direction == Directions::BIDIRECT) {
-            $db->insert('relations', [
+            $id = $db->insert('relations', [
                 'name' => $this->identifier,
                 'item_left' => $id_right,
                 'item_right' => $id_left
             ]);
         }
+        return $id;
     }
     
     public function addMultiple($id_left, $ids_right) {
@@ -193,6 +194,9 @@ class Relation implements \Forge\Core\Interfaces\IRelation {
     }
 
     public function removeByRelationItems($id_left, $ids_right) {
+        if(! is_array($ids_right)) {
+            $ids_right = [$ids_right];
+        }
         $db = App::instance()->db;
         $db->where('name', $this->identifier);
         $db->where('item_left', $id_left);
