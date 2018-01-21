@@ -74,7 +74,11 @@ class CollectionQuery {
         $item_objects = array();
         foreach ($items as $item) {
             if($prepare == CollectionQuery::AS_COLLECTIONS || array_key_exists('status', $settings)) {
-                $obj = new CollectionItem($item['id']);
+                if(array_key_exists('meta_query', $settings)) {
+                    $obj = new CollectionItem($item['item']);  
+                } else {
+                    $obj = new CollectionItem($item['id']);
+                }
             }
             if (array_key_exists('status', $settings)) {
                 if ($settings['status'] == 'published' || $settings['status'] == 'draft') {
@@ -88,7 +92,11 @@ class CollectionQuery {
             } else if($prepare == CollectionQuery::AS_ARRAYS) {
                 array_push($item_objects, $item);
             } else {
-                array_push($item_objects, $item['id']);
+                if(array_key_exists('meta_query', $settings)) {
+                    array_push($item_objects, $item['item']);
+                } else {
+                    array_push($item_objects, $item['id']);
+                } 
             }
         }
 
