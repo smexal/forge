@@ -34,6 +34,10 @@
 
         transition: 300ms;
 
+        &:not([for]) {
+            pointer-events: none;
+        }
+
         &.control-label.wysiwyg {
             position: static;
             font-size: 15px;
