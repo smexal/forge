@@ -41,9 +41,7 @@ class ThemeManager extends Manager {
 
     private function loadTheme() {
         if (is_null($this->active)) {
-            // there is no theme, just take the first one you can find...
-            $themes = $this->getThemes();
-            $this->active = reset($themes);
+            $this->setFirstAvailableTheme();
         }
         if ($this->active && $this->active != '') {
             $theme_root = $this->theme_directory.$this->active."/theme.php";
@@ -51,8 +49,14 @@ class ThemeManager extends Manager {
                 require_once($theme_root);
             } else {
                 Logger::error('Could not load theme `'.$this->active.'`, theme.php not found in `'.$theme_root.'`');
+                $this->setFirstAvailableTheme();
             }
         }
+    }
+
+    public function setFirstAvailableTheme() {
+        $themes = $this->getThemes();
+        $this->active = reset($themes);
     }
 
     public function getThemes() {

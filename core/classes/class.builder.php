@@ -60,6 +60,7 @@ class Builder {
       $this->db->where('lang', $lang);
       $this->db->where('pageid', $this->id);
       $this->db->orderBy('position', 'ASC');
+
       $elements = array();
       foreach($this->db->get('page_elements') as $element) {
           $element = App::instance()->com->instance($element['id'], $element['elementid']);
