@@ -29,7 +29,7 @@ class Core_1_0_0Migration implements IMigration {
         try {
             App::instance()->db->startTransaction();
             App::instance()->db->query(
-                'CREATE TABLE `relations` (
+                'CREATE TABLE IF NOT EXISTS `relations` (
                     `id` int(11) NOT NULL AUTO_INCREMENT,
                     `name` VARCHAR(32) NOT NULL,
                     `item_left` int(11) NOT NULL,
