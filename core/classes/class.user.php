@@ -195,7 +195,7 @@ class User {
     }
 
     public function setMail($newMail) {
-        if (! Auth::allowed("manage.users.edit")) {
+        if (! Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
             return i("Permission denied to edit users.");
         }
         // check if user already has that given email.
@@ -282,7 +282,7 @@ class User {
     }
 
     public function setPassword($new_pw, $new_pw_rep) {
-        if (! Auth::allowed("manage.users.edit")) {
+        if (! Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
             return i("Permission denied to edit users.");
         }
         $pwStatus = self::checkPassword($new_pw);
