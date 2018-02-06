@@ -71,6 +71,9 @@ class AdditemView extends View {
             'label' => i('Select a parent item'),
             'values' => $items
         ), '');
+
+        $form->input('directlink', 'directlink', i('Set a direct link', 'core'));
+
         $form->submit(i('Add item'));
         return $form->render();
     }

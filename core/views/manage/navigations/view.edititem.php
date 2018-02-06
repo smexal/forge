@@ -28,11 +28,18 @@ class EdititemView extends View {
     }
 
     public function onEditNavigationItem($data) {
+        if(isset($data['directlink'])) {
+
+        } else {
+            
+        }
         $item = explode("##", $data['item']);
         $item_id = $item[1];
         if(array_key_exists('add-to-url', $data)) {
             $item_id.='/'.$data['add-to-url'];
         }
+
+        
         $this->message = ContentNavigation::updateItem($data['item_id'], array(
             "name" => $data["new_name"],
             "parent" => $data['parent'],
@@ -69,6 +76,9 @@ class EdititemView extends View {
             "label" => i('Select a parent item'),
             "values" => $items
         ), $this->item['parent']);
+
+        $form->input('directlink', 'directlink', i('Set a direct link', 'core'));
+
         $form->submit(i('Save changes'));
         return $form->render();
     }

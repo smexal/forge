@@ -3,6 +3,7 @@
 namespace Forge\Core\Classes;
 
 use Forge\Core\App\App;
+use Forge\Core\Classes\Localization;
 use Forge\Core\Interfaces\ICollectionItem;
 use Forge\Core\Classes\Relations\Enums\DefaultRelations;
 use Forge\Core\Classes\Relations\Enums\Prepares;
@@ -93,7 +94,7 @@ class CollectionItem implements ICollectionItem {
         } else {
             $params = array('manage', 'collections', $parent->slug(), 'edit', $this->slug());
         }
-        $params = array_merge($params, $additional);
+        $params = array_merge([Localization::getCurrentLanguage()], $params, $additional);
         return Utils::getUrl($params);
 
     }
