@@ -202,7 +202,15 @@ class CollectionItem implements ICollectionItem {
         ];
     }
 
-      public function insertMultipleMeta($metas) {
+    public function setAuthor($newAuthor) {
+        $this->db->where('id', $this->getID());
+        $this->db->update('collections', [
+            'author' => $newAuthor
+        ]);
+        $this->base_data['author'] = $newAuthor;
+    }
+
+    public function insertMultipleMeta($metas) {
         foreach($metas as $key => &$value) {
             $value['item'] = $this->id;
 
