@@ -25,6 +25,17 @@ class Fields {
         return self::boxed($args, $return);
     }
 
+    public static function link($args, $value = '') {
+        if(!array_key_exists('classes', $args)) {
+            $args['classes'] = false;
+        }
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'a', [
+            'href' => $args['href'],
+            'name' => $args['name'],
+            'classes' => $args['classes']
+        ]);
+    }
+
     public static function boxed($args, $content) {
         if($args['boxed']) {
             return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "boxed", array(

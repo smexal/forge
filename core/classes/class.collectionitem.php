@@ -302,7 +302,7 @@ class CollectionItem implements ICollectionItem {
     $relation->add($parent_id, $this->getID());
   }
 
-  public function getParent($parent_id) {
+  public function getParent($parent_id = false) {
     $relation = App::instance()->rd->getRelation(DefaultRelations::PARENT_OF);
     $ids = $relation->getOfRight($this->getID(), Prepares::AS_IDS_LEFT);
     if(!count($ids)) {

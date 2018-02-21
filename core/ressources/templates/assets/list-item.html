@@ -2,5 +2,5 @@
   {if="$link"}<a href="{$link.url}">{/if}
   {$value}
   {if="$link"}</a>{/if}
-  {if="$children"}<ul>{$children}</ul>{/if}
+  {if="isset($children) && $children"}<ul>{$children}</ul>{/if}
 </li>
