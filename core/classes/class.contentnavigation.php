@@ -161,11 +161,11 @@ class ContentNavigation {
         return self::getNavigationItems($nav['id']);
     }
 
-    public static function getNavigationList($position) {
+    public static function getNavigationList($position ,$addClass = []) {
         $nav = self::getByPosition($position);
         $return = '';
         if(! is_null($nav)) {
-            $return = '<nav class="'.$position.'">';
+            $return = '<nav class="'.$position.' '.implode(" ", $addClass).'">';
             $return.= self::getNavigationItems($nav['id'], false, 0, false, true);
             $return.= '</nav>';
         }
