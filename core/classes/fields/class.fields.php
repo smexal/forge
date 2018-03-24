@@ -221,6 +221,9 @@ class Fields {
         if(! array_key_exists('error', $args)) {
             $args['error'] = false;
         }
+        $args['type'] = 'text';
+        return self::text($args, $value);
+        // not working properly; just rendering text input.
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "datetime", array(
             'name' => $args['key'],
             'id' => $args['key'],

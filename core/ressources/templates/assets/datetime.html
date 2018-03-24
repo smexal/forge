@@ -20,12 +20,11 @@
     {/if}
     </div>
 </div>
-
 {if="$type=='datetime'"}
  <script type="text/javascript">
-    $(function () {
+    $(document).ready(function() {
         $('#{$id}').datetimepicker({
-            locale: moment.locale("de"), // TODO: Current locale
+            locale: moment.locale('de-at'), // TODO: Current locale
             calendarWeeks: true
         });
     });
