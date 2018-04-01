@@ -6,6 +6,8 @@ use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Form;
+use \Forge\Core\Classes\Settings;
+use \Forge\Core\Classes\Utils;
 
 
 
@@ -37,7 +39,13 @@ class LoginView extends View {
         $form->input("name", "name", i('Username or E-Mail'));
         $form->input("password", "password", i('Password'), 'password');
         $form->submit(i('Log in'));
-        return $form->render();
+        $return = $form->render();
+
+        if(Settings::get('allow_registration')) {
+            $return.= '<a href="'.Utils::getUrl(['registration']).'">'.i('Register and create account', 'core').'</a>';
+        }
+
+        return $return;
     }
 
     public function onLoginSuccess() {
