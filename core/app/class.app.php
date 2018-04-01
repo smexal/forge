@@ -4,6 +4,7 @@ namespace Forge\Core\App;
 
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\Classes\Cache;
 use \Forge\Core\App\Api\Collection as CollectionAPI;
 
 use \Forge\Core\App\Autoregister;
@@ -131,48 +132,54 @@ class App {
     }
 
     public function run() {
-      \fireEvent('onAppRun');
-      $this->prepare();
 
-      $this->uri_components = Utils::getUriComponents();
-      $this->addFootprint($this->uri_components);
+        if( Cache::valid(Utils::getCurrentUrl()) ) {
+            echo Cache::get(Utils::getCurrentUrl());
+            exit();
+        }
 
-      $base_view = '';
-      if (is_array($this->uri_components) && array_key_exists(0, $this->uri_components))
-          $base_view = $this->uri_components[0];
+        \fireEvent('onAppRun');
+        $this->prepare();
 
-      $requiredView = false;
-      $load_main = $base_view == '' ? true : false;
+        $this->uri_components = Utils::getUriComponents();
+        $this->addFootprint($this->uri_components);
 
-      Loader::instance()->manageStyles();
+        $base_view = '';
+        if (is_array($this->uri_components) && array_key_exists(0, $this->uri_components))
+            $base_view = $this->uri_components[0];
 
-      $defaultView = false;
+        $requiredView = false;
+        $load_main = $base_view == '' ? true : false;
 
-      foreach($this->vm->views as $view) {
-          $view = $view::instance();
-          $this->eh->add($view->events);
-          // tried to load subview as main view.
-          if($view->parent !== false)
-              continue;
-          if($view->default) {
-              $defaultView = $view;
-          }
-          if($load_main && $view->default || $base_view == $view->name()) {
-              $requiredView = $view;
-              // TODO: This break breaks all events on any views
-              // thus making backend saving impossible
-              // See: Forge\Core\Views\Manage\Builder\Pages\EditelementView event onUpdateContentElement
-              //break;
-          }
-      }
-      if(!$requiredView) {
-          $requiredView = $defaultView;
-      }
-      if(isset($_POST['event'])) {
-          $this->eh->trigger($_POST['event'], $_POST);
-      }
-      $this->displayView($requiredView);
-      \fireEvent('onFinishRun');
+        Loader::instance()->manageStyles();
+
+        $defaultView = false;
+
+        foreach($this->vm->views as $view) {
+            $view = $view::instance();
+            $this->eh->add($view->events);
+            // tried to load subview as main view.
+            if($view->parent !== false)
+                continue;
+            if($view->default) {
+                $defaultView = $view;
+            }
+            if($load_main && $view->default || $base_view == $view->name()) {
+                $requiredView = $view;
+                // TODO: This break breaks all events on any views
+                // thus making backend saving impossible
+                // See: Forge\Core\Views\Manage\Builder\Pages\EditelementView event onUpdateContentElement
+                //break;
+            }
+        }
+        if(!$requiredView) {
+            $requiredView = $defaultView;
+        }
+        if(isset($_POST['event'])) {
+            $this->eh->trigger($_POST['event'], $_POST);
+        }
+        $this->displayView($requiredView);
+        \fireEvent('onFinishRun');
     }
 
     public function displayView($view) {
@@ -185,20 +192,21 @@ class App {
                 "messages" => $this->displayMessages()
             ));
         } else {
-              $parts = Utils::getUriComponents();
-              // if has manage parts
-              if(in_array("manage", $parts)) {
-                  echo $this->render(CORE_TEMPLATE_DIR, "layout", array(
-                      "head" => $this->header($view),
-                      "content" => $this->content($view),
-                      "messages" => $this->displayMessages(),
-                      "sticky" => $this->sticky
-              ));
-              // else render with theme layout
-              } else {
-                  echo $this->renderViewInTheme($view);
-              }
-          }
+            $parts = Utils::getUriComponents();
+            // if has manage parts
+            if(in_array("manage", $parts)) {
+                echo $this->render(CORE_TEMPLATE_DIR, "layout", array(
+                    "head" => $this->header($view),
+                    "content" => $this->content($view),
+                    "messages" => $this->displayMessages(),
+                    "sticky" => $this->sticky
+            ));
+            // else render with theme layout
+            } else {
+                echo $this->renderViewInTheme($view);
+            }
+        }
+        Cache::write(Utils::getCurrentUrl(), ob_get_contents());
         if(ob_get_level() > 0) {
             ob_end_flush();
         }

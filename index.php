@@ -1,5 +1,6 @@
 <?php
 
+
 if(array_key_exists('debug', $_GET)) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
