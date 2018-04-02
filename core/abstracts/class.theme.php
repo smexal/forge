@@ -17,6 +17,8 @@ abstract class Theme implements ITheme {
     private $lessc = null;
     public $ajaxLayout = '';
     public $lessVariables = array();
+    private $runMinifyCSS = false;
+    private $runMinifyJS = false;
 
     public function tinyUrl() {
         return '';
@@ -27,8 +29,25 @@ abstract class Theme implements ITheme {
     }
 
     public function addScript($script, $absolute=false, $index = false, $defer = false) {
-        if(in_array($script, $this->load_scripts)) {
-            return;
+        foreach($this->load_scripts as $s) {
+            if(array_key_exists('source', $s) && $s['source'] == $script) {
+                return;
+            }
+        }
+
+        if(MINIFY && ! $this->isExternalRessource($script)) {
+            if($absolute) {
+                $oneFile = $_SERVER['DOCUMENT_ROOT'].$script;
+            } else {
+                $oneFile = $this->directory().$script;
+            }
+            $allMin = $this->directory().'assets/all.min.js';
+            if(! file_exists($allMin)) {
+                $this->runMinifyJS = true;
+            }
+            if(file_exists($allMin) && filemtime($oneFile) > filemtime($allMin)) {
+                $this->runMinifyJS = true;
+            }
         }
 
         if(!$absolute) {
@@ -36,15 +55,32 @@ abstract class Theme implements ITheme {
         }
         if($defer) {
             $this->defered_scripts[] = $script;
+            return;
         }
 
+        $scriptToAdd = [
+            'source' => $script,
+            'external' => $this->isExternalRessource($script)
+        ];
+
         if ($index || $index === 0) {
-            if (array_key_exists($index, $this->load_scripts)) {
-                array_splice($this->load_scripts, $index, 0, $script);
-            }
+            array_unshift($this->load_scripts, $scriptToAdd);
         } else {
-            array_push($this->load_scripts, $script);
+            array_push($this->load_scripts, $scriptToAdd);
         }
+    }
+
+    private function isExternalRessource($script) {
+        if(strstr($script, "http://")) {
+            return true;
+        }
+        if(strstr($script, "https://")) {
+            return true;
+        }
+        if(substr($script, 0, 2) == '//') {
+            return true;
+        }
+        return false;
     }
 
     static public function instance() {
@@ -90,10 +126,16 @@ abstract class Theme implements ITheme {
         }
         if($viewCondition) {
             if(in_array($viewCondition, Utils::getUriComponents())) {
-                array_push($this->styles, $style);
+                $this->styles[] =[
+                    'source' => $style,
+                    'absolute' => $absolute
+                ];
             }
         } else {
-            array_push($this->styles, $style);
+            $this->styles[] =[
+                'source' => $style,
+                'absolute' => $absolute
+            ];
         }
     }
 
@@ -113,6 +155,7 @@ abstract class Theme implements ITheme {
             if(!file_exists($css_file))
                 $run = true;
             if($run) {
+                $this->runMinifyCSS = true;
                 Settings::set('css_version_number', uniqid());
                 if ($handle = fopen($css_file, "w")) {
                     $content = $this->lessc->compileFile($less);
@@ -145,10 +188,27 @@ abstract class Theme implements ITheme {
         return false;
     }
 
+    private function loadMinifier() {
+        $path = CORE_ROOT.'libs/';
+        require_once $path . 'minify/src/Minify.php';
+        require_once $path . 'minify/src/CSS.php';
+        require_once $path . 'minify/src/JS.php';
+        require_once $path . 'minify/src/Exception.php';
+        require_once $path . 'minify/src/Exceptions/BasicException.php';
+        require_once $path . 'minify/src/Exceptions/FileImportException.php';
+        require_once $path . 'minify/src/Exceptions/IOException.php';
+        require_once $path . 'path-converter/src/ConverterInterface.php';
+        require_once $path . 'path-converter/src/Converter.php';
+    }
+
     public function header() {
         $eventContent = App::instance()->eh->fire("onLoadHeader");
         if(is_null($eventContent)) {
             $eventContent = false;
+        }
+
+        if(MINIFY) {
+            $this->loadMinifier();
         }
 
         $this->scripts();
@@ -161,15 +221,84 @@ abstract class Theme implements ITheme {
 
         $return = App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle(),
-            'scripts' => $this->load_scripts,
+            'scripts' => $this->prepareScripts(),
             'build_no' => Settings::get('css_version_number'),
-            'styles' => $this->styles,
+            'styles' => $this->prepareStyles(),
             'favicon' => false,
             'eventContent' => $eventContent,
             'custom' => $this->customHeader(),
             'defered_scripts' => $this->defered_scripts
         ));
         return $return;
+    }
+
+    private function prepareScripts() {
+        $scripts = [];
+
+        if(! MINIFY) {
+            foreach($this->load_scripts as $script) {
+                $scripts[] = $script['source'];
+            }
+            return $scripts;
+        }
+
+        $minifier = null;
+        foreach($this->load_scripts as $script) {
+            // ignore absolute loaded files..
+            if($script['external']) {
+                $scripts[] = $script['source'];
+                continue;
+            }
+            if($this->runMinifyJS) {
+                if(is_null($minifier)) {
+                    $minifier = new \MatthiasMullie\Minify\JS($_SERVER['DOCUMENT_ROOT'].$script['source']);
+                } else {
+                    $minifier->add($_SERVER['DOCUMENT_ROOT'].$script['source']);
+                }
+            }
+        }
+        if($this->runMinifyJS) {
+            $minifiedPath = $this->directory()."assets/all.min.js";
+            $minifier->minify($minifiedPath);
+        }
+        $scripts[] = $this->url()."assets/all.min.js";
+
+        return $scripts;
+    }
+
+    private function prepareStyles() {
+        $styles = [];
+
+        if(! MINIFY) {
+            foreach($this->styles as $style) {
+                $styles[] = $style['source'];
+            }
+            return $styles;
+        }
+
+        $minifier = null;
+        foreach($this->styles as $style) {
+            // ignore absolute loaded files..
+            if($style['absolute']) {
+                $styles[] = $style['source'];
+                continue;
+            }
+
+            if($this->runMinifyCSS) {
+                if(is_null($minifier)) {
+                    $minifier = new \MatthiasMullie\Minify\CSS($_SERVER['DOCUMENT_ROOT'].$style['source']);
+                } else {
+                    $minifier->add($_SERVER['DOCUMENT_ROOT'].$style['source']);
+                }
+            }
+        }
+        if($this->runMinifyCSS) {
+            $minifiedPath = $this->directory()."css/compiled/all.min.css";
+            $minifier->minify($minifiedPath);
+        }
+        $styles[] = $this->url()."css/compiled/all.min.css";
+
+        return $styles;
     }
 
 }

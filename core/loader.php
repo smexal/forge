@@ -99,7 +99,6 @@ class Loader {
     }
 
     private function __construct(){
-
         $timer = Logger::timer();
         $this->libraries();
         
@@ -108,7 +107,6 @@ class Loader {
         
         $timer = Logger::timer();
         $this->loadModules();
-
     }
 
     private function libraries() {

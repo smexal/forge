@@ -48,4 +48,7 @@ if(file_exists('config-env.php')) {
 @define('HASH_SALT_1', 'kl34j%%');
 @define('HASH_SALT_2', 'dkfje/liker=0=');
 
+@define('USE_CACHE', true);
+@define('MINIFY', true);
+
 date_default_timezone_set("Europe/Zurich");
