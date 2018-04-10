@@ -28,11 +28,6 @@ class EdititemView extends View {
     }
 
     public function onEditNavigationItem($data) {
-        if(isset($data['directlink'])) {
-
-        } else {
-            
-        }
         $item = explode("##", $data['item']);
         $item_id = $item[1];
         if(array_key_exists('add-to-url', $data)) {
@@ -44,13 +39,17 @@ class EdititemView extends View {
             "name" => $data["new_name"],
             "parent" => $data['parent'],
             "item" => $item_id,
-            "item_type" => $item[0]
+            "item_type" => $item[0],
+            "direct" => $data['directlink']
         ));
         App::instance()->addMessage(sprintf(i('Changes saved.'), $data['new_name']), "success");
         App::instance()->redirect(Utils::getUrl(array('manage', 'navigation')));
     }
 
     public function form() {
+        /**
+         * ALTER TABLE `navigation_items` ADD `direct` VARCHAR(600) NULL AFTER `lang`;
+         */
         $form = new Form(Utils::getUrl(array('manage', 'navigation', 'itemedit')));
         $form->ajax(".content");
         $form->disableAuto();
@@ -77,7 +76,7 @@ class EdititemView extends View {
             "values" => $items
         ), $this->item['parent']);
 
-        $form->input('directlink', 'directlink', i('Set a direct link', 'core'));
+        $form->input('directlink', 'directlink', i('Set a direct link', 'core'), 'text', $this->item['direct'], i('If this value is set, the other settings will be ignored', 'core'));
 
         $form->submit(i('Save changes'));
         return $form->render();

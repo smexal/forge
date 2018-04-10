@@ -38,7 +38,8 @@ class AdditemView extends View {
             'name' => $data['new_name'],
             'parent' => $data['parent'],
             'item' => $item_id,
-            'item_type' => $item[0]
+            'item_type' => $item[0],
+            'direct' => $data['directlink']
         ));
         App::instance()->addMessage(sprintf(i('Navigation Item %1$s has been added.'), $data['new_name']), 'success');
         App::instance()->redirect(Utils::getUrl(array('manage', 'navigation')));
@@ -72,7 +73,7 @@ class AdditemView extends View {
             'values' => $items
         ), '');
 
-        $form->input('directlink', 'directlink', i('Set a direct link', 'core'));
+        $form->input('directlink', 'directlink', i('Set a direct link', 'core'), 'text', false, i('If this value is set, the other settings will be ignored', 'core'));
 
         $form->submit(i('Add item'));
         return $form->render();

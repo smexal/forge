@@ -49,6 +49,11 @@ if(file_exists('config-env.php')) {
 @define('HASH_SALT_2', 'dkfje/liker=0=');
 
 @define('USE_CACHE', true);
+
+/*
+    Caching time for HTML Sites without login
+ */
+@define('CACHE_TIME', 5);
 @define('MINIFY', true);
 
 date_default_timezone_set("Europe/Zurich");

@@ -115,7 +115,8 @@ class ContentNavigation {
             "navigation_id" => $navigation,
             "order" => 0,
             "parent" => $data['parent'],
-            "lang" => $data['lang']
+            "lang" => $data['lang'],
+            "direct" => $data['direct']
         );
         $db->insert("navigation_items", $data);
     }
@@ -132,7 +133,8 @@ class ContentNavigation {
             "item_type" => $data['item_type'],
             "order" => 0,
             "parent" => $data['parent'],
-            "lang" => $data['lang']
+            "lang" => $data['lang'],
+            "direct" => $data['direct']
         );
         $db->update("navigation_items", $data);
     }
@@ -204,24 +206,28 @@ class ContentNavigation {
             if(!$list) {
                 array_push($items, $item);
             } else {
-                if($item['item_type'] == 'page') {
-                    $page = new Page($item['item_id']);
-                    $link = $page->getUrl();
-                } else if($item['item_type'] == 'view') {
-                    $parts = explode("/", $item['item_id']);
-                    $view = $vm->getViewByName($parts[0]);
-                    if($view) {
-                        $link = $view->buildURL();
-                        if(array_key_exists(1, $parts)) {
-                            $link.='/'.$parts[1];
+                if($item['direct']) {
+                    $link = $item['direct'];
+                } else {
+                    if($item['item_type'] == 'page') {
+                        $page = new Page($item['item_id']);
+                        $link = $page->getUrl();
+                    } else if($item['item_type'] == 'view') {
+                        $parts = explode("/", $item['item_id']);
+                        $view = $vm->getViewByName($parts[0]);
+                        if($view) {
+                            $link = $view->buildURL();
+                            if(array_key_exists(1, $parts)) {
+                                $link.='/'.$parts[1];
+                            }
+                        } else {
+                            Logger::debug('Could not find view: '. $item['item_id']);
+                            $link = '#';
                         }
-                    } else {
-                        Logger::debug('Could not find view: '. $item['item_id']);
-                        $link = '#';
+                    } else  {
+                        $collectionItem = new CollectionItem($item['item_id']);
+                        $link = $collectionItem->url();
                     }
-                } else  {
-                    $collectionItem = new CollectionItem($item['item_id']);
-                    $link = $collectionItem->url();
                 }
 
                 if(0 === strpos(Utils::getCurrentUrl(), $link)) {

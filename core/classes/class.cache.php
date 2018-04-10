@@ -9,7 +9,7 @@ use Forge\Core\App\Auth;
 class Cache {
 
     public static $directory = DOC_ROOT.'cache/';
-    public static $cache_time = 3 * 60; // cache valid time = 3 minutes
+    public static $cache_time = CACHE_TIME * 60; // cache valid time = 3 minutes
 
     public static $whitelist = [
         'manage',

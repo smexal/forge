@@ -25,6 +25,57 @@ class Settings {
         ));
     }
 
+    public static function getProfileFields() {
+        $fields = [
+            'forename' => [
+                'type' => 'text',
+                'args' => [
+                    'label' => i('Forename', 'core'),
+                    'key' => 'user_forename'
+                ]
+            ],
+            'surename' => [
+                'type' => 'text',
+                'args' => [
+                    'label' => i('Last name', 'core'),
+                    'key' => 'user_surname'
+                ]
+            ],
+            'birthdate' => [
+                'type' => 'text',
+                'args' => [
+                    'label' => i('Birthdate', 'core'),
+                    'key' => 'user_birthdate'
+                ]
+            ],
+            'address' => [
+                'type' => 'text',
+                'args' => [
+                    'label' => i('Address', 'core'),
+                    'key' => 'user_address'
+                ]
+            ],
+            'zip_place' => [
+                'type' => 'text',
+                'args' => [
+                    'label' => i('ZIP/Place', 'core'),
+                    'key' => 'user_zip_place'
+                ]
+            ],
+            'phone' => [
+                'type' => 'text',
+                'args' => [
+                    'label' => i('Phone Number', 'core'),
+                    'key' => 'user_phone'
+                ]
+            ], 
+        ];
+        foreach($fields as $key => $field) {
+            $fields[$key]['display_state'] = Settings::get('profile_'.$key);
+        }
+        return $fields;
+    }
+
     public function tabs() {
         $return = array();
         foreach($this->tabs as $tab) {
@@ -57,6 +108,10 @@ class Settings {
                 'keey' => $key,
                 'value' => $value
             ));
+        }
+        if($value === false) {
+            $db->where('keey', $key);
+            $db->delete('settings');
         }
     }
 
