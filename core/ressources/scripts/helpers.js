@@ -16,6 +16,7 @@ var helpers = {
 
       $('.tipster-ajax').tooltipster({
         debug: false,
+        contentAsHTML : true,
         content: '...',
         functionBefore: function(instance, helper) {
             var $origin = $(helper.origin);

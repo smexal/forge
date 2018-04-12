@@ -503,8 +503,8 @@ abstract class DataCollection implements IDataCollection {
         }
         return static::$instances[$class];
     }
-    private function __construct() {}
-    private function __clone() {}
+    protected function __construct() {}
+    protected function __clone() {}
 
 }
 
