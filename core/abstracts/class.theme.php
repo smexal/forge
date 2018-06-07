@@ -215,9 +215,9 @@ abstract class Theme implements ITheme {
 
         // add required core scripts
         $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/jquery.js", true, 0);
-        $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/bootstrap.js", true, 1);
-        $this->addScript(CORE_WWW_ROOT."ressources/scripts/helpers.js", true, 2);
-        $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/tooltipster.bundle.min.js", true, 3);
+        $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/bootstrap.js", true);
+        $this->addScript(CORE_WWW_ROOT."ressources/scripts/helpers.js", true);
+        $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/tooltipster.bundle.min.js", true);
 
         $return = App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle(),

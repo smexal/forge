@@ -386,8 +386,20 @@ abstract class DataCollection implements IDataCollection {
         $db = App::instance()->db;
         $db->where('collection', $this->name);
         $db->where('parent', $parent);
+        $db->orderBy('sequence', 'asc');
         $cats = $db->get('collection_categories');
         return $cats;
+    }
+
+    public function updateCategoryOrder($newOrder) {
+        $db = App::instance()->db;
+        foreach ($newOrder as $category) {
+            $db->where('id', $category['id']);
+            $db->update('collection_categories', [
+                'parent' => $category['parent'],
+                'sequence' => $category['order']
+            ]);
+        }
     }
 
     public function getCategoryMeta($id, $lang=false) {

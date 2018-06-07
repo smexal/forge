@@ -6,14 +6,19 @@ use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Utils;
+use \Forge\Core\Traits\ApiAdapter;
 
 class CategoriesView extends View {
+    use ApiAdapter;
+
     public $parent = 'collections';
     public $name = 'categories';
     public $permission = 'manage.collections.categories';
     public $events = array(
         0 => 'onAddNewCollectionCategory'
     );
+
+    private $apiMainListener = 'categories';
 
     private $formdata = array();
 
@@ -24,6 +29,16 @@ class CategoriesView extends View {
             "name" => $_POST['category_name'],
             "parent" => $_POST['parent_category']
         ));
+    }
+
+    /**
+     * Used for the API Adapter Call from the drag and drop sorting.
+     */
+    public function updateOrder($not_used, $data) {
+        $collectionName = $_GET['collection'];
+        $manager = App::instance()->cm;
+        $this->collection = $manager->getCollection($collectionName);
+        $this->collection->updateCategoryOrder($data['itemset']);
     }
 
     private function getCollection() {
@@ -46,11 +61,11 @@ class CategoriesView extends View {
     }
 
     private function currentCategories() {
-        return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "dragsort", array(
-            'callback' => Utils::getUrl(["api", "categories", "update-order"]),
+        return '<div class="card move-top space-top"><h3>'.i('Existing Categories', 'core').'</h3>'.$this->app->render(CORE_TEMPLATE_DIR."views/parts/", "dragsort", array(
+            'callback' => Utils::getUrl(["api", "categories", "update-order"], true, ['collection' => $this->getCollection()]),
             'items' => $this->categoryItems(),
             'compact' => true
-        ));
+        )).'</div>';
     }
 
     private function categoryItems($parent=0, $level=0) {
@@ -61,7 +76,7 @@ class CategoriesView extends View {
             $items[] = [
                 'level' => $level,
                 'id' => $category['id'],
-                'content' => $meta->name
+                'content' => '<div class="list-content"><div class="element"><strong>'.$meta->name.'</strong></div><div class="element"><i class="material-icons">edit</i> <i class="material-icons">delete</i></div></div>'
             ];
             $items = array_merge($items, $this->categoryItems($category['id'], $level+1));
         }
@@ -72,28 +87,26 @@ class CategoriesView extends View {
         $form = new Form(Utils::getUrl(Utils::getUriComponents()));
         $form->ajax(".content");
         $form->disableAuto();
-        $form->subtitle(i("Add new category"));
-        $form->hidden("event", $this->events[0]);
-        $form->input("category_name", "category_name", i('Category Name'), 'input', $this->formdata['category_name']);
+        $form->subtitle(i('Add new', 'core'));
+        $form->hidden('event', $this->events[0]);
+        $form->input('category_name', 'category_name', i('Category Name'), 'input', $this->formdata['category_name']);
 
         $categories = $this->collection->getCategories();
-        $cats = array(
-            array(
-                "value" => 0,
-                "text" => i('No Parent')
-            )
-        );
+        $cats = [];
+        $cats[0] = i('No Parent', 'core');
         foreach($categories as $category) {
             $meta = $this->collection->getCategoryMeta($category['id']);
-            array_push($cats, array(
-                "value" => $category['id'],
-                "text" => $meta->name
-            ));
+            $cats[$category['id']] = $meta->name;
         }
 
-        $form->tags("parent_category", "parent_category", i('Parent Category'), $cats, false, false);
+        $form->select([
+            'key' => 'parent_category',
+            'label' => i('Parent Category', 'core'),
+            'values' => $cats,
+            'chosen' => true
+        ], '');
         $form->submit(i('Create'));
-        return $form->render();
+        return '<div class="card space-top">'.$form->render().'</div>';
     }
 }
 
