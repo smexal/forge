@@ -1,4 +1,4 @@
-<div class="dragsort">
+<div class="dragsort{if="isset($compact) && $compact"} compact{/if}">
     <ul class="items" data-callback="{$callback}">
         {loop="$items"}
             <li class="item level-{$value.level} card" data-id="{$value.id}" data-level="{$value.level}">{$value.content}</li>

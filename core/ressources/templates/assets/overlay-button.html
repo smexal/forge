@@ -1,1 +1,9 @@
-<a href="javascript://" data-open="{$url}" class="btn btn-primary open-overlay btn-sm big-overlay">{$label}</a>
+<a href="javascript://"
+   data-open="{$url}"
+   class="btn
+    btn-primary
+    open-overlay
+    btn-sm
+    {if="isset($big) && $big"}big-overlay{/if}">
+    {$label}
+</a>

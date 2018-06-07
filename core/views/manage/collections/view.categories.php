@@ -46,28 +46,24 @@ class CategoriesView extends View {
     }
 
     private function currentCategories() {
-        return App::instance()->render(CORE_TEMPLATE_DIR.'assets/', 'list', array(
-            'class' => 'categories',
-            'items' => $this->categoryItems()
+        return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "dragsort", array(
+            'callback' => Utils::getUrl(["api", "categories", "update-order"]),
+            'items' => $this->categoryItems(),
+            'compact' => true
         ));
     }
 
-    private function categoryItems($parent=0) {
+    private function categoryItems($parent=0, $level=0) {
         $categories = $this->collection->getCategories($parent);
-        $items = '';
-        if($parent > 0) {
-            $items.= '<ul>';
-        }
+        $items = [];
         foreach($categories as $category) {
             $meta = $this->collection->getCategoryMeta($category['id']);
-            $items.= App::instance()->render(CORE_TEMPLATE_DIR."assets/", 'list-item', array(
-                'link' => false,
-                'children' => $this->categoryItems($category['id']),
-                'value' => $meta->name
-            ));
-        }
-        if($parent > 0) {
-            $items.= '</ul>';
+            $items[] = [
+                'level' => $level,
+                'id' => $category['id'],
+                'content' => $meta->name
+            ];
+            $items = array_merge($items, $this->categoryItems($category['id'], $level+1));
         }
         return $items;
     }
