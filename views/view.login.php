@@ -18,7 +18,7 @@ class LoginView extends View {
         "onLoginSubmit", "onLoginFailed", "onLoginSuccess"
     );
 
-    public function content() {
+    public function content($uri=[]) {
         if(Auth::any()) {
             $this->app->redirectBack();
         }

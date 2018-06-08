@@ -11,7 +11,7 @@ class LogoutView extends View {
     public $name = 'logout';
     public $allowNavigation = true;
 
-    public function content() {
+    public function content($uri=[]) {
         Auth::destroy();
         App::instance()->redirect(Utils::getHomeUrl());
     }
