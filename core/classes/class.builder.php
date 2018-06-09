@@ -54,7 +54,7 @@ class Builder {
     }
 
   public function getBuilderElements($lang) {
-      if($this->builderId) {
+      if($this->builderId !== false) {
         $this->db->where('builderId', $this->builderId);
       }
       $this->db->where('lang', $lang);
@@ -86,8 +86,8 @@ class Builder {
                 'addcontent' => $element->getPref('container') ? $this->innerContentUrl($element->id) : '',
                 'edit' => array(
                     'link' => Utils::getUrl(
-                        ['manage', 'pages', 'edit-element', $element->id], 
-                        true, 
+                        ['manage', 'pages', 'edit-element', $element->id],
+                        true,
                         ['fromParts' => $fromParts]
                     ),
                     'name' => i('Edit')
@@ -96,7 +96,7 @@ class Builder {
                     'link' => Utils::getUrl(
                         ['manage', 'pages', 'remove-element', $element->id],
                         true,
-                        ['fromParts' => $fromParts]  
+                        ['fromParts' => $fromParts]
                     ),
                     'name' => i('Remove')
                 ),
@@ -133,7 +133,7 @@ class Builder {
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "builder", [
             'builderTitle' => i('Components Builder', 'core'),
             'new_url' => Utils::getUrl(
-                array('manage', 'pages', 'edit', $this->id, 'add-element'), 
+                array('manage', 'pages', 'edit', $this->id, 'add-element'),
                 true,
                 [
                     'elementId' => $this->id,
