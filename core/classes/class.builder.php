@@ -59,7 +59,9 @@ class Builder {
       }
       $this->db->where('lang', $lang);
       $this->db->where('pageid', $this->id);
+      $this->db->where('elementid != "row"');
       $this->db->orderBy('position', 'ASC');
+
 
       $elements = array();
       foreach($this->db->get('page_elements') as $element) {
@@ -78,6 +80,9 @@ class Builder {
         $elements = array();
         $fromParts = implode(",", Utils::getUriComponents());
         foreach( $this->getBuilderElements($lang) as $element ) {
+            if($element->getPref('id') == "row") {
+              continue;
+            }
             array_push($elements, array(
                 'name' => $element->getPref('name'),
                 'type' => $element->getPref('id'),
