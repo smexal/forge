@@ -37,7 +37,7 @@ if(file_exists('config-env.php')) {
 @define('DB_HOST', "localhost");
 @define('DB_USER', "root");
 @define('DB_PASSWORD', "");
-@define('DB_NAME', "butterlan");
+@define('DB_NAME', "rdonetta_web");
 
 // SEGURIDDY
 @define('SECURE', false);
@@ -54,6 +54,6 @@ if(file_exists('config-env.php')) {
     Caching time for HTML Sites without login
  */
 @define('CACHE_TIME', 5);
-@define('MINIFY', true);
+@define('MINIFY', false);
 
 date_default_timezone_set("Europe/Zurich");
