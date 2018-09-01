@@ -12,6 +12,9 @@ class Search {
         if(isset($_GET['q'])) {
             $query = $_GET['q'];
         }
+        if(isset($_GET['search_field'])) {
+            $query = $_GET['search_field'];
+        }
         return $query;
     }
 
