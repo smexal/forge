@@ -57,6 +57,10 @@ class Builder {
       if($this->builderId !== false) {
         $this->db->where('builderId', $this->builderId);
       }
+      //var_dump($this->builderId);
+      if($this->builderId == false) {
+        $this->db->where('builderId', 'none');
+      }
       $this->db->where('lang', $lang);
       $this->db->where('pageid', $this->id);
       $this->db->where('elementid != "row"');
