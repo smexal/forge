@@ -82,7 +82,7 @@ class EditView extends View {
             'subnavigation_root' => Utils::getUrl(
                 array('manage', 'collections', $this->collection->name, 'edit', $this->item->id)
             ),
-            'subnavigation' => $this->collection->getSubnavigation()
+            'subnavigation' => $this->collection->getSubnavigation($this->item)
         ));
     }
 

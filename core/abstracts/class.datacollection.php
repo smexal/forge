@@ -30,7 +30,7 @@ abstract class DataCollection implements IDataCollection {
         return 'overwrite render method with $item';
     }
 
-    public function getSubnavigation() {
+    public function getSubnavigation($item) {
         return false;
     }
 
