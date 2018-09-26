@@ -30,6 +30,24 @@ var helpers = {
       });
 
       helpers.subnavigationPosition();
+      helpers.searchField();
+    },
+
+    searchField : function() {
+        var timeout = false;
+        $("input[name='search_field']").on('keyup', function() {
+            clearTimeout(timeout);
+            var input = $(this);
+            timeout = setTimeout(function() {
+                $.ajax({
+                    method: "GET",
+                    url: input.attr('data-base'),
+                    data: { q: input.val() }
+                }).done(function(result) {
+                    input.closest("form").next().replaceWith($(result).find(".results"));
+                });
+            }, 400);
+        });
     },
 
     setCookie : function(cname, cvalue, exdays) {

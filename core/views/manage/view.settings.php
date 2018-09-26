@@ -33,7 +33,7 @@ class SettingsView extends View {
         if(Settings::get('allow_registration') ) {
             $this->tabs[] = [
                 'title' => i('Profiles'),
-                'id' => 'profiles', 
+                'id' => 'profiles',
                 'active' => false
             ];
         }
@@ -116,7 +116,7 @@ class SettingsView extends View {
         $this->tabs = array_merge($this->tabs, $this->settings->tabs());
     }
 
-    public function content() {
+    public function content($uri=[]) {
         $this->settings = Settings::instance();
         $this->updateTabs();
 
@@ -341,4 +341,3 @@ class SettingsView extends View {
         ), Settings::get($this->keys['PRIMARY_COLOR']));
     }
 }
-

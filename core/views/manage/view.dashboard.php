@@ -13,7 +13,7 @@ class DashboardView extends View {
     public $name = 'dashboard';
     public $permission = 'manage';
 
-    public function content() {
+    public function content($uri=[]) {
         return App::instance()->render(CORE_ROOT."ressources/templates/views/sites/", "generic", array(
             'title' => i('Dashboard'),
             'global_actions' => '',

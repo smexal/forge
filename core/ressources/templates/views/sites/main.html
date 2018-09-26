@@ -1,8 +1,8 @@
-<div class="maxed ajax-reload-container">
+<div class="maxed wrapped ajax-reload-container">
     <div class="row heading-row page-header">
         <div class="col-lg-8"><h1>{$title}</h1></div>
         <div class="col-lg-4 align-right">
-            {if="$add_permission"}
+            {if="isset($add_permission) && $add_permission"}
                 <a href="javascript://" data-open="{$add_url}" class="btn btn-primary open-overlay btn-sm big-overlay">{$add_text}</a>
             {/if}
         </div>

@@ -11,7 +11,7 @@ class ProfileView extends View {
     public $name = 'profile';
     public $allowNavigation = true;
 
-    public function content() {
+    public function content($uri=[]) {
         $v = App::instance()->vm->getViewByName('__profile');
         $v->showSubviews = false;
         return App::instance()->content($v);

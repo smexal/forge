@@ -20,7 +20,7 @@ class AddView extends View {
         'onCreateNewUser'
     );
 
-    public function content() {
+    public function content($uri=[]) {
         return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
             'title' => i('Create new user'),
             'message' => $this->message,

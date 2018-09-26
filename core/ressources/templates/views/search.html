@@ -1,0 +1,19 @@
+<div class="wrapped">
+    <h1>{$title}</h1>
+    <form method="GET" action="">
+        <input data-base="{$base}" type="text" class="fullwidth" name="search_field" value="{$query}" />
+    </form>
+
+    <div class="results">
+        {if="count($results) == 0 && strlen($query) > 0"}
+        <p class="lead">{$noresults}</p>
+        {/if}
+        {loop="$results"}
+        <div class="entry">
+            <h3><a href="{$value.url}">{$value.title}</a></h3>
+            <p>{$value.description}</p>
+            <hr />
+        </div>
+        {/loop}
+    </div>
+</div>

@@ -17,7 +17,7 @@ class AddView extends View {
         'onCreateNewGroup'
     );
 
-    public function content() {
+    public function content($uri=[]) {
         return $this->app->render(CORE_TEMPLATE_DIR."views/parts/", "crud.modify", array(
             'title' => i('Create new group'),
             'message' => $this->message,
@@ -45,4 +45,3 @@ class AddView extends View {
         return $form->render();
     }
 }
-
