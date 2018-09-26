@@ -80,10 +80,16 @@ class ManageView extends View {
                 if (! is_object($modObject) || ! $modObject->hasSettings())
                     continue;
 
+                if($modObject->defaultSettingsView) {
+                    $url = Utils::getUrl(['manage', 'module-settings', $mod, $modObject->defaultSettingsView]);
+                } else {
+                    $url = Utils::getUrl(['manage', 'module-settings', $mod]);
+                }
+
                 $this->navigation->add(
                     "pref_".$mod,
                     $modObject->name,
-                    Utils::getUrl(array('manage', 'module-settings', $mod)),
+                    $url,
                     $panelLeft,
                     false,
                     'modules'

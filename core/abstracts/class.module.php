@@ -18,6 +18,7 @@ abstract class Module implements IModule {
   public $description = "";
   public $image = CORE_WWW_ROOT.'ressources/images/default-icon-module.svg';
   public $settingsViews = array();
+  public $defaultSettingsView = false;
 
   public function directory() {
       if (is_null($this->id)) {

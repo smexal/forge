@@ -56,6 +56,8 @@ class Builder {
   public function getBuilderElements($lang) {
       if($this->builderId) {
         $this->db->where('builderId', $this->builderId);
+      } else {
+        //$this->db->where('builderId');
       }
       $this->db->where('lang', $lang);
       $this->db->where('pageid', $this->id);
