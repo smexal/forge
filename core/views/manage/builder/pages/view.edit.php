@@ -38,6 +38,9 @@ class EditView extends View {
             if(array_key_exists('elementId', $_GET)) {
                 $elementId = $_GET['elementId'];
                 $builderId = $_GET['builderId'];
+                if(!$builderId) {
+                    $builderId = 'none';
+                }
             }
             $this->page = new Page($uri[0]);
             if(count($uri) > 1 && $uri[1] == 'save') {
