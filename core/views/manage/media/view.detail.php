@@ -49,7 +49,8 @@ class DetailView extends View {
             'mime' => $this->media->getMimeType(),
             'size' => $this->media->getSize(),
             'image' => $this->media->isImage() ? $this->media->getUrl() : false,
-            'form' => $this->realForm()
+            'form' => $this->realForm(),
+            'url' => $this->media->getUrl()
         ));
     }
 

@@ -379,10 +379,11 @@ class Fields {
         ));
     }
 
-    public static function button($name, $level='primary', $bindCaptcha = false) {
+    public static function button($name, $level='primary', $bindCaptcha = false, $disable = false) {
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "submit", array(
             'text' => $name,
             'level' => $level,
+            'disabled' => $disable,
             'hor' => false,
             'bindCaptcha' => $bindCaptcha,
             'captchaKey' => Settings::get('google_captcha_key')

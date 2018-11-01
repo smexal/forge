@@ -6,6 +6,7 @@
         type="submit" 
         class="btn btn-{$level}{if="isset($bindCaptcha) && $bindCaptcha"} g-recaptcha{/if}" 
         value="submit"
+        {if="$disabled"}disabled='disabled' {/if}
         {if="isset($bindCaptcha) && $bindCaptcha"}data-callback='gCaptchaSubmit'{/if}
         {if="isset($bindCaptcha) && $bindCaptcha"}data-sitekey='{$captchaKey}'{/if}>
         {$text}
