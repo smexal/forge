@@ -282,16 +282,22 @@ class Utils {
         $seperateCurrencyEnd = '</span>';
       }
       $pattern = '%1$s %2$s';
+      if(is_numeric($amount)) {
+        $number = number_format($amount, 2, '.', '\'');
+      } else {
+        $number = 0;
+      }
+
       if($switchCurLabel) {
         if($seperateCurrency) {
           $pattern = '%1$s <i>%2$s</i>';
         }
-        return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), number_format($amount, 2, '.', '\''), $currency).$seperateCurrencyEnd;
+        return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), $number, $currency).$seperateCurrencyEnd;
       }
       if($seperateCurrency) {
         $pattern = '<i>%1$s</i> %2$s';
       }
-      return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), $currency, number_format($amount, 2, '.', '\'')).$seperateCurrencyEnd;
+      return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), $currency, $number).$seperateCurrencyEnd;
     }
 
     public static function extractParams($defaults, $params) {
