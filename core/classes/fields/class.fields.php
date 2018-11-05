@@ -263,6 +263,29 @@ class Fields {
         ));
     }
 
+    public static function radio($args, $value='') {
+        if (array_key_exists('saved_value', $args)) {
+            $value = $args['saved_value'];
+        } else if (empty($value) && array_key_exists('value', $args)) {
+            $value = $args['value'];
+        }
+        if(! array_key_exists('hint', $args))
+            $args['hint'] = false;
+
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
+            'name' => $args['key'],
+            'id' => $args['key'],
+            'label' => $args['label'],
+            'type' => 'radio',
+            'hor' => false,
+            'noautocomplete' => false,
+            'value' => $value,
+            'hint' => $args['hint'],
+            'error' => '',
+            'group_class' => 'checkbox'
+        ));
+    }
+
     public static function image($args, $value='') {
         if(array_key_exists('saved_value', $args)) {
             $value = $args['saved_value'];
