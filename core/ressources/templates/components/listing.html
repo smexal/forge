@@ -1,5 +1,6 @@
 <div class="{$type} {$classes} component-listing wrapped">
     <h2>{$title}</h2>
+    {if="isset($filter) && $filter"}<div class="filter">{$filter}</div>{/if}
     <div class="listing">
         {if="$message"}<p class="message info">{$message}</p>{/if}
         {if="$items"}

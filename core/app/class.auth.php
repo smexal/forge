@@ -34,6 +34,10 @@ class Auth {
             // no permission required for this view.
             return true;
         }
+        if(! Auth::any()) {
+            return false;
+        }
+
         // not even logged in... send to login
         if (! Auth::any() || is_null(App::instance()->user)) {
             if ($inpage === false) {

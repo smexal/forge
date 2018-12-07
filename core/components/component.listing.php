@@ -79,19 +79,43 @@ abstract class ListingComponent extends Component {
             $collectionItems
         );
 
+        $filter = false;
+        if(method_exists($this, 'getFilter')) {
+            $filter = $this->getFilter();
+        }
+
         $items = [];
         foreach($collectionItems as $item) {
             array_push($items, $this->renderItem($item));
         }
         $items = array_reverse($items);
 
-        return App::instance()->render(CORE_TEMPLATE_DIR."components/", "listing", [
+        $args = [
             'title' => $this->getField('title'),
+            'filter' => $filter,
             'message' => $message,
             'items' => $items,
             'type' => $this->collection,
             'classes' => implode(" ", $this->cssClasses)
-        ]);
+        ];
+        $args = ModifyHandler::instance()->trigger(
+            'modify_collection_listing_args',
+            $args
+        );
+
+        $templateDir = CORE_TEMPLATE_DIR."components/";
+        $templateDir = ModifyHandler::instance()->trigger(
+            'modify_collection_listing_templateDir',
+            $templateDir
+        );
+
+        $templateName = 'listing';
+        $templateName = ModifyHandler::instance()->trigger(
+            'modify_collection_listing_templateDir',
+            $templateName
+        );
+
+        return App::instance()->render($templateDir, $templateName, $args);
     }
 
     public function renderItem($item) {
