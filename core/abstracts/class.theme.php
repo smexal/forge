@@ -70,7 +70,7 @@ abstract class Theme implements ITheme {
         }
     }
 
-    private function isExternalRessource($script) {
+    protected function isExternalRessource($script) {
         if(strstr($script, "http://")) {
             return true;
         }
@@ -188,7 +188,7 @@ abstract class Theme implements ITheme {
         return false;
     }
 
-    private function loadMinifier() {
+    protected function loadMinifier() {
         $path = CORE_ROOT.'libs/';
         require_once $path . 'minify/src/Minify.php';
         require_once $path . 'minify/src/CSS.php';
@@ -232,7 +232,7 @@ abstract class Theme implements ITheme {
         return $return;
     }
 
-    private function prepareScripts() {
+    protected function prepareScripts() {
         $scripts = [];
 
         if(! MINIFY) {
@@ -266,7 +266,7 @@ abstract class Theme implements ITheme {
         return $scripts;
     }
 
-    private function prepareStyles() {
+    protected function prepareStyles() {
         $styles = [];
 
         if(! MINIFY) {
