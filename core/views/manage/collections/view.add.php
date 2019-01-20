@@ -25,7 +25,8 @@ class AddView extends View
         $cm = App::instance()->cm;
         $this->message = $cm->add(array(
             'type' => $_POST['collection'],
-            'name' => $_POST['new_title']
+            'name' => $_POST['new_title'],
+            'author' => App::instance()->user->get('id')
         ));
         if ($this->message) {
             $this->title = $_POST['new_title'];
