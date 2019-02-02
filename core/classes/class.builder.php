@@ -87,6 +87,7 @@ class Builder {
             }
             array_push($elements, array(
                 'name' => $element->getPref('name'),
+                'custom' => $element->customBuilderContent(),
                 'type' => $element->getPref('id'),
                 'id' => $element->id,
                 'container' => $element->getPref('container'),
