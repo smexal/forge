@@ -11,10 +11,12 @@ class TableBar {
     private $search = false;
     private $sorting = false;
     private $directFilters = [];
+    private $additionalGetString = '';
 
-    public function __construct($api, $target) {
+    public function __construct($api, $target, $additionalGetString = '') {
         $this->api = $api;
         $this->target = $target;
+        $this->additionalGetString = $additionalGetString;
     }
 
     public function enableSearch() {
@@ -31,6 +33,7 @@ class TableBar {
         return App::instance()->render(CORE_TEMPLATE_DIR.'assets/', 'tablebar', [
           'api' => $this->api,
           'target' => $this->target,
+          'additionalGetString' => $this->additionalGetString,
           'contentleft' => $this->getTableBarLeft(),
           'contentright' => $this->getTableBarRight() 
       ]);

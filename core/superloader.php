@@ -62,7 +62,7 @@ class SuperLoader {
     protected function loadClasses() {
       $mappings = $this->maybeGetCache(static::$FLUSH);
       if(!is_null($mappings)) {
-        Logger::info("Loaded Cached Autoload-Mappings via Cache-File...");
+        //Logger::info("Loaded Cached Autoload-Mappings via Cache-File...");
         $this->mappings = $mappings;
         return;
       }

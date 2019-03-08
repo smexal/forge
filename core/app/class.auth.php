@@ -34,9 +34,8 @@ class Auth {
             // no permission required for this view.
             return true;
         }
-
         // not even logged in... send to login
-        if (! Auth::any() || is_null(App::instance()->user)) {
+        if (is_null(App::instance()->user) || ! Auth::any()) {
             if ($inpage === false) {
                 App::instance()->redirect(Utils::getUrl(array('login')), Utils::getCurrentUrl());
             } else {

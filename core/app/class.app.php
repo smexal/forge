@@ -74,15 +74,15 @@ class App {
         if(is_null($this->nm)) {
             $this->nm = new NavigationManager();
         }
-
         // Has to be called after module and theme manager instantiiated
         Autoregister::autoregister();
-
         $this->mim->start();
 
         // start all active modules
         $this->mm->start();
         \fireEvent('onModulesLoaded');
+
+        $timer = Logger::timer();
 
 
         if(is_null($this->vm)) {
@@ -97,18 +97,28 @@ class App {
             Logger::debug('No Theme set.');
         }
 
-      if(is_null($this->com)) {
-          $this->com = new ComponentManager();
-      }
-      if(is_null($this->cm)) {
-        $this->cm = new CollectionManager();
-      }
+        if(is_null($this->com)) {
+            $this->com = new ComponentManager();
+        }
 
-      // Collects relations (dependency on CollectionManager)
-      $this->rd->start();
+        Logger::debug('ComponentManager start');
+        Logger::stop($timer);
 
-      \fireEvent('onManagersLoaded');
+        
+        if(is_null($this->cm)) {
+            $this->cm = new CollectionManager();
+        }
 
+        Logger::debug('CollectionManager start');
+        Logger::stop($timer);
+
+        // Collects relations (dependency on CollectionManager)
+        $this->rd->start();
+
+        Logger::debug('rd start');
+        Logger::stop($timer);
+
+        \fireEvent('onManagersLoaded');
     }
 
     /**
@@ -117,18 +127,18 @@ class App {
      * of the method
      */
     public function prepare() {
-      if($this->prepared)
-        return;
+        if($this->prepared)
+            return;
 
-      if(is_null($this->db)) {
-        $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-      }
+        if(is_null($this->db)) {
+            $this->db = new \MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        }
 
-      Auth::setSessionUser();
+        Auth::setSessionUser();
 
-      $this->managers();
+        $this->managers();
 
-      $this->prepared = true;
+        $this->prepared = true;
     }
 
     public function run() {
@@ -172,6 +182,7 @@ class App {
                 //break;
             }
         }
+
         if(!$requiredView) {
             $requiredView = $defaultView;
         }

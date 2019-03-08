@@ -17,7 +17,7 @@ abstract class DataCollection implements IDataCollection {
     protected $app;
     public $preferences = array();
     public $name = false;
-    protected $customFields = array();
+    public $customFields = array();
     private $customConfiguration = array();
 
     abstract protected function setup();

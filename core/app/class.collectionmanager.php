@@ -5,6 +5,7 @@ namespace Forge\Core\App;
 use Forge\Core\Abstracts\Manager;
 use Forge\Core\App\Modifier;
 use Forge\Core\Classes\CollectionItem;
+use Forge\Core\Classes\Logger;
 
 class CollectionManager extends Manager {
   public $collections = null;
@@ -37,13 +38,15 @@ class CollectionManager extends Manager {
     if(is_array($this->collections)) {
       return $this->collections;
     }
+    $timer = Logger::timer();
 
     $collection_classes = $this->_getCollections();
-    $collections = array();
+    $collections = [];
     foreach($collection_classes as $collection) {
-      $collections[] = $collection::instance();
+      $this->collections[] = $collection::instance();
+      Logger::debug($collection);
+      Logger::stop($timer);
     }
-    $this->collections = $collections;
     return $this->collections;
   }
 

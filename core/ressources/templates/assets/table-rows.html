@@ -2,7 +2,7 @@
 <tr {if="isset($value1->rowAction)"}data-main-action="{$value1->rowAction}"{/if}>
     {loop="$value->tds"}
         <td {if="$value2.id"}id="{$value2.id}"{/if} {if="$value2.class"}class="{$value2.class}"{/if}>
-            {if="isset($value2.cellAction)"}
+            {if="$value2.cellAction"}
                 <a href="{$value.cellAction}">{$value2.content}</a>
             {else}
                 {$value2.content}

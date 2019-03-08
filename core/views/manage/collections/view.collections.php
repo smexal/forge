@@ -3,12 +3,17 @@
 namespace Forge\Core\Views\Manage\Collections;
 
 use Forge\Core\Abstracts\View;
+use Forge\Core\App\App;
 use Forge\Core\App\Auth;
 use Forge\Core\App\ModifyHandler;
 use Forge\Core\Classes\User;
 use Forge\Core\Classes\Utils;
+use Forge\Core\Classes\TableBar;
+use Forge\Core\Traits\ApiAdapter;
 
 class CollectionsView extends View {
+    use ApiAdapter;
+
     public $parent = 'manage';
     public $name = 'collections';
     public $permission = 'manage.collections';
@@ -20,15 +25,17 @@ class CollectionsView extends View {
     );
 
     private $collection = false;
+    private $apiMainListener = 'collections-view';
 
     public function content($uri=array()) {
         // find out which collection we are editing
-        foreach ($this->app->cm->collections as $collection) {
+        foreach (App::instance()->cm->collections as $collection) {
             if ($collection->getPref('name') == $uri[0]) {
                 $this->collection = $collection;
                 break;
             }
         }
+
         // check if user has permission
         if ($collection && Auth::allowed($collection->permission)) {
             // render subview
@@ -37,7 +44,7 @@ class CollectionsView extends View {
                 // render the overview
             } else {
                 if(Auth::allowed($this->permissions['add'])) {
-                    $global_actions = $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+                    $global_actions = App::instance()->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
                         'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'add')),
                         'label' => $this->collection->getPref('add-label')
                     ));
@@ -45,25 +52,25 @@ class CollectionsView extends View {
                     $global_actions = '';
                 }
                 if (Auth::allowed($this->permissions['configure'])) {
-                    $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+                    $global_actions.= App::instance()->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
                         'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'configure')),
                         'label' => i('Configure', 'core')
                     ));
                 }
                 if ($collection->preferences['has_categories'] && Auth::allowed($this->permissions['categories'])) {
-                    $global_actions.= $this->app->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
+                    $global_actions.= App::instance()->render(CORE_TEMPLATE_DIR."assets/", "overlay-button", array(
                       'url' => Utils::getUrl(array('manage', 'collections', $this->collection->getPref('name'), 'categories')),
                       'label' => i('Categories', 'core')
                     ));
                 }
-                return $this->app->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
+                return App::instance()->render(CORE_TEMPLATE_DIR."views/sites/", "generic", array(
                     'title' => $this->collection->getPref('all-title'),
                     'global_actions' => $global_actions,
                     'content' => $this->collectionList()
                 ));
             }
         } else {
-            $this->app->redirect("denied");
+            App::instance()->redirect("denied");
         }
     }
 
@@ -89,11 +96,18 @@ class CollectionsView extends View {
     private function collectionList() {
         $headings = [
             Utils::tableCell(i('Name')),
+        ];
+
+        if($this->collection->preferences['has_categories'] === true) {
+            $headings[] = Utils::tableCell(i('Categories'));
+        }
+
+        $headings = array_merge($headings, [
             Utils::tableCell(i('Author')),
             Utils::tableCell(i('Created')),
             Utils::tableCell(i('status')),
             Utils::tableCell(i('Actions'))
-        ];
+        ]);
 
         $headings = ModifyHandler::instance()->trigger('ForgeCore_CollectionManagement_HeaderList', $headings);
 
@@ -103,31 +117,110 @@ class CollectionsView extends View {
             'td' => $this->getPageRows()
         ];
 
-        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", $table);
+        $bar = new TableBar(Utils::url(['api', $this->apiMainListener]), 'collectionTable', '&collection='.$this->collection->name);
+        $bar->enableSearch();
+        $bar->enableSorting([
+            'default' => i('Default', 'core'),
+            'name_ASC' => i('Name Ascending', 'core'),
+            'name_DESC' => i('Name Descending', 'core')
+        ]);
+        $bar->addDirectFilter([
+            'label' => i('Category', 'core'),
+            'field' => 'categories',
+            'values' => [
+                0 => 'category 1',
+                1 => 'category 2'
+            ]
+        ]);
+
+        return $bar->render() . App::instance()->render(CORE_TEMPLATE_DIR."assets/", "table", $table);
     }
 
-    private function getPageRows($parent=0, $level=0) {
+    /**
+     * API Search method for table
+     * @return json tr's for the table
+     */
+    public function search()
+    {
+        if(! isset($_GET['collection'])) {
+            return;
+        }
+        // find out which collection we are editing
+        foreach (App::instance()->cm->collections as $collection) {
+            if ($collection->getPref('name') == $_GET['collection']) {
+                $this->collection = $collection;
+                break;
+            }
+        }
+
+
+        $args = ['query' => $_GET['t']];
+        if ($_GET['s'] !== 'default' && $_GET['s'] !== '') {
+            $sort = explode("_", $_GET['s']);
+            $args['order'] = $sort[0];
+            $args['order_direction'] = $sort[1];
+        }
+
+        foreach ($_GET as $key => $value) {
+            if (strstr($key, 'filter__')) {
+                $k = explode("__", $key);
+                $k = $k[1];
+                $args['where'][$k] = $value;
+            }
+        }
+
+        return json_encode([
+            'newTable' => App::instance()->render(
+                CORE_TEMPLATE_DIR . 'assets/',
+                'table-rows',
+                ['td' => $this->getPageRows(0, 0, $args)]
+            )
+        ]);
+    }
+
+    private function getPageRows($parent=0, $level=0, $sort = false, $args = false) {
         $rows = array();
-        foreach ($this->collection->items() as $item) {
+        foreach ($this->collection->items($args) as $item) {
             $user = new User($item->getAuthor());
             $row = new \stdClass();
-            $row->tds = array(
+            $row->tds = [
                 Utils::tableCell(
-                    $this->app->render(CORE_TEMPLATE_DIR."assets/", "a", array(
+                    App::instance()->render(CORE_TEMPLATE_DIR."assets/", "a", array(
                         "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
                         "name" => $item->getName()
                     ))
-                ),
+                )
+            ];
+
+            if($this->collection->preferences['has_categories'] === true) {
+                    $row->tds[] = Utils::tableCell($this->getCategoriesString($item));
+            }
+
+            $row->tds = array_merge($row->tds, [
                 Utils::tableCell($user->get('username')),
                 Utils::tableCell(Utils::dateFormat($item->getCreationDate())),
                 Utils::tableCell(i($item->getMeta('status'))),
                 Utils::tableCell($this->actions($item), false, false, false, Utils::url(["manage", "collections", $this->collection->getPref('name'), 'edit', $item->id]))
-            );
+            ]);
+
             $row->rowAction = Utils::getUrl(['manage', 'collections', $item->getType(), 'edit', $item->id]);
 
             array_push($rows, $row);
         }
         return $rows;
+    }
+
+    private function getCategoriesString($item) {
+        $cats = $item->getMeta('categories');
+        $categories = [];
+        if(!is_array($cats)) {
+            return '';
+        }
+        foreach($cats as $c) {
+            $meta = $this->collection->getCategoryMeta($c);
+            $categories[] = $meta->name;
+        }
+        return implode(", ", $categories);
     }
 
     private function actions($item) {
@@ -149,7 +242,7 @@ class CollectionsView extends View {
                 "confirm" => true
             ));
         }
-        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table.actions", array(
+        return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "table.actions", array(
             'actions' => $actions
         ));
     }

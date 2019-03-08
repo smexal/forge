@@ -15,8 +15,8 @@
                 {if="is_array($value)"}
                 {loop="$value"}
                     <td {if="$value2.id"}id="{$value2.id}"{/if} {if="$value2.class"}class="{$value2.class}"{/if}>
-                        {if="isset($value2.cellAction)"}
-                            <a href="{$value.cellAction}">{$value2.content}</a>
+                        {if="$value2.cellAction"}
+                            <a href="{$value2.cellAction}">{$value2.content}</a>
                         {else}
                             {$value2.content}
                         {/if}
@@ -25,8 +25,8 @@
                 {else}    
                 {loop="$value->tds"}
                     <td {if="$value2.id"}id="{$value2.id}"{/if} {if="$value2.class"}class="{$value2.class}"{/if}>
-                        {if="isset($value2.cellAction)"}
-                            <a href="{$value.cellAction}">{$value2.content}</a>
+                        {if="$value2.cellAction"}
+                            <a href="{$value2.cellAction}">{$value2.content}</a>
                         {else}
                             {$value2.content}
                         {/if}

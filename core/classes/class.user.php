@@ -124,6 +124,7 @@ class User {
     }
 
     public function allowed($permission) {
+        $timer = Logger::timer();
         if (array_key_exists('permissions', $this->data) && array_key_exists($permission, $this->data['permissions'])) {
             return $this->data['permissions'][$permission];
         }

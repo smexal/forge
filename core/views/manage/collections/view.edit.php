@@ -36,6 +36,13 @@ class EditView extends View {
         $manager = App::instance()->cm;
         $full_uri = Utils::getUriComponents();
         $this->collection = $manager->getCollection($full_uri[2]);
+
+        // "modern" collections dont call the custom_fields method by themself.
+        // check if they have custom fields else call custom_fields method.
+        if(count($this->collection->customFields) == 0) {
+            $this->collection->custom_fields();
+        }
+
         $this->item = $this->collection->getItem($this->uri[1]);
 
         $subview = $full_uri[count($full_uri)-1];

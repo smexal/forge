@@ -29,7 +29,7 @@ var tablebar = {
             }
         }
 
-        return '/search' + '?t=' + bar.data('searchValue') + '&s=' + bar.data('sortValue') + filterVal;
+        return '/search' + '?t=' + bar.data('searchValue') + '&s=' + bar.data('sortValue') + filterVal + bar.data('get-string');
     },
 
     sorting : function(bar) {
