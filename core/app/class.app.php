@@ -82,9 +82,6 @@ class App {
         $this->mm->start();
         \fireEvent('onModulesLoaded');
 
-        $timer = Logger::timer();
-
-
         if(is_null($this->vm)) {
             $this->vm = new ViewManager();
         }
@@ -101,22 +98,13 @@ class App {
             $this->com = new ComponentManager();
         }
 
-        Logger::debug('ComponentManager start');
-        Logger::stop($timer);
-
         
         if(is_null($this->cm)) {
             $this->cm = new CollectionManager();
         }
 
-        Logger::debug('CollectionManager start');
-        Logger::stop($timer);
-
         // Collects relations (dependency on CollectionManager)
         $this->rd->start();
-
-        Logger::debug('rd start');
-        Logger::stop($timer);
 
         \fireEvent('onManagersLoaded');
     }

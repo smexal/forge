@@ -38,14 +38,10 @@ class CollectionManager extends Manager {
     if(is_array($this->collections)) {
       return $this->collections;
     }
-    $timer = Logger::timer();
-
     $collection_classes = $this->_getCollections();
     $collections = [];
     foreach($collection_classes as $collection) {
       $this->collections[] = $collection::instance();
-      Logger::debug($collection);
-      Logger::stop($timer);
     }
     return $this->collections;
   }
