@@ -63,7 +63,7 @@ class Media {
         if (!file_exists($original))
             return '';
 
-        list($w, $h) = getimagesize($original);
+        list($w, $h) = @getimagesize($original);
 
         if($type == 'jpeg') $type = 'jpg';
         switch($type){
