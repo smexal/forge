@@ -99,6 +99,10 @@ abstract class DataCollection implements IDataCollection {
         }
     }
 
+    public function custom_fields() {
+        return [];
+    }
+
     public function getBySlug($slug) {
         foreach ($this->items() as $item) {
             $i = new CollectionItem($item->id);
