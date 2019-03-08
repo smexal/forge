@@ -7,7 +7,7 @@
         {loop="$elements"}
             <div class="element {$value.type} card item" data-id="{$value.id}">
                 <div class="self">
-                    <h4>{$value.name}</h4>
+                    <h4>{$value.name}{if="$value.custom"}<br /><small>{$value.custom}</small>{/if}</h4>
                     <div class="actions">
                         <a href="{$value.edit.link}" class="ajax slidein"><i class="material-icons">mode_edit</i></a>
                         <a href="{$value.remove.link}" class="ajax slidein"><i class="material-icons">delete</i></a>
