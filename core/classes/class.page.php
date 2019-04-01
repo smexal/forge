@@ -267,7 +267,7 @@ class Page {
       }
 
 
-      $builder = new Builder('page', $this->id, 0);
+      $builder = new Builder('page', $this->id, 'none');
       $elements = $builder->getBuilderElements(Localization::getCurrentLanguage());
 
       foreach($elements as $element) {
