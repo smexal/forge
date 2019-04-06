@@ -105,6 +105,7 @@ class ProfileView extends View {
         if(array_key_exists('forge-avatar', $_FILES) && $_FILES['forge-avatar']['size'] > 0) {
             $user->setAvatar($_FILES['forge-avatar']);
         }
+        $user->updateMeta($_POST);
         App::instance()->addMessage(sprintf(i('Changes saved')), "success");
         App::instance()->redirect(Utils::getCurrentUrl());
     }
@@ -140,6 +141,17 @@ class ProfileView extends View {
             'current_content' => '<img src="'.App::instance()->user->getAvatar().'">'
         ], '');
 
+        foreach(User::getMetaFields() as $field) {
+            if($field['position'] == 'right') {
+                $type = $field['type'];
+                $fields.= Fields::$type([
+                    'key' => $field['key'],
+                    'label' => $field['label'],
+                    'type' => $field['type']
+                ], App::instance()->user->getMeta($field['key']));
+            }
+        }
+
         return $fields;
     }
 
@@ -157,6 +169,18 @@ class ProfileView extends View {
             'label' => i('E-Mail', 'core'),
             'hint' => i('You can change your E-Mail at any time, if no one else has the E-Mail you try to change to.', 'core')
         ], App::instance()->user->get('email'));
+
+        foreach(User::getMetaFields() as $field) {
+            if($field['position'] == 'left') {
+                $type = $field['type'];
+                $fields.= Fields::$type([
+                    'key' => $field['key'],
+                    'label' => $field['label'],
+                    'type' => $field['type']
+                ], App::instance()->user->getMeta($field['key']));
+            }
+        }
+
 
         $fields.= Fields::text([
             'type' => 'password',

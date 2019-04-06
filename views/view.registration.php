@@ -54,7 +54,7 @@ class RegistrationView extends View {
         }
 
         // create user
-        User::create($this->data['name'], $this->data['password'], $this->data['email'], true);
+        User::create($this->data['name'], $this->data['password'], $this->data['email'], true, $this->data);
 
         // login
         // make sure it is not redirecting
@@ -88,26 +88,39 @@ class RegistrationView extends View {
         ));
         $return.= Fields::text(array(
             'key' => 'name',
-            'label' => i('Username').' *',
+            'label' => i('Username'),
             'autocomplete' => false,
             'error' => @$this->errors['name']
         ), @$this->data['name']);
         $return.= Fields::text(array(
             'key' => 'email',
-            'label' => i('E-Mail').' *',
+            'label' => i('E-Mail'),
             'autocomplete' => false,
             'error' => @$this->errors['email']
         ), @$this->data['email']);
+
+        // add custom fields...
+        foreach(User::getMetaFields() as $field) {
+            if($field['required'] == true) {
+                $type = $field['type'];
+                $return.= Fields::$type([
+                    'key' => $field['key'],
+                    'label' => $field['label'],
+                    'type' => $field['type']
+                ], @$this->data[$field['key']]);
+            }
+        }
+
         $return.= Fields::text(array(
             'key' => 'password',
-            'label' => i('Password').' *',
+            'label' => i('Password'),
             'type' => 'password',
             'autocomplete' => false,
             'error' => @$this->errors['password']
         ));
         $return.= Fields::text(array(
             'key' => 'password_repeat',
-            'label' => i('Repeat Password').' *',
+            'label' => i('Repeat Password'),
             'type' => 'password',
             'autocomplete' => false
         ));

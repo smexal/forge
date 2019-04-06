@@ -16,7 +16,8 @@ class User {
         'username',
         'email',
         'password',
-        'active'
+        'active',
+        'meta'
     );
     private static $avatarDirectory = UPLOAD_DIR.'avatar/';
 
@@ -24,6 +25,23 @@ class User {
         $this->app = App::instance();
         $this->data['id'] = $id;
         $this->groups();
+    }
+
+    public static function getMetaFields() {
+        $metaFields = [];
+        $metaFields = ModifyHandler::instance()->trigger(
+            'modify_user_metafields',
+            $metaFields
+        );
+        return $metaFields;
+    }
+
+    public function getMeta($key) {
+        if (! array_key_exists('meta', $this->data)) {
+            $this->getData();
+        }
+        $meta = json_decode(urldecode($this->data['meta']));
+        return @$meta->$key;
     }
 
     public function getData() {
@@ -195,6 +213,14 @@ class User {
         return true;
     }
 
+    public function updateMeta($data) {
+        $newMeta = self::parseMetaData($data);
+        $this->app->db->where('id', $this->get('id'));
+        $this->app->db->update('users', array(
+            'meta' => $newMeta
+        ));
+    }
+
     public function setMail($newMail) {
         if (! Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
             return i("Permission denied to edit users.");
@@ -339,7 +365,7 @@ class User {
         return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('recover', 'password', $string));
     }
 
-    public static function create($name, $password, $email, $registration = false) {
+    public static function create($name, $password, $email, $registration = false, $allData = false) {
         $app = App::instance();
         $pass = false;
         if (Settings::get('allow_registration') === 'on' && $registration) {
@@ -366,14 +392,28 @@ class User {
             $active = 1;
         }
 
+        $metaData = '';
+        if($allData) {
+            $metaData = self::parseMetaData($allData);
+        }
+
         $data = array(
             'username' => $name,
             'password' => Utils::password($password),
             'email' => $email,
-            'active' => $active
+            'active' => $active,
+            'meta' => $metaData
         );
         $app->db->insert('users', $data);
         return false;
+    }
+
+    public static function parseMetaData($formData) {
+        $data = [];
+        foreach(self::getMetaFields() as $field) {
+            $data[$field['key']] = $formData[$field['key']];
+        }
+        return urlencode(json_encode($data));
     }
 
     public static function checkUser($data) {
