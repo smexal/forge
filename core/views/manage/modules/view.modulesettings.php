@@ -14,7 +14,7 @@ class ModulesettingsView extends View {
     public $name = 'module-settings';
     public $permission = 'manage.modules';
     private $settingsAmount = 0;
-    private $module = null;
+    public $module = null;
     public $events = array(
         'onUpdateModuleSettings'
     );

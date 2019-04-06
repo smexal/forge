@@ -126,6 +126,9 @@ abstract class View implements IView {
         if($this->htmlTitle == 'collections') {
             $this->htmlTitle = $this->theView->collection->getPref('title');
         }
+        if($this->htmlTitle == 'module-settings') {
+            $this->htmlTitle = $this->theView->module->name;
+        }
         if($this->htmlTitle) {
             return ucfirst($this->htmlTitle).' | Forge';
         }
