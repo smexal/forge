@@ -113,12 +113,15 @@ var forms = {
         .filter(":not([data-prepared='1'])")
         .each(function() {
             $(this).attr('data-prepared', 1);
-            if($(this).val().length > 0) {
-                $(this).parent().addClass('focus');
-                if($(this).parent().hasClass("input-group")) {
-                    $(this).parent().parent().addClass('focus');
-                }
-            }
+            var input = $(this);
+            setTimeout(function() {
+              if(input.val().length > 0) {
+                  input.parent().addClass('focus');
+                  if(input.parent().hasClass("input-group")) {
+                      input.parent().parent().addClass('focus');
+                  }
+              }
+            }, 600);
 
             $(this).on('focus', function() {
                 if(! $(this).parent().hasClass('focus')) {

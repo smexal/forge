@@ -31,7 +31,6 @@ class LoginView extends View {
 
     public function form($trigger_event = true) {
         $form = new Form();
-        $form->disableAuto();
         $form->hidden("event", "onLoginSubmit");
         if(! $trigger_event) {
             $form->hidden("disable-trigger", "true");
