@@ -194,9 +194,10 @@ class App {
             $parts = Utils::getUriComponents();
             // if has manage parts
             if(in_array("manage", $parts)) {
+                $content = $this->content($view);
                 echo $this->render(CORE_TEMPLATE_DIR, "layout", array(
+                    "content" => $content,
                     "head" => $this->header($view),
-                    "content" => $this->content($view),
                     "messages" => $this->displayMessages(),
                     "sticky" => $this->sticky
             ));

@@ -24,7 +24,7 @@ class CollectionsView extends View {
         'delete' => "manage.collections.delete"
     );
 
-    private $collection = false;
+    public $collection = false;
     private $apiMainListener = 'collections-view';
 
     public function content($uri=array()) {
@@ -140,8 +140,7 @@ class CollectionsView extends View {
      * API Search method for table
      * @return json tr's for the table
      */
-    public function search()
-    {
+    public function search() {
         if(! isset($_GET['collection'])) {
             return;
         }
