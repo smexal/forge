@@ -17,6 +17,7 @@ abstract class DataCollection implements IDataCollection {
     protected $app;
     public $preferences = array();
     public $name = false;
+    private $item = null;
     public $customFields = array();
     private $customConfiguration = array();
 
@@ -75,7 +76,8 @@ abstract class DataCollection implements IDataCollection {
             'has_status' => true,
             'has_categories' => false,
             'has_password' => false,
-            'has_image' => false
+            'has_image' => false,
+            'has_order' => false
         );
         $this->setup();
         $this->name = $this->getPref('name');
@@ -171,6 +173,11 @@ abstract class DataCollection implements IDataCollection {
           if (array_key_exists('lang', $data)) {
               App::instance()->addMessage(i('Language for saving values for page not set.'));
               return;
+          }
+
+          // save new order (sequence)
+          if(array_key_exists('collection_order', $data)) {
+            $item->setSequence($data['collection_order']);
           }
 
           foreach ($this->fields($item) as $field) {
@@ -284,11 +291,29 @@ abstract class DataCollection implements IDataCollection {
                 'hint' => i('Choose an image for this collection item.')
             ));
         }
+        if($this->preferences['has_order']) {
+            array_push($fields, array(
+                'key' => 'collection_order',
+                'label' => i('Order Priority'),
+                'multilang' => false,
+                'type' => 'number',
+                'order' => 40,
+                'position' => 'right',
+                'hint' => i('The order for displaying this element in listings.'),
+                'process:build' => [$this, 'getSequence']
+            ));
+        }
         $fields = ModifyHandler::instance()->trigger(
             'Core/Manage/modifiyDefaultFields',
             $fields, $this->name
         );
         return $fields;
+    }
+
+    public function getSequence() {
+        if($this->item) {
+            return $this->item->getSequence();
+        }
     }
 
     protected function itemDependentFields($item) {}
@@ -505,6 +530,7 @@ abstract class DataCollection implements IDataCollection {
     public function fields($item=null) {
         if(!is_null($item)) {
             $this->itemDependentFields($item);
+            $this->item = $item;
         }
         $fields = array_merge($this->defaultFields(), $this->customFields);
 

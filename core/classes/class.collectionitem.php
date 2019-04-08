@@ -12,7 +12,7 @@ class CollectionItem implements ICollectionItem {
     const AS_ID = 0x1;
     const AS_ITEM = 0x2;
 
-    // @depricated Will be set private in the next major update. Use getID instead
+    // @deprecated Will be set private in the next major update. Use getID instead
     public $id = null;
     private $db = null;
     private $base_data = null;
@@ -125,6 +125,10 @@ class CollectionItem implements ICollectionItem {
         return $this->base_data['author'];
     }
 
+    public function getSequence() {
+        return $this->base_data['sequence'];
+    }
+
     public function getCreationDate() {
         return $this->base_data['created'];
     }
@@ -208,6 +212,14 @@ class CollectionItem implements ICollectionItem {
             'author' => $newAuthor
         ]);
         $this->base_data['author'] = $newAuthor;
+    }
+
+    public function setSequence($newSequence) {
+        $this->db->where('id', $this->getID());
+        $this->db->update('collections', [
+            'sequence' => $newSequence
+        ]);
+        $this->base_data['sequence'] = $newSequence;
     }
 
     public function insertMultipleMeta($metas) {
