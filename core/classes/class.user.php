@@ -11,6 +11,7 @@ use \Forge\Core\Classes\Settings;
 class User {
     private $app;
     private $data = false;
+    private $meta = false;
     private $fields = array(
         'id',
         'username',
@@ -40,8 +41,8 @@ class User {
         if (! array_key_exists('meta', $this->data)) {
             $this->getData();
         }
-        $meta = json_decode(urldecode($this->data['meta']));
-        return @$meta->$key;
+        $this->meta = json_decode(urldecode($this->data['meta']));
+        return @$this->meta->$key;
     }
 
     public function getData() {
@@ -219,6 +220,15 @@ class User {
         $this->app->db->update('users', array(
             'meta' => $newMeta
         ));
+    }
+
+    public function setMeta($key, $value) {
+        if (! array_key_exists('meta', $this->data)) {
+            $this->getData();
+        }
+        $this->meta->$key = $value;
+        self::updateMeta($this->meta);
+        $this->getData();
     }
 
     public function setMail($newMail) {
@@ -408,10 +418,15 @@ class User {
         return false;
     }
 
-    public static function parseMetaData($formData) {
+    public static function parseMetaData($dataToParse) {
         $data = [];
         foreach(self::getMetaFields() as $field) {
-            $data[$field['key']] = $formData[$field['key']];
+            if(is_object($dataToParse)) {
+                $f = $field['key'];
+                $data[$field['key']] = $dataToParse->$f;
+            } else {
+                $data[$field['key']] = $dataToParse[$field['key']];
+            }
         }
         return urlencode(json_encode($data));
     }

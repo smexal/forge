@@ -5,7 +5,9 @@
 {/if}
     <input class="form-control{if="$error"} has-error{/if}{if="isset($input_class)"} {$input_class}{/if}" {if="isset($id)"}id="{$id}"{/if} name="{$name}" type="{$type}"
         {if="$type=='radio'"}
-            {if="$value=='on'"}checked="checked"{/if}
+            {if="isset($active)"}
+                {if="$value==$active"}checked="checked"{/if}
+            {/if}
         {/if}
         {if="$type=='checkbox'"}
             {if="$value=='on'"}checked="checked"{/if}

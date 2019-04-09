@@ -272,10 +272,14 @@ class Fields {
         if(! array_key_exists('hint', $args))
             $args['hint'] = false;
 
+        if(! array_key_exists('active', $args))
+            $args['active'] = false;
+
         return App::instance()->render(CORE_TEMPLATE_DIR."assets/", "input", array(
             'name' => $args['key'],
             'id' => $args['key'],
             'label' => $args['label'],
+            'active' => $args['active'],
             'type' => 'radio',
             'hor' => false,
             'noautocomplete' => false,
