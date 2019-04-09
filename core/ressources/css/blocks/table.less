@@ -16,9 +16,21 @@ table.default {
         }
     }
 
+    &.small {
+        th {
+            padding: 0;
+        }
+        td {
+            padding: 0;
+        }
+    }
+
     tbody {
         tr {
             border-bottom: 1px solid rgba(0,0,0,0.06);
+            &:last-child {
+                border-bottom: none;
+            }
 
             &:hover {
                 td {
@@ -32,8 +44,8 @@ table.default {
             }
 
             td {
-                padding: 3px 20px;
-                line-height: 40px;
+                padding: 3px 10px;
+                line-height: 30px;
                 transition: 300ms;
 
               &.hasAction {
