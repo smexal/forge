@@ -76,7 +76,7 @@ class CategoriesView extends View {
             $items[] = [
                 'level' => $level,
                 'id' => $category['id'],
-                'content' => '<div class="list-content"><div class="element"><strong>'.$meta->name.'</strong></div><div class="element"><i class="material-icons">edit</i> <i class="material-icons">delete</i></div></div>'
+                'content' => '<div class="list-content"><div class="element"><strong>'.$meta->name.'</strong></div><div class="element"><i class="material-icons">edit</i></div></div>'
             ];
             $items = array_merge($items, $this->categoryItems($category['id'], $level+1));
         }

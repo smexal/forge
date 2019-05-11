@@ -444,7 +444,7 @@ abstract class DataCollection implements IDataCollection {
         } else {
             // not found in this language. get in other.
             foreach (Localization::getActiveLanguages() as $al) {
-                if (!is_null($json->{$al['code']})) {
+                if (!is_null(@$json->{$al['code']})) {
                     return $json->{$al['code']};
                 }
             }
