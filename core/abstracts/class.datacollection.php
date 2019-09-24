@@ -180,7 +180,7 @@ abstract class DataCollection implements IDataCollection {
             $item->setSequence($data['collection_order']);
           }
 
-          foreach ($this->fields($item) as $field) {
+          foreach ($this->fields($item) as $field) {              
               if (!array_key_exists($field['key'], $data)) {
                   // remove field
                   FieldSaver::remove($item, $field, isset($data['lang']) ? $data['lang'] : 0);

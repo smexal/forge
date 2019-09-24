@@ -23,7 +23,9 @@ class CollectionItem implements ICollectionItem {
         $this->id = $id;
         $this->db = App::instance()->db;
 
+        $curLang = Localization::getCurrentLanguage();
         $this->db->where('item', $this->id);
+        $this->db->where('(lang = "'.$curLang.'" or lang = "0")');
 
         $this->meta = [];
         $metas = $this->db->get('collection_meta');
@@ -139,7 +141,7 @@ class CollectionItem implements ICollectionItem {
         }
         foreach ($this->meta as $meta) {
             // return the value, if the meta value is language independent
-            if($meta['keyy'] == $key && $meta['lang'] == 0) {
+            if($meta['keyy'] == $key && is_numeric($meta['lang'])) {
                 if($meta['value'] === '0') {
                     return $meta['value'];
                 }
