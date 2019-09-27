@@ -35,6 +35,16 @@ var helpers = {
 
     searchField : function() {
         var timeout = false;
+        $("input[name='search_field']").blur(function() {
+            if($(this).closest("form").hasClass('show-results')) {
+                $(this).closest("form").removeClass('show-results');
+            }
+        });
+        $("input[name='search_field']").focus(function() {
+            if(! $(this).closest("form").hasClass('show-results')) {
+                $(this).closest("form").addClass('show-results');
+            }
+        });
         $("input[name='search_field']").on('keyup', function() {
             clearTimeout(timeout);
             var input = $(this);

@@ -71,6 +71,11 @@ class Utils {
     }
 
     public static function getCurrentUrl() {
+        if(isset($_SESSION['manipulateNextCurrentUrl'])) {
+          $parts = $_SESSION['manipulateNextCurrentUrl'];
+          unset($_SESSION['manipulateNextCurrentUrl']);
+          return self::getUrl($parts);
+        }
         return self::getUrl(self::getUriComponents());
     }
 
