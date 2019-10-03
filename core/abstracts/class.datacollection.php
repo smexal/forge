@@ -414,7 +414,9 @@ abstract class DataCollection implements IDataCollection {
     public function getCategories($parent = 0) {
         $db = App::instance()->db;
         $db->where('collection', $this->name);
-        $db->where('parent', $parent);
+        if($parent !== '*') {
+            $db->where('parent', $parent);
+        }
         $db->orderBy('sequence', 'asc');
         $cats = $db->get('collection_categories');
         return $cats;
