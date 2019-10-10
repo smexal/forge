@@ -15,7 +15,7 @@ abstract class Component implements IComponent {
     protected $defaults = array(
         'description' => '',
         'image' => '',
-        'level' => 'root',
+        'level' => 'inner',
         'container' => false
     );
 

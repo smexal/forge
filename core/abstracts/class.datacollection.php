@@ -92,6 +92,13 @@ abstract class DataCollection implements IDataCollection {
         return CollectionQuery::items($settings);
     }
 
+    public function totalPagesOfLastItemRequest() {
+        if(array_key_exists('lastPaginationPageAmount', $_SESSION)) {
+            return $_SESSION['lastPaginationPageAmount'];
+        }
+        return;
+    }
+
     public function slug() {
         $slug = $this->getSetting('slug');
         if (! is_null($slug)) {
