@@ -297,12 +297,12 @@ class Utils {
         if($seperateCurrency) {
           $pattern = '%1$s <i>%2$s</i>';
         }
-        return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), $number, $currency).$seperateCurrencyEnd;
+        return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), $number, \Forge\Modules\ForgePayment\Payment::getCurrencySign()).$seperateCurrencyEnd;
       }
       if($seperateCurrency) {
         $pattern = '<i>%1$s</i> %2$s';
       }
-      return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), $currency, $number).$seperateCurrencyEnd;
+      return $seperateCurrencyStart.sprintf(i($pattern, 'core-currency'), \Forge\Modules\ForgePayment\Payment::getCurrencySign(), $number).$seperateCurrencyEnd;
     }
 
     public static function extractParams($defaults, $params) {

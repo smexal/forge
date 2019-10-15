@@ -226,7 +226,7 @@ class User {
         if (! array_key_exists('meta', $this->data)) {
             $this->getData();
         }
-        $this->meta->$key = $value;
+        @$this->meta->$key = $value;
         self::updateMeta($this->meta);
         $this->getData();
     }
