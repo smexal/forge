@@ -155,6 +155,9 @@ class RegistrationView extends View {
         // add custom fields...
         foreach(User::getMetaFields() as $field) {
             if($field['required'] == true) {
+                // skip
+                if($field['position'] !== 'right' || $field['position'] !== 'left') 
+                    continue;
                 $type = $field['type'];
                 $return.= Fields::$type([
                     'key' => $field['key'],
