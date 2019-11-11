@@ -497,20 +497,22 @@ abstract class DataCollection implements IDataCollection {
     }
 
     public function updateCategory($id, $data) {
-        if (!array_key_exists("name", $data)) {
+        if (! array_key_exists('name', $data)) {
             $data['name'] = "(no name)";
         }
-        if (!array_key_exists("parent", $data)) {
+        if (! array_key_exists('parent', $data)) {
             $data['parent'] = 0;
+        }
+        if(! array_key_exists('description', $data)) {
+            $data['description'] = '';
         }
         $db = App::instance()->db;
         $db->where('id', $id);
         $db->update("collection_categories", [
             "collection" => $this->name,
-            "parent" => $data['parent'],
-            "sequence" => 0
+            "parent" => $data['parent']
         ]);
-        $this->saveCategoryMeta($id, array('name' => $data['name']));
+        $this->saveCategoryMeta($id, ['name' => $data['name'], 'description' => $data['description']]);
     }
 
       public function saveCategoryMeta($id, $data, $lang=false) {

@@ -30,18 +30,19 @@ class CategoriesView extends View {
     public function onAddNewCollectionCategory() {
         $manager = App::instance()->cm;
         $this->collection = $manager->getCollection($this->getCollection());
-        $this->collection->addCategory(array(
+        $this->collection->addCategory([
             "name" => $_POST['category_name'],
             "parent" => $_POST['parent_category']
-        ));
+        ]);
     }
 
     public function onUpdateCollectionCategory() {
         $manager = App::instance()->cm;
         $this->collection = $manager->getCollection($this->getCollection());
         $this->collection->updateCategory($_POST['category_id'], [
-            "name" => $_POST['category_name'],
-            "parent" => $_POST['parent_category']
+            'name' => $_POST['category_name'],
+            'parent' => $_POST['parent_category'],
+            'description' => $_POST['category_description']
         ]);
     }
 
@@ -141,6 +142,11 @@ class CategoriesView extends View {
         $form->hidden('event', $this->events[1]);
         $form->hidden('category_id', $id);
         $form->input('category_name', 'category_name', i('Category Name'), 'input', $meta->name);
+        $description = '';
+        if(property_exists($meta, 'description')) {
+            $description = $meta->description;
+        }
+        $form->area('category_description', i('Description'), $description);
 
         $categories = $collection->getCategories();
         $cats = [];
@@ -158,6 +164,7 @@ class CategoriesView extends View {
             'key' => 'parent_category',
             'label' => i('Parent Category', 'core'),
             'values' => $cats,
+            'saved_value' => $meta->parent,
             'chosen' => true
         ], $meta->parent);
         $form->submit(i('Save changes'));
