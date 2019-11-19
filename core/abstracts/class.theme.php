@@ -3,11 +3,13 @@
 namespace Forge\Core\Abstracts;
 
 use \Forge\Core\App\App;
+use \Forge\Core\App\ModifyHandler;
 use \Forge\Core\Classes\Utils;
 use \Forge\Core\Classes\Logger;
 use \Forge\Core\Classes\Localization;
 use \Forge\Core\Classes\Settings;
 use \Forge\Core\Interfaces\ITheme;
+
 
 abstract class Theme implements ITheme {
     protected static $instances = array();
@@ -174,14 +176,15 @@ abstract class Theme implements ITheme {
 
     public function getTitle() {
         $global = Settings::get('title_'.Localization::getCurrentLanguage());
-        $page = false;
+        $specific_content = false;
         if(App::instance()->page) {
-            $page = App::instance()->page->getMeta('title');
+            $specific_content = App::instance()->page->getMeta('title');
         }
-        if(!$page) {
+        $specific_content = ModifyHandler::instance()->trigger('Forge\UpdateTitle', $specific_content);
+        if(!$specific_content) {
             return $global;
         }
-        return $page.' - '.$global;
+        return $specific_content.' - '.$global;
     }
 
     public function customHeader() {

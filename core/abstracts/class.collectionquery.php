@@ -48,11 +48,19 @@ class CollectionQuery {
         if(array_key_exists('meta_query', $settings)) {
             $idx = -1;
             foreach($settings['meta_query'] as $key => $value) {
+                $modifyWhere = false;
+                if(array_key_exists('meta_query_modifier', $settings)) {
+                    $modifyWhere = $settings['meta_query_modifier'];
+                }
                 $idx++;
                 $as_key = "cm_{$idx}";
                 $db->join("collection_meta $as_key", "collections.id = {$as_key}.item", 'RIGHT');
                 $db->where("{$as_key}.keyy", $key);
-                $db->where("{$as_key}.value", $value);
+                if($modifyWhere) {
+                    $db->where("{$as_key}.value", $value, $modifyWhere);
+                } else {
+                    $db->where("{$as_key}.value", $value);
+                }
             }
         }
 
@@ -64,9 +72,12 @@ class CollectionQuery {
             $db->where("r.item_left", $settings['parent']);
         }
 
-
-        if (!$limit) {
+        if (!$limit && ! array_key_exists('paginate', $settings)) {
             $items = $db->get('collections');
+        } else if (array_key_exists('paginate', $settings)) {
+            $db->pageLimit = $settings['paginate'][1];
+            $items = $db->arraybuilder()->paginate("collections", $settings['paginate'][0]);
+            $_SESSION['lastPaginationPageAmount'] = $db->totalPages;
         } else {
             $items = $db->get('collections', $limit);
         }

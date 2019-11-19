@@ -4,6 +4,7 @@ namespace Forge\Core\Views\Manage\Collections;
 
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
+use \Forge\Core\App\Auth;
 use \Forge\Core\Classes\Form;
 use \Forge\Core\Classes\Utils;
 use \Forge\Core\Traits\ApiAdapter;
@@ -14,8 +15,12 @@ class CategoriesView extends View {
     public $parent = 'collections';
     public $name = 'categories';
     public $permission = 'manage.collections.categories';
+    public $permissions = [
+        0 => "manage.collections.categories.delete"
+    ];
     public $events = array(
-        0 => 'onAddNewCollectionCategory'
+        0 => 'onAddNewCollectionCategory',
+        1 => 'onUpdateCollectionCategory',
     );
 
     private $apiMainListener = 'categories';
@@ -25,10 +30,20 @@ class CategoriesView extends View {
     public function onAddNewCollectionCategory() {
         $manager = App::instance()->cm;
         $this->collection = $manager->getCollection($this->getCollection());
-        $this->collection->addCategory(array(
+        $this->collection->addCategory([
             "name" => $_POST['category_name'],
             "parent" => $_POST['parent_category']
-        ));
+        ]);
+    }
+
+    public function onUpdateCollectionCategory() {
+        $manager = App::instance()->cm;
+        $this->collection = $manager->getCollection($this->getCollection());
+        $this->collection->updateCategory($_POST['category_id'], [
+            'name' => $_POST['category_name'],
+            'parent' => $_POST['parent_category'],
+            'description' => $_POST['category_description']
+        ]);
     }
 
     /**
@@ -43,10 +58,30 @@ class CategoriesView extends View {
 
     private function getCollection() {
         $uri = Utils::getUriComponents();
-        return $uri[count($uri)-2];
+        return $uri[2];
     }
 
     public function content($uri=array()) {
+        if(! Auth::allowed("manage.collections.categories"))
+            return;
+
+        // edit
+        if(count($uri) > 1 && $uri[1] == 'edit' && is_numeric($uri[2])) {
+            $id = $uri[2];
+            return $this->editForm($id);
+        }
+
+        // delete
+        if(count($uri) > 1 && $uri[1] == 'delete' && is_numeric($uri[2])) {
+            if(Auth::allowed("manage.collections.categories.delete")) {
+                $manager = App::instance()->cm;
+                $this->collection = $manager->getCollection($this->getCollection());
+                $this->collection->deleteCategory($uri[2]);
+                array_pop($uri);
+                array_pop($uri);
+            }
+        }
+
         $manager = App::instance()->cm;
         $this->collection = $manager->getCollection($this->getCollection());
         if(! array_key_exists('category_name', $this->formdata)) {
@@ -73,14 +108,67 @@ class CategoriesView extends View {
         $items = [];
         foreach($categories as $category) {
             $meta = $this->collection->getCategoryMeta($category['id']);
+            $editLink = Utils::getUrl(array_merge(Utils::getUriComponents(), ['edit', $category['id']]));
+            $deleteContent = '';
+            if(Auth::allowed("manage.collections.categories.delete")) {
+                $deleteLink = Utils::getUrl(array_merge(Utils::getUriComponents(), ['delete', $category['id']]));
+                $deleteContent = '<a class="ajax confirm" href="'.$deleteLink.'"><i class="material-icons">delete</i></a>';
+            }
+            $deleteLink = Utils::getUrl(array_merge(Utils::getUriComponents(), ['delete', $category['id']]));
+            $content = '<div class="list-content">
+                <div class="element"><strong>'.$meta->name.'</strong></div>
+                <div class="element">
+                    <a class="ajax confirm" href="'.$editLink.'"><i class="material-icons">edit</i></a>
+                    '.$deleteContent.'
+                </div>
+            </div>';
             $items[] = [
                 'level' => $level,
                 'id' => $category['id'],
-                'content' => '<div class="list-content"><div class="element"><strong>'.$meta->name.'</strong></div><div class="element"><i class="material-icons">edit</i> <i class="material-icons">delete</i></div></div>'
+                'content' => $content
             ];
             $items = array_merge($items, $this->categoryItems($category['id'], $level+1));
         }
         return $items;
+    }
+
+    private function editForm($id) {
+        $collection = App::instance()->cm->getCollection($this->getCollection());
+        $meta = $collection->getCategoryMeta($id);
+        $form = new Form(Utils::getUrl(Utils::getUriComponents()));
+        $form->ajax(".content");
+        $form->disableAuto();
+        $form->subtitle(sprintf(i('Edit Category: %1$s', 'core'), $meta->name));
+        $form->hidden('event', $this->events[1]);
+        $form->hidden('category_id', $id);
+        $form->input('category_name', 'category_name', i('Category Name'), 'input', $meta->name);
+        $description = '';
+        if(property_exists($meta, 'description')) {
+            $description = $meta->description;
+        }
+        $form->area('category_description', i('Description'), $description);
+
+        $categories = $collection->getCategories();
+        $cats = [];
+        $cats[0] = i('No Parent', 'core');
+        foreach($categories as $category) {
+            // ignore itself....
+            if($category['id'] == $id) {
+                continue;
+            }
+            $innerMeta = $collection->getCategoryMeta($category['id']);
+            $cats[$category['id']] = $innerMeta->name;
+        }
+
+        $form->select([
+            'key' => 'parent_category',
+            'label' => i('Parent Category', 'core'),
+            'values' => $cats,
+            'saved_value' => $meta->parent,
+            'chosen' => true
+        ], $meta->parent);
+        $form->submit(i('Save changes'));
+        return '<div class="card space-top">'.$form->render().'</div>';
     }
 
     private function addNew() {

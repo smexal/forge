@@ -8,11 +8,11 @@ use \Forge\Core\Classes\Localization;
 class FieldSaver {
 
     public static function save($item, $field, $data) {
-/*        if($field['key'] == 'myrepeater_0_comments') {
-            error_log(print_r($item, 1));
-            error_log(print_r($field, 1));
-            error_log(print_r($data, 1));
-            die();  
+        /*if($field['key'] == 'status') {
+            var_dump($item);
+            var_dump($field);
+            var_dump($data);
+            die();
         }*/
 
         $lang = static::determineLang($field, $data['language']);

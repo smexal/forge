@@ -5,6 +5,7 @@ namespace Forge\Views;
 use \Forge\Core\Abstracts\View;
 use \Forge\Core\App\App;
 use \Forge\Core\App\Auth;
+use \Forge\Core\Classes\Utils;
 use \Forge\Core\Classes\Fields;
 use \Forge\Core\Classes\User;
 use \Forge\Core\Classes\Settings;
@@ -24,7 +25,17 @@ class RegistrationView extends View {
     public function content($parts = array()) {
         if(Settings::get('allow_registration')) {
             if(count($parts) == 0) {
-                return $this->getRegistrationForm();
+                $login = '';
+                if(! is_null(REGISTRATION_WITH_LOGIN) && REGISTRATION_WITH_LOGIN == true) {
+                    if(Auth::any()) {
+                        App::instance()->redirect(['']);
+                    }
+                    $registration = $this->getRegistrationForm(true);
+                    $login = $this->getLoginForm();
+                    return $this->renderLoginAndRegistration($login, $registration);
+                } else {
+                    return $this->getRegistrationForm();
+                }
             } else {
                 if($parts[0] == 'resend-verification') {
                     $this->resendVerification();
@@ -33,6 +44,48 @@ class RegistrationView extends View {
         } else {
             App::instance()->redirect(array('denied'));
         }
+    }
+
+    private function renderLoginAndRegistration($login, $registration) {
+        $return = '<div class="row">';
+        $return.= '<div class="col-lg-6">';
+        $return.= '<h2>'.i('Login', 'core').'</h2>';
+        $return.= '<p>'.i('Login with your existing account.', 'core').'</p>';
+        $return.= '<form method="post">'.$login.'</form>';
+        $return.= '<p><a href="'.Utils::getUrl(['recover']).'">'.i('Forgot your password? Click here to recover.').'</a></p>';
+        $return.= '</div>';
+        $return.= '<div class="col-lg-6">';
+        $return.= '<h2>'.i('Registration', 'core').'</h2>';
+        $return.= '<p>'.i('Create your user and start using the plattform.', 'core').'</p>';
+        $return.= $registration;
+        $return.= '</div>';
+        $return.= '</div>';
+        return $return;
+    }
+
+    private function getLoginForm() {
+        $return = '';
+        $return.= Fields::hidden(array(
+            "name" => "event",
+            "value" => "onLoginSubmit"
+        ));
+        $return.= Fields::hidden(array(
+            "name" => "redirect",
+            "value" => Utils::getCurrentUrl()
+        ));
+        $return.= Fields::text(array(
+            'key' => 'name',
+            'label' => i('Username or E-Mail', 'resofy'),
+            'autocomplete' => false
+        ));
+        $return.= Fields::text(array(
+            'key' => 'password',
+            'label' => i('Password', 'resofy'),
+            'type' => 'password',
+            'autocomplete' => false
+        ));
+        $return.= Fields::button(i('Login', 'resofy'));
+        return $return;
     }
 
     public function resendVerification() {
@@ -77,7 +130,7 @@ class RegistrationView extends View {
         // redirect to home
     }
 
-    public function getRegistrationForm() {
+    public function getRegistrationForm($isolated = false) {
         if(! Settings::get('allow_registration')) {
             App::instance()->redirect(['denied']);
         }
@@ -102,6 +155,9 @@ class RegistrationView extends View {
         // add custom fields...
         foreach(User::getMetaFields() as $field) {
             if($field['required'] == true) {
+                // skip
+                if($field['position'] !== 'right' || $field['position'] !== 'left') 
+                    continue;
                 $type = $field['type'];
                 $return.= Fields::$type([
                     'key' => $field['key'],
@@ -134,6 +190,9 @@ class RegistrationView extends View {
                 'ajax_target' => '',
                 'content' => array($return)
         ));
+        if($isolated) {
+            return $return;
+        }
         return App::instance()->render(CORE_TEMPLATE_DIR.'views/sites/', 'smallcenter-content', [
             'title' => i('User Registration', 'core'),
             'lead' => i('Register on this site to get access to additional functionality and be a part of this community.', 'core'),

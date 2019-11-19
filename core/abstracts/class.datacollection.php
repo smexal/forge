@@ -92,6 +92,13 @@ abstract class DataCollection implements IDataCollection {
         return CollectionQuery::items($settings);
     }
 
+    public function totalPagesOfLastItemRequest() {
+        if(array_key_exists('lastPaginationPageAmount', $_SESSION)) {
+            return $_SESSION['lastPaginationPageAmount'];
+        }
+        return;
+    }
+
     public function slug() {
         $slug = $this->getSetting('slug');
         if (! is_null($slug)) {
@@ -180,7 +187,7 @@ abstract class DataCollection implements IDataCollection {
             $item->setSequence($data['collection_order']);
           }
 
-          foreach ($this->fields($item) as $field) {
+          foreach ($this->fields($item) as $field) {              
               if (!array_key_exists($field['key'], $data)) {
                   // remove field
                   FieldSaver::remove($item, $field, isset($data['lang']) ? $data['lang'] : 0);
@@ -414,7 +421,9 @@ abstract class DataCollection implements IDataCollection {
     public function getCategories($parent = 0) {
         $db = App::instance()->db;
         $db->where('collection', $this->name);
-        $db->where('parent', $parent);
+        if($parent !== '*') {
+            $db->where('parent', $parent);
+        }
         $db->orderBy('sequence', 'asc');
         $cats = $db->get('collection_categories');
         return $cats;
@@ -431,6 +440,18 @@ abstract class DataCollection implements IDataCollection {
         }
     }
 
+    public function deleteCategory($id) {
+        if(! Auth::allowed("manage.collections.categories.delete")) {
+            return;
+        }
+        if(! is_numeric($id))
+            return;
+
+        App::instance()->db->where('id', $id);
+        App::instance()->db->delete('collection_categories');
+
+    }
+
     public function getCategoryMeta($id, $lang=false) {
         if (!$lang) {
             $lang = Localization::getCurrentLanguage();
@@ -439,16 +460,23 @@ abstract class DataCollection implements IDataCollection {
         $db->where('id', $id);
         $cat = $db->getOne('collection_categories');
         $json = json_decode($cat['meta']);
+        $data = new \stdClass;
+        $data->name = '';
         if (! @is_null($json->$lang)) {
-            return $json->$lang;
+            $data = $json->$lang;
         } else {
             // not found in this language. get in other.
             foreach (Localization::getActiveLanguages() as $al) {
-                if (!is_null($json->{$al['code']})) {
-                    return $json->{$al['code']};
+                if (!is_null(@$json->{$al['code']})) {
+                    $data = $json->{$al['code']};
                 }
             }
         }
+        $data->parent = 0;
+        if(is_array($cat) && array_key_exists('parent', $cat)) {
+            $data->parent = $cat['parent'];
+        }
+        return $data;
     }
 
     public function addCategory($data) {
@@ -468,27 +496,43 @@ abstract class DataCollection implements IDataCollection {
         $this->saveCategoryMeta($category, array('name' => $data['name']));
     }
 
+    public function updateCategory($id, $data) {
+        if (! array_key_exists('name', $data)) {
+            $data['name'] = "(no name)";
+        }
+        if (! array_key_exists('parent', $data)) {
+            $data['parent'] = 0;
+        }
+        if(! array_key_exists('description', $data)) {
+            $data['description'] = '';
+        }
+        $db = App::instance()->db;
+        $db->where('id', $id);
+        $db->update("collection_categories", [
+            "collection" => $this->name,
+            "parent" => $data['parent']
+        ]);
+        $this->saveCategoryMeta($id, ['name' => $data['name'], 'description' => $data['description']]);
+    }
+
       public function saveCategoryMeta($id, $data, $lang=false) {
-          if (! $lang) {
-              $lang = Localization::getCurrentLanguage();
-          }
-          $db = App::instance()->db;
-          $db->where("id", $id);
-          $cat = $db->getOne("collection_categories");
-          if (strlen($cat['meta']) > 0) {
-              $meta = json_decode($cat['meta']);
-          } else {
-              $meta = array();
-          }
-          if (is_array($meta) && array_key_exists($lang, $meta)) {
-              $toSave = array_merge($meta[$lang], $data);
-          } else {
-              $toSave = array($lang => $data);
-          }
-          $db->where("id", $id);
-          $db->update("collection_categories", array(
-              "meta" => json_encode($toSave)
-          ));
+            if (! $lang) {
+                $lang = Localization::getCurrentLanguage();
+            }
+            $db = App::instance()->db;
+            $db->where("id", $id);
+            $cat = $db->getOne("collection_categories");
+            if (strlen($cat['meta']) > 0) {
+                $meta = json_decode($cat['meta']);
+                $meta = json_decode(json_encode($meta), true);
+            } else {
+                $meta = [];
+            }
+            $toSave = array_merge($meta, [$lang => $data]);
+            $db->where("id", $id);
+            $db->update("collection_categories", array(
+                "meta" => json_encode($toSave)
+            ));
       }
 
     public function addField($field=array()) {
