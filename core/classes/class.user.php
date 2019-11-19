@@ -209,7 +209,7 @@ class User {
         // update database
         $this->app->db->where('id', $this->get('id'));
         $this->app->db->update('users', array(
-            'username' => $newName
+            'username' => strip_tags($newName)
         ));
         return true;
     }
@@ -408,9 +408,9 @@ class User {
         }
 
         $data = array(
-            'username' => $name,
+            'username' => strip_tags($name),
             'password' => Utils::password($password),
-            'email' => $email,
+            'email' => strip_tags($email),
             'active' => $active,
             'meta' => $metaData
         );
