@@ -63,6 +63,7 @@ class Loader {
       $this->addStyle('core/ressources/css/blocks/languageselection.less', false, false);
       $this->addStyle('core/ressources/css/blocks/tabs.less', false, false);
       $this->addStyle('core/ressources/css/blocks/messages.less', false, false);
+      $this->addStyle('core/ressources/css/blocks/pagination.less', false, false);
 
       /* TODO nightmode css not yet implemented in redesign-42
       if((array_key_exists('night', $_GET) || Settings::get('nightmode')) && ! array_key_exists('day', $_GET)) {

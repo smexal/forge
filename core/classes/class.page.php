@@ -12,18 +12,22 @@ class Page {
     $this->db = App::instance()->db;
     $this->db->where('id', $id);
     $page = $this->db->getOne('pages');
-    $this->id = $page['id'];
-    $this->parent = $page['parent'];
-    $this->sequence = $page['sequence'];
-    $this->name = $page['name'];
-    $this->modified = $page['modified'];
-    $this->created = $page['created'];
-    $this->url = $page['url'];
+    if($page) {
+      $this->id = $page['id'];
+      $this->parent = $page['parent'];
+      $this->sequence = $page['sequence'];
+      $this->name = $page['name'];
+      $this->modified = $page['modified'];
+      $this->created = $page['created'];
+      $this->url = $page['url'];
 
-    $this->db->where('page', $this->id);
-    $this->meta = $this->db->get('page_meta');
+      $this->db->where('page', $this->id);
+      $this->meta = $this->db->get('page_meta');
 
-    $this->eh = App::instance()->eh;
+      $this->eh = App::instance()->eh;
+    } else {
+      return;
+    }
   }
 
   public function status($lang=false) {

@@ -1,0 +1,47 @@
+.pagination {
+
+    ul {
+        border: 1px solid #F0F0F0;
+        border-radius: 3px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        li {
+            line-height: 24px;
+            height: 24px;
+            width: 24px;
+            text-align: center;
+            border-radius: 24px;
+            transition: 200ms;
+            &.active {
+                background-color: @color-gray-light;
+            }
+            &:hover {
+                a {
+                    color: @color-gray;
+                }
+                background-color: @color-primary;
+            }
+
+
+            a  {
+                display: block;
+                width: 24px;
+                height: 24px;
+                font-weight: bold;
+                color: @color-gray-middle;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            i.material-icons {
+                line-height: 24px;
+                font-size: 18px;
+                color: #999;
+            }
+        }
+    }
+
+}

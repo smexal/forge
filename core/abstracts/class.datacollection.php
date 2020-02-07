@@ -171,6 +171,8 @@ abstract class DataCollection implements IDataCollection {
         $db->where('keyy', $key);
         $db->where('lang', $lang);
         $setting = $db->getOne('collection_settings');
+        if(is_null($setting))
+            return;
         return $setting['value'];
     }
 

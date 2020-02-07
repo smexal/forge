@@ -48,6 +48,8 @@ class User {
     public function getData() {
         $this->app->db->where('id', $this->data['id']);
         $user = $this->app->db->getOne('users');
+        if(is_null($user))
+            return;
         foreach($this->fields as $field) {
             $this->data[$field] = $user[$field];
         }
@@ -97,7 +99,7 @@ class User {
                 if (array_key_exists($field, $this->data)) {
                     return $this->data[$field];
                 } else {
-                    Logger::error(sprintf(i("Queried field `%1$s` which does not exist", 'core')), $field);
+                    Logger::error(sprintf(i('Queried field `%1$s` which does not exist', 'core'), $field));
                 }
             }
         }

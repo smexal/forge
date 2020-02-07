@@ -55,5 +55,6 @@ if(file_exists('config-env.php')) {
  */
 @define('CACHE_TIME', 5);
 @define('MINIFY', false);
+@define('PAGINATION_SIZE', 25);
 
 date_default_timezone_set("Europe/Zurich");

@@ -35,7 +35,8 @@ class CollectionItem implements ICollectionItem {
 
         $this->db->where('id', $this->id);
         $this->base_data = $this->db->getOne('collections');
-
+        if(is_null($this->base_data))
+            return;
         $this->bodyclass.= ' '.$this->base_data['type'];
     }
 
@@ -120,18 +121,26 @@ class CollectionItem implements ICollectionItem {
     }
 
     public function getName() {
+        if(is_null($this->base_data))
+            return;
         return $this->base_data['name'];
     }
 
     public function getAuthor() {
+        if(is_null($this->base_data))
+            return;
         return $this->base_data['author'];
     }
 
     public function getSequence() {
+        if(is_null($this->base_data))
+            return;
         return $this->base_data['sequence'];
     }
 
     public function getCreationDate() {
+        if(is_null($this->base_data))
+            return;
         return $this->base_data['created'];
     }
 

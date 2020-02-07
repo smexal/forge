@@ -13,6 +13,8 @@ class Settings {
     public static function get($k) {
         App::instance()->db->where('keey', $k);
         $data = App::instance()->db->getOne('settings', 'value');
+        if(is_null($data))
+            return;
         return $data['value'];
     }
 

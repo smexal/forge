@@ -1,0 +1,13 @@
+<div class="pagination">
+    <ul>
+    {if="$active > 1"}
+        <li><a href="?page={$active-1}"><i class="material-icons">arrow_back</i></a></li>
+    {/if}
+    {loop="pages"}
+        <li {if="$active==$value"}class='active'{/if}"><a href="?page={$value}">{$value}</a></li>
+    {/loop}
+    {if="$active < count($pages)"}
+        <li><a href="?page={$active+1}"><i class="material-icons">arrow_forward</i></a></li>
+    {/if}
+    </ul>
+</div>
