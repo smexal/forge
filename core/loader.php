@@ -86,6 +86,7 @@ class Loader {
           "color-gray-middle" => "#ABABAB",
           "color-gray-lighter" => "#E0E0E0",
           "color-gray-light" => "#f0f0f0",
+          "color-gray-medium" => "#EBEBEB",
           "color-danger" => "#d9534f"
         ));
       }
