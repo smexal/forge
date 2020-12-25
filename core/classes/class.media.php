@@ -67,10 +67,10 @@ class Media {
 
         if($type == 'jpeg') $type = 'jpg';
         switch($type){
-            case 'bmp': $originalImage = @imagecreatefromwbmp($original); break;
-            case 'gif': $originalImage = @imagecreatefromgif($original); break;
-            case 'jpg': $originalImage = @imagecreatefromjpeg($original); break;
-            case 'png': $originalImage = @imagecreatefrompng($original); break;
+            case 'bmp': $originalImage = @\imagecreatefromwbmp($original); break;
+            case 'gif': $originalImage = @\imagecreatefromgif($original); break;
+            case 'jpg': $originalImage = @\imagecreatefromjpeg($original); break;
+            case 'png': $originalImage = @\imagecreatefrompng($original); break;
             default : return $this->getUrl();
         }
 
