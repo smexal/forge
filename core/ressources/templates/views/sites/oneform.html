@@ -20,7 +20,7 @@
                     </div>
                     {/if}
                     {if="$tabs"}
-                    {if="count($tabs) > 1"}
+                    {if="$tabs && count($tabs) > 1"}
                       <div class="subnavigation">
                           <ul class="nav nav-tabs">
                           {loop="tabs"}
@@ -50,7 +50,7 @@
         </div>
         {else}
           <div class="maxed wrapped">
-              <div class="row{if="$tabs"} tab-content{/if}{if="$subnavigation"}{if="count($tabs) > 1"} 
+              <div class="row{if="$tabs"} tab-content{/if}{if="$subnavigation"}{if="$tabs && count($tabs) > 1"} 
                 has-subnavigation{/if}{/if}">
                 <div class="col-lg-12">
                   {loop="tab_content"}
