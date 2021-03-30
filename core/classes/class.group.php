@@ -127,9 +127,9 @@ class Group {
     public static function create($name) {
       $app = App::instance();
       if (!Group::exists($name)) {
-        $app->db->insert('groups', array(
-          "name" => $name
-        ));
+        $app->db->insert(DB_NAME.'.groups', [
+          'name' => $name
+        ]);
         return true;
       } else {
         return i("A group with that name already exists.");

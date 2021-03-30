@@ -8,6 +8,7 @@ use Forge\Core\App\Auth;
 use Forge\Core\Classes\Localization;
 use Forge\Core\Classes\TableBar;
 use Forge\Core\Classes\Utils;
+use Forge\Core\Classes\Pagination;
 use Forge\Core\Traits\ApiAdapter;
 
 class StringsView extends View {
@@ -71,6 +72,14 @@ class StringsView extends View {
             ]
         ]);
 
+        if(! array_key_exists('page', $_GET)) {
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
+        $pagination = new Pagination(Localization::stringAmount(), $page);
+        $pagination = $pagination->render();
+
         return $bar->render() . $this->app->render(CORE_TEMPLATE_DIR . "assets/", "table", array(
                 'id' => "string_translations_table",
                 'th' => array_merge(array(
@@ -81,7 +90,7 @@ class StringsView extends View {
                     Utils::tableCell(i('Translate'), "center")
                 )),
                 'td' => $this->getStringRows()
-            ));
+            )) . $pagination;
     }
 
     /**
@@ -122,8 +131,13 @@ class StringsView extends View {
     }
 
     private function getStringRows($sort = ["used", "desc"], $args = []) {
+        if(! array_key_exists('page', $_GET)) {
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
         $rows = [];
-        foreach (Localization::getAllStrings($sort, $args) as $string) {
+        foreach (Localization::getAllStrings($sort, $args, $page) as $string) {
             $row = new \stdClass();
             $row->tds = array_merge(
                 array(

@@ -170,6 +170,12 @@ class Localization {
         }
     }
 
+    public static function stringAmount() {
+        $db = App::instance()->db;
+        $count = $db->getValue("language_strings", "count(*)");
+        return $count;
+    }
+
     public static function addString($string, $domain='') {
         if (!Auth::allowed("manage.locales.strings.update")) {
             return;
@@ -329,11 +335,14 @@ class Localization {
         }
     }
 
-    public static function getAllStrings($sort=false, $args = []) {
+    public static function getAllStrings($sort=false, $args = [], $page=false) {
         $db = App::instance()->db;
 
         if(array_key_exists('search', $args)) {
             $db->where('string', '%'.$args['search'].'%', 'LIKE');
+            if(strlen($args['search']) > 0) {
+                $page = false;
+            }
         }
 
         if(array_key_exists('where', $args) && is_array($args['where'])) {
@@ -349,7 +358,12 @@ class Localization {
             $db->orderBy($sort[0], $sort[1]);
         }
         $db->orderBy("string", "asc");
-        $strings = $db->get("language_strings");
+        if($page == false) {
+            $strings = $db->get("language_strings");
+        } else {
+            $db->pageLimit = PAGINATION_SIZE;
+            $strings = $db->arraybuilder()->paginate('language_strings', $page);
+        }
         if(array_key_exists('where', $args) && is_array($args['where']) && array_key_exists('status', $args['where'])) {
             // return only translated fields
             foreach($strings as $key => $string) {

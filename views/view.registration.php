@@ -26,7 +26,7 @@ class RegistrationView extends View {
         if(Settings::get('allow_registration')) {
             if(count($parts) == 0) {
                 $login = '';
-                if(! is_null(REGISTRATION_WITH_LOGIN) && REGISTRATION_WITH_LOGIN == true) {
+                if(defined('REGISTRATION_WITH_LOGIN') && \REGISTRATION_WITH_LOGIN == true) {
                     if(Auth::any()) {
                         App::instance()->redirect(['']);
                     }
@@ -142,13 +142,11 @@ class RegistrationView extends View {
         $return.= Fields::text(array(
             'key' => 'name',
             'label' => i('Username'),
-            'autocomplete' => false,
             'error' => @$this->errors['name']
         ), @$this->data['name']);
         $return.= Fields::text(array(
             'key' => 'email',
             'label' => i('E-Mail'),
-            'autocomplete' => false,
             'error' => @$this->errors['email']
         ), @$this->data['email']);
 
@@ -156,8 +154,9 @@ class RegistrationView extends View {
         foreach(User::getMetaFields() as $field) {
             if($field['required'] == true) {
                 // skip
-                if($field['position'] !== 'right' || $field['position'] !== 'left') 
+                if($field['position'] === 'hidden') {
                     continue;
+                }
                 $type = $field['type'];
                 $return.= Fields::$type([
                     'key' => $field['key'],
@@ -171,14 +170,12 @@ class RegistrationView extends View {
             'key' => 'password',
             'label' => i('Password'),
             'type' => 'password',
-            'autocomplete' => false,
             'error' => @$this->errors['password']
         ));
         $return.= Fields::text(array(
             'key' => 'password_repeat',
             'label' => i('Repeat Password'),
-            'type' => 'password',
-            'autocomplete' => false
+            'type' => 'password'
         ));
         $return.= Fields::button(i('Complete Registration'), 'primary', true);
 
