@@ -3,6 +3,7 @@
 namespace Forge\Core\Classes;
 
 use Forge\Core\App\App;
+use Forge\Core\App\Auth;
 use Forge\Core\Classes\Localization;
 use Forge\Core\Interfaces\ICollectionItem;
 use Forge\Core\Classes\Relations\Enums\DefaultRelations;
@@ -281,7 +282,7 @@ class CollectionItem implements ICollectionItem {
         // run theme methods..
         $app->tm->theme->styles();
 
-        if($this->isPublished() || $this->getAuthor() == App::instance()->user->get('id')) {
+        if($this->isPublished() || (Auth::any() && $this->getAuthor() == App::instance()->user->get('id'))) {
             $password_set = false;
             if((array_key_exists('password_protection', $_POST)
                 && $_POST['password_protection'] == $this->getMeta('password_protection')) ||
