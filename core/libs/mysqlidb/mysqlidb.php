@@ -563,7 +563,9 @@ class MysqliDb
         preg_match_all("/(from|into|update|join) [\\'\\´]?([a-zA-Z0-9_-]+)[\\'\\´]?/i", $query, $matches);
         list($from_table, $from, $table) = $matches;
 
-        return str_replace($table[0], self::$prefix.$table[0], $query);
+        if(array_key_exists(0, $table))
+            return str_replace($table[0], self::$prefix.$table[0], $query);
+        return $query;
     }
 
     /**
