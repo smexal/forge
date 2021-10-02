@@ -1,6 +1,6 @@
 body {
-    font-family: "Roboto", Arial, sans-serif;
-    color: rgba(0,0,0,0.7);
+    font-family: "WorkSans", Arial, sans-serif;
+    color: @color-gray;
 
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
@@ -27,13 +27,18 @@ body {
 }
 
 body .content {
-    padding: 0 60px 60px 170px;
+    padding: 80px 60px 60px 170px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 32px;
     display: inline-block;
     width: auto;
+    font-weight: 700;
 }
 h2 {
     font-size: 20px;
@@ -94,6 +99,7 @@ span.huge {
         padding: 0 7px;
         margin: 7px 0;
         display: inline-block;
+        color: @color-gray-lightest;
     }
 
     + a {

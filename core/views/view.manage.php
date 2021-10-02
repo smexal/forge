@@ -47,7 +47,7 @@ class ManageView extends View {
         $this->navigation = new Navigation($this->activeSubview);
         $this->navigation->setMaxWidth();
         $panelLeft = $this->navigation->addPanel('left', 'leftPanel');
-        $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, false, false, Utils::getUrl(array("images", "forge.svg")), array("logo"));
+        $this->navigation->add('dashboard', i('Dashboard'), Utils::getUrl(array('manage', 'dashboard')), $panelLeft, 'home');
         if(Auth::allowed($this->permissions[2]) && is_array($this->app->cm->collections) > 0) {
             $this->navigation->add('collections', i('Collections'), Utils::getUrl(array('manage', 'collections')), $panelLeft, 'dns');
             $this->collectionSubmenu($panelLeft);

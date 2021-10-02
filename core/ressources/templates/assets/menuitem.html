@@ -3,6 +3,9 @@
     {if="$children"} data-toggle="dropdown" role="button" aria-expanded="false"{/if}>
     {if="$icon"}
     <i class="material-icons">{$icon}</i>
+    {if="$name"}
+        <span>{$name}</span>
+    {/if}
     {else}
         {if="$image"}
             <img src="{$image}" alt="{$name}" />

@@ -36,8 +36,8 @@ class Loader {
       $this->addStyle('core/ressources/css/externals/material-icons.css', false, false);
       $this->addStyle('core/ressources/css/externals/chosen.css', false, false);
 
-      // google icons & google's roboto font
-      $this->addStyle('//fonts.googleapis.com/css?family=Roboto:100,400,400i,500,700', true, false);
+      // load work sans font
+      $this->addStyle('core/ressources/css/base/font.less', false, false);
 
       // base
       $this->addStyle('core/ressources/css/base/main.less', false, false);
@@ -79,13 +79,14 @@ class Loader {
           $prim = $set;
         }
         $this->lessc->setVariables(array(
-          "color-primary" => "#B2FF59",
-          "color-accent" => "#4194e1",
-          "color-gray-dark" => "#212121",
-          "color-gray" => "#343434",
+          "color-primary" => "#37474f",
+          "color-accent" => "#ffee58",
+          "color-gray-dark" => "#102027",
+          "color-gray" => "#62727b",
           "color-gray-middle" => "#ABABAB",
           "color-gray-lighter" => "#E0E0E0",
           "color-gray-light" => "#f0f0f0",
+          "color-gray-lightest" => "#ffffff",
           "color-gray-medium" => "#EBEBEB",
           "color-danger" => "#d9534f"
         ));
