@@ -64,7 +64,6 @@ class Navigation {
             'active' => $this->active == $id ? true : false,
             'classes' => implode(" ", $this->items[$id]['classes']),
             'children' => count($this->items[$id]['children']) > 0 ? $this->renderChildren($id) : false,
-            'manage' => i('Manage', 'core')
         ));
     }
     public function renderChildren($id) {

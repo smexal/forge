@@ -4,6 +4,7 @@ namespace Forge\Core\Views\Manage\Users;
 
 use Forge\Core\Abstracts\View;
 use Forge\Core\App\Auth;
+use Forge\Core\Classes\Pagination;
 use Forge\Core\Classes\Utils;
 
 class UsersView extends View {
@@ -32,7 +33,15 @@ class UsersView extends View {
     }
 
     public function userTable() {
-        return $this->app->render(CORE_TEMPLATE_DIR."assets/", "table", array(
+        if(! array_key_exists('page', $_GET)) {
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
+        $this->app->db->get('users');
+        $total = $this->app->db->count;
+        $pagination = new Pagination($this->app->db->count/PAGINATION_SIZE, $page);
+        return $pagination->render().$this->app->render(CORE_TEMPLATE_DIR."assets/", "table", [
             'id' => "userTable",
             'th' => array(
                 Utils::tableCell(i('id')),
@@ -40,11 +49,11 @@ class UsersView extends View {
                 Utils::tableCell(i('E-Mail')),
                 Utils::tableCell(i('Actions'))
             ),
-            'td' => $this->getUserRows()
-        ));
+            'td' => $this->getUserRows($page)
+        ]).$pagination->render();
     }
-    public function getUserRows() {
-        $users = $this->app->db->get('users');
+    public function getUserRows($page) {
+        $users = $this->app->db->get('users', [($page-1)*PAGINATION_SIZE, (($page-1)*PAGINATION_SIZE)+PAGINATION_SIZE]);
         $user_enriched = array();
         foreach($users as $user) {
             $row = new \stdClass();

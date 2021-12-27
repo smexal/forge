@@ -73,6 +73,7 @@ class ManageView extends View {
 
         if(Auth::allowed($this->permissions[4])) {
             // display menu points for active modules
+            $this->navigation->add('module_manage', i('Manage Modules'), Utils::getUrl(array('manage', 'modules')), $panelLeft, false, 'modules');
             $mm = App::instance()->mm;
             foreach($mm->getActiveModules() as $mod) {
                 $modObject = $mm->getModuleObject($mod);
@@ -97,7 +98,8 @@ class ManageView extends View {
             }
         }
 
-        $this->navigation->add('usermenu', $this->app->user->get('username'), Utils::getUrl(array('manage', '__profile')), $panelLeft, 'settings');
+        $this->navigation->add('usermenu', i('Settings & Configuration'), Utils::getUrl(array('manage', '__profile')), $panelLeft, 'settings');
+        $this->navigation->add('profile_settings', i('Profile Settings'), Utils::getUrl(array('manage', '__profile')), $panelLeft, false, 'usermenu');
         if(Auth::allowed($this->permissions[1])) {
             $this->navigation->add('settings', i('Basic Settings'), Utils::getUrl(array('manage', 'settings')), $panelLeft, false, 'usermenu');
         }

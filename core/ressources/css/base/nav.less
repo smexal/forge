@@ -96,42 +96,33 @@ nav.navbar-default {
             border-color: @color-gray-lightest;
             border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
-            padding-left: 40px;
-
-            > .root {
-                margin-bottom: 35px;
-
-                h4 {
-                    color: @color-gray;
-                    margin-bottom: 0;
-                }
-                a {
-                    display: inline;
-                    &:hover {
-                        background-color: transparent;
-                    }
-                }
-            }
+            padding: 0 !important;
 
             > ul {
-                padding-left: 0;
+                padding: 0 24px;
+                min-width: 200px;
                 li {
+                    padding: 8px 0;
+                    border-bottom: 1px solid @color-gray-light;
                     height: auto;
                     width: 100%;
 
                     &:first-child {
                         margin-bottom: 0;
                     }
+                    &:last-child {
+                        border-bottom: none;
+                    }
 
                     a {
                         justify-content: flex-start;
                         height: auto;
-                        line-height: 40px;
+                        line-height: 24px;
                         display: block;
                         color: @color-gray;
                         font-weight: 500;
                         text-align: left;
-                        font-size: 15px;
+                        font-size: 13px;
 
                         &:hover {
                             color: @color-primary;
