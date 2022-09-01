@@ -14,6 +14,11 @@ var helpers = {
 
       $(document).find("body").addClass('js-active');
 
+      $("button.g-recaptcha").on('submit', function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      });
+
       $('.tipster-ajax').tooltipster({
         debug: false,
         contentAsHTML : true,
