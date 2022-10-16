@@ -82,7 +82,7 @@ class Loader {
           "color-primary" => "#37474f",
           "color-accent" => "#ffee58",
           "color-gray-dark" => "#102027",
-          "color-gray" => "#62727b",
+          "color-gray" => "#354046",
           "color-gray-middle" => "#ABABAB",
           "color-gray-lighter" => "#E0E0E0",
           "color-gray-light" => "#f0f0f0",
