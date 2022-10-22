@@ -182,11 +182,19 @@ class CollectionsView extends View {
         foreach ($this->collection->items($args) as $item) {
             $user = new User($item->getAuthor());
             $row = new \stdClass();
+            $title = $item->getMeta('title');
+            if(strlen($title) == 0) {
+                $title = $item->getName();
+            }
+            $title = ModifyHandler::instance()->trigger(
+                'modify_collection_listing_title',
+                $item
+            );
             $row->tds = [
                 Utils::tableCell(
                     App::instance()->render(CORE_TEMPLATE_DIR."assets/", "a", array(
                         "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
-                        "name" => $item->getName()
+                        "name" => $title
                     ))
                 )
             ];
