@@ -177,7 +177,11 @@ class CollectionsView extends View {
         ]);
     }
 
-    private function getPageRows($parent=0, $level=0, $sort = false, $args = false) {
+    private function getPageRows($parent=0, $level=0, $sort = false, $args = []) {
+        if(!array_key_exists('order', $args)) {
+            $args['order'] = 'id';
+            $args['order_direction'] = 'desc';
+        }
         $rows = array();
         foreach ($this->collection->items($args) as $item) {
             $user = new User($item->getAuthor());
@@ -201,7 +205,7 @@ class CollectionsView extends View {
             ];
 
             if($this->collection->preferences['has_categories'] === true) {
-                    $row->tds[] = Utils::tableCell($this->getCategoriesString($item));
+                $row->tds[] = Utils::tableCell($this->getCategoriesString($item));
             }
 
             $row->tds = array_merge($row->tds, [
