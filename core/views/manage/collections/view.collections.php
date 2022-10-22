@@ -188,6 +188,7 @@ class CollectionsView extends View {
             }
             $title = ModifyHandler::instance()->trigger(
                 'modify_collection_listing_title',
+                $title,
                 $item
             );
             $row->tds = [
