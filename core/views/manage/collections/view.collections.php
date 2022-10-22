@@ -95,6 +95,7 @@ class CollectionsView extends View {
 
     private function collectionList() {
         $headings = [
+            Utils::tableCell(i('ID')),
             Utils::tableCell(i('Name')),
         ];
 
@@ -196,6 +197,9 @@ class CollectionsView extends View {
                 $item
             );
             $row->tds = [
+                Utils::tableCell(
+                    '<code>'.$item->getID().'</code>'
+                ),
                 Utils::tableCell(
                     App::instance()->render(CORE_TEMPLATE_DIR."assets/", "a", array(
                         "href" => Utils::getUrl(array("manage", "collections", $this->collection->getPref('name'), 'edit', $item->id)),
