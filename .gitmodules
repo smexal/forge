@@ -1,0 +1,42 @@
+[submodule "modules/forge-events"]
+	path = modules/forge-events
+	url = git@github.com:smexal/forge-events.git
+[submodule "modules/forge-fpdf"]
+	path = modules/forge-fpdf
+	url = git@github.com:smexal/forge-fpdf.git
+[submodule "modules/forge-mailchimp"]
+	path = modules/forge-mailchimp
+	url = git@github.com:smexal/forge-mailchimp.git
+[submodule "modules/forge-news"]
+	path = modules/forge-news
+	url = git@github.com:smexal/forge-news.git
+[submodule "modules/forge-payment"]
+	path = modules/forge-payment
+	url = git@github.com:smexal/forge-payment.git
+[submodule "modules/forge-payment-paypal"]
+	path = modules/forge-payment-paypal
+	url = git@github.com:smexal/forge-payment-paypal.git
+[submodule "modules/forge-payment-stripe"]
+	path = modules/forge-payment-stripe
+	url = git@github.com:smexal/forge-payment-stripe.git
+[submodule "modules/forge-products"]
+	path = modules/forge-products
+	url = git@github.com:smexal/forge-products.git
+[submodule "modules/forge-qr"]
+	path = modules/forge-qr
+	url = git@github.com:smexal/forge-qr.git
+[submodule "modules/forge-shoppingcart"]
+	path = modules/forge-shoppingcart
+	url = git@github.com:smexal/forge-shoppingcart.git
+[submodule "modules/forge-slot-reservation"]
+	path = modules/forge-slot-reservation
+	url = git@github.com:smexal/forge-slot-reservation.git
+[submodule "modules/forge-tournaments"]
+	path = modules/forge-tournaments
+	url = git@github.com:smexal/forge-tournaments.git
+[submodule "modules/forge-tournaments-teams"]
+	path = modules/forge-tournaments-teams
+	url = git@github.com:smexal/forge-tournaments-teams.git
+[submodule "themes/allocate"]
+	path = themes/allocate
+	url = git@github.com:smexal/forge-allocate-theme.git
