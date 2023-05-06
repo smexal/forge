@@ -4,24 +4,24 @@
 $root = str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']);
 $dir = str_replace("\\", "/", dirname($_SERVER['SCRIPT_NAME']));
 $ext = str_replace($root, '', $dir);
-if(substr($ext, strlen($ext)-1) != '/') {
-  $ext.="/";
+if (substr($ext, strlen($ext) - 1) != '/') {
+  $ext .= "/";
 }
 
-if(file_exists('config-env.php')) {
-    require_once('config-env.php');
+if (file_exists('config-env.php')) {
+  require_once('config-env.php');
 }
 
 // GETTING PLACES
-@define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'].$ext);
-@define('MOD_ROOT', DOC_ROOT."modules/");
-@define('THM_ROOT', DOC_ROOT."themes/");
+@define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT'] . $ext);
+@define('MOD_ROOT', DOC_ROOT . "modules/");
+@define('THM_ROOT', DOC_ROOT . "themes/");
 @define('WWW_ROOT', $ext);
-@define('UPLOAD_WWW', WWW_ROOT."uploads/");
-@define('UPLOAD_DIR', DOC_ROOT."uploads/");
-@define('CORE_ROOT', DOC_ROOT."core/");
-@define('CORE_WWW_ROOT', WWW_ROOT."core/");
-@define('CORE_TEMPLATE_DIR', CORE_ROOT."ressources/templates/");
+@define('UPLOAD_WWW', WWW_ROOT . "uploads/");
+@define('UPLOAD_DIR', DOC_ROOT . "uploads/");
+@define('CORE_ROOT', DOC_ROOT . "core/");
+@define('CORE_WWW_ROOT', WWW_ROOT . "core/");
+@define('CORE_TEMPLATE_DIR', CORE_ROOT . "ressources/templates/");
 @define('FOOTPRINT_SIZE', 10);
 
 // DEVELOPMENTZ

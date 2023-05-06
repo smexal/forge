@@ -21,6 +21,7 @@ abstract class Theme implements ITheme {
     public $lessVariables = array();
     private $runMinifyCSS = false;
     private $runMinifyJS = false;
+    public $id;
 
     public function tinyUrl() {
         return '';
@@ -30,32 +31,32 @@ abstract class Theme implements ITheme {
         return '';
     }
 
-    public function addScript($script, $absolute=false, $index = false, $defer = false) {
-        foreach($this->load_scripts as $s) {
-            if(array_key_exists('source', $s) && $s['source'] == $script) {
+    public function addScript($script, $absolute = false, $index = false, $defer = false) {
+        foreach ($this->load_scripts as $s) {
+            if (array_key_exists('source', $s) && $s['source'] == $script) {
                 return;
             }
         }
 
-        if(MINIFY && ! $this->isExternalRessource($script)) {
-            if($absolute) {
-                $oneFile = $_SERVER['DOCUMENT_ROOT'].$script;
+        if (MINIFY && !$this->isExternalRessource($script)) {
+            if ($absolute) {
+                $oneFile = $_SERVER['DOCUMENT_ROOT'] . $script;
             } else {
-                $oneFile = $this->directory().$script;
+                $oneFile = $this->directory() . $script;
             }
-            $allMin = $this->directory().'assets/all.min.js';
-            if(! file_exists($allMin)) {
+            $allMin = $this->directory() . 'assets/all.min.js';
+            if (!file_exists($allMin)) {
                 $this->runMinifyJS = true;
             }
-            if(file_exists($allMin) && filemtime($oneFile) > filemtime($allMin)) {
+            if (file_exists($allMin) && filemtime($oneFile) > filemtime($allMin)) {
                 $this->runMinifyJS = true;
             }
         }
 
-        if(!$absolute) {
-            $script = $this->url().$script;
+        if (!$absolute) {
+            $script = $this->url() . $script;
         }
-        if($defer) {
+        if ($defer) {
             $this->defered_scripts[] = $script;
             return;
         }
@@ -73,13 +74,13 @@ abstract class Theme implements ITheme {
     }
 
     protected function isExternalRessource($script) {
-        if(strstr($script, "http://")) {
+        if (strstr($script, "http://")) {
             return true;
         }
-        if(strstr($script, "https://")) {
+        if (strstr($script, "https://")) {
             return true;
         }
-        if(substr($script, 0, 2) == '//') {
+        if (substr($script, 0, 2) == '//') {
             return true;
         }
         return false;
@@ -87,15 +88,17 @@ abstract class Theme implements ITheme {
 
     static public function instance() {
         $class = get_called_class();
-        if(!array_key_exists($class, static::$instances)) {
+        if (!array_key_exists($class, static::$instances)) {
             static::$instances[$class] = new $class();
         }
         static::$instances[$class]->id = $class;
         static::$instances[$class]->init();
         return static::$instances[$class];
     }
-    private function __construct() {}
-    private function __clone() {}
+    private function __construct() {
+    }
+    private function __clone() {
+    }
 
     public function init() {
     }
@@ -106,35 +109,35 @@ abstract class Theme implements ITheme {
 
     public function directory() {
         $tm = App::instance()->tm;
-        return $tm->theme_directory.$tm->active.'/';
+        return $tm->theme_directory . $tm->active . '/';
     }
 
     public function url() {
         $tm = App::instance()->tm;
-        return WWW_ROOT."themes/".$tm->active.'/';
+        return WWW_ROOT . "themes/" . $tm->active . '/';
     }
 
-    public function addStyle($style, $absolute=false, $viewCondition=false) {
-        if(is_null($this->lessc)) {
+    public function addStyle($style, $absolute = false, $viewCondition = false) {
+        if (is_null($this->lessc)) {
             $this->lessc = new \lessc;
         }
         $this->lessc->setVariables($this->lessVariables);
 
-        if(in_array($style, $this->styles)) {
+        if (in_array($style, $this->styles)) {
             return;
         }
-        if(!$absolute && strstr($style, ".less")) {
+        if (!$absolute && strstr($style, ".less")) {
             $style = $this->compileLess($style);
         }
-        if($viewCondition) {
-            if(in_array($viewCondition, Utils::getUriComponents())) {
-                $this->styles[] =[
+        if ($viewCondition) {
+            if (in_array($viewCondition, Utils::getUriComponents())) {
+                $this->styles[] = [
                     'source' => $style,
                     'absolute' => $absolute
                 ];
             }
         } else {
-            $this->styles[] =[
+            $this->styles[] = [
                 'source' => $style,
                 'absolute' => $absolute
             ];
@@ -142,21 +145,21 @@ abstract class Theme implements ITheme {
     }
 
     public function compileLess($less) {
-        if(file_exists($less)) {
+        if (file_exists($less)) {
             $pathinfo = pathinfo($less);
             $base_uri = str_replace($pathinfo['basename'], "", $less);
-            $css_file = str_replace(".less", ".css", $this->directory()."css/compiled/".$pathinfo['basename']);
-            if(!file_exists($this->directory()."css/compiled/")) {
-                if(!mkdir($this->directory()."css/compiled/", 0655, true)) {
-                    Logger::error('Unable to create directory `'.$this->directory()."css/compiled/".'`');
+            $css_file = str_replace(".less", ".css", $this->directory() . "css/compiled/" . $pathinfo['basename']);
+            if (!file_exists($this->directory() . "css/compiled/")) {
+                if (!mkdir($this->directory() . "css/compiled/", 0655, true)) {
+                    Logger::error('Unable to create directory `' . $this->directory() . "css/compiled/" . '`');
                 }
             }
             $run = false;
-            if(file_exists($css_file) && filemtime($less) > filemtime($css_file))
+            if (file_exists($css_file) && filemtime($less) > filemtime($css_file))
                 $run = true;
-            if(!file_exists($css_file))
+            if (!file_exists($css_file))
                 $run = true;
-            if($run) {
+            if ($run) {
                 $this->runMinifyCSS = true;
                 Settings::set('css_version_number', uniqid());
                 if ($handle = fopen($css_file, "w")) {
@@ -164,27 +167,27 @@ abstract class Theme implements ITheme {
                     fwrite($handle, $content);
                     fclose($handle);
                 } else {
-                  Logger::error("Problems while compiling less: Cannot write css file.");
+                    Logger::error("Problems while compiling less: Cannot write css file.");
                 }
             }
-            return $this->url()."css/compiled/".$pathinfo['filename'].".css";
+            return $this->url() . "css/compiled/" . $pathinfo['filename'] . ".css";
         } else {
-            Logger::error('Unable to Find File: `'.$less.'`');
+            Logger::error('Unable to Find File: `' . $less . '`');
         }
         return false;
     }
 
     public function getTitle() {
-        $global = Settings::get('title_'.Localization::getCurrentLanguage());
+        $global = Settings::get('title_' . Localization::getCurrentLanguage());
         $specific_content = false;
-        if(App::instance()->page) {
+        if (App::instance()->page) {
             $specific_content = App::instance()->page->getMeta('title');
         }
         $specific_content = ModifyHandler::instance()->trigger('Forge\UpdateTitle', $specific_content);
-        if(!$specific_content) {
+        if (!$specific_content) {
             return $global;
         }
-        return $specific_content.' - '.$global;
+        return $specific_content . ' - ' . $global;
     }
 
     public function customHeader() {
@@ -192,7 +195,7 @@ abstract class Theme implements ITheme {
     }
 
     protected function loadMinifier() {
-        $path = CORE_ROOT.'libs/';
+        $path = CORE_ROOT . 'libs/';
         require_once $path . 'minify/src/Minify.php';
         require_once $path . 'minify/src/CSS.php';
         require_once $path . 'minify/src/JS.php';
@@ -206,21 +209,21 @@ abstract class Theme implements ITheme {
 
     public function header() {
         $eventContent = App::instance()->eh->fire("onLoadHeader");
-        if(is_null($eventContent)) {
+        if (is_null($eventContent)) {
             $eventContent = false;
         }
 
-        if(MINIFY) {
+        if (MINIFY) {
             $this->loadMinifier();
         }
 
         $this->scripts();
 
         // add required core scripts
-        $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/jquery.js", true, 0);
-        $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/bootstrap.js", true);
-        $this->addScript(CORE_WWW_ROOT."ressources/scripts/helpers.js", true);
-        $this->addScript(CORE_WWW_ROOT."ressources/scripts/externals/tooltipster.bundle.min.js", true);
+        $this->addScript(CORE_WWW_ROOT . "ressources/scripts/externals/jquery.js", true, 0);
+        $this->addScript(CORE_WWW_ROOT . "ressources/scripts/externals/bootstrap.js", true);
+        $this->addScript(CORE_WWW_ROOT . "ressources/scripts/helpers.js", true);
+        $this->addScript(CORE_WWW_ROOT . "ressources/scripts/externals/tooltipster.bundle.min.js", true);
 
         $return = App::instance()->render(CORE_TEMPLATE_DIR, "head", array(
             'title' => $this->getTitle(),
@@ -238,33 +241,33 @@ abstract class Theme implements ITheme {
     protected function prepareScripts() {
         $scripts = [];
 
-        if(! MINIFY) {
-            foreach($this->load_scripts as $script) {
+        if (!MINIFY) {
+            foreach ($this->load_scripts as $script) {
                 $scripts[] = $script['source'];
             }
             return $scripts;
         }
 
         $minifier = null;
-        foreach($this->load_scripts as $script) {
+        foreach ($this->load_scripts as $script) {
             // ignore absolute loaded files..
-            if($script['external']) {
+            if ($script['external']) {
                 $scripts[] = $script['source'];
                 continue;
             }
-            if($this->runMinifyJS) {
-                if(is_null($minifier)) {
-                    $minifier = new \MatthiasMullie\Minify\JS($_SERVER['DOCUMENT_ROOT'].$script['source']);
+            if ($this->runMinifyJS) {
+                if (is_null($minifier)) {
+                    $minifier = new \MatthiasMullie\Minify\JS($_SERVER['DOCUMENT_ROOT'] . $script['source']);
                 } else {
-                    $minifier->add($_SERVER['DOCUMENT_ROOT'].$script['source']);
+                    $minifier->add($_SERVER['DOCUMENT_ROOT'] . $script['source']);
                 }
             }
         }
-        if($this->runMinifyJS) {
-            $minifiedPath = $this->directory()."assets/all.min.js";
+        if ($this->runMinifyJS) {
+            $minifiedPath = $this->directory() . "assets/all.min.js";
             $minifier->minify($minifiedPath);
         }
-        $scripts[] = $this->url()."assets/all.min.js";
+        $scripts[] = $this->url() . "assets/all.min.js";
 
         return $scripts;
     }
@@ -272,37 +275,35 @@ abstract class Theme implements ITheme {
     protected function prepareStyles() {
         $styles = [];
 
-        if(! MINIFY) {
-            foreach($this->styles as $style) {
+        if (!MINIFY) {
+            foreach ($this->styles as $style) {
                 $styles[] = $style['source'];
             }
             return $styles;
         }
 
         $minifier = null;
-        foreach($this->styles as $style) {
+        foreach ($this->styles as $style) {
             // ignore absolute loaded files..
-            if($style['absolute']) {
+            if ($style['absolute']) {
                 $styles[] = $style['source'];
                 continue;
             }
 
-            if($this->runMinifyCSS) {
-                if(is_null($minifier)) {
-                    $minifier = new \MatthiasMullie\Minify\CSS($_SERVER['DOCUMENT_ROOT'].$style['source']);
+            if ($this->runMinifyCSS) {
+                if (is_null($minifier)) {
+                    $minifier = new \MatthiasMullie\Minify\CSS($_SERVER['DOCUMENT_ROOT'] . $style['source']);
                 } else {
-                    $minifier->add($_SERVER['DOCUMENT_ROOT'].$style['source']);
+                    $minifier->add($_SERVER['DOCUMENT_ROOT'] . $style['source']);
                 }
             }
         }
-        if($this->runMinifyCSS) {
-            $minifiedPath = $this->directory()."css/compiled/all.min.css";
+        if ($this->runMinifyCSS) {
+            $minifiedPath = $this->directory() . "css/compiled/all.min.css";
             $minifier->minify($minifiedPath);
         }
-        $styles[] = $this->url()."css/compiled/all.min.css";
+        $styles[] = $this->url() . "css/compiled/all.min.css";
 
         return $styles;
     }
-
 }
-
