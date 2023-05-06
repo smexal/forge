@@ -46,7 +46,6 @@ Temporary Items
 # Project specific files
 *.rtpl.php
 config.php
-modules/*
 core/css/compiled/*
 core/ressources/css/__compiled/*
 core/ressources/css/__compiled/*.css
