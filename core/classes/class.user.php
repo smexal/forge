@@ -12,19 +12,23 @@ class User {
     private $app;
     private $data = false;
     private $meta = false;
-    private $fields = array(
+    private $fields = [
         'id',
         'username',
         'email',
         'password',
         'active',
         'meta'
-    );
-    private static $avatarDirectory = UPLOAD_DIR.'avatar/';
+    ];
+    private static $avatarDirectory = UPLOAD_DIR . 'avatar/';
 
     public function __construct($id) {
         $this->app = App::instance();
-        $this->data['id'] = $id;
+        if (!is_numeric($id)) {
+            $this->data['id'] = (int)$id;
+        } else {
+            throw new \Exception('User ID must be numeric.');
+        }
         $this->groups();
     }
 
@@ -38,7 +42,7 @@ class User {
     }
 
     public function getMeta($key) {
-        if (! array_key_exists('meta', $this->data)) {
+        if (!array_key_exists('meta', $this->data)) {
             $this->getData();
         }
         $this->meta = json_decode(urldecode($this->data['meta']));
@@ -48,9 +52,9 @@ class User {
     public function getData() {
         $this->app->db->where('id', $this->data['id']);
         $user = $this->app->db->getOne('users');
-        if(is_null($user))
+        if (is_null($user))
             return;
-        foreach($this->fields as $field) {
+        foreach ($this->fields as $field) {
             $this->data[$field] = $user[$field];
         }
     }
@@ -61,8 +65,8 @@ class User {
         $mail = new Mail();
         $mail->recipient($user->get('email'));
 
-        $mail->subject(sprintf(i('Activation Link for %s'), $user->get('username')). ' - '.
-            Settings::get('title_'.Localization::getCurrentLanguage()));
+        $mail->subject(sprintf(i('Activation Link for %s'), $user->get('username')) . ' - ' .
+            Settings::get('title_' . Localization::getCurrentLanguage()));
 
         $mail->addMessage(sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n");
         $mail->addMessage(sprintf(i('Click the following link to complete your account activation:')) . "\r\n");
@@ -76,15 +80,15 @@ class User {
         $mail = new Mail();
         $mail->recipient($user->get('email'));
 
-        $mail->subject(sprintf(i('Password Reset for %s'), $user->get('username')). ' - '.
-            Settings::get('title_'.Localization::getCurrentLanguage()));
+        $mail->subject(sprintf(i('Password Reset for %s'), $user->get('username')) . ' - ' .
+            Settings::get('title_' . Localization::getCurrentLanguage()));
 
         $mail->addMessage(sprintf(i('Hello %s'), $user->get('username'))  . "\r\n" . "\r\n");
         $mail->addMessage(sprintf(i('You have requested a password reset for your user.')) . "\r\n");
         $mail->addMessage(sprintf(i('Click the following link to set a new password:')) . "\r\n");
         $resetLink = $user->getPasswordResetLink();
         $mail->addMessage($resetLink . "\r\n" . "\r\n" . "\r\n");
-        Logger::debug('Sending: '. $resetLink);
+        Logger::debug('Sending: ' . $resetLink);
         $mail->addMessage(sprintf(i('mail_end_text', 'core')));
 
         $mail->send();
@@ -105,7 +109,7 @@ class User {
         }
     }
 
-    public function hasGroup($id){
+    public function hasGroup($id) {
         foreach ($this->data['groups'] as $group_entry) {
             if ($group_entry['groupid'] == $id) {
                 return true;
@@ -117,7 +121,7 @@ class User {
     public static function delete($id) {
         $app = App::instance();
         if (Auth::allowed("manage.users.delete")) {
-            if( $id == $app->user->get('id')) {
+            if ($id == $app->user->get('id')) {
                 return false;
             } else {
                 self::deleteAvatar($id);
@@ -125,7 +129,8 @@ class User {
                 $app->db->delete('users');
 
                 ModifyHandler::instance()->trigger(
-                    'core_delete_user', $id
+                    'core_delete_user',
+                    $id
                 );
                 return true;
             }
@@ -151,14 +156,14 @@ class User {
         }
         $this->app->db->where('name', $permission);
         $permission = $this->app->db->getOne('permissions');
-        
+
         // There does not exist a permission with the provided name
-        if(!$permission)
+        if (!$permission)
             return false;
 
         $this->app->db->where('permissionid', $permission['id']);
         $groupsWithPermission = $this->app->db->get('permissions_groups');
-        
+
         foreach ($this->data['groups'] as $user_group) {
             foreach ($groupsWithPermission as $db_group) {
                 if ($user_group['groupid'] == $db_group['groupid']) {
@@ -177,7 +182,7 @@ class User {
             $db = $app->db;
             $db->where("id", $user);
             $member = $db->getOne("users");
-            if(count($member) > 0) {
+            if (count($member) > 0) {
                 return $user;
             }
         } else {
@@ -194,7 +199,7 @@ class User {
     }
 
     public function setName($newName) {
-        if (! Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
+        if (!Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
             return i("Permission denied to edit users.");
         }
         // check if user already has that given username.
@@ -225,7 +230,7 @@ class User {
     }
 
     public function setMeta($key, $value) {
-        if (! array_key_exists('meta', $this->data)) {
+        if (!array_key_exists('meta', $this->data)) {
             $this->getData();
         }
         @$this->meta->$key = $value;
@@ -234,7 +239,7 @@ class User {
     }
 
     public function setMail($newMail) {
-        if (! Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
+        if (!Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
             return i("Permission denied to edit users.");
         }
         // check if user already has that given email.
@@ -253,18 +258,18 @@ class User {
         $this->app->db->update('users', array(
             'email' => $newMail
         ));
-      return true;
+        return true;
     }
 
     private static function getAvatarName($id) {
-        if(! $id)
+        if (!$id)
             $id = $this->get('id');
-        return 'avatar_user_'.md5($id);
+        return 'avatar_user_' . md5($id);
     }
 
     private static function deleteAvatar($id) {
         // delete current images 
-        $files = glob(self::$avatarDirectory.self::getAvatarName($id).'.*');
+        $files = glob(self::$avatarDirectory . self::getAvatarName($id) . '.*');
         if (count($files) > 0) {
             foreach ($files as $f) {
                 unlink($f);
@@ -274,7 +279,7 @@ class User {
 
     public function setAvatar($file) {
         // is not an image...
-        if(! Media::_isImage($file['type'])) {
+        if (!Media::_isImage($file['type'])) {
             return;
         }
 
@@ -283,7 +288,7 @@ class User {
         $parts = explode(".", $file['name']);
         $ext = strtolower(array_pop($parts));
 
-        $filename = self::getAvatarName($this->get('id')).".".$ext;
+        $filename = self::getAvatarName($this->get('id')) . "." . $ext;
 
         if (!file_exists(self::$avatarDirectory)) {
             mkdir(self::$avatarDirectory, 0655, true);
@@ -291,29 +296,29 @@ class User {
 
         $width = 100;
         $height = 100;
-        if(Settings::get('forge_avatar_width')) {
+        if (Settings::get('forge_avatar_width')) {
             $width = Settings::get('forge_avatar_width');
         }
-        if(Settings::get('forge_avatar_height')) {
+        if (Settings::get('forge_avatar_height')) {
             $height = Settings::get('forge_avatar_height');
         }
 
-        if (move_uploaded_file($file['tmp_name'], self::$avatarDirectory.$filename)) {
-            Utils::resizeImage(self::$avatarDirectory.$filename, self::$avatarDirectory.$filename, $width, $height);
+        if (move_uploaded_file($file['tmp_name'], self::$avatarDirectory . $filename)) {
+            Utils::resizeImage(self::$avatarDirectory . $filename, self::$avatarDirectory . $filename, $width, $height);
             // continue....
         } else {
             Logger::error('Avatar has not been set, move_uploaded_file failed hard.');
-            Logger::error('... Source : '.$file['tmp_name']);
-            Logger::error('... Target : '.self::$avatarDirectory.$filename);
+            Logger::error('... Source : ' . $file['tmp_name']);
+            Logger::error('... Target : ' . self::$avatarDirectory . $filename);
         }
     }
 
-    public function getAvatar($type="url") {
-        $files = glob(self::$avatarDirectory.self::getAvatarName($this->get('id')).'.*');
+    public function getAvatar($type = "url") {
+        $files = glob(self::$avatarDirectory . self::getAvatarName($this->get('id')) . '.*');
         if (count($files) > 0) {
             foreach ($files as $file) {
-                if($type == 'url') {
-                    return UPLOAD_WWW.'avatar/'.basename($file);
+                if ($type == 'url') {
+                    return UPLOAD_WWW . 'avatar/' . basename($file);
                 }
             }
         }
@@ -321,7 +326,7 @@ class User {
     }
 
     public function setPassword($new_pw, $new_pw_rep) {
-        if (! Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
+        if (!Auth::allowed("manage.users.edit") && App::instance()->user->get('id') != $this->get('id')) {
             return i("Permission denied to edit users.");
         }
         $pwStatus = self::checkPassword($new_pw);
@@ -344,7 +349,7 @@ class User {
         $app->db->where('active', 0);
         $users = $app->db->get('users', null, array("id", "email", "password"));
         foreach ($users as $user) {
-            if (md5($user['email'].$user['password']) == $hash) {
+            if (md5($user['email'] . $user['password']) == $hash) {
                 $app->db->where('id', $user['id']);
                 $app->db->update('users', array('active' => 1));
                 return true;
@@ -360,21 +365,21 @@ class User {
 
     public static function search($term) {
         $app = App::instance();
-        if (! Auth::allowed("manage.users")) {
+        if (!Auth::allowed("manage.users")) {
             return array();
         }
-        $app->db->where("username", $term."%", "LIKE");
+        $app->db->where("username", $term . "%", "LIKE");
         return $app->db->get('users', null, array("id", "username", "email"));
     }
 
     public function getActivationLink() {
-        $string = md5($this->get('email').$this->get('password'));
-        return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('user-verification', $string));
+        $string = md5($this->get('email') . $this->get('password'));
+        return Utils::getAbsoluteUrlRoot() . Utils::getUrl(array('user-verification', $string));
     }
 
     public function getPasswordResetLink() {
-        $string = Utils::hash($this->get('email').$this->get('password')).'__'.round(microtime(true) * 1000);
-        return Utils::getAbsoluteUrlRoot().Utils::getUrl(array('recover', 'password', $string));
+        $string = Utils::hash($this->get('email') . $this->get('password')) . '__' . round(microtime(true) * 1000);
+        return Utils::getAbsoluteUrlRoot() . Utils::getUrl(array('recover', 'password', $string));
     }
 
     public static function create($name, $password, $email, $registration = false, $allData = false) {
@@ -383,7 +388,7 @@ class User {
         if (Settings::get('allow_registration') === 'on' && $registration) {
             $pass = true;
         }
-        if (! Auth::allowed("manage.users.add", true) && $pass !== true) {
+        if (!Auth::allowed("manage.users.add", true) && $pass !== true) {
             return false;
         }
         $mailStatus = self::checkMail($email);
@@ -396,16 +401,16 @@ class User {
         }
         $nameStatus = self::checkName($name);
         if ($nameStatus !== true) {
-          return $nameStatus;
+            return $nameStatus;
         }
 
         $active = 0;
-        if(Auth::allowed("manage.users.add", true)) {
+        if (Auth::allowed("manage.users.add", true)) {
             $active = 1;
         }
 
         $metaData = '';
-        if($allData) {
+        if ($allData) {
             $metaData = self::parseMetaData($allData);
         }
 
@@ -422,8 +427,8 @@ class User {
 
     public static function parseMetaData($dataToParse) {
         $data = [];
-        foreach(self::getMetaFields() as $field) {
-            if(is_object($dataToParse)) {
+        foreach (self::getMetaFields() as $field) {
+            if (is_object($dataToParse)) {
                 $f = $field['key'];
                 $data[$field['key']] = $dataToParse->$f;
             } else {
@@ -500,4 +505,3 @@ class User {
         return true;
     }
 }
-
